@@ -1,1 +1,1 @@
-{"version":3,"file":"mock-towns.js","sourceRoot":"","sources":["mock-towns.ts"],"names":[],"mappings":";QAEW,KAAK;;;;YAAL,mBAAA,KAAK,GAAW;gBACvB,EAAC,MAAM,EAAE,SAAS,EAAC;gBACnB,EAAC,MAAM,EAAE,SAAS,EAAC;gBACnB,EAAC,MAAM,EAAE,QAAQ,EAAC;gBAClB,EAAC,MAAM,EAAE,WAAW,EAAC;aACxB,CAAA,CAAC"}
+{"version":3,"file":"mock-towns.js","sourceRoot":"","sources":["mock-towns.ts"],"names":[],"mappings":";;;QAEW,KAAK;;;;YAAL,mBAAA,KAAK,GAAW;gBACvB,EAAC,MAAM,EAAE,SAAS,EAAC;gBACnB,EAAC,MAAM,EAAE,SAAS,EAAC;gBACnB,EAAC,MAAM,EAAE,QAAQ,EAAC;gBAClB,EAAC,MAAM,EAAE,WAAW,EAAC;aACxB,CAAA,CAAC"}

@@ -24,7 +24,7 @@ export class TownSelectorComponent {
         private _townService: TownService) {
     }
 
-    gotoHome(event: any) {
+    gotoHome(event: Event) {
 
         let link = ['Town', { town: event.target.value}];
         this._router.navigate(link);
