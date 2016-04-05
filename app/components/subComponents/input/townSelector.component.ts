@@ -7,11 +7,9 @@ import {TownService} from './../../../services/townService.component';
     selector: 'town-selector',
     template: `<h3>{{title}}</h3>
                 <div class="grid grid-pad">
-                    <div *ngFor="#town of towns" (click)="gotoHome(town)" class="col-1-4">
-                        <div>
-                        <h4>{{town.name}}</h4>
-                        </div>
-                    </div>
+                    <select [(ngModel)]="selectedTown" (change)="gotoHome($event)">
+                        <option *ngFor="#town of towns" [value]="town.name">{{town.name}}</option>
+                    </select>
                 </div>`,
     providers: [TownService]
 })
@@ -19,14 +17,16 @@ import {TownService} from './../../../services/townService.component';
 export class TownSelectorComponent {
     title = 'Kies een gemeente';
     towns = this._townService.getHeroes();
+    selectedTown = { 'name':'Berchem' };
 
     constructor(
         private _router: Router,
         private _townService: TownService) {
     }
 
-    gotoHome(town: any) {
-        let link = ['Town', { town: town.name }];
+    gotoHome(event: any) {
+
+        let link = ['Town', { town: event.target.value}];
         this._router.navigate(link);
     }
 }

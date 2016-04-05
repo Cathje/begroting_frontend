@@ -1,5 +1,5 @@
 import {Component} from 'angular2/core';
-import {TownSelectorComponent} from './../subComponents/forms/townSelector.component'
+import {TownSelectorComponent} from './../subComponents/input/townSelector.component'
 
 @Component({ //invoke with metadata object
     selector: 'home-container',
