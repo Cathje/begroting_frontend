@@ -4,12 +4,13 @@ import { RouteParams } from 'angular2/router';
 
 @Component({ //invoke with metadata object
     selector: 'home-container',
-    template: '<h3>{{name}}</h3>',
+    template: `<h3>{{name}}</h3>`,
     providers: [TownService]
 })
 
 export class TownComponent {
     title = 'Gemeente - home';
+    name: string = "";
 
     constructor(
         private _townService: TownService,

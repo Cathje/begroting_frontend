@@ -29,7 +29,7 @@ System.register(['angular2/core', 'angular2/router', './../../../services/townSe
                     this._router = _router;
                     this._townService = _townService;
                     this.title = 'Kies een gemeente';
-                    this.towns = this._townService.getHeroes();
+                    this.towns = this._townService.getTowns();
                     this.selectedTown = { 'name': 'Berchem' };
                 }
                 TownSelectorComponent.prototype.gotoHome = function (event) {

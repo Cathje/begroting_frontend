@@ -24,7 +24,7 @@ System.register(['angular2/core', './../mockData/mock-towns'], function(exports_
             TownService = (function () {
                 function TownService() {
                 }
-                TownService.prototype.getHeroes = function () {
+                TownService.prototype.getTowns = function () {
                     return mock_towns_1.TOWNS;
                 };
                 TownService = __decorate([

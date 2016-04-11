@@ -3,7 +3,7 @@ import {TOWNS} from './../mockData/mock-towns';
 
 @Injectable()
 export class TownService {
-    getHeroes() {
+    getTowns() {
         return TOWNS;
     }
 }

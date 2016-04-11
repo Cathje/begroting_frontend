@@ -1,4 +1,4 @@
-System.register(['angular2/core', './../subComponents/input/townSelector.component'], function(exports_1, context_1) {
+System.register(['angular2/core', './../subComponents/input/townSelector.component', './../subComponents/information/projectOverview.component'], function(exports_1, context_1) {
     "use strict";
     var __moduleName = context_1 && context_1.id;
     var __decorate = (this && this.__decorate) || function (decorators, target, key, desc) {
@@ -10,7 +10,7 @@ System.register(['angular2/core', './../subComponents/input/townSelector.compone
     var __metadata = (this && this.__metadata) || function (k, v) {
         if (typeof Reflect === "object" && typeof Reflect.metadata === "function") return Reflect.metadata(k, v);
     };
-    var core_1, townSelector_component_1;
+    var core_1, townSelector_component_1, projectOverview_component_1;
     var HomeComponent;
     return {
         setters:[
@@ -19,6 +19,9 @@ System.register(['angular2/core', './../subComponents/input/townSelector.compone
             },
             function (townSelector_component_1_1) {
                 townSelector_component_1 = townSelector_component_1_1;
+            },
+            function (projectOverview_component_1_1) {
+                projectOverview_component_1 = projectOverview_component_1_1;
             }],
         execute: function() {
             HomeComponent = (function () {
@@ -28,8 +31,8 @@ System.register(['angular2/core', './../subComponents/input/townSelector.compone
                 HomeComponent = __decorate([
                     core_1.Component({
                         selector: 'home-container',
-                        template: "<h2>{{title}}</h2>\n                <town-selector></town-selector>",
-                        directives: [townSelector_component_1.TownSelectorComponent]
+                        template: "<h2>{{title}}</h2>\n                <town-selector></town-selector>\n                <project-overview></project-overview>\n                ",
+                        directives: [townSelector_component_1.TownSelectorComponent, projectOverview_component_1.ProjectOverviewComponent]
                     }), 
                     __metadata('design:paramtypes', [])
                 ], HomeComponent);

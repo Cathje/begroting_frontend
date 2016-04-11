@@ -29,6 +29,7 @@ System.register(['angular2/core', './../../services/townService.component', 'ang
                     this._townService = _townService;
                     this._routeParams = _routeParams;
                     this.title = 'Gemeente - home';
+                    this.name = "";
                 }
                 TownComponent.prototype.ngOnInit = function () {
                     this.name = this._routeParams.get('town');
@@ -36,7 +37,7 @@ System.register(['angular2/core', './../../services/townService.component', 'ang
                 TownComponent = __decorate([
                     core_1.Component({
                         selector: 'home-container',
-                        template: '<h3>{{name}}</h3>',
+                        template: "<h3>{{name}}</h3>",
                         providers: [townService_component_1.TownService]
                     }), 
                     __metadata('design:paramtypes', [townService_component_1.TownService, router_1.RouteParams])

@@ -16,7 +16,7 @@ import {TownService} from './../../../services/townService.component';
 
 export class TownSelectorComponent {
     title = 'Kies een gemeente';
-    towns = this._townService.getHeroes();
+    towns = this._townService.getTowns();
     selectedTown = { 'name':'Berchem' };
 
     constructor(
@@ -24,8 +24,7 @@ export class TownSelectorComponent {
         private _townService: TownService) {
     }
 
-    gotoHome(event: Event) {
-
+    gotoHome(event: any) {
         let link = ['Town', { town: event.target.value}];
         this._router.navigate(link);
     }

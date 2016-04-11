@@ -1,4 +1,4 @@
-System.register(['angular2/core', './components/mainComponents/home.component', './components/mainComponents/town.component', './components/mainComponents/townBudget.component', 'angular2/router'], function(exports_1, context_1) {
+System.register(['angular2/core', './components/mainComponents/home.component', './components/mainComponents/town.component', './components/mainComponents/project.component', './components/mainComponents/townBudget.component', 'angular2/router'], function(exports_1, context_1) {
     "use strict";
     var __moduleName = context_1 && context_1.id;
     var __decorate = (this && this.__decorate) || function (decorators, target, key, desc) {
@@ -10,7 +10,7 @@ System.register(['angular2/core', './components/mainComponents/home.component', 
     var __metadata = (this && this.__metadata) || function (k, v) {
         if (typeof Reflect === "object" && typeof Reflect.metadata === "function") return Reflect.metadata(k, v);
     };
-    var core_1, home_component_1, town_component_1, townBudget_component_1, router_1;
+    var core_1, home_component_1, town_component_1, project_component_1, townBudget_component_1, router_1;
     var AppComponent;
     return {
         setters:[
@@ -22,6 +22,9 @@ System.register(['angular2/core', './components/mainComponents/home.component', 
             },
             function (town_component_1_1) {
                 town_component_1 = town_component_1_1;
+            },
+            function (project_component_1_1) {
+                project_component_1 = project_component_1_1;
             },
             function (townBudget_component_1_1) {
                 townBudget_component_1 = townBudget_component_1_1;
@@ -47,6 +50,7 @@ System.register(['angular2/core', './components/mainComponents/home.component', 
                     router_1.RouteConfig([
                         { path: '/home', name: 'Home', component: home_component_1.HomeComponent },
                         { path: '/home/:town', name: 'Town', component: town_component_1.TownComponent },
+                        { path: '/home/:town/:projectNumber', name: 'Project', component: project_component_1.ProjectComponent },
                         { path: '/townBudget', name: 'TownBudget', component: townBudget_component_1.TownBudgetComponent }
                     ]), 
                     __metadata('design:paramtypes', [])
