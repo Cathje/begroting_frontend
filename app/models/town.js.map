@@ -1,1 +1,1 @@
-{"version":3,"file":"town.js","sourceRoot":"","sources":["town.ts"],"names":[],"mappings":";;;;;;;YAAA;gBAAA;gBAEA,CAAC;gBAAD,WAAC;YAAD,CAAC,AAFD,IAEC;YAFD,uBAEC,CAAA"}
+{"version":3,"file":"town.js","sourceRoot":"","sources":["town.ts"],"names":["Town","Town.constructor"],"mappings":";;;;;YAAA;gBAAAA;gBAEAC,CAACA;gBAADD,WAACA;YAADA,CAACA,AAFD,IAEC;YAFD,uBAEC,CAAA"}
