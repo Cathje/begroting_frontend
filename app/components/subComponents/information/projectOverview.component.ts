@@ -5,15 +5,13 @@ import {ProjectService} from './../../../services/projectService.component';
 
 @Component({ //invoke with metadata object
     selector: 'project-overview',
-    template: `<h3>{{title}}</h3>
-                <table class="table table-striped">
-                    <tr *ngFor="#project of projects" >
-                        <td><a href="./home/{{project.town}}/{{project.projectNumber}}">{{project.name}}</a></td>
-                        <td>{{project.projectDescription}}</td>
-                        <td>{{project.town}}</td>
-                    </tr>
-                </table>
-
+    template: `<div class="polaroid" *ngFor="#project of projects">
+                    <div class="img-container">
+                         <img src="./app/images/categories/{{project.categoryNumber}}.jpg"/>
+                    </div>
+                    <p>{{project.town}}</p>
+                    <p>{{project.name}}</p>
+                </div>
                 `,
     providers: [ProjectService]
 })

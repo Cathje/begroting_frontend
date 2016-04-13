@@ -1,6 +1,7 @@
 export class Project {
-    projectNumber: string;
+    projectNumber: number;
     name: string;
     projectDescription: string;
     town: string;
+    categoryNumber: string;
 }

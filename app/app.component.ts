@@ -7,10 +7,11 @@ import { RouteConfig, ROUTER_DIRECTIVES, ROUTER_PROVIDERS } from 'angular2/route
 
 @Component({ //invoke with metadata object
     selector: 'begroting-app',
-    template: ` <h1>{{title}}</h1>
+    template: `
+    <div class="menu">
                 <a [routerLink]="['Home']">Home</a>
                 <a [routerLink]="['TownBudget']">Begrotingsvoorstel</a>
-
+</div>
                 <router-outlet></router-outlet>`,
     directives: [ROUTER_DIRECTIVES],
     providers: [

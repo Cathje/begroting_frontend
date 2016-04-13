@@ -5,12 +5,14 @@ import {TownService} from './../../../services/townService.component';
 
 @Component({ //invoke with metadata object
     selector: 'town-selector',
-    template: `<h3>{{title}}</h3>
-                <div class="grid grid-pad">
-                    <select [(ngModel)]="selectedTown" (change)="gotoHome($event)">
+    template: `<div class="town-selector">
+    <h3>{{title}}</h3>
+                <div class="grid grid-pad styled-select slate">
+                    <select class="" [(ngModel)]="selectedTown" (change)="gotoHome($event)">
                         <option *ngFor="#town of towns" [value]="town.name">{{town.name}}</option>
                     </select>
-                </div>`,
+                </div>
+    </div>`,
     providers: [TownService]
 })
 
