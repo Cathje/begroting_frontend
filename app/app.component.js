@@ -41,7 +41,7 @@ System.register(['angular2/core', './components/mainComponents/home.component', 
                     // for routing
                     core_1.Component({
                         selector: 'begroting-app',
-                        template: "\n    <div class=\"menu\">\n                <a [routerLink]=\"['Home']\">Home</a>\n                <a [routerLink]=\"['TownBudget']\">Begrotingsvoorstel</a>\n</div>\n                <router-outlet></router-outlet>",
+                        template: "\n    <div class=\"menu\">\n\n<img class=\"logo\" src=\"./app/images/logo.png\"/>\n<span class=\"pull-xs-right\">\n<a [routerLink]=\"['Home']\">Sign in</a>|\n<a [routerLink]=\"['Home']\">Log in</a>\n</span>\n\n</div>\n\n<div class=\"home-menu menu\">\n<a [routerLink]=\"['Home']\">Home</a>\n                <a [routerLink]=\"['TownBudget']\">Begrotingsvoorstel</a>\n</div>\n                <router-outlet></router-outlet>",
                         directives: [router_1.ROUTER_DIRECTIVES],
                         providers: [
                             router_1.ROUTER_PROVIDERS,

@@ -39,7 +39,7 @@ System.register(['angular2/core', 'angular2/router', './../../../services/townSe
                 TownSelectorComponent = __decorate([
                     core_1.Component({
                         selector: 'town-selector',
-                        template: "<div class=\"town-selector\">\n    <h3>{{title}}</h3>\n                <div class=\"grid grid-pad styled-select slate\">\n                    <select class=\"\" [(ngModel)]=\"selectedTown\" (change)=\"gotoHome($event)\">\n                        <option *ngFor=\"#town of towns\" [value]=\"town.name\">{{town.name}}</option>\n                    </select>\n                </div>\n    </div>",
+                        template: "<div class=\"town-selector\">\n    <h3>{{title}}</h3>\n                <div class=\"grid grid-pad styled-select slate\">\n                    <select class=\"\" [(ngModel)]=\"selectedTown\" (change)=\"gotoHome($event)\">\n                        <option *ngFor=\"#town of towns\" [value]=\"town.name\">{{town.name}} - {{town.postalCode}}</option>\n                    </select>\n                </div>\n    </div>",
                         providers: [townService_component_1.TownService]
                     }), 
                     __metadata('design:paramtypes', [router_1.Router, townService_component_1.TownService])

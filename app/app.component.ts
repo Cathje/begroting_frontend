@@ -9,7 +9,17 @@ import { RouteConfig, ROUTER_DIRECTIVES, ROUTER_PROVIDERS } from 'angular2/route
     selector: 'begroting-app',
     template: `
     <div class="menu">
-                <a [routerLink]="['Home']">Home</a>
+
+<img class="logo" src="./app/images/logo.png"/>
+<span class="pull-xs-right">
+<a [routerLink]="['Home']">Sign in</a>|
+<a [routerLink]="['Home']">Log in</a>
+</span>
+
+</div>
+
+<div class="home-menu menu">
+<a [routerLink]="['Home']">Home</a>
                 <a [routerLink]="['TownBudget']">Begrotingsvoorstel</a>
 </div>
                 <router-outlet></router-outlet>`,

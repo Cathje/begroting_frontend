@@ -6,10 +6,10 @@ System.register([], function(exports_1, context_1) {
         setters:[],
         execute: function() {
             exports_1("TOWNS", TOWNS = [
-                { "name": "Berchem" },
-                { "name": "Mortsel" },
-                { "name": "Edegem" },
-                { "name": "Antwerpen" },
+                { "name": "Berchem", "postalCode": 2600 },
+                { "name": "Mortsel", "postalCode": 2640 },
+                { "name": "Edegem", "postalCode": 2570 },
+                { "name": "Antwerpen", "postalCode": 2000 },
             ]);
         }
     }

@@ -9,7 +9,7 @@ import {TownService} from './../../../services/townService.component';
     <h3>{{title}}</h3>
                 <div class="grid grid-pad styled-select slate">
                     <select class="" [(ngModel)]="selectedTown" (change)="gotoHome($event)">
-                        <option *ngFor="#town of towns" [value]="town.name">{{town.name}}</option>
+                        <option *ngFor="#town of towns" [value]="town.name">{{town.name}} - {{town.postalCode}}</option>
                     </select>
                 </div>
     </div>`,
