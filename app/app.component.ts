@@ -30,7 +30,7 @@ import { RouteConfig, ROUTER_DIRECTIVES, ROUTER_PROVIDERS } from 'angular2/route
 })
 
 @RouteConfig([
-    { path: '/home', name: 'Home', component:HomeComponent },
+    { path: '/', name: 'Home', component:HomeComponent },
     { path: '/home/:town', name: 'Town', component:TownComponent },
     { path: '/home/:town/:projectNumber', name: 'Project', component:ProjectComponent },
     { path: '/townBudget', name: 'TownBudget', component:TownBudgetComponent }
