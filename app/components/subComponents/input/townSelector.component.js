@@ -1,4 +1,4 @@
-System.register(['angular2/core', 'angular2/router', './../../../services/townService.component'], function(exports_1, context_1) {
+System.register(['angular2/core', 'angular2/router', './../../../services/townService.component', "../../../models/town"], function(exports_1, context_1) {
     "use strict";
     var __moduleName = context_1 && context_1.id;
     var __decorate = (this && this.__decorate) || function (decorators, target, key, desc) {
@@ -10,7 +10,7 @@ System.register(['angular2/core', 'angular2/router', './../../../services/townSe
     var __metadata = (this && this.__metadata) || function (k, v) {
         if (typeof Reflect === "object" && typeof Reflect.metadata === "function") return Reflect.metadata(k, v);
     };
-    var core_1, router_1, townService_component_1;
+    var core_1, router_1, townService_component_1, town_1;
     var TownSelectorComponent;
     return {
         setters:[
@@ -22,15 +22,21 @@ System.register(['angular2/core', 'angular2/router', './../../../services/townSe
             },
             function (townService_component_1_1) {
                 townService_component_1 = townService_component_1_1;
+            },
+            function (town_1_1) {
+                town_1 = town_1_1;
             }],
         execute: function() {
             TownSelectorComponent = (function () {
                 function TownSelectorComponent(_router, _townService) {
+                    // this.towns = _townService.getTownsHC();
+                    var _this = this;
                     this._router = _router;
                     this._townService = _townService;
                     this.title = 'Kies een gemeente';
-                    this.towns = this._townService.getTowns();
-                    this.selectedTown = { 'name': 'Berchem' };
+                    this.selectedTown = new town_1.Town("Berchem", "2600");
+                    _townService.getTowns()
+                        .subscribe(function (towns) { return _this.towns = towns; }); //
                 }
                 TownSelectorComponent.prototype.gotoHome = function (event) {
                     var link = ['Town', { town: event.target.value }];
@@ -39,7 +45,7 @@ System.register(['angular2/core', 'angular2/router', './../../../services/townSe
                 TownSelectorComponent = __decorate([
                     core_1.Component({
                         selector: 'town-selector',
-                        template: "<div class=\"town-selector\">\n    <h3>{{title}}</h3>\n                <div class=\"grid grid-pad styled-select slate\">\n                    <select class=\"\" [(ngModel)]=\"selectedTown\" (change)=\"gotoHome($event)\">\n                        <option *ngFor=\"#town of towns\" [value]=\"town.name\">{{town.name}} - {{town.postalCode}}</option>\n                    </select>\n                </div>\n    </div>",
+                        template: "<div class=\"town-selector\">\n    <h3>{{title}}</h3>\n                <div class=\"grid grid-pad styled-select slate\">\n                    <select class=\"\" [(ngModel)]=\"selectedTown\" (change)=\"gotoHome($event)\">\n                        <option *ngFor=\"#town of towns\" [value]=\"town.naam\">{{town.naam}} </option> <!-- {{town.postCode}} -->\n                    </select>\n                </div>\n    </div>",
                         providers: [townService_component_1.TownService]
                     }), 
                     __metadata('design:paramtypes', [router_1.Router, townService_component_1.TownService])

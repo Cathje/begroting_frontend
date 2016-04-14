@@ -5,6 +5,7 @@ import {ProjectComponent} from './components/mainComponents/project.component';
 import {TownBudgetComponent} from './components/mainComponents/townBudget.component';
 import { RouteConfig, ROUTER_DIRECTIVES, ROUTER_PROVIDERS } from 'angular2/router'; // for routing
 
+
 @Component({ //invoke with metadata object
     selector: 'begroting-app',
     template: `

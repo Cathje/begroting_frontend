@@ -1,15 +1,19 @@
-System.register([], function(exports_1, context_1) {
+System.register(['../models/town'], function(exports_1, context_1) {
     "use strict";
     var __moduleName = context_1 && context_1.id;
+    var town_1;
     var TOWNS;
     return {
-        setters:[],
+        setters:[
+            function (town_1_1) {
+                town_1 = town_1_1;
+            }],
         execute: function() {
             exports_1("TOWNS", TOWNS = [
-                { "name": "Berchem", "postalCode": 2600 },
-                { "name": "Mortsel", "postalCode": 2640 },
-                { "name": "Edegem", "postalCode": 2570 },
-                { "name": "Antwerpen", "postalCode": 2000 },
+                new town_1.Town("Berchem", "2600"),
+                new town_1.Town("Mortsel", "2640"),
+                new town_1.Town("Edegem", "2570"),
+                new town_1.Town("Antwerpen", "2000")
             ]);
         }
     }
