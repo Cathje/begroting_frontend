@@ -8,8 +8,7 @@ import {Town} from "../../../models/town";
 @Component({ //invoke with metadata object
     selector: 'town-selector',
     template: `<div class="town-selector">
-    <h3>{{title}}</h3>
-                <div class="grid grid-pad styled-select slate">
+                 <div class=" styled-select slate right-align">
                     <select class="" [(ngModel)]="selectedTown" (change)="gotoHome($event)">
                         <option *ngFor="#town of towns" [value]="town.naam">{{town.naam}} </option> <!-- {{town.postCode}} -->
                     </select>
@@ -19,20 +18,18 @@ import {Town} from "../../../models/town";
 })
 
 export class TownSelectorComponent {
-    title = 'Kies een gemeente';
     towns: Town [];
     selectedTown = new Town("Berchem","2600" );
 
     constructor( private _router: Router, private _townService: TownService)
     {
-       // this.towns = _townService.getTownsHC();
+       this.towns = _townService.getTownsHC();
         
-        _townService.getTowns()
-           .subscribe(towns => this.towns = towns); //
+        //_townService.getTowns()
+        //   .subscribe(towns => this.towns = towns); //
     }
 
     gotoHome(event: any) {
-        let link = ['Town', { town: event.target.value}];
-        this._router.navigate(link);
+        this._router.navigate(['Town', { town: event.target.value}]);
     }
 }

@@ -6,6 +6,7 @@ import {ProjectOverviewComponent} from './../subComponents/information/projectOv
     selector: 'home-container',
     template: `
     <div class="home-container">
+    <h3>Kies een gemeente:</h3>
        <town-selector></town-selector>
 
      <video width="100%" autoplay="autoplay" loop>

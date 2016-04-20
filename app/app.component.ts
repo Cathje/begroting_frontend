@@ -4,6 +4,7 @@ import {TownComponent} from './components/mainComponents/town.component';
 import {ProjectComponent} from './components/mainComponents/project.component';
 import {TownBudgetComponent} from './components/mainComponents/townBudget.component';
 import { RouteConfig, ROUTER_DIRECTIVES, ROUTER_PROVIDERS } from 'angular2/router'; // for routing
+import {HTTP_PROVIDERS} from "angular2/http";
 
 
 @Component({ //invoke with metadata object
@@ -18,22 +19,16 @@ import { RouteConfig, ROUTER_DIRECTIVES, ROUTER_PROVIDERS } from 'angular2/route
 </span>
 
 </div>
-
-<div class="home-menu menu">
-<a [routerLink]="['Home']">Home</a>
-                <a [routerLink]="['TownBudget']">Begrotingsvoorstel</a>
-</div>
                 <router-outlet></router-outlet>`,
     directives: [ROUTER_DIRECTIVES],
     providers: [
-        ROUTER_PROVIDERS, //routing
-    ],
+        ROUTER_PROVIDERS, HTTP_PROVIDERS ] //routing    ],
 })
 
 @RouteConfig([
     { path: '/', name: 'Home', component:HomeComponent },
-    { path: '/home/:town', name: 'Town', component:TownComponent },
-    { path: '/home/:town/:projectNumber', name: 'Project', component:ProjectComponent },
+    { path: '/:town', name: 'Town', component:TownComponent },
+    { path: '/:town/:projectNumber', name: 'Project', component:ProjectComponent },
     { path: '/townBudget', name: 'TownBudget', component:TownBudgetComponent }
 ])
 

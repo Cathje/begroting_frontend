@@ -1,4 +1,4 @@
-System.register(['angular2/core', './../../services/townService.component', 'angular2/router'], function(exports_1, context_1) {
+System.register(['angular2/core', './../../services/townService.component', 'angular2/router', './../subComponents/input/townSelector.component'], function(exports_1, context_1) {
     "use strict";
     var __moduleName = context_1 && context_1.id;
     var __decorate = (this && this.__decorate) || function (decorators, target, key, desc) {
@@ -10,7 +10,7 @@ System.register(['angular2/core', './../../services/townService.component', 'ang
     var __metadata = (this && this.__metadata) || function (k, v) {
         if (typeof Reflect === "object" && typeof Reflect.metadata === "function") return Reflect.metadata(k, v);
     };
-    var core_1, townService_component_1, router_1;
+    var core_1, townService_component_1, router_1, router_2, townSelector_component_1;
     var TownComponent;
     return {
         setters:[
@@ -22,6 +22,10 @@ System.register(['angular2/core', './../../services/townService.component', 'ang
             },
             function (router_1_1) {
                 router_1 = router_1_1;
+                router_2 = router_1_1;
+            },
+            function (townSelector_component_1_1) {
+                townSelector_component_1 = townSelector_component_1_1;
             }],
         execute: function() {
             TownComponent = (function () {
@@ -37,8 +41,11 @@ System.register(['angular2/core', './../../services/townService.component', 'ang
                 TownComponent = __decorate([
                     core_1.Component({
                         selector: 'home-container',
-                        template: "<h3>{{name}}</h3>",
-                        providers: [townService_component_1.TownService]
+                        template: "\n        <div class=\"home-menu menu\">\n                <a [routerLink]=\"['Home']\">Home</a>\n                <a [routerLink]=\"['TownBudget']\">Begrotingsvoorstel</a>\n                <town-selector></town-selector>\n\n</div>\n<h3>{{name}}</h3>",
+                        directives: [router_2.ROUTER_DIRECTIVES, townSelector_component_1.TownSelectorComponent],
+                        providers: [
+                            townService_component_1.TownService,
+                        ],
                     }), 
                     __metadata('design:paramtypes', [townService_component_1.TownService, router_1.RouteParams])
                 ], TownComponent);

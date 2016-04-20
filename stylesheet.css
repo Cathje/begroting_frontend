@@ -42,11 +42,16 @@ video {
 }
 
 .home-menu {
-    display: none;
-    padding: 0px 0px 10px 0px;
-    text-align: right;
+    padding: 10px 20px 10px 20px;
+    background-color: #2ac7d2;
+
 
 }
+
+.right-align {
+    text-align: right;
+}
+
 
 .home-container {
     position:relative;
@@ -55,22 +60,59 @@ video {
 }
 
 .home-container h3 {
-    color:white;
+    position:absolute;
+    top: 30%;
     text-align: center;
+    color:white;
+    left: 0;
+    right: 0;
     font-family: 'Roboto', sans-serif;
 
 }
 
-.town-selector {
+.home-container .town-selector {
     position:absolute;
-    top: 40%;
+    top: 50%;
     left: 0;
     right: 0;
 }
 
-.town-selector .grid-pad{
+.slate{
     text-align: center;
+    color:black;
 }
+
+.town-selector{
+    float: right;
+}
+
+.styled-select {
+    overflow: hidden;
+    width: 240px;
+    margin: 0 auto;
+}
+
+.styled-select select {
+    background: url(./app/images/arrow_down.png) no-repeat right rgba(255,255,255, 0.6);
+    background-size: 35px 35px;
+    border: none;
+    font-size: 14px;
+    height: 29px;
+    padding: 5px; /* If you add too much padding here, the options won't show in IE */
+    width: 240px;
+}
+
+select::-ms-expand {
+    display: none;
+}
+
+select {
+    -webkit-appearance: none;
+    -moz-appearance: none;
+    text-indent: 1px;
+    text-overflow: '';
+}
+
 
 .site-information-container {
     padding: 20px;

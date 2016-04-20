@@ -29,23 +29,20 @@ System.register(['angular2/core', 'angular2/router', './../../../services/townSe
         execute: function() {
             TownSelectorComponent = (function () {
                 function TownSelectorComponent(_router, _townService) {
-                    // this.towns = _townService.getTownsHC();
-                    var _this = this;
                     this._router = _router;
                     this._townService = _townService;
-                    this.title = 'Kies een gemeente';
                     this.selectedTown = new town_1.Town("Berchem", "2600");
-                    _townService.getTowns()
-                        .subscribe(function (towns) { return _this.towns = towns; }); //
+                    this.towns = _townService.getTownsHC();
+                    //_townService.getTowns()
+                    //   .subscribe(towns => this.towns = towns); //
                 }
                 TownSelectorComponent.prototype.gotoHome = function (event) {
-                    var link = ['Town', { town: event.target.value }];
-                    this._router.navigate(link);
+                    this._router.navigate(['Town', { town: event.target.value }]);
                 };
                 TownSelectorComponent = __decorate([
                     core_1.Component({
                         selector: 'town-selector',
-                        template: "<div class=\"town-selector\">\n    <h3>{{title}}</h3>\n                <div class=\"grid grid-pad styled-select slate\">\n                    <select class=\"\" [(ngModel)]=\"selectedTown\" (change)=\"gotoHome($event)\">\n                        <option *ngFor=\"#town of towns\" [value]=\"town.naam\">{{town.naam}} </option> <!-- {{town.postCode}} -->\n                    </select>\n                </div>\n    </div>",
+                        template: "<div class=\"town-selector\">\n                 <div class=\" styled-select slate right-align\">\n                    <select class=\"\" [(ngModel)]=\"selectedTown\" (change)=\"gotoHome($event)\">\n                        <option *ngFor=\"#town of towns\" [value]=\"town.naam\">{{town.naam}} </option> <!-- {{town.postCode}} -->\n                    </select>\n                </div>\n    </div>",
                         providers: [townService_component_1.TownService]
                     }), 
                     __metadata('design:paramtypes', [router_1.Router, townService_component_1.TownService])
