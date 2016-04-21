@@ -11,9 +11,8 @@ import {HTTP_PROVIDERS} from "angular2/http";
     selector: 'begroting-app',
     template: `
     <div class="menu">
-
-<img class="logo" src="./app/images/logo.png"/>
-<span class="pull-xs-right">
+        <img class="logo" src="./app/images/logo.png"/>
+        <span class="pull-xs-right">
 <a [routerLink]="['Home']">Sign in</a>|
 <a [routerLink]="['Home']">Log in</a>
 </span>
@@ -22,7 +21,25 @@ import {HTTP_PROVIDERS} from "angular2/http";
                 <router-outlet></router-outlet>`,
     directives: [ROUTER_DIRECTIVES],
     providers: [
-        ROUTER_PROVIDERS, HTTP_PROVIDERS ] //routing    ],
+        ROUTER_PROVIDERS, HTTP_PROVIDERS ], //routing    ],
+    styles: [`.menu {
+    background-color: black;
+    color:white;
+    padding: 20px;
+    text-align: left;
+}
+
+.logo {
+    width: 150px;
+    margin: 0 auto;
+
+}
+
+.menu a  {
+    color:white;
+    padding: 10px;
+}
+`]
 })
 
 @RouteConfig([

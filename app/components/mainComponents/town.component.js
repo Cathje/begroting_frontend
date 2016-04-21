@@ -46,6 +46,7 @@ System.register(['angular2/core', './../../services/townService.component', 'ang
                         providers: [
                             townService_component_1.TownService,
                         ],
+                        styles: ["\n    town-selector{\nfloat: right;\n\n}\n\n.home-menu {\n    padding: 10px 20px 20px 30px;\n    background-color: #2ac7d2;\n}\n"]
                     }), 
                     __metadata('design:paramtypes', [townService_component_1.TownService, router_1.RouteParams])
                 ], TownComponent);

@@ -5,7 +5,7 @@ import {ProjectOverviewComponent} from './../subComponents/information/projectOv
 @Component({ //invoke with metadata object
     selector: 'home-container',
     template: `
-    <div class="home-container">
+    <div class="banner-container">
     <h3>Kies een gemeente:</h3>
        <town-selector></town-selector>
 
@@ -25,7 +25,81 @@ import {ProjectOverviewComponent} from './../subComponents/information/projectOv
 
     `
     ,
-    directives: [TownSelectorComponent, ProjectOverviewComponent]
+    directives: [TownSelectorComponent, ProjectOverviewComponent],
+    styles: [`
+    town-selector: {
+
+            position:absolute;
+    top: 50%;
+    left: 0;
+    right: 0;
+    }
+
+    .banner-container {
+    position:relative;
+    height: 350px;
+    overflow:hidden;
+}
+
+.banner-container h3 {
+    position:absolute;
+    top: 30%;
+    text-align: center;
+    color:white;
+    left: 0;
+    right: 0;
+    font-family: 'Roboto', sans-serif;
+
+}
+
+
+.banner-container town-selector{
+    position:absolute;
+    top: 50%;
+    left: 0;
+    right: 0;
+}
+
+    .projects-container h3 {
+    background-color: black;
+    color:white;
+    margin: 0;
+    text-align: center;
+    padding: 10px;
+}
+
+.projects-container {
+    background-color: #2ac7d2;
+    color:white;
+    text-align: center;
+}
+
+
+.site-information-container {
+    padding: 20px;
+    text-align: center;
+    background-color:#2ac7d2;
+    color:white;
+}
+
+.site-information-container h2 {
+    font-family: Roboto, Arial, Helvetica, sans-serif;
+    font-weight: 300;
+    padding: 20px 40px ;
+}
+.site-information-container p {
+    margin: 0;
+
+}
+
+video {
+    display: block !important;
+    width: 120%;
+    top: 0;
+}
+
+
+`]
 })
 
 export class HomeComponent {

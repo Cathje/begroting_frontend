@@ -7,6 +7,7 @@ import {RouteParams} from 'angular2/router';
     template: `<h2>Project {{name}}</h2>`,
     providers: [ProjectService]
 
+
 })
 
 export class ProjectComponent {

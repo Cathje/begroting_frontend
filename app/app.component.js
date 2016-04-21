@@ -43,10 +43,11 @@ System.register(['angular2/core', './components/mainComponents/home.component', 
                 AppComponent = __decorate([
                     core_1.Component({
                         selector: 'begroting-app',
-                        template: "\n    <div class=\"menu\">\n\n<img class=\"logo\" src=\"./app/images/logo.png\"/>\n<span class=\"pull-xs-right\">\n<a [routerLink]=\"['Home']\">Sign in</a>|\n<a [routerLink]=\"['Home']\">Log in</a>\n</span>\n\n</div>\n                <router-outlet></router-outlet>",
+                        template: "\n    <div class=\"menu\">\n        <img class=\"logo\" src=\"./app/images/logo.png\"/>\n        <span class=\"pull-xs-right\">\n<a [routerLink]=\"['Home']\">Sign in</a>|\n<a [routerLink]=\"['Home']\">Log in</a>\n</span>\n\n</div>\n                <router-outlet></router-outlet>",
                         directives: [router_1.ROUTER_DIRECTIVES],
                         providers: [
-                            router_1.ROUTER_PROVIDERS, http_1.HTTP_PROVIDERS] //routing    ],
+                            router_1.ROUTER_PROVIDERS, http_1.HTTP_PROVIDERS],
+                        styles: [".menu {\n    background-color: black;\n    color:white;\n    padding: 20px;\n    text-align: left;\n}\n\n.logo {\n    width: 150px;\n    margin: 0 auto;\n\n}\n\n.menu a  {\n    color:white;\n    padding: 10px;\n}\n"]
                     }),
                     router_1.RouteConfig([
                         { path: '/', name: 'Home', component: home_component_1.HomeComponent },

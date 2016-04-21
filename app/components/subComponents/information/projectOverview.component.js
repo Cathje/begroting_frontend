@@ -36,7 +36,8 @@ System.register(['angular2/core', 'angular2/router', './../../../services/projec
                     core_1.Component({
                         selector: 'project-overview',
                         template: "<div class=\"polaroid\" *ngFor=\"#project of projects\">\n                    <div class=\"img-container\">\n                         <img src=\"./app/images/categories/{{project.categoryNumber}}.jpg\"/>\n                    </div>\n                    <p>{{project.town}}</p>\n                    <p>{{project.name}}</p>\n                </div>\n                ",
-                        providers: [projectService_component_1.ProjectService]
+                        providers: [projectService_component_1.ProjectService],
+                        styles: ["img:hover{\n    transform: scale(1.2);\n    transition: all 0.25s ease-in;\n}\n\n\n.polaroid {\n    background-color: white;\n    color:black;\n    padding: 10px;\n    width: 250px;\n    display: inline-block;\n    text-align: center;\n    margin: 10px;\n    box-shadow: 3px 3px 3px grey;\n}\n\n.polaroid p:nth-child(2) {\n    font-weight: bold;\n    margin-bottom: 0;\n    margin-top: 5px;\n}\n\n.polaroid img {\n    width: 100%;\n    box-shadow: inset 3px 3px 3px grey;\n}\n\n.polaroid .img-container{\n    overflow:hidden;\n    width: 100%;\n    height:150px;\n}"]
                     }), 
                     __metadata('design:paramtypes', [router_1.Router, projectService_component_1.ProjectService])
                 ], ProjectOverviewComponent);

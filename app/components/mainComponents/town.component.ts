@@ -18,6 +18,17 @@ import {TownSelectorComponent} from './../subComponents/input/townSelector.compo
     providers: [
         TownService,  //routing
     ],
+    styles: [`
+    town-selector{
+float: right;
+
+}
+
+.home-menu {
+    padding: 10px 20px 20px 30px;
+    background-color: #2ac7d2;
+}
+`]
 })
 
 export class TownComponent {

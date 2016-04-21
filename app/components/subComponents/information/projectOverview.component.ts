@@ -13,7 +13,40 @@ import {ProjectService} from './../../../services/projectService.component';
                     <p>{{project.name}}</p>
                 </div>
                 `,
-    providers: [ProjectService]
+    providers: [ProjectService],
+    styles: [`img:hover{
+    transform: scale(1.2);
+    transition: all 0.25s ease-in;
+}
+
+
+.polaroid {
+    background-color: white;
+    color:black;
+    padding: 10px;
+    width: 250px;
+    display: inline-block;
+    text-align: center;
+    margin: 10px;
+    box-shadow: 3px 3px 3px grey;
+}
+
+.polaroid p:nth-child(2) {
+    font-weight: bold;
+    margin-bottom: 0;
+    margin-top: 5px;
+}
+
+.polaroid img {
+    width: 100%;
+    box-shadow: inset 3px 3px 3px grey;
+}
+
+.polaroid .img-container{
+    overflow:hidden;
+    width: 100%;
+    height:150px;
+}`]
 })
 
 export class ProjectOverviewComponent {
