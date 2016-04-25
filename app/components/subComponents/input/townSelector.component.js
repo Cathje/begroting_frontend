@@ -42,7 +42,7 @@ System.register(['angular2/core', 'angular2/router', './../../../services/townSe
                 TownSelectorComponent = __decorate([
                     core_1.Component({
                         selector: 'town-selector',
-                        template: "\n                 <div class=\" styled-select slate right-align\">\n                    <select class=\"\" [(ngModel)]=\"selectedTown\" (change)=\"gotoHome($event)\">\n                        <option *ngFor=\"#town of towns\" [value]=\"town.naam\">{{town.naam}} </option> <!-- {{town.postCode}} -->\n                    </select>\n                </div>\n    ",
+                        template: "\n                 <div class=\" styled-select slate right-align\">\n                    <select class=\"\"  (change)=\"gotoHome($event)\">\n                        <option *ngFor=\"#town of towns\" [value]=\"town.naam\">{{town.naam}} </option> <!-- {{town.postCode}} -->\n                    </select>\n                </div>\n    ",
                         providers: [townService_component_1.TownService],
                         styles: ["\n.slate{\n    text-align: center;\n    color:black;\n}\n\n.styled-select {\n    overflow: hidden;\n    width: 240px;\n    margin: 0 auto;\n}\n\n.styled-select select {\n    background: url(./app/images/arrow_down.png) no-repeat right rgba(255,255,255, 0.6);\n    background-size: 35px 35px;\n    border: none;\n    font-size: 14px;\n    height: 29px;\n    padding: 5px; /* If you add too much padding here, the options won't show in IE */\n    width: 240px;\n}\n\nselect::-ms-expand {\n    display: none;\n}\n\nselect {\n    -webkit-appearance: none;\n    -moz-appearance: none;\n    text-indent: 1px;\n    text-overflow: '';\n}\n\n      ",]
                     }), 

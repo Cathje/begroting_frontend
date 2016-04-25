@@ -27,12 +27,13 @@ import {ProjectOverviewComponent} from './../subComponents/information/projectOv
     ,
     directives: [TownSelectorComponent, ProjectOverviewComponent],
     styles: [`
-    town-selector: {
+    town-selector{
 
-            position:absolute;
+    position:absolute;
     top: 50%;
     left: 0;
     right: 0;
+    z-index: 5;
     }
 
     .banner-container {
@@ -96,6 +97,7 @@ video {
     display: block !important;
     width: 120%;
     top: 0;
+    z-index:0;
 }
 
 

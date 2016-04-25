@@ -9,7 +9,7 @@ import {Town} from "../../../models/town";
     selector: 'town-selector',
     template: `
                  <div class=" styled-select slate right-align">
-                    <select class="" [(ngModel)]="selectedTown" (change)="gotoHome($event)">
+                    <select class=""  (change)="gotoHome($event)">
                         <option *ngFor="#town of towns" [value]="town.naam">{{town.naam}} </option> <!-- {{town.postCode}} -->
                     </select>
                 </div>
@@ -58,7 +58,7 @@ export class TownSelectorComponent {
     constructor( private _router: Router, private _townService: TownService)
     {
        this.towns = _townService.getTownsHC();
-        
+
         //_townService.getTowns()
         //   .subscribe(towns => this.towns = towns); //
     }
