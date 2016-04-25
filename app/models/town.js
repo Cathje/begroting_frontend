@@ -6,9 +6,7 @@ System.register([], function(exports_1, context_1) {
         setters:[],
         execute: function() {
             Town = (function () {
-                function Town(name, postCode) {
-                    this.naam = name;
-                    this.postCode = postCode;
+                function Town() {
                 }
                 return Town;
             }());

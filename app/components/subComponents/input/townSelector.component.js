@@ -1,4 +1,4 @@
-System.register(['angular2/core', 'angular2/router', './../../../services/townService.component', "../../../models/town"], function(exports_1, context_1) {
+System.register(['angular2/core', 'angular2/router', './../../../services/townService.component', "../../../models/mainTown"], function(exports_1, context_1) {
     "use strict";
     var __moduleName = context_1 && context_1.id;
     var __decorate = (this && this.__decorate) || function (decorators, target, key, desc) {
@@ -10,7 +10,7 @@ System.register(['angular2/core', 'angular2/router', './../../../services/townSe
     var __metadata = (this && this.__metadata) || function (k, v) {
         if (typeof Reflect === "object" && typeof Reflect.metadata === "function") return Reflect.metadata(k, v);
     };
-    var core_1, router_1, townService_component_1, town_1;
+    var core_1, router_1, townService_component_1, mainTown_1;
     var TownSelectorComponent;
     return {
         setters:[
@@ -23,26 +23,27 @@ System.register(['angular2/core', 'angular2/router', './../../../services/townSe
             function (townService_component_1_1) {
                 townService_component_1 = townService_component_1_1;
             },
-            function (town_1_1) {
-                town_1 = town_1_1;
+            function (mainTown_1_1) {
+                mainTown_1 = mainTown_1_1;
             }],
         execute: function() {
             TownSelectorComponent = (function () {
                 function TownSelectorComponent(_router, _townService) {
+                    //this.towns = _townService.getTownsHC();
+                    var _this = this;
                     this._router = _router;
                     this._townService = _townService;
-                    this.selectedTown = new town_1.Town("Berchem", "2600");
-                    this.towns = _townService.getTownsHC();
-                    //_townService.getTowns()
-                    //   .subscribe(towns => this.towns = towns); //
+                    this.selectedTown = new mainTown_1.MainTown("Berchem", "2600");
+                    _townService.getTowns()
+                        .subscribe(function (towns) { return _this.towns = towns; });
                 }
                 TownSelectorComponent.prototype.gotoHome = function (event) {
-                    this._router.navigate(['Town', { town: event.target.value }]);
+                    this._router.navigate(['MainTown', { town: event.target.value }]);
                 };
                 TownSelectorComponent = __decorate([
                     core_1.Component({
                         selector: 'town-selector',
-                        template: "\n                 <div class=\" styled-select slate right-align\">\n                    <select class=\"\"  (change)=\"gotoHome($event)\">\n                        <option *ngFor=\"#town of towns\" [value]=\"town.naam\">{{town.naam}} </option> <!-- {{town.postCode}} -->\n                    </select>\n                </div>\n    ",
+                        template: "\n                 <div class=\" styled-select slate right-align\">\n                    <select class=\"\"  (change)=\"gotoHome($event)\">\n                        <option>Selecteer een gemeente</option>\n                        <option *ngFor=\"#town of towns\" [value]=\"town.naam\">{{town.naam}} </option>\n                    </select>\n                </div>\n    ",
                         providers: [townService_component_1.TownService],
                         styles: ["\n.slate{\n    text-align: center;\n    color:black;\n}\n\n.styled-select {\n    overflow: hidden;\n    width: 240px;\n    margin: 0 auto;\n}\n\n.styled-select select {\n    background: url(./app/images/arrow_down.png) no-repeat right rgba(255,255,255, 0.6);\n    background-size: 35px 35px;\n    border: none;\n    font-size: 14px;\n    height: 29px;\n    padding: 5px; /* If you add too much padding here, the options won't show in IE */\n    width: 240px;\n}\n\nselect::-ms-expand {\n    display: none;\n}\n\nselect {\n    -webkit-appearance: none;\n    -moz-appearance: none;\n    text-indent: 1px;\n    text-overflow: '';\n}\n\n      ",]
                     }), 

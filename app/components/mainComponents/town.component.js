@@ -30,18 +30,23 @@ System.register(['angular2/core', './../../services/townService.component', 'ang
         execute: function() {
             TownComponent = (function () {
                 function TownComponent(_townService, _routeParams) {
+                    var _this = this;
                     this._townService = _townService;
                     this._routeParams = _routeParams;
                     this.title = 'Gemeente - home';
                     this.name = "";
+                    _townService.getTown(this._routeParams.get('town'))
+                        .subscribe(function (town) { return _this.mainTown = town; });
                 }
                 TownComponent.prototype.ngOnInit = function () {
-                    this.name = this._routeParams.get('town');
+                    /* @CATHERINE INDIEN BACKEND BIJ JOUW NIET WERKT DEZE CALL UIT COMMENTAAR ZETTEN
+                    * EN DE SERVICE VAN HIERBOVEN IN COMMENTAAR ZETTEN*/
+                    //this.name = this._routeParams.get('town');
                 };
                 TownComponent = __decorate([
                     core_1.Component({
                         selector: 'home-container',
-                        template: "\n        <div class=\"home-menu menu\">\n                <a [routerLink]=\"['Home']\">Home</a>\n                <a [routerLink]=\"['TownBudget']\">Begrotingsvoorstel</a>\n                <town-selector></town-selector>\n        </div>\n        <h3>{{name}}</h3>\n",
+                        template: "\n        <div class=\"home-menu menu\">\n                <a [routerLink]=\"['Home']\">Home</a>\n                <a [routerLink]=\"['TownBudget']\">Begrotingsvoorstel</a>\n                <town-selector></town-selector>\n        </div>\n        <!-- @CATHERINE INDIEN BACKEND BIJ JOUW NIET WERKT DEZE h3 UIT COMMENTAAR ZETTEN --> \n       <!-- <h3>{{name}}</h3> --> \n       <h3>{{mainTown?.naam}}</h3>\n       \n       <!--test om te zien of deelgemeenten ook binnenkomen -->\n       <div *ngIf=\"mainTown?.deelGemeenten\" >\n            <ul>\n            <li *ngFor=\"#town of mainTown?.deelGemeenten\">\n            {{town.naam}}\n            </li>\n            </ul>\n       </div>\n        \n        \n       \n",
                         directives: [router_2.ROUTER_DIRECTIVES, townSelector_component_1.TownSelectorComponent],
                         providers: [
                             townService_component_1.TownService,

@@ -51,7 +51,7 @@ System.register(['angular2/core', './components/mainComponents/home.component', 
                     }),
                     router_1.RouteConfig([
                         { path: '/', name: 'Home', component: home_component_1.HomeComponent },
-                        { path: '/:town', name: 'Town', component: town_component_1.TownComponent },
+                        { path: '/:town', name: 'MainTown', component: town_component_1.TownComponent },
                         { path: '/:town/:projectNumber', name: 'Project', component: project_component_1.ProjectComponent },
                         { path: '/townBudget', name: 'TownBudget', component: townBudget_component_1.TownBudgetComponent }
                     ]), 

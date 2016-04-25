@@ -1,20 +1,12 @@
+/**
+ * Created by nadya on 25/04/2016.
+ */
+import {MainTown} from "./mainTown";
 export class Town {
     GemeenteID:string;
     naam:string;
     postCode:string;
     provincie:string;
-    aantalBewoners:number;
-    oppervlakte:number;
-    oppervlakteMaat:string;
-    isMan:any;
-    isVrouw:any;
-    bestuur:any;
-    isKind:any;
-    aanslagVoet:any;
-    parent:any;
+    hoofdGemeente: MainTown;
 
-    constructor(name:string, postCode: string) {
-        this.naam = name;
-        this.postCode = postCode;
-    }
 }

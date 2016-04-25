@@ -1,19 +1,19 @@
-System.register(['../models/town'], function(exports_1, context_1) {
+System.register(['../models/mainTown'], function(exports_1, context_1) {
     "use strict";
     var __moduleName = context_1 && context_1.id;
-    var town_1;
+    var mainTown_1;
     var TOWNS;
     return {
         setters:[
-            function (town_1_1) {
-                town_1 = town_1_1;
+            function (mainTown_1_1) {
+                mainTown_1 = mainTown_1_1;
             }],
         execute: function() {
             exports_1("TOWNS", TOWNS = [
-                new town_1.Town("Berchem", "2600"),
-                new town_1.Town("Mortsel", "2640"),
-                new town_1.Town("Edegem", "2570"),
-                new town_1.Town("Antwerpen", "2000")
+                new mainTown_1.MainTown("Berchem", "2600"),
+                new mainTown_1.MainTown("Mortsel", "2640"),
+                new mainTown_1.MainTown("Edegem", "2570"),
+                new mainTown_1.MainTown("Antwerpen", "2000")
             ]);
         }
     }

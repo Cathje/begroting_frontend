@@ -1,7 +1,7 @@
 import {Component} from 'angular2/core';
 import {Router} from 'angular2/router';
 import {TownService} from './../../../services/townService.component';
-import {Town} from "../../../models/town";
+import {MainTown} from "../../../models/mainTown";
 
 
 
@@ -10,7 +10,8 @@ import {Town} from "../../../models/town";
     template: `
                  <div class=" styled-select slate right-align">
                     <select class=""  (change)="gotoHome($event)">
-                        <option *ngFor="#town of towns" [value]="town.naam">{{town.naam}} </option> <!-- {{town.postCode}} -->
+                        <option>Selecteer een gemeente</option>
+                        <option *ngFor="#town of towns" [value]="town.naam">{{town.naam}} </option>
                     </select>
                 </div>
     `,
@@ -52,18 +53,18 @@ select {
 })
 
 export class TownSelectorComponent {
-    towns: Town [];
-    selectedTown = new Town("Berchem","2600" );
+    towns: MainTown [];
+    selectedTown = new MainTown("Berchem","2600" );
 
     constructor( private _router: Router, private _townService: TownService)
     {
-       this.towns = _townService.getTownsHC();
+       //this.towns = _townService.getTownsHC();
 
-        //_townService.getTowns()
-        //   .subscribe(towns => this.towns = towns); //
+        _townService.getTowns()
+           .subscribe(towns => this.towns = towns); 
     }
 
     gotoHome(event: any) {
-        this._router.navigate(['Town', { town: event.target.value}]);
+        this._router.navigate(['MainTown', { town: event.target.value}]);
     }
 }

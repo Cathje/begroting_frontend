@@ -44,7 +44,7 @@ import {HTTP_PROVIDERS} from "angular2/http";
 
 @RouteConfig([
     { path: '/', name: 'Home', component:HomeComponent },
-    { path: '/:town', name: 'Town', component:TownComponent },
+    { path: '/:town', name: 'MainTown', component:TownComponent },
     { path: '/:town/:projectNumber', name: 'Project', component:ProjectComponent },
     { path: '/townBudget', name: 'TownBudget', component:TownBudgetComponent }
 ])

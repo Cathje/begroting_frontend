@@ -1,1 +1,1 @@
-{"version":3,"file":"town.js","sourceRoot":"","sources":["town.ts"],"names":[],"mappings":";;;;;;;YAAA;gBAeI,cAAY,IAAW,EAAE,QAAgB;oBACrC,IAAI,CAAC,IAAI,GAAG,IAAI,CAAC;oBACjB,IAAI,CAAC,QAAQ,GAAG,QAAQ,CAAC;gBAC7B,CAAC;gBACL,WAAC;YAAD,CAAC,AAnBD,IAmBC;YAnBD,uBAmBC,CAAA"}
+{"version":3,"file":"town.js","sourceRoot":"","sources":["town.ts"],"names":[],"mappings":";;;;;;;YAIA;gBAAA;gBAOA,CAAC;gBAAD,WAAC;YAAD,CAAC,AAPD,IAOC;YAPD,uBAOC,CAAA"}
