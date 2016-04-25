@@ -41,7 +41,7 @@ System.register(['angular2/core', './../../services/townService.component', 'ang
                 TownComponent = __decorate([
                     core_1.Component({
                         selector: 'home-container',
-                        template: "\n        <div class=\"home-menu menu\">\n                <a [routerLink]=\"['Home']\">Home</a>\n                <a [routerLink]=\"['TownBudget']\">Begrotingsvoorstel</a>\n                <town-selector></town-selector>\n\n</div>\n<h3>{{name}}</h3>",
+                        template: "\n        <div class=\"home-menu menu\">\n                <a [routerLink]=\"['Home']\">Home</a>\n                <a [routerLink]=\"['TownBudget']\">Begrotingsvoorstel</a>\n                <town-selector></town-selector>\n        </div>\n        <h3>{{name}}</h3>\n",
                         directives: [router_2.ROUTER_DIRECTIVES, townSelector_component_1.TownSelectorComponent],
                         providers: [
                             townService_component_1.TownService,

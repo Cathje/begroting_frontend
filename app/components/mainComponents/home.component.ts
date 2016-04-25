@@ -7,7 +7,7 @@ import {ProjectOverviewComponent} from './../subComponents/information/projectOv
     template: `
     <div class="banner-container">
     <h3>Kies een gemeente:</h3>
-       <town-selector></town-selector>
+    <town-selector></town-selector>
 
      <video width="100%" autoplay="autoplay" loop>
             <source src="./app/images/Big_City-Life.mp4" type='video/mp4; codecs="avc1.42E01E, mp4a.40.2"'>

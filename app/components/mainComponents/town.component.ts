@@ -11,9 +11,9 @@ import {TownSelectorComponent} from './../subComponents/input/townSelector.compo
                 <a [routerLink]="['Home']">Home</a>
                 <a [routerLink]="['TownBudget']">Begrotingsvoorstel</a>
                 <town-selector></town-selector>
-
-</div>
-<h3>{{name}}</h3>`,
+        </div>
+        <h3>{{name}}</h3>
+`,
     directives: [ROUTER_DIRECTIVES, TownSelectorComponent],
     providers: [
         TownService,  //routing
@@ -33,11 +33,10 @@ float: right;
 
 export class TownComponent {
     title = 'Gemeente - home';
-    name: string = "";
+    name:string = "";
 
-    constructor(
-        private _townService: TownService,
-        private _routeParams: RouteParams) {
+    constructor(private _townService:TownService,
+                private _routeParams:RouteParams) {
     }
 
     ngOnInit() {

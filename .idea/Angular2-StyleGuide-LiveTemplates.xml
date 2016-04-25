@@ -1,0 +1,290 @@
+<templateSet group="Angular2 StyleGuide Live Templates">
+  <!-- Components -->
+  <template name="ng2comp" value="@Component({})&#10;export class Component {}&#10;$END$" description="Angular2 Component - Empty" toReformat="false" toShortenFQNames="true">
+    <context>
+      <option name="TypeScript" value="true"/>
+    </context>
+  </template>
+  <template
+    name="ng2compBasic"
+    value="@Component({&#10;  selector: '$PREFIX$-$SELECTOR$',&#10;  template: './$COMPNAME$.html',&#10;  styles: ['']&#10;})&#10;export class $CLASSNAME$Component {}&#10;$END$"
+    description="Angular2 Component - Basic"
+    toReformat="false"
+    toShortenFQNames="true">
+    <variable name="PREFIX" expression="" defaultValue="&quot;&lt;prefix&gt;&quot;" alwaysStopAt="true"/>
+    <variable name="SELECTOR" expression="" defaultValue="&quot;&lt;selector&gt;&quot;" alwaysStopAt="true"/>
+    <variable name="COMPNAME" expression="fileNameWithoutExtension()" defaultValue="" alwaysStopAt="false"/>
+    <variable name="CLASSNAME" expression="capitalize(SELECTOR)" defaultValue="" alwaysStopAt="false"/>
+    <context>
+      <option name="TypeScript" value="true"/>
+    </context>
+  </template>
+  <template
+    name="ng2compComplex"
+    value="@Component({&#10;  selector: '$PREFIX$-$SELECTOR$',&#10;  providers: [],&#10;  viewProviders: [],&#10;  templateUrl: './$COMPNAME$.html',&#10;  styleUrls: ['./$COMPNAME$.$TYPE$'],&#10;  directives: [],&#10;  pipes: []&#10;})&#10;export class $CLASSNAME$Component {}&#10;$END$"
+    description="Angular2 Component - Complex"
+    toReformat="false"
+    toShortenFQNames="true">
+    <variable name="PREFIX" expression="" defaultValue="&quot;&lt;prefix&gt;&quot;" alwaysStopAt="true"/>
+    <variable name="SELECTOR" expression="" defaultValue="&quot;&lt;selector&gt;&quot;" alwaysStopAt="true"/>
+    <variable name="COMPNAME" expression="fileNameWithoutExtension()" defaultValue="" alwaysStopAt="false"/>
+    <variable name="TYPE" expression="" defaultValue="&quot;css&quot;" alwaysStopAt="true"/>
+    <variable name="CLASSNAME" expression="capitalize(SELECTOR)" defaultValue="" alwaysStopAt="false"/>
+    <context>
+      <option name="TypeScript" value="true"/>
+    </context>
+  </template>
+  <template
+    name="ng2compExternal"
+    value="@Component({&#10;  selector: '$PREFIX$-$SELECTOR$',&#10;  templateUrl: './$COMPNAME$.html',&#10;  styleUrls: ['./$COMPNAME$.$TYPE$']&#10;})&#10;export class $CLASSNAME$Component {}&#10;$END$"
+    description="Angular2 Component - External"
+    toReformat="false"
+    toShortenFQNames="true">
+    <variable name="PREFIX" expression="" defaultValue="&quot;&lt;prefix&gt;&quot;" alwaysStopAt="true"/>
+    <variable name="SELECTOR" expression="" defaultValue="&quot;&lt;selector&gt;&quot;" alwaysStopAt="true"/>
+    <variable name="COMPNAME" expression="fileNameWithoutExtension()" defaultValue="" alwaysStopAt="false"/>
+    <variable name="TYPE" expression="" defaultValue="&quot;css&quot;" alwaysStopAt="true"/>
+    <variable name="CLASSNAME" expression="capitalize(SELECTOR)" defaultValue="" alwaysStopAt="false"/>
+    <context>
+      <option name="TypeScript" value="true"/>
+    </context>
+  </template>
+
+  <!-- Directives -->
+  <template
+    name="ng2directive"
+    value="@Directive({})&#10;export class Directive {}&#10;$END$"
+    description="Angular2 Directive - Empty"
+    toReformat="false"
+    toShortenFQNames="true">
+    <context>
+      <option name="TypeScript" value="true"/>
+    </context>
+  </template>
+  <template
+    name="ng2directiveBasic"
+    value="@Directive({&#10;  selector: '$SELECTOR$'&#10;})&#10;export class $CLASSNAME$Directive {}&#10;$END$"
+    description="Angular2 Directive - Basic"
+    toReformat="false"
+    toShortenFQNames="true">
+    <variable name="SELECTOR" expression="" defaultValue="&quot;&lt;selector&gt;&quot;" alwaysStopAt="true"/>
+    <variable name="CLASSNAME" expression="capitalize(SELECTOR)" defaultValue="" alwaysStopAt="True"/>
+    <context>
+      <option name="TypeScript" value="true"/>
+    </context>
+  </template>
+  <template
+    name="ng2directiveComplex"
+    value="@Directive({&#10;  selector: '$SELECTOR$',&#10;  providers: [],&#10;  properties: ['']&#10;})&#10;export class $CLASSNAME$Directive {}&#10;$END$"
+    description="Angular2 Directive - Complex"
+    toReformat="false"
+    toShortenFQNames="true">
+    <variable name="SELECTOR" expression="" defaultValue="&quot;&lt;selector&gt;&quot;" alwaysStopAt="true"/>
+    <variable name="CLASSNAME" expression="capitalize(SELECTOR)" defaultValue="" alwaysStopAt="True"/>
+    <context>
+      <option name="TypeScript" value="true"/>
+    </context>
+  </template>
+
+  <!-- Pipe Templates -->
+  <template
+    name="ng2pipeBasic"
+    value="@Pipe({&#10;  name: '$PREFIX$$PIPENAME$'&#10;})&#10;class $CLASSNAME$Pipe implements PipeTransform {&#10;  transform(input: any): any {&#10;    $CODE$&#10;  }&#10;}&#10;$END$"
+    description="Angular2 Pipe - Basic"
+    toReformat="false"
+    toShortenFQNames="true">
+    <variable name="PREFIX" expression="" defaultValue="&quot;&lt;prefix&gt;&quot;" alwaysStopAt="true" />
+    <variable name="PIPENAME" expression="" defaultValue="&quot;PipeName&quot;" alwaysStopAt="true" />
+    <variable name="CLASSNAME" expression="capitalize(PIPENAME)" defaultValue="&quot;ClassName&quot;" alwaysStopAt="false" />
+    <variable name="CODE" expression="" defaultValue="&quot;// Code here&quot;" alwaysStopAt="true" />
+    <context>
+      <option name="TypeScript" value="true" />
+    </context>
+  </template>
+
+  <!-- Service Templates -->
+  <template
+    name="ng2service"
+    value="@Injectable()&#10;export class $SERVICENAME$Service {}&#10;$END$"
+    description="Angular2 Service - Empty"
+    toReformat="false"
+    toShortenFQNames="true">
+    <variable name="SERVICENAME" expression="" defaultValue="&quot;&lt;ServiceName&gt;&quot;" alwaysStopAt="true" />
+    <context>
+      <option name="TypeScript" value="true" />
+    </context>
+  </template>
+
+  <!-- Route Configuration Templates -->
+  <template
+    name="ng2routeConfigBasic"
+    value="@RouteConfig([&#10;  { path: '/$PATH$', name: '$NAME$', component: $COMPONENT$Component, useAsDefault: true }&#10;])"
+    description="Angular2 Route Config - Basic"
+    toReformat="false"
+    toShortenFQNames="true">
+    <variable name="PATH" expression="" defaultValue="&quot;&quot;" alwaysStopAt="true" />
+    <variable name="NAME" expression="" defaultValue="&quot;Name&quot;" alwaysStopAt="true" />
+    <variable name="COMPONENT" expression="capitalize(NAME)" defaultValue="" alwaysStopAt="false" />
+    <context>
+      <option name="TypeScript" value="true" />
+    </context>
+  </template>
+
+  <!-- Routing Templates -->
+  <template
+    name="ng2route"
+    value="{ path: '/$PATH$', name: '$NAME$', component: $COMPONENT$Component  }&#10;$END$"
+    description="Angular2 Route"
+    toReformat="false"
+    toShortenFQNames="true">
+    <variable name="PATH" expression="" defaultValue="&quot;&quot;" alwaysStopAt="true" />
+    <variable name="NAME" expression="" defaultValue="&quot;Name&quot;" alwaysStopAt="true" />
+    <variable name="COMPONENT" expression="capitalize(NAME)" defaultValue="" alwaysStopAt="false" />
+    <context>
+      <option name="TypeScript" value="true" />
+    </context>
+  </template>
+  <template
+    name="ng2routeData"
+    value="{ path: '/$PATH$', name: '$NAME$', component: $COMPONENT$Component, data: {$KEY$: $VALUE$} }&#10;$END$"
+    description="Angular2 Route - Data"
+    toReformat="false"
+    toShortenFQNames="true">
+    <variable name="PATH" expression="" defaultValue="&quot;&quot;" alwaysStopAt="true" />
+    <variable name="NAME" expression="" defaultValue="&quot;Name&quot;" alwaysStopAt="true" />
+    <variable name="COMPONENT" expression="capitalize(NAME)" defaultValue="" alwaysStopAt="false" />
+    <variable name="KEY" expression="" defaultValue="&quot;key&quot;" alwaysStopAt="true" />
+    <variable name="VALUE" expression="" defaultValue="&quot;value&quot;" alwaysStopAt="true" />
+    <context>
+      <option name="TypeScript" value="true" />
+    </context>
+  </template>
+  <template
+    name="ng2routeParam"
+    value="{ path: '/$PATH$/:$ID$', name: '$NAME$', component: $COMPONENT$Component  }&#10;$END$"
+    description="Angular2 Route - Parameterized"
+    toReformat="false"
+    toShortenFQNames="true">
+    <variable name="PATH" expression="" defaultValue="&quot;&quot;" alwaysStopAt="true" />
+    <variable name="ID" expression="" defaultValue="&quot;&lt;ID&gt;&quot;" alwaysStopAt="true" />
+    <variable name="NAME" expression="" defaultValue="&quot;Name&quot;" alwaysStopAt="true" />
+    <variable name="COMPONENT" expression="capitalize(NAME)" defaultValue="" alwaysStopAt="false" />
+    <context>
+      <option name="TypeScript" value="true" />
+    </context>
+  </template>
+  <template
+    name="ng2routeParent"
+    value="{ path: '/$PATH$/...', name: '$NAME$', component: $COMPONENT$Component  }&#10;$END$"
+    description="Angular2 Route - Parent"
+    toReformat="false"
+    toShortenFQNames="true">
+    <variable name="PATH" expression="" defaultValue="&quot;&quot;" alwaysStopAt="true" />
+    <variable name="NAME" expression="" defaultValue="&quot;&quot;" alwaysStopAt="true" />
+    <variable name="COMPONENT" expression="capitalize(NAME)" defaultValue="" alwaysStopAt="false" />
+    <context>
+      <option name="TypeScript" value="true" />
+    </context>
+  </template>
+  <template
+    name="ng2routeRedirect"
+    value="{ path: '/$PATH$', redirectTo: ['/$NAME$'] }&#10;$END$"
+    description="Angular2 Route - Redirect"
+    toReformat="false"
+    toShortenFQNames="true">
+    <variable name="PATH" expression="" defaultValue="&quot;&quot;" alwaysStopAt="true" />
+    <variable name="NAME" expression="" defaultValue="&quot;Name&quot;" alwaysStopAt="true" />
+    <context>
+      <option name="TypeScript" value="true" />
+    </context>
+  </template>
+  <template
+    name="ng2routeWildcard"
+    value="{ path: '/$PATH$/*', name: '$NAME$', component: $COMPONENT$Component  }&#10;$END$"
+    description="Angular2 Route - Wildcard"
+    toReformat="false"
+    toShortenFQNames="true">
+    <variable name="PATH" expression="" defaultValue="&quot;&quot;" alwaysStopAt="true" />
+    <variable name="NAME" expression="" defaultValue="&quot;&quot;" alwaysStopAt="true" />
+    <variable name="COMPONENT" expression="capitalize(NAME)" defaultValue="" alwaysStopAt="false" />
+    <context>
+      <option name="TypeScript" value="true" />
+    </context>
+  </template>
+
+  <!-- HTML build-in Directives -->
+  <template
+    name="ng2class"
+    value="[(ngClass)]=&quot;{$CLASSNAME$: $MAPVALUE$}&quot;"
+    description="Angular2 Class - Built In HTML Directive"
+    toReformat="false"
+    toShortenFQNames="true">
+    <variable name="CLASSNAME" expression="" defaultValue="&quot;class-name&quot;" alwaysStopAt="true" />
+    <variable name="MAPVALUE" expression="" defaultValue="&quot;mapValue&quot;" alwaysStopAt="true" />
+    <context>
+      <option name="HTML_TEXT" value="true" />
+      <option name="HTML" value="true" />
+    </context>
+  </template>
+  <template name="ng2for"
+    value="*ngFor=&quot;$SELECTION$&quot;"
+    description="Angular2 ngFor - Built In HTML Directive"
+    toReformat="false"
+    toShortenFQNames="true">
+    <context>
+      <option name="HTML_TEXT" value="true" />
+      <option name="HTML" value="true" />
+    </context>
+  </template>
+  <template
+    name="ng2if"
+    value="*ngIf=&quot;$SELECTION$&quot;"
+    description="Angular2 ngIf - Built In HTML Directive"
+    toReformat="false"
+    toShortenFQNames="true">
+    <variable name="SELECTION" expression="" defaultValue="&quot;&quot;" alwaysStopAt="true" />
+    <context>
+      <option name="HTML_TEXT" value="true" />
+      <option name="HTML" value="true" />
+    </context>
+  </template>
+  <template
+    name="ng2model"
+    value="[(ngModel)]=&quot;$NAME$&quot;"
+    description="Angular2 Model - Built In HTML Directive"
+    toReformat="false"
+    toShortenFQNames="true">
+    <variable name="NAME" expression="" defaultValue="&quot;modelName&quot;" alwaysStopAt="true"/>
+    <context>
+      <option name="HTML_TEXT" value="true"/>
+      <option name="HTML" value="true"/>
+    </context>
+  </template>
+  <template
+    name="ng2switch"
+    value="[ngSwitch]=&quot;$EXPRESSION$&quot;"
+    description="Angular2 ngSwitch - Built In HTML Directive"
+    toReformat="false"
+    toShortenFQNames="true">
+    <variable name="EXPRESSION" expression="" defaultValue="&quot;conditionalExpression&quot;" alwaysStopAt="true" />
+    <context>
+      <option name="HTML_TEXT" value="true" />
+      <option name="HTML" value="true" />
+    </context>
+  </template>
+  <template
+    name="ng2switchWhen"
+    value="[ngSwitch]=&quot;$EXPRESSION$&quot;"
+    description="Angular2 ngSwitchWhen - Built In HTML Directive"
+    toReformat="false"
+    toShortenFQNames="true">
+    <variable name="EXPRESSION" expression="" defaultValue="&quot;caseExpression&quot;" alwaysStopAt="true" />
+    <context>
+      <option name="HTML_TEXT" value="true" />
+      <option name="HTML" value="true" />
+    </context>
+  </template>
+
+  <!-- User Custom Live Templates -->
+
+</templateSet>
