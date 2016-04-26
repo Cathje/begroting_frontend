@@ -7,11 +7,11 @@ export class MainTown {
     aantalBewoners:number;
     oppervlakte:number;
     oppervlakteMaat:string;
-    isMan:any;
-    isVrouw:any;
-    bestuur:any;
-    isKind:any;
-    aanslagVoet:any;
+    isMan:number;
+    isVrouw:number;
+    bestuur:number;
+    isKind:number;
+    aanslagVoet:number;
     cluster:any;
     deelGemeenten:Town [];
 
