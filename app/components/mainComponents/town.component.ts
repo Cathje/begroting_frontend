@@ -195,8 +195,6 @@ export class TownComponent {
     }
 
     ngOnInit() {
-        console.log('444', this.sunburstData);
-
         /* @TODO CATHERINE INDIEN BACKEND BIJ JOUW NIET WERKT DEZE CALL UIT COMMENTAAR ZETTEN
         EN DE SERVICE  en aside met naam town-info VAN HIERBOVEN IN COMMENTAAR ZETTEN*/
         //this.name = this._routeParams.get('town');

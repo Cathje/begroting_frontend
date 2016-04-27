@@ -1,11 +1,19 @@
 import {Component, Directive, ViewChild, ElementRef, Renderer, Input} from 'angular2/core';
+import * as d3 from 'd3';
+import {Circle} from "~d3/index";
+import {Arc} from "~d3/index";
+import {Pack} from "~d3/index";
+import {Path} from "~d3/index";
+import {ObjectConstructor} from "../../../../../../../../../../../../../Applications/WebStorm.app/Contents/plugins/JavaScriptLanguage/typescriptCompiler/external/lib";
 
 @Component({ //invoke with metadata object
     selector: 'sunburst',
     template: `
       <div id="chart">
         <svg id="chartsvg" [attr.width]="width" [attr.height]="height">
-        <g id="container"></g>
+        <g id="container">
+        <circle [attr.r]="radius"></circle>
+        </g>
         </svg>
         <div id="explanation" style="visibility: hidden;">
           <span id="percentage"></span><br/>
@@ -60,10 +68,9 @@ export class SunburstComponent {
 
     ngOnInit() {
         let radius = Math.min(this.width, this.height) / 2,
-            b = {w: 75, h: 30, s: 3, t: 10},
             totalSize = 0; // total size of all segments
 
-        // Mapping of category names to colors.
+        // TODO: map the right categories to the right color (from dark to light in same branch)
         const colors = {
             "Cultuur en vrije tijd ": "#5687d1",
             "Sport ": "#5687f1",
@@ -83,30 +90,32 @@ export class SunburstComponent {
             "Financiële aangelegenheden ": "#cccccc"
         };
 
-        var vis = d3.select("#container")
+        //TODO: refactor as much code as possible from javascript to html components
+        let container = d3.select("#container")
             .attr("transform", "translate(" + this.width / 2 + "," + this.height / 2 + ")");
 
         var partition = d3.layout.partition()
             .size([2 * Math.PI, radius * radius])
-            .value(function(d) { return d.size; });
+            .value(function(d: Circle) { return d.size; });
+
 
         var arc = d3.svg.arc()
-            .startAngle(function(d) { return d.x; })
-            .endAngle(function(d) { return d.x + d.dx; })
-            .innerRadius(function(d) { return Math.sqrt(d.y); })
-            .outerRadius(function(d) { return Math.sqrt(d.y + d.dy); });
+            .startAngle(function(d: Arc) { return d.x; })
+            .endAngle(function(d: Arc) { return d.x + d.dx; })
+            .innerRadius(function(d: Arc) { return Math.sqrt(d.y); })
+            .outerRadius(function(d: Arc) { return Math.sqrt(d.y + d.dy); });
 
-            var json = buildHierarchy(this.data);
+            var json: Object = buildHierarchy(this.data);
 
             createVisualization(json);
 
 
-// Main function to draw and set up the visualization, once we have the data.
-        function createVisualization(json) {
+        // Main function to draw and set up the visualization, once we have the data.
+        function createVisualization(json: Object) {
 
             // Bounding circle underneath the sunburst, to make it easier to detect
             // when the mouse leaves the parent g.
-            vis.append("svg:circle")
+            container.append("svg:circle")
                 .attr("r", radius)
                 .style("opacity", 0);
 
@@ -116,10 +125,10 @@ export class SunburstComponent {
                     return (d.dx > 0.005); // 0.005 radians = 0.29 degrees
                 });
 
-            var path = vis.data([json]).selectAll("path")
+            var path = container.data([json]).selectAll("path")
                 .data(nodes)
                 .enter().append("svg:path")
-                .attr("display", function(d) { return d.depth ? null : "none"; })
+                .attr("display", function(d: Path) { return d.depth ? null : "none"; })
                 .attr("d", arc)
                 .attr("fill-rule", "evenodd")
                 .style("fill", function(d) { return colors[d.name]; })
@@ -133,7 +142,7 @@ export class SunburstComponent {
             totalSize = path.node().__data__.value;
         };
 
-// Fade all but the current sequence, and show it in the breadcrumb trail.
+        // Fade all but the current sequence
         function mouseover(d) {
 
             var percentage = (100 * d.value / totalSize).toPrecision(3);
@@ -151,26 +160,21 @@ export class SunburstComponent {
             d3.select("#category").text(d.name);
 
             var sequenceArray = getAncestors(d);
-            updateBreadcrumbs(sequenceArray, percentageString);
 
             // Fade all the segments.
             d3.selectAll("path")
                 .style("opacity", 0.3);
 
             // Then highlight only those that are an ancestor of the current segment.
-            vis.selectAll("path")
+            container.selectAll("path")
                 .filter(function(node) {
                     return (sequenceArray.indexOf(node) >= 0);
                 })
                 .style("opacity", 1);
         }
 
-// Restore everything to full opacity when moving off the visualization.
+        // Restore everything to full opacity when moving off the visualization.
         function mouseleave(d) {
-
-            // Hide the breadcrumb trail
-            d3.select("#trail")
-                .style("visibility", "hidden");
 
             // Deactivate all segments during transition.
             d3.selectAll("path").on("mouseover", null);
@@ -183,7 +187,6 @@ export class SunburstComponent {
                 .each("end", function() {
                     d3.select(this).on("mouseover", mouseover);
                 });
-
             d3.select("#explanation")
                 .style("visibility", "hidden");
         }
@@ -201,64 +204,6 @@ export class SunburstComponent {
         }
 
 
-
-// Generate a string that describes the points of a breadcrumb polygon.
-        function breadcrumbPoints(d, i) {
-            var points = [];
-            points.push("0,0");
-            points.push(b.w + ",0");
-            points.push(b.w + b.t + "," + (b.h / 2));
-            points.push(b.w + "," + b.h);
-            points.push("0," + b.h);
-            if (i > 0) { // Leftmost breadcrumb; don't include 6th vertex.
-                points.push(b.t + "," + (b.h / 2));
-            }
-            return points.join(" ");
-        }
-
-// Update the breadcrumb trail to show the current sequence and percentage.
-        function updateBreadcrumbs(nodeArray, percentageString) {
-
-            // Data join; key function combines name and depth (= position in sequence).
-            var g = d3.select("#trail")
-                .selectAll("g")
-                .data(nodeArray, function(d) { return d.name + d.depth; });
-
-            // Add breadcrumb and label for entering nodes.
-            var entering = g.enter().append("svg:g");
-
-            entering.append("svg:polygon")
-                .attr("points", breadcrumbPoints)
-                .style("fill", function(d) { return colors[d.name]; });
-
-            entering.append("svg:text")
-                .attr("x", (b.w + b.t) / 2)
-                .attr("y", b.h / 2)
-                .attr("dy", "0.35em")
-                .attr("text-anchor", "middle")
-                .text(function(d) { return d.name; });
-
-            // Set position for entering and updating nodes.
-            g.attr("transform", function(d, i) {
-                return "translate(" + i * (b.w + b.s) + ", 0)";
-            });
-
-            // Remove exiting nodes.
-            g.exit().remove();
-
-            // Now move and update the percentage at the end.
-            d3.select("#trail").select("#endlabel")
-                .attr("x", (nodeArray.length + 0.5) * (b.w + b.s))
-                .attr("y", b.h / 2)
-                .attr("dy", "0.35em")
-                .attr("text-anchor", "middle")
-                .text(percentageString);
-
-            // Make the breadcrumb trail visible, if it's hidden.
-            d3.select("#trail")
-                .style("visibility", "");
-
-        }
 
 // Take a 2-column CSV and transform it into a hierarchical structure suitable
 // for a partition layout. The first column is a sequence of step names, from

@@ -55,7 +55,6 @@ System.register(['angular2/core', './../../services/townService.component', 'ang
                         .subscribe(function (town) { return _this.mainTown = town; });
                 }
                 TownComponent.prototype.ngOnInit = function () {
-                    console.log('444', this.sunburstData);
                     /* @TODO CATHERINE INDIEN BACKEND BIJ JOUW NIET WERKT DEZE CALL UIT COMMENTAAR ZETTEN
                     EN DE SERVICE  en aside met naam town-info VAN HIERBOVEN IN COMMENTAAR ZETTEN*/
                     //this.name = this._routeParams.get('town');

@@ -1,4 +1,4 @@
-System.register(['angular2/core'], function(exports_1, context_1) {
+System.register(['angular2/core', 'd3'], function(exports_1, context_1) {
     "use strict";
     var __moduleName = context_1 && context_1.id;
     var __decorate = (this && this.__decorate) || function (decorators, target, key, desc) {
@@ -10,12 +10,15 @@ System.register(['angular2/core'], function(exports_1, context_1) {
     var __metadata = (this && this.__metadata) || function (k, v) {
         if (typeof Reflect === "object" && typeof Reflect.metadata === "function") return Reflect.metadata(k, v);
     };
-    var core_1;
+    var core_1, d3;
     var SunburstComponent;
     return {
         setters:[
             function (core_1_1) {
                 core_1 = core_1_1;
+            },
+            function (d3_1) {
+                d3 = d3_1;
             }],
         execute: function() {
             SunburstComponent = (function () {
@@ -24,8 +27,8 @@ System.register(['angular2/core'], function(exports_1, context_1) {
                     this.el = el;
                 }
                 SunburstComponent.prototype.ngOnInit = function () {
-                    var radius = Math.min(this.width, this.height) / 2, b = { w: 75, h: 30, s: 3, t: 10 }, totalSize = 0; // total size of all segments
-                    // Mapping of category names to colors.
+                    var radius = Math.min(this.width, this.height) / 2, totalSize = 0; // total size of all segments
+                    // TODO: map the right categories to the right color (from dark to light in same branch)
                     var colors = {
                         "Cultuur en vrije tijd ": "#5687d1",
                         "Sport ": "#5687f1",
@@ -44,7 +47,8 @@ System.register(['angular2/core'], function(exports_1, context_1) {
                         "Patrimonium zonder maatschappelijk doel ": "#ddd",
                         "Financiële aangelegenheden ": "#cccccc"
                     };
-                    var vis = d3.select("#container")
+                    //TODO: refactor as much code as possible from javascript to html components
+                    var container = d3.select("#container")
                         .attr("transform", "translate(" + this.width / 2 + "," + this.height / 2 + ")");
                     var partition = d3.layout.partition()
                         .size([2 * Math.PI, radius * radius])
@@ -60,7 +64,7 @@ System.register(['angular2/core'], function(exports_1, context_1) {
                     function createVisualization(json) {
                         // Bounding circle underneath the sunburst, to make it easier to detect
                         // when the mouse leaves the parent g.
-                        vis.append("svg:circle")
+                        container.append("svg:circle")
                             .attr("r", radius)
                             .style("opacity", 0);
                         // For efficiency, filter nodes to keep only those large enough to see.
@@ -68,7 +72,7 @@ System.register(['angular2/core'], function(exports_1, context_1) {
                             .filter(function (d) {
                             return (d.dx > 0.005); // 0.005 radians = 0.29 degrees
                         });
-                        var path = vis.data([json]).selectAll("path")
+                        var path = container.data([json]).selectAll("path")
                             .data(nodes)
                             .enter().append("svg:path")
                             .attr("display", function (d) { return d.depth ? null : "none"; })
@@ -83,7 +87,7 @@ System.register(['angular2/core'], function(exports_1, context_1) {
                         totalSize = path.node().__data__.value;
                     }
                     ;
-                    // Fade all but the current sequence, and show it in the breadcrumb trail.
+                    // Fade all but the current sequence
                     function mouseover(d) {
                         var percentage = (100 * d.value / totalSize).toPrecision(3);
                         var percentageString = percentage + "%";
@@ -96,12 +100,11 @@ System.register(['angular2/core'], function(exports_1, context_1) {
                             .style("visibility", "");
                         d3.select("#category").text(d.name);
                         var sequenceArray = getAncestors(d);
-                        updateBreadcrumbs(sequenceArray, percentageString);
                         // Fade all the segments.
                         d3.selectAll("path")
                             .style("opacity", 0.3);
                         // Then highlight only those that are an ancestor of the current segment.
-                        vis.selectAll("path")
+                        container.selectAll("path")
                             .filter(function (node) {
                             return (sequenceArray.indexOf(node) >= 0);
                         })
@@ -109,9 +112,6 @@ System.register(['angular2/core'], function(exports_1, context_1) {
                     }
                     // Restore everything to full opacity when moving off the visualization.
                     function mouseleave(d) {
-                        // Hide the breadcrumb trail
-                        d3.select("#trail")
-                            .style("visibility", "hidden");
                         // Deactivate all segments during transition.
                         d3.selectAll("path").on("mouseover", null);
                         // Transition each segment to full opacity and then reactivate it.
@@ -135,53 +135,6 @@ System.register(['angular2/core'], function(exports_1, context_1) {
                             current = current.parent;
                         }
                         return path;
-                    }
-                    // Generate a string that describes the points of a breadcrumb polygon.
-                    function breadcrumbPoints(d, i) {
-                        var points = [];
-                        points.push("0,0");
-                        points.push(b.w + ",0");
-                        points.push(b.w + b.t + "," + (b.h / 2));
-                        points.push(b.w + "," + b.h);
-                        points.push("0," + b.h);
-                        if (i > 0) {
-                            points.push(b.t + "," + (b.h / 2));
-                        }
-                        return points.join(" ");
-                    }
-                    // Update the breadcrumb trail to show the current sequence and percentage.
-                    function updateBreadcrumbs(nodeArray, percentageString) {
-                        // Data join; key function combines name and depth (= position in sequence).
-                        var g = d3.select("#trail")
-                            .selectAll("g")
-                            .data(nodeArray, function (d) { return d.name + d.depth; });
-                        // Add breadcrumb and label for entering nodes.
-                        var entering = g.enter().append("svg:g");
-                        entering.append("svg:polygon")
-                            .attr("points", breadcrumbPoints)
-                            .style("fill", function (d) { return colors[d.name]; });
-                        entering.append("svg:text")
-                            .attr("x", (b.w + b.t) / 2)
-                            .attr("y", b.h / 2)
-                            .attr("dy", "0.35em")
-                            .attr("text-anchor", "middle")
-                            .text(function (d) { return d.name; });
-                        // Set position for entering and updating nodes.
-                        g.attr("transform", function (d, i) {
-                            return "translate(" + i * (b.w + b.s) + ", 0)";
-                        });
-                        // Remove exiting nodes.
-                        g.exit().remove();
-                        // Now move and update the percentage at the end.
-                        d3.select("#trail").select("#endlabel")
-                            .attr("x", (nodeArray.length + 0.5) * (b.w + b.s))
-                            .attr("y", b.h / 2)
-                            .attr("dy", "0.35em")
-                            .attr("text-anchor", "middle")
-                            .text(percentageString);
-                        // Make the breadcrumb trail visible, if it's hidden.
-                        d3.select("#trail")
-                            .style("visibility", "");
                     }
                     // Take a 2-column CSV and transform it into a hierarchical structure suitable
                     // for a partition layout. The first column is a sequence of step names, from
@@ -244,7 +197,7 @@ System.register(['angular2/core'], function(exports_1, context_1) {
                 SunburstComponent = __decorate([
                     core_1.Component({
                         selector: 'sunburst',
-                        template: "\n      <div id=\"chart\">\n        <svg id=\"chartsvg\" [attr.width]=\"width\" [attr.height]=\"height\">\n        <g id=\"container\"></g>\n        </svg>\n        <div id=\"explanation\" style=\"visibility: hidden;\">\n          <span id=\"percentage\"></span><br/>\n          van het totaal budget gaat naar <span id=\"category\"></span>\n        </div>\n      </div>\n\n    ",
+                        template: "\n      <div id=\"chart\">\n        <svg id=\"chartsvg\" [attr.width]=\"width\" [attr.height]=\"height\">\n        <g id=\"container\">\n        <circle [attr.r]=\"radius\"></circle>\n        </g>\n        </svg>\n        <div id=\"explanation\" style=\"visibility: hidden;\">\n          <span id=\"percentage\"></span><br/>\n          van het totaal budget gaat naar <span id=\"category\"></span>\n        </div>\n      </div>\n\n    ",
                         providers: [],
                         styles: ["\n    #sequence {\n  width: 600px;\n  height: 70px;\n}\n\n#sequence text, #legend text {\n  font-weight: 600;\n  fill: #fff;\n}\n\n#chart {\n  position: relative;\n  text-align: center;\n}\n\n#chart path {\n  stroke: #fff;\n}\n\n#explanation {\n  position: absolute;\n  top: 240px;\n  left: calc(50% - 70px);\n  width: 140px;\n  text-align: center;\n  color: #666;\n  z-index: -1;\n}\n\n#percentage {\n  font-size: 2.5em;\n}\n ",]
                     }), 
