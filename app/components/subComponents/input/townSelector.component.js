@@ -29,11 +29,11 @@ System.register(['angular2/core', 'angular2/router', './../../../services/townSe
         execute: function() {
             TownSelectorComponent = (function () {
                 function TownSelectorComponent(_router, _townService) {
-                    //this.towns = _townService.getTownsHC();
                     var _this = this;
                     this._router = _router;
                     this._townService = _townService;
                     this.selectedTown = new mainTown_1.MainTown("Berchem", "2600");
+                    this.towns = _townService.getTownsHC();
                     _townService.getTowns()
                         .subscribe(function (towns) { return _this.towns = towns; });
                 }

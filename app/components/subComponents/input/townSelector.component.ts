@@ -58,10 +58,11 @@ export class TownSelectorComponent {
 
     constructor( private _router: Router, private _townService: TownService)
     {
-       //this.towns = _townService.getTownsHC();
+       this.towns = _townService.getTownsHC();
 
         _townService.getTowns()
-           .subscribe(towns => this.towns = towns); 
+           .subscribe(towns => this.towns = towns);
+
     }
 
     gotoHome(event: any) {

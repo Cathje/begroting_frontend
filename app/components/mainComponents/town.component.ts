@@ -4,6 +4,7 @@ import { RouteParams } from 'angular2/router';
 import { ROUTER_DIRECTIVES } from 'angular2/router'; // for routing
 import {TownSelectorComponent} from './../subComponents/input/townSelector.component'
 import {MainTown} from "../../models/mainTown";
+import {SunburstComponent} from './../subComponents/graphs/sunburst.component'
 
 @Component({ //invoke with metadata object
     selector: 'home-container',
@@ -76,7 +77,7 @@ import {MainTown} from "../../models/mainTown";
          
         <!-- HIER KOMT DE GRAPH -->
         <section id="content-town">
-            <p>hier komt graph</p>
+            <sunburst [data]=categories width=500 height=600></sunburst>
         </section>     
          
          <!-- HIER KOMEN DE ACTIES DIE BINNEN EEN BEPAALDE CATEGORIE ZITTEN-->
@@ -85,7 +86,7 @@ import {MainTown} from "../../models/mainTown";
         </aside>
        </div>
 `,
-    directives: [ROUTER_DIRECTIVES, TownSelectorComponent],
+    directives: [ROUTER_DIRECTIVES, TownSelectorComponent, SunburstComponent],
     providers: [
         TownService,  //routing
     ],
@@ -177,6 +178,14 @@ export class TownComponent {
     mainTown = new MainTown("","");  //opm: moet geïnitialiseerd zijn, anders werkt ngModel niet
     isVisable=false;
     contentbutton="meer info";
+    categories: [[string, string]] =
+        [["Algemene financiering -Algemene financiering -Financiële aangelegenheden ", "22781"],
+                ["Algemene financiering -Algemene financiering -Patrimonium zonder maatschappelijk doel ", "281"],
+                ["Zorg en opvang -Gezin en kinderen -Kinderopvang ", "3311"],
+                ["Cultuur en vrije tijd -Sport ", "906"],
+                ["Wonen en ruimtelijke ordening -Woonbeleid -Bestrijding van krotwoningen ", "906"],
+                ["Veiligheidszorg ", "906"],
+                ["Leren en onderwijs -Basisonderwijs -Gewoon basisonderwijs ", "906"]];
 
     constructor(private _townService:TownService, private _routeParams:RouteParams)
     {
@@ -186,6 +195,8 @@ export class TownComponent {
     }
 
     ngOnInit() {
+        console.log('444', this.sunburstData);
+
         /* @TODO CATHERINE INDIEN BACKEND BIJ JOUW NIET WERKT DEZE CALL UIT COMMENTAAR ZETTEN
         EN DE SERVICE  en aside met naam town-info VAN HIERBOVEN IN COMMENTAAR ZETTEN*/
         //this.name = this._routeParams.get('town');
