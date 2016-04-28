@@ -39,7 +39,8 @@ import {ProjectOverviewComponent} from './../subComponents/information/projectOv
     .banner-container {
     position:relative;
     height: 350px;
-    overflow:hidden;
+    overflow: hidden;
+    width:100%
 }
 
 .banner-container h3 {
