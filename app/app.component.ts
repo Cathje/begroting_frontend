@@ -81,7 +81,7 @@ text-decoration: none;
 
 @RouteConfig([
     { path: '/', name: 'Home', component:HomeComponent },
-    { path: '/:town', name: 'MainTown', component:TownComponent },
+    { path: '/:id', name: 'MainTown', component:TownComponent },
     { path: '/:town/:projectNumber', name: 'Project', component:ProjectComponent },
     { path: '/townBudget', name: 'TownBudget', component:TownBudgetComponent }
 ])

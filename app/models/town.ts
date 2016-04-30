@@ -3,7 +3,7 @@
  */
 import {MainTown} from "./mainTown";
 export class Town {
-    GemeenteID:string;
+    GemeenteID:number;
     naam:string;
     postCode:string;
     provincie:string;
