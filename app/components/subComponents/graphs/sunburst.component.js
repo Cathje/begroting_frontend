@@ -1,11 +1,11 @@
-System.register(['angular2/core', 'd3'], function(exports_1, context_1) {
-    "use strict";
-    var __moduleName = context_1 && context_1.id;
+System.register(['angular2/core', 'd3'], function(exports_1) {
     var __decorate = (this && this.__decorate) || function (decorators, target, key, desc) {
-        var c = arguments.length, r = c < 3 ? target : desc === null ? desc = Object.getOwnPropertyDescriptor(target, key) : desc, d;
-        if (typeof Reflect === "object" && typeof Reflect.decorate === "function") r = Reflect.decorate(decorators, target, key, desc);
-        else for (var i = decorators.length - 1; i >= 0; i--) if (d = decorators[i]) r = (c < 3 ? d(r) : c > 3 ? d(target, key, r) : d(target, key)) || r;
-        return c > 3 && r && Object.defineProperty(target, key, r), r;
+        if (typeof Reflect === "object" && typeof Reflect.decorate === "function") return Reflect.decorate(decorators, target, key, desc);
+        switch (arguments.length) {
+            case 2: return decorators.reduceRight(function(o, d) { return (d && d(o)) || o; }, target);
+            case 3: return decorators.reduceRight(function(o, d) { return (d && d(target, key)), void 0; }, void 0);
+            case 4: return decorators.reduceRight(function(o, d) { return (d && d(target, key, o)) || o; }, desc);
+        }
     };
     var __metadata = (this && this.__metadata) || function (k, v) {
         if (typeof Reflect === "object" && typeof Reflect.metadata === "function") return Reflect.metadata(k, v);
@@ -27,7 +27,9 @@ System.register(['angular2/core', 'd3'], function(exports_1, context_1) {
                     this.el = el;
                 }
                 SunburstComponent.prototype.ngOnInit = function () {
-                    var radius = Math.min(this.width, this.height) / 2, totalSize = 0; // total size of all segments
+                    this.radius = Math.min(this.width, this.height) / 2;
+                    this.translation = "translate(" + this.width / 2 + "," + this.height / 2 + ")";
+                    var totalSize = 0; // total size of all segments
                     // TODO: map the right categories to the right color (from dark to light in same branch)
                     var colors = {
                         "Cultuur en vrije tijd ": "#5687d1",
@@ -48,10 +50,8 @@ System.register(['angular2/core', 'd3'], function(exports_1, context_1) {
                         "Financiële aangelegenheden ": "#cccccc"
                     };
                     //TODO: refactor as much code as possible from javascript to html components
-                    var container = d3.select("#container")
-                        .attr("transform", "translate(" + this.width / 2 + "," + this.height / 2 + ")");
                     var partition = d3.layout.partition()
-                        .size([2 * Math.PI, radius * radius])
+                        .size([2 * Math.PI, this.radius * this.radius])
                         .value(function (d) { return d.size; });
                     var arc = d3.svg.arc()
                         .startAngle(function (d) { return d.x; })
@@ -62,17 +62,12 @@ System.register(['angular2/core', 'd3'], function(exports_1, context_1) {
                     createVisualization(json);
                     // Main function to draw and set up the visualization, once we have the data.
                     function createVisualization(json) {
-                        // Bounding circle underneath the sunburst, to make it easier to detect
-                        // when the mouse leaves the parent g.
-                        container.append("svg:circle")
-                            .attr("r", radius)
-                            .style("opacity", 0);
                         // For efficiency, filter nodes to keep only those large enough to see.
                         var nodes = partition.nodes(json)
                             .filter(function (d) {
                             return (d.dx > 0.005); // 0.005 radians = 0.29 degrees
                         });
-                        var path = container.data([json]).selectAll("path")
+                        var path = d3.select("#container").data([json]).selectAll("path")
                             .data(nodes)
                             .enter().append("svg:path")
                             .attr("display", function (d) { return d.depth ? null : "none"; })
@@ -91,7 +86,7 @@ System.register(['angular2/core', 'd3'], function(exports_1, context_1) {
                     function mouseover(d) {
                         var percentage = (100 * d.value / totalSize).toPrecision(3);
                         var percentageString = percentage + "%";
-                        if (percentage < 0.1) {
+                        if (parseFloat(percentage) < 0.1) {
                             percentageString = "< 0.1%";
                         }
                         d3.select("#percentage")
@@ -104,7 +99,7 @@ System.register(['angular2/core', 'd3'], function(exports_1, context_1) {
                         d3.selectAll("path")
                             .style("opacity", 0.3);
                         // Then highlight only those that are an ancestor of the current segment.
-                        container.selectAll("path")
+                        d3.select("#container").selectAll("path")
                             .filter(function (node) {
                             return (sequenceArray.indexOf(node) >= 0);
                         })
@@ -141,7 +136,8 @@ System.register(['angular2/core', 'd3'], function(exports_1, context_1) {
                     // root to leaf, separated by hyphens. The second column is a count of how
                     // often that sequence occurred.
                     function buildHierarchy(csv) {
-                        var root = { "name": "root", "children": [] };
+                        var root = { "name": "root", "children": [Object] };
+                        console.log(csv);
                         for (var i = 0; i < csv.length; i++) {
                             var sequence = csv[i][0];
                             var size = +csv[i][1];
@@ -178,6 +174,7 @@ System.register(['angular2/core', 'd3'], function(exports_1, context_1) {
                                 }
                             }
                         }
+                        console.log(root);
                         return root;
                     }
                     ;
@@ -185,26 +182,26 @@ System.register(['angular2/core', 'd3'], function(exports_1, context_1) {
                 __decorate([
                     core_1.Input(), 
                     __metadata('design:type', Array)
-                ], SunburstComponent.prototype, "data", void 0);
+                ], SunburstComponent.prototype, "data");
                 __decorate([
                     core_1.Input(), 
                     __metadata('design:type', Number)
-                ], SunburstComponent.prototype, "width", void 0);
+                ], SunburstComponent.prototype, "width");
                 __decorate([
                     core_1.Input(), 
                     __metadata('design:type', Number)
-                ], SunburstComponent.prototype, "height", void 0);
+                ], SunburstComponent.prototype, "height");
                 SunburstComponent = __decorate([
                     core_1.Component({
                         selector: 'sunburst',
-                        template: "\n      <div id=\"chart\">\n        <svg id=\"chartsvg\" [attr.width]=\"width\" [attr.height]=\"height\">\n        <g id=\"container\">\n        <circle [attr.r]=\"radius\"></circle>\n        </g>\n        </svg>\n        <div id=\"explanation\" style=\"visibility: hidden;\">\n          <span id=\"percentage\"></span><br/>\n          van het totaal budget gaat naar <span id=\"category\"></span>\n        </div>\n      </div>\n\n    ",
+                        template: "\n      <div id=\"chart\">\n        <svg id=\"chartsvg\" [attr.width]=\"width\" [attr.height]=\"height\">\n        <g id=\"container\" [attr.transform]=\"translation\">\n        <circle [attr.r]=\"radius\" opacity=\"0\"></circle>\n        </g>\n        </svg>\n        <div id=\"explanation\" style=\"visibility: hidden;\">\n          <span id=\"percentage\"></span><br/>\n          van het totaal budget gaat naar <span id=\"category\"></span>\n        </div>\n      </div>\n\n    ",
                         providers: [],
                         styles: ["\n    #sequence {\n  width: 600px;\n  height: 70px;\n}\n\n#sequence text, #legend text {\n  font-weight: 600;\n  fill: #fff;\n}\n\n#chart {\n  position: relative;\n  text-align: center;\n}\n\n#chart path {\n  stroke: #fff;\n}\n\n#explanation {\n  position: absolute;\n  top: 240px;\n  left: calc(50% - 70px);\n  width: 140px;\n  text-align: center;\n  color: #666;\n  z-index: -1;\n}\n\n#percentage {\n  font-size: 2.5em;\n}\n ",]
                     }), 
                     __metadata('design:paramtypes', [core_1.Renderer, core_1.ElementRef])
                 ], SunburstComponent);
                 return SunburstComponent;
-            }());
+            })();
             exports_1("SunburstComponent", SunburstComponent);
         }
     }

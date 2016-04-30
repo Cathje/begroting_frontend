@@ -1,18 +1,14 @@
 import {Component, Directive, ViewChild, ElementRef, Renderer, Input} from 'angular2/core';
+/// <reference path="../../../../typings/browser/definitions/d3/index.d.ts" />
 import * as d3 from 'd3';
-import {Circle} from "~d3/index";
-import {Arc} from "~d3/index";
-import {Pack} from "~d3/index";
-import {Path} from "~d3/index";
-import {ObjectConstructor} from "../../../../../../../../../../../../../Applications/WebStorm.app/Contents/plugins/JavaScriptLanguage/typescriptCompiler/external/lib";
 
 @Component({ //invoke with metadata object
     selector: 'sunburst',
     template: `
       <div id="chart">
         <svg id="chartsvg" [attr.width]="width" [attr.height]="height">
-        <g id="container">
-        <circle [attr.r]="radius"></circle>
+        <g id="container" [attr.transform]="translation">
+        <circle [attr.r]="radius" opacity="0"></circle>
         </g>
         </svg>
         <div id="explanation" style="visibility: hidden;">
@@ -63,12 +59,15 @@ export class SunburstComponent {
     @Input() data: [[string, string]];
     @Input() width: number;
     @Input() height: number;
+    radius: number;
+    translation: string;
 
     constructor(public renderer: Renderer, public el: ElementRef){ }
 
     ngOnInit() {
-        let radius = Math.min(this.width, this.height) / 2,
-            totalSize = 0; // total size of all segments
+        this.radius = Math.min(this.width, this.height) / 2;
+        this.translation = "translate(" + this.width / 2 + "," + this.height / 2 + ")";
+        let totalSize = 0; // total size of all segments
 
         // TODO: map the right categories to the right color (from dark to light in same branch)
         const colors = {
@@ -91,19 +90,16 @@ export class SunburstComponent {
         };
 
         //TODO: refactor as much code as possible from javascript to html components
-        let container = d3.select("#container")
-            .attr("transform", "translate(" + this.width / 2 + "," + this.height / 2 + ")");
-
         var partition = d3.layout.partition()
-            .size([2 * Math.PI, radius * radius])
-            .value(function(d: Circle) { return d.size; });
+            .size([2 * Math.PI, this.radius * this.radius])
+            .value(function(d: any) { return d.size; });
 
 
         var arc = d3.svg.arc()
-            .startAngle(function(d: Arc) { return d.x; })
-            .endAngle(function(d: Arc) { return d.x + d.dx; })
-            .innerRadius(function(d: Arc) { return Math.sqrt(d.y); })
-            .outerRadius(function(d: Arc) { return Math.sqrt(d.y + d.dy); });
+            .startAngle(function(d: any) { return d.x; })
+            .endAngle(function(d: any) { return d.x + d.dx; })
+            .innerRadius(function(d: any) { return Math.sqrt(d.y); })
+            .outerRadius(function(d: any) { return Math.sqrt(d.y + d.dy); });
 
             var json: Object = buildHierarchy(this.data);
 
@@ -113,25 +109,19 @@ export class SunburstComponent {
         // Main function to draw and set up the visualization, once we have the data.
         function createVisualization(json: Object) {
 
-            // Bounding circle underneath the sunburst, to make it easier to detect
-            // when the mouse leaves the parent g.
-            container.append("svg:circle")
-                .attr("r", radius)
-                .style("opacity", 0);
-
             // For efficiency, filter nodes to keep only those large enough to see.
-            var nodes = partition.nodes(json)
-                .filter(function(d) {
+            var nodes: any = partition.nodes(json)
+                .filter(function(d : any) {
                     return (d.dx > 0.005); // 0.005 radians = 0.29 degrees
                 });
 
-            var path = container.data([json]).selectAll("path")
+            var path = d3.select("#container").data([json]).selectAll("path")
                 .data(nodes)
                 .enter().append("svg:path")
-                .attr("display", function(d: Path) { return d.depth ? null : "none"; })
+                .attr("display", function(d: any) { return d.depth ? null : "none"; })
                 .attr("d", arc)
                 .attr("fill-rule", "evenodd")
-                .style("fill", function(d) { return colors[d.name]; })
+                .style("fill", function(d : any) { return colors[d.name]; })
                 .style("opacity", 1)
                 .on("mouseover", mouseover);
 
@@ -143,11 +133,11 @@ export class SunburstComponent {
         };
 
         // Fade all but the current sequence
-        function mouseover(d) {
+        function mouseover(d: any) {
 
             var percentage = (100 * d.value / totalSize).toPrecision(3);
             var percentageString = percentage + "%";
-            if (percentage < 0.1) {
+            if (parseFloat(percentage) < 0.1) {
                 percentageString = "< 0.1%";
             }
 
@@ -166,7 +156,7 @@ export class SunburstComponent {
                 .style("opacity", 0.3);
 
             // Then highlight only those that are an ancestor of the current segment.
-            container.selectAll("path")
+            d3.select("#container").selectAll("path")
                 .filter(function(node) {
                     return (sequenceArray.indexOf(node) >= 0);
                 })
@@ -174,7 +164,7 @@ export class SunburstComponent {
         }
 
         // Restore everything to full opacity when moving off the visualization.
-        function mouseleave(d) {
+        function mouseleave(d : any) {
 
             // Deactivate all segments during transition.
             d3.selectAll("path").on("mouseover", null);
@@ -193,8 +183,8 @@ export class SunburstComponent {
 
 // Given a node in a partition layout, return an array of all of its ancestor
 // nodes, highest first, but excluding the root.
-        function getAncestors(node) {
-            var path = [];
+        function getAncestors(node: any) {
+            var path: Array<Object> = [];
             var current = node;
             while (current.parent) {
                 path.unshift(current);
@@ -209,8 +199,9 @@ export class SunburstComponent {
 // for a partition layout. The first column is a sequence of step names, from
 // root to leaf, separated by hyphens. The second column is a count of how
 // often that sequence occurred.
-        function buildHierarchy(csv) {
-            var root = {"name": "root", "children": []};
+        function buildHierarchy(csv: [Object]) {
+            var root = {"name": "root", "children": [Object]};
+            console.log(csv);
             for (var i = 0; i < csv.length; i++) {
                 var sequence = csv[i][0];
                 var size = +csv[i][1];
@@ -218,11 +209,11 @@ export class SunburstComponent {
                     continue;
                 }
                 var parts = sequence.split("-");
-                var currentNode = root;
+                var currentNode : Object = root;
                 for (var j = 0; j < parts.length; j++) {
                     var children = currentNode["children"];
                     var nodeName = parts[j];
-                    var childNode;
+                    var childNode: Object;
                     if (j + 1 < parts.length) {
                         // Not yet at the end of the sequence; move down the tree.
                         var foundChild = false;
@@ -246,6 +237,7 @@ export class SunburstComponent {
                     }
                 }
             }
+            console.log(root);
             return root;
         };
 

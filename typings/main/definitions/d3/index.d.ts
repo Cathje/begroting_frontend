@@ -2748,7 +2748,7 @@ module d3 {
     }
   }
 
-  module layout {
+  export module layout {
     export function bundle(): Bundle<bundle.Node>;
     export function bundle<T extends bundle.Node>(): Bundle<T>
 
