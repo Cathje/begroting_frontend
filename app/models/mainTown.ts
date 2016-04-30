@@ -1,6 +1,6 @@
 import {Town} from "./town";
 export class MainTown {
-    GemeenteID:string;
+    GemeenteID:number;
     naam:string;
     postCode:string;
     provincie:string;
@@ -15,8 +15,9 @@ export class MainTown {
     cluster:any;
     deelGemeenten:Town [];
 
-    constructor(name:string, postCode: string) {
+    constructor(name:string, postCode: string, gemeenteId:number) {
         this.naam = name;
         this.postCode = postCode;
+        this.GemeenteID = gemeenteId;
     }
 }

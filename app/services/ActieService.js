@@ -1,4 +1,4 @@
-System.register(['angular2/core', './../mockData/mock-towns', 'angular2/http', 'rxjs/observable', 'rxjs/Rx'], function(exports_1, context_1) {
+System.register(['angular2/core', 'angular2/http', 'rxjs/observable', 'rxjs/Rx'], function(exports_1, context_1) {
     "use strict";
     var __moduleName = context_1 && context_1.id;
     var __decorate = (this && this.__decorate) || function (decorators, target, key, desc) {
@@ -10,15 +10,12 @@ System.register(['angular2/core', './../mockData/mock-towns', 'angular2/http', '
     var __metadata = (this && this.__metadata) || function (k, v) {
         if (typeof Reflect === "object" && typeof Reflect.metadata === "function") return Reflect.metadata(k, v);
     };
-    var core_1, mock_towns_1, http_1, observable_1;
-    var TownService;
+    var core_1, http_1, observable_1;
+    var ActieService;
     return {
         setters:[
             function (core_1_1) {
                 core_1 = core_1_1;
-            },
-            function (mock_towns_1_1) {
-                mock_towns_1 = mock_towns_1_1;
             },
             function (http_1_1) {
                 http_1 = http_1_1;
@@ -28,37 +25,28 @@ System.register(['angular2/core', './../mockData/mock-towns', 'angular2/http', '
             },
             function (_1) {}],
         execute: function() {
-            TownService = (function () {
-                function TownService(http) {
+            ActieService = (function () {
+                function ActieService(http) {
                     this.http = http;
-                    this._url = 'http://localhost:52597/api/Gemeente';
+                    this._url = 'http://localhost:52597/api/Actie';
                 }
-                TownService.prototype.getTowns = function () {
-                    return this.http.get(this._url)
+                ActieService.prototype.getActies = function (catCode, gemeenteId) {
+                    return this.http.get(this._url + "?catCode=" + catCode + "&gemeenteId=" + gemeenteId)
                         .map(function (res) { return res.json(); })
                         .catch(this.handleError);
                 };
-                //ophalen van 1 hoofdGemeente
-                TownService.prototype.getTown = function (id) {
-                    return this.http.get(this._url + "/" + id)
-                        .map(function (res) { return res.json(); })
-                        .catch(this.handleError);
-                };
-                TownService.prototype.handleError = function (error) {
+                ActieService.prototype.handleError = function (error) {
                     console.error(error);
                     return observable_1.Observable.throw(error.json().error || 'server error');
                 };
-                TownService.prototype.getTownsHC = function () {
-                    return mock_towns_1.TOWNS;
-                };
-                TownService = __decorate([
+                ActieService = __decorate([
                     core_1.Injectable(), 
                     __metadata('design:paramtypes', [http_1.Http])
-                ], TownService);
-                return TownService;
+                ], ActieService);
+                return ActieService;
             }());
-            exports_1("TownService", TownService);
+            exports_1("ActieService", ActieService);
         }
     }
 });
-//# sourceMappingURL=townService.component.js.map
+//# sourceMappingURL=ActieService.js.map

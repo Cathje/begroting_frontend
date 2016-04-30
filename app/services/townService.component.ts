@@ -22,8 +22,8 @@ export class TownService {
     }
 
     //ophalen van 1 hoofdGemeente
-    getTown(name: string):Observable<MainTown> {
-        return this.http.get(this._url + "?name=" + name)
+    getTown(id: number):Observable<MainTown> {
+        return this.http.get(this._url + "/" + id)
             .map(res => res.json())
             .catch(this.handleError);
     }

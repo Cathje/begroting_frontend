@@ -9,9 +9,9 @@ import {MainTown} from "../../../models/mainTown";
     selector: 'town-selector',
     template: `
                  <div class=" styled-select slate right-align">
-                    <select class=""  (change)="gotoHome($event)">
+                    <select class="" (change)="gotoHome($event)">
                         <option>Selecteer een gemeente</option>
-                        <option *ngFor="#town of towns" [value]="town.naam">{{town.naam}} </option>
+                        <option *ngFor="#town of towns" [value]="town.GemeenteID">{{town.naam}} </option>
                     </select>
                 </div>
     `,
@@ -54,7 +54,7 @@ select {
 
 export class TownSelectorComponent {
     towns: MainTown [];
-    selectedTown = new MainTown("Berchem","2600" );
+    selectedTown = new MainTown("Berchem","2600", 0);
 
     constructor( private _router: Router, private _townService: TownService)
     {
@@ -65,6 +65,7 @@ export class TownSelectorComponent {
     }
 
     gotoHome(event: any) {
-        this._router.navigate(['MainTown', { town: event.target.value}]);
+       // alert(event.target.value)
+      this._router.navigate(['MainTown', { id: event.target.value}]);
     }
 }
