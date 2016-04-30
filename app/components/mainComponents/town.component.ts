@@ -95,7 +95,6 @@ import {Actie} from "../../models/actie";
        </div>
 `,
     directives: [ROUTER_DIRECTIVES, TownSelectorComponent, SunburstComponent],
-    providers: [
     providers: [ BegrotingService,ActieService,
         TownService,  //routing
     ],
@@ -184,7 +183,6 @@ import {Actie} from "../../models/actie";
 export class TownComponent {
     title = 'Gemeente - home';
     name:string = "";
-    mainTown = new MainTown("","");  //opm: moet geïnitialiseerd zijn, anders werkt ngModel niet
     mainTown = new MainTown("","",0);  //opm: moet geïnitialiseerd zijn, anders werkt ngModel niet
     isVisable=false;
     contentbutton="meer info";
@@ -199,11 +197,9 @@ export class TownComponent {
                 ["Wonen en ruimtelijke ordening -Woonbeleid -Bestrijding van krotwoningen ", "906"],
                 ["Veiligheidszorg ", "906"],
                 ["Leren en onderwijs -Basisonderwijs -Gewoon basisonderwijs ", "906"]];
-
-    constructor(private _townService:TownService, private _routeParams:RouteParams)
+    
     constructor(private _townService:TownService, _begrotingService:BegrotingService, _actieService:ActieService, private _routeParams:RouteParams)
     {
-        _townService.getTown(this._routeParams.get('town'))
         this.id = +this._routeParams.get('id');
         _townService.getTown(this.id)
             .subscribe(town => this.mainTown = town
