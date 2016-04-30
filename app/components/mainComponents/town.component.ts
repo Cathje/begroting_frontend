@@ -5,6 +5,9 @@ import { ROUTER_DIRECTIVES } from 'angular2/router'; // for routing
 import {TownSelectorComponent} from './../subComponents/input/townSelector.component'
 import {MainTown} from "../../models/mainTown";
 import {SunburstComponent} from './../subComponents/graphs/sunburst.component'
+import {BegrotingService} from "../../services/begrotingService";
+import {ActieService} from "../../services/ActieService";
+import {Actie} from "../../models/actie";
 
 @Component({ //invoke with metadata object
     selector: 'home-container',
@@ -78,16 +81,22 @@ import {SunburstComponent} from './../subComponents/graphs/sunburst.component'
         <!-- HIER KOMT DE GRAPH -->
         <section id="content-town">
             <sunburst [data]=categories width=500 height=600></sunburst>
+            
+            <!--@TODO  TEST, NOG TE VERWIJDEREN-->
+             <p *ngFor="#town of uitgaves"> {{town.catCode}} - {{town.naamCatx}} - {{town.naamCaty}} - {{town.naamCatz}} - {{town.uitgave}} </p>
         </section>     
          
          <!-- HIER KOMEN DE ACTIES DIE BINNEN EEN BEPAALDE CATEGORIE ZITTEN-->
         <aside id="actions">
        <p> hier komen actions bij klik/hover over een categorie</p>
+       <!--@TODO  TEST, NOG TE VERWIJDEREN-->
+        <p *ngFor="#actie of acties"> {{actie.actieLang}} -  {{actie.actieKort}}</p>
         </aside>
        </div>
 `,
     directives: [ROUTER_DIRECTIVES, TownSelectorComponent, SunburstComponent],
     providers: [
+    providers: [ BegrotingService,ActieService,
         TownService,  //routing
     ],
     styles: [`
@@ -176,8 +185,12 @@ export class TownComponent {
     title = 'Gemeente - home';
     name:string = "";
     mainTown = new MainTown("","");  //opm: moet geïnitialiseerd zijn, anders werkt ngModel niet
+    mainTown = new MainTown("","",0);  //opm: moet geïnitialiseerd zijn, anders werkt ngModel niet
     isVisable=false;
     contentbutton="meer info";
+    uitgaves: FinancieleLijn [];
+    acties: Actie[];
+    id:number;
     categories: [[string, string]] =
         [["Algemene financiering -Algemene financiering -Financiële aangelegenheden ", "22781"],
                 ["Algemene financiering -Algemene financiering -Patrimonium zonder maatschappelijk doel ", "281"],
@@ -188,10 +201,24 @@ export class TownComponent {
                 ["Leren en onderwijs -Basisonderwijs -Gewoon basisonderwijs ", "906"]];
 
     constructor(private _townService:TownService, private _routeParams:RouteParams)
+    constructor(private _townService:TownService, _begrotingService:BegrotingService, _actieService:ActieService, private _routeParams:RouteParams)
     {
         _townService.getTown(this._routeParams.get('town'))
+        this.id = +this._routeParams.get('id');
+        _townService.getTown(this.id)
             .subscribe(town => this.mainTown = town
              );
+
+        _begrotingService.getFinancieleLijnen(2020,571)
+            .subscribe(finan => this.uitgaves = finan
+            );
+
+        /* @TODO Catherine, Deze methode gaat dus de acties tonen die bij een bepaalde cat horen. Je kan dit testen door de gemeente Gent te selecteren
+         Dus wss zal deze methode verplaatst moeten worden naar een onClick event in de sunburst.
+         Nu staat er momenteel een catCode hardcoded in. 
+         */
+        _actieService.getActies("0905",this.id)
+            .subscribe(acties => this.acties = acties);
     }
 
     ngOnInit() {
