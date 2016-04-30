@@ -5,18 +5,29 @@ import {ProjectService} from './../../../services/projectService.component';
 
 @Component({ //invoke with metadata object
     selector: 'project-overview',
-    template: `<div class="polaroid" *ngFor="#project of projects">
+    template: `<div class="container">
+                    <div class="polaroid" *ngFor="#project of projects">
                     <div class="img-container">
                          <img src="./app/images/categories/{{project.categoryNumber}}.jpg"/>
                     </div>
                     <p>{{project.town}}</p>
                     <p>{{project.name}}</p>
                 </div>
+                </div>
                 `,
     providers: [ProjectService],
     styles: [`img:hover{
     transform: scale(1.2);
     transition: all 0.25s ease-in;
+
+}
+
+    .container{
+    width: 100%;
+    background-color: #2ac7d2;
+    color:white;
+    text-align: center;
+    padding-bottom: 20px;
 }
 
 
