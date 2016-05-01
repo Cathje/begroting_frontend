@@ -1,1 +1,1 @@
-{"version":3,"file":"actie.js","sourceRoot":"","sources":["actie.ts"],"names":[],"mappings":";;;;;;;YAAA;;eAEG;YACH;gBAAA;gBAIA,CAAC;gBAAD,YAAC;YAAD,CAAC,AAJD,IAIC;YAJD,yBAIC,CAAA"}
+{"version":3,"file":"actie.js","sourceRoot":"","sources":["actie.ts"],"names":["Actie","Actie.constructor"],"mappings":";;;;;YAAA;;eAEG;YACH;gBAAAA;gBAIAC,CAACA;gBAADD,YAACA;YAADA,CAACA,AAJD,IAIC;YAJD,yBAIC,CAAA"}
