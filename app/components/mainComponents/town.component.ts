@@ -11,28 +11,20 @@ import {SunburstComponent} from './../subComponents/graphs/sunburst.component'
     template: `
         <nav class="home-menu" >
                 <div class="breadcrum" >
-                <a [routerLink]="['Home']">Home</a>
-                <a [routerLink]="['TownBudget']">Begrotingsvoorstel</a>
+                    <a [routerLink]="['Home']">Home</a>
+                    <a [routerLink]="['TownBudget']">Begrotingsvoorstel</a>
                 </div>
                 <h3>{{mainTown?.naam}}</h3>
-                <town-selector></town-selector>              
+                <div>
+                    <town-selector></town-selector>
+                </div>
         </nav>
-        <!-- <h3>{{name}}</h3> --> 
-        
         <div class="container">
         
         <!-- HiER KOMEN DE KERNGEGEVENS EN OPENSTAANDE PROJECT(EN) VAN EEN GEMEENTE -->  
         <aside id="info-town"> 
-        <h5>Kern gegevens</h5>
            <form>
-                 <fieldset>   
-                    <p>
-                        <label for="postCode">Postcode:</label>
-                        <input type="text"  [(ngModel)]="mainTown.postCode" maxlength="4" size="4"/>
-                    </p>
-                    <button class="showInfo" [hidden]="isVisable" (click)="toggle()">meer info</button>
-            </fieldset>
-            <fieldset [style.display]="isVisable?'inherit':'none'">
+            <fieldset >
                <legend>Demografische gegevens</legend>
                     <p>
                         <label for="aantalBewoners">Aantal bewoners:</label>
@@ -51,7 +43,7 @@ import {SunburstComponent} from './../subComponents/graphs/sunburst.component'
                         <input type="number"  [(ngModel)]="mainTown.isKind" step="any"/>
                     </p>
             </fieldset><br>
-            <fieldset [style.display]="isVisable?'inherit':'none'">
+            <fieldset>
                 <legend>Geografische gegevens</legend>
                 
                      <p><strong>Provincie:</strong> <span>{{mainTown.provincie}}</span></p>
@@ -93,17 +85,20 @@ import {SunburstComponent} from './../subComponents/graphs/sunburst.component'
     styles: [`
    
     .home-menu {
-    padding: 1% 2% 0 2%; 
+    padding: 5px;
     background-color: #2ac7d2;
     display: flex;
     flex-direction: row;
     justify-content: space-between;
+    align-items: center;
+    sel
     }
 
     h3 {
     margin: 0;
     padding-bottom: 1%;
     font-size: 3rem;
+    color: white;
     }
     
     .container {
@@ -117,7 +112,6 @@ import {SunburstComponent} from './../subComponents/graphs/sunburst.component'
     padding: 1%;
     flex-shrink: 2; 
     -webkit-flex-shrink: 2;
-    border-right: #3498db solid 1px;    
     }
     
     #content-town {
@@ -125,7 +119,6 @@ import {SunburstComponent} from './../subComponents/graphs/sunburst.component'
     margin-left: 1%;
     flex: 3;
     -webkit-flex-grow: 3;
-    border: black solid 2px;  <!-- @TODO: LATER TE VERWIJDEREN -->
     }
     
         
@@ -134,7 +127,6 @@ import {SunburstComponent} from './../subComponents/graphs/sunburst.component'
     margin-left: 1%;
     flex: 1; 
     -webkit-flex-grow: 1;
-    border: black solid 2px;  <!-- @TODO: LATER TE VERWIJDEREN -->
     }
     input[type="number"] 
     {
@@ -178,7 +170,14 @@ export class TownComponent {
     mainTown = new MainTown("","");  //opm: moet geïnitialiseerd zijn, anders werkt ngModel niet
     isVisable=false;
     contentbutton="meer info";
-    categories: [[string, string]] =
+    categories: [[any]] =
+    [["0990","Algemene financiering","Algemene financiering","Financiële aangelegenheden", 22781],
+        ["0991","Algemene financiering", "Algemene financiering","Patrimonium zonder maatschappelijk doel",281],
+        ["099","Zorg en opvang", "Gezin en kinderen",3311],
+        ["098","Cultuur en vrije tijd","Sport",906],
+        [ "09","Veiligheidszorg ",906]];
+
+    categories2: [[string, string]] =
         [["Algemene financiering -Algemene financiering -Financiële aangelegenheden ", "22781"],
                 ["Algemene financiering -Algemene financiering -Patrimonium zonder maatschappelijk doel ", "281"],
                 ["Zorg en opvang -Gezin en kinderen -Kinderopvang ", "3311"],

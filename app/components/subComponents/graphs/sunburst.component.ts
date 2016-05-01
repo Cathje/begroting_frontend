@@ -15,6 +15,9 @@ import * as d3 from 'd3';
           <span id="percentage"></span><br/>
           van het totaal budget gaat naar <span id="category"></span>
         </div>
+        <div id="explanation2">
+          <span>Welke proportie van de begroting gaat naar welke categorie?</span>
+        </div>
       </div>
 
     `,
@@ -49,7 +52,19 @@ import * as d3 from 'd3';
   z-index: -1;
 }
 
-#percentage {
+#explanation2 {
+  position: absolute;
+  top: 240px;
+  left: calc(50% - 70px);
+  width: 140px;
+  text-align: center;
+  color: #666;
+  z-index: -1;
+    font-size: 1.4em;
+
+}
+
+#percentage{
   font-size: 2.5em;
 }
  `,]
@@ -68,40 +83,21 @@ export class SunburstComponent {
         this.radius = Math.min(this.width, this.height) / 2;
         this.translation = "translate(" + this.width / 2 + "," + this.height / 2 + ")";
         let totalSize = 0; // total size of all segments
-
-        // TODO: map the right categories to the right color (from dark to light in same branch)
-        const colors = {
-            "Cultuur en vrije tijd ": "#5687d1",
-            "Sport ": "#5687f1",
-            "Leren en onderwijs ": "#7b615c",
-            "Basisonderwijs ": "#7b61fc",
-            "Gewoon basisonderwijs ": "#7b61ac",
-            "Veiligheidszorg ": "#de783b",
-            "Politiediensten ": "#de789f",
-            "Wonen en ruimtelijke ordening ": "#6ab975",
-            "Woonbeleid ": "#6ab975",
-            "Bestrijding van krotwoningen ": "#6ab975",
-            "Zorg en opvang ": "#a173d1",
-            "Kinderopvang ": "#a173d1",
-            "Gezin en kinderen ": "#a173d1",
-            "Algemene financiering ": "#bbbbbb",
-            "Patrimonium zonder maatschappelijk doel ": "#ddd",
-            "Financiële aangelegenheden ": "#cccccc"
-        };
+        const colors = {};
 
         //TODO: refactor as much code as possible from javascript to html components
-        var partition = d3.layout.partition()
+        let partition = d3.layout.partition()
             .size([2 * Math.PI, this.radius * this.radius])
             .value(function(d: any) { return d.size; });
 
 
-        var arc = d3.svg.arc()
+        let arc = d3.svg.arc()
             .startAngle(function(d: any) { return d.x; })
             .endAngle(function(d: any) { return d.x + d.dx; })
             .innerRadius(function(d: any) { return Math.sqrt(d.y); })
             .outerRadius(function(d: any) { return Math.sqrt(d.y + d.dy); });
 
-            var json: Object = buildHierarchy(this.data);
+            let json: Object = buildHierarchy(this.data);
 
             createVisualization(json);
 
@@ -110,12 +106,12 @@ export class SunburstComponent {
         function createVisualization(json: Object) {
 
             // For efficiency, filter nodes to keep only those large enough to see.
-            var nodes: any = partition.nodes(json)
+            let nodes: any = partition.nodes(json)
                 .filter(function(d : any) {
                     return (d.dx > 0.005); // 0.005 radians = 0.29 degrees
                 });
 
-            var path = d3.select("#container").data([json]).selectAll("path")
+            let path = d3.select("#container").data([json]).selectAll("path")
                 .data(nodes)
                 .enter().append("svg:path")
                 .attr("display", function(d: any) { return d.depth ? null : "none"; })
@@ -135,8 +131,8 @@ export class SunburstComponent {
         // Fade all but the current sequence
         function mouseover(d: any) {
 
-            var percentage = (100 * d.value / totalSize).toPrecision(3);
-            var percentageString = percentage + "%";
+            let percentage = (100 * d.value / totalSize).toPrecision(3);
+            let percentageString = percentage + "%";
             if (parseFloat(percentage) < 0.1) {
                 percentageString = "< 0.1%";
             }
@@ -146,6 +142,9 @@ export class SunburstComponent {
 
             d3.select("#explanation")
                 .style("visibility", "");
+
+            d3.select("#explanation2")
+                .style("visibility", "hidden");
 
             d3.select("#category").text(d.name);
 
@@ -179,13 +178,15 @@ export class SunburstComponent {
                 });
             d3.select("#explanation")
                 .style("visibility", "hidden");
+            d3.select("#explanation2")
+                .style("visibility", "");
         }
 
 // Given a node in a partition layout, return an array of all of its ancestor
 // nodes, highest first, but excluding the root.
         function getAncestors(node: any) {
-            var path: Array<Object> = [];
-            var current = node;
+            let path: Array<Object> = [];
+            let current = node;
             while (current.parent) {
                 path.unshift(current);
                 current = current.parent;
@@ -199,22 +200,20 @@ export class SunburstComponent {
 // for a partition layout. The first column is a sequence of step names, from
 // root to leaf, separated by hyphens. The second column is a count of how
 // often that sequence occurred.
-        function buildHierarchy(csv: [Object]) {
-            var root = {"name": "root", "children": [Object]};
-            console.log(csv);
-            for (var i = 0; i < csv.length; i++) {
-                var sequence = csv[i][0];
-                var size = +csv[i][1];
+        function buildHierarchy(data: [Object]) {
+            let root = {"name": "root", "children": [Object]};
+            for (let i = 0; i < data.length; i++) {
+                let size = +data[i][Object.keys(data[i]).length-1];
                 if (isNaN(size)) { // e.g. if this is a header row
                     continue;
                 }
-                var parts = sequence.split("-");
-                var currentNode : Object = root;
-                for (var j = 0; j < parts.length; j++) {
-                    var children = currentNode["children"];
-                    var nodeName = parts[j];
-                    var childNode: Object;
-                    if (j + 1 < parts.length) {
+
+                let currentNode : Object = root;
+                for (let j = 1; j < Object.keys(data[i]).length-1; j++) {
+                    let children = currentNode["children"];
+                    let nodeName = data[i][j];
+                    let childNode: Object;
+                    if (j + 1 < Object.keys(data[i]).length-1) {
                         // Not yet at the end of the sequence; move down the tree.
                         var foundChild = false;
                         for (var k = 0; k < children.length; k++) {
@@ -228,18 +227,31 @@ export class SunburstComponent {
                         if (!foundChild) {
                             childNode = {"name": nodeName, "children": []};
                             children.push(childNode);
+                            colors[nodeName] = get_random_color();
                         }
                         currentNode = childNode;
                     } else {
                         // Reached the end of the sequence; create a leaf node.
                         childNode = {"name": nodeName, "size": size};
+                        colors[nodeName] = get_random_color();
                         children.push(childNode);
                     }
                 }
             }
-            console.log(root);
+            console.log(colors);
             return root;
         };
+
+        function rand(min: number, max: number) {
+            return parseInt(Math.random() * (max-min+1), 10) + min;
+        }
+
+        function get_random_color() {
+            var h = rand(180, 190);
+            var s = rand(60, 65);
+            var l = rand(20, 70);
+            return 'hsl(' + h + ',' + s + '%,' + l + '%)';
+        }
 
     }
 

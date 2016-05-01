@@ -30,25 +30,7 @@ System.register(['angular2/core', 'd3'], function(exports_1) {
                     this.radius = Math.min(this.width, this.height) / 2;
                     this.translation = "translate(" + this.width / 2 + "," + this.height / 2 + ")";
                     var totalSize = 0; // total size of all segments
-                    // TODO: map the right categories to the right color (from dark to light in same branch)
-                    var colors = {
-                        "Cultuur en vrije tijd ": "#5687d1",
-                        "Sport ": "#5687f1",
-                        "Leren en onderwijs ": "#7b615c",
-                        "Basisonderwijs ": "#7b61fc",
-                        "Gewoon basisonderwijs ": "#7b61ac",
-                        "Veiligheidszorg ": "#de783b",
-                        "Politiediensten ": "#de789f",
-                        "Wonen en ruimtelijke ordening ": "#6ab975",
-                        "Woonbeleid ": "#6ab975",
-                        "Bestrijding van krotwoningen ": "#6ab975",
-                        "Zorg en opvang ": "#a173d1",
-                        "Kinderopvang ": "#a173d1",
-                        "Gezin en kinderen ": "#a173d1",
-                        "Algemene financiering ": "#bbbbbb",
-                        "Patrimonium zonder maatschappelijk doel ": "#ddd",
-                        "Financiële aangelegenheden ": "#cccccc"
-                    };
+                    var colors = {};
                     //TODO: refactor as much code as possible from javascript to html components
                     var partition = d3.layout.partition()
                         .size([2 * Math.PI, this.radius * this.radius])
@@ -93,6 +75,8 @@ System.register(['angular2/core', 'd3'], function(exports_1) {
                             .text(percentageString);
                         d3.select("#explanation")
                             .style("visibility", "");
+                        d3.select("#explanation2")
+                            .style("visibility", "hidden");
                         d3.select("#category").text(d.name);
                         var sequenceArray = getAncestors(d);
                         // Fade all the segments.
@@ -119,6 +103,8 @@ System.register(['angular2/core', 'd3'], function(exports_1) {
                         });
                         d3.select("#explanation")
                             .style("visibility", "hidden");
+                        d3.select("#explanation2")
+                            .style("visibility", "");
                     }
                     // Given a node in a partition layout, return an array of all of its ancestor
                     // nodes, highest first, but excluding the root.
@@ -135,22 +121,19 @@ System.register(['angular2/core', 'd3'], function(exports_1) {
                     // for a partition layout. The first column is a sequence of step names, from
                     // root to leaf, separated by hyphens. The second column is a count of how
                     // often that sequence occurred.
-                    function buildHierarchy(csv) {
+                    function buildHierarchy(data) {
                         var root = { "name": "root", "children": [Object] };
-                        console.log(csv);
-                        for (var i = 0; i < csv.length; i++) {
-                            var sequence = csv[i][0];
-                            var size = +csv[i][1];
+                        for (var i = 0; i < data.length; i++) {
+                            var size = +data[i][Object.keys(data[i]).length - 1];
                             if (isNaN(size)) {
                                 continue;
                             }
-                            var parts = sequence.split("-");
                             var currentNode = root;
-                            for (var j = 0; j < parts.length; j++) {
+                            for (var j = 1; j < Object.keys(data[i]).length - 1; j++) {
                                 var children = currentNode["children"];
-                                var nodeName = parts[j];
-                                var childNode;
-                                if (j + 1 < parts.length) {
+                                var nodeName = data[i][j];
+                                var childNode = void 0;
+                                if (j + 1 < Object.keys(data[i]).length - 1) {
                                     // Not yet at the end of the sequence; move down the tree.
                                     var foundChild = false;
                                     for (var k = 0; k < children.length; k++) {
@@ -164,20 +147,31 @@ System.register(['angular2/core', 'd3'], function(exports_1) {
                                     if (!foundChild) {
                                         childNode = { "name": nodeName, "children": [] };
                                         children.push(childNode);
+                                        colors[nodeName] = get_random_color();
                                     }
                                     currentNode = childNode;
                                 }
                                 else {
                                     // Reached the end of the sequence; create a leaf node.
                                     childNode = { "name": nodeName, "size": size };
+                                    colors[nodeName] = get_random_color();
                                     children.push(childNode);
                                 }
                             }
                         }
-                        console.log(root);
+                        console.log(colors);
                         return root;
                     }
                     ;
+                    function rand(min, max) {
+                        return parseInt(Math.random() * (max - min + 1), 10) + min;
+                    }
+                    function get_random_color() {
+                        var h = rand(180, 190);
+                        var s = rand(60, 65);
+                        var l = rand(20, 70);
+                        return 'hsl(' + h + ',' + s + '%,' + l + '%)';
+                    }
                 };
                 __decorate([
                     core_1.Input(), 
@@ -194,9 +188,9 @@ System.register(['angular2/core', 'd3'], function(exports_1) {
                 SunburstComponent = __decorate([
                     core_1.Component({
                         selector: 'sunburst',
-                        template: "\n      <div id=\"chart\">\n        <svg id=\"chartsvg\" [attr.width]=\"width\" [attr.height]=\"height\">\n        <g id=\"container\" [attr.transform]=\"translation\">\n        <circle [attr.r]=\"radius\" opacity=\"0\"></circle>\n        </g>\n        </svg>\n        <div id=\"explanation\" style=\"visibility: hidden;\">\n          <span id=\"percentage\"></span><br/>\n          van het totaal budget gaat naar <span id=\"category\"></span>\n        </div>\n      </div>\n\n    ",
+                        template: "\n      <div id=\"chart\">\n        <svg id=\"chartsvg\" [attr.width]=\"width\" [attr.height]=\"height\">\n        <g id=\"container\" [attr.transform]=\"translation\">\n        <circle [attr.r]=\"radius\" opacity=\"0\"></circle>\n        </g>\n        </svg>\n        <div id=\"explanation\" style=\"visibility: hidden;\">\n          <span id=\"percentage\"></span><br/>\n          van het totaal budget gaat naar <span id=\"category\"></span>\n        </div>\n        <div id=\"explanation2\">\n          <span>Welke proportie van de begroting gaat naar welke categorie?</span>\n        </div>\n      </div>\n\n    ",
                         providers: [],
-                        styles: ["\n    #sequence {\n  width: 600px;\n  height: 70px;\n}\n\n#sequence text, #legend text {\n  font-weight: 600;\n  fill: #fff;\n}\n\n#chart {\n  position: relative;\n  text-align: center;\n}\n\n#chart path {\n  stroke: #fff;\n}\n\n#explanation {\n  position: absolute;\n  top: 240px;\n  left: calc(50% - 70px);\n  width: 140px;\n  text-align: center;\n  color: #666;\n  z-index: -1;\n}\n\n#percentage {\n  font-size: 2.5em;\n}\n ",]
+                        styles: ["\n    #sequence {\n  width: 600px;\n  height: 70px;\n}\n\n#sequence text, #legend text {\n  font-weight: 600;\n  fill: #fff;\n}\n\n#chart {\n  position: relative;\n  text-align: center;\n}\n\n#chart path {\n  stroke: #fff;\n}\n\n#explanation {\n  position: absolute;\n  top: 240px;\n  left: calc(50% - 70px);\n  width: 140px;\n  text-align: center;\n  color: #666;\n  z-index: -1;\n}\n\n#explanation2 {\n  position: absolute;\n  top: 240px;\n  left: calc(50% - 70px);\n  width: 140px;\n  text-align: center;\n  color: #666;\n  z-index: -1;\n    font-size: 1.4em;\n\n}\n\n#percentage{\n  font-size: 2.5em;\n}\n ",]
                     }), 
                     __metadata('design:paramtypes', [core_1.Renderer, core_1.ElementRef])
                 ], SunburstComponent);
