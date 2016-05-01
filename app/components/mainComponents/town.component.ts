@@ -14,28 +14,20 @@ import {Actie} from "../../models/actie";
     template: `
         <nav class="home-menu" >
                 <div class="breadcrum" >
-                <a [routerLink]="['Home']">Home</a>
-                <a [routerLink]="['TownBudget']">Begrotingsvoorstel</a>
+                    <a [routerLink]="['Home']">Home</a>
+                    <a [routerLink]="['TownBudget']">Begrotingsvoorstel</a>
                 </div>
                 <h3>{{mainTown?.naam}}</h3>
-                <town-selector></town-selector>              
+                <div>
+                    <town-selector></town-selector>
+                </div>
         </nav>
-        <!-- <h3>{{name}}</h3> --> 
-        
         <div class="container">
         
         <!-- HiER KOMEN DE KERNGEGEVENS EN OPENSTAANDE PROJECT(EN) VAN EEN GEMEENTE -->  
         <aside id="info-town"> 
-        <h5>Kern gegevens</h5>
            <form>
-                 <fieldset>   
-                    <p>
-                        <label for="postCode">Postcode:</label>
-                        <input type="text"  [(ngModel)]="mainTown.postCode" maxlength="4" size="4"/>
-                    </p>
-                    <button class="showInfo" [hidden]="isVisable" (click)="toggle()">meer info</button>
-            </fieldset>
-            <fieldset [style.display]="isVisable?'inherit':'none'">
+            <fieldset >
                <legend>Demografische gegevens</legend>
                     <p>
                         <label for="aantalBewoners">Aantal bewoners:</label>
@@ -54,7 +46,7 @@ import {Actie} from "../../models/actie";
                         <input type="number"  [(ngModel)]="mainTown.isKind" step="any"/>
                     </p>
             </fieldset><br>
-            <fieldset [style.display]="isVisable?'inherit':'none'">
+            <fieldset>
                 <legend>Geografische gegevens</legend>
                 
                      <p><strong>Provincie:</strong> <span>{{mainTown.provincie}}</span></p>
@@ -101,17 +93,20 @@ import {Actie} from "../../models/actie";
     styles: [`
    
     .home-menu {
-    padding: 1% 2% 0 2%; 
+    padding: 5px;
     background-color: #2ac7d2;
     display: flex;
     flex-direction: row;
     justify-content: space-between;
+    align-items: center;
+    sel
     }
 
     h3 {
     margin: 0;
     padding-bottom: 1%;
     font-size: 3rem;
+    color: white;
     }
     
     .container {
@@ -125,7 +120,6 @@ import {Actie} from "../../models/actie";
     padding: 1%;
     flex-shrink: 2; 
     -webkit-flex-shrink: 2;
-    border-right: #3498db solid 1px;    
     }
     
     #content-town {
@@ -133,7 +127,6 @@ import {Actie} from "../../models/actie";
     margin-left: 1%;
     flex: 3;
     -webkit-flex-grow: 3;
-    border: black solid 2px;  <!-- @TODO: LATER TE VERWIJDEREN -->
     }
     
         
@@ -142,7 +135,6 @@ import {Actie} from "../../models/actie";
     margin-left: 1%;
     flex: 1; 
     -webkit-flex-grow: 1;
-    border: black solid 2px;  <!-- @TODO: LATER TE VERWIJDEREN -->
     }
     input[type="number"] 
     {
@@ -189,15 +181,13 @@ export class TownComponent {
     uitgaves: FinancieleLijn [];
     acties: Actie[];
     id:number;
-    categories: [[string, string]] =
-        [["Algemene financiering -Algemene financiering -Financiële aangelegenheden ", "22781"],
-                ["Algemene financiering -Algemene financiering -Patrimonium zonder maatschappelijk doel ", "281"],
-                ["Zorg en opvang -Gezin en kinderen -Kinderopvang ", "3311"],
-                ["Cultuur en vrije tijd -Sport ", "906"],
-                ["Wonen en ruimtelijke ordening -Woonbeleid -Bestrijding van krotwoningen ", "906"],
-                ["Veiligheidszorg ", "906"],
-                ["Leren en onderwijs -Basisonderwijs -Gewoon basisonderwijs ", "906"]];
-    
+    categories: [[any]] =
+    [["0990","Algemene financiering","Algemene financiering","Financiële aangelegenheden", 22781],
+        ["0991","Algemene financiering", "Algemene financiering","Patrimonium zonder maatschappelijk doel",281],
+        ["099","Zorg en opvang", "Gezin en kinderen",3311],
+        ["098","Cultuur en vrije tijd","Sport",906],
+        [ "09","Veiligheidszorg ",906]];
+
     constructor(private _townService:TownService, _begrotingService:BegrotingService, _actieService:ActieService, private _routeParams:RouteParams)
     {
         this.id = +this._routeParams.get('id');
