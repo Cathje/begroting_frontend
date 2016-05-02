@@ -74,6 +74,7 @@ export class SunburstComponent {
     @Input() data: [[string, string]];
     @Input() width: number;
     @Input() height: number;
+    @Input() onClick: any;
     radius: number;
     translation: string;
 
@@ -119,7 +120,8 @@ export class SunburstComponent {
                 .attr("fill-rule", "evenodd")
                 .style("fill", function(d : any) { return colors[d.name]; })
                 .style("opacity", 1)
-                .on("mouseover", mouseover);
+                .on("mouseover", mouseover)
+                .on("mousedown", mouseclick);
 
             // Add the mouseleave handler to the bounding circle.
             d3.select("#container").on("mouseleave", mouseleave);
@@ -182,6 +184,11 @@ export class SunburstComponent {
                 .style("visibility", "");
         }
 
+        function mouseclick(d : any) {
+            console.log('clicked');
+
+        }
+
 // Given a node in a partition layout, return an array of all of its ancestor
 // nodes, highest first, but excluding the root.
         function getAncestors(node: any) {
@@ -203,17 +210,18 @@ export class SunburstComponent {
         function buildHierarchy(data: [Object]) {
             let root = {"name": "root", "children": [Object]};
             for (let i = 0; i < data.length; i++) {
-                let size = +data[i][Object.keys(data[i]).length-1];
+                let size = +data[i]['uitgave'];
                 if (isNaN(size)) { // e.g. if this is a header row
                     continue;
                 }
 
                 let currentNode : Object = root;
-                for (let j = 1; j < Object.keys(data[i]).length-1; j++) {
+                Object.keys(data[i]).map((value) => {
                     let children = currentNode["children"];
-                    let nodeName = data[i][j];
+                    let nodeName : string;
                     let childNode: Object;
-                    if (j + 1 < Object.keys(data[i]).length-1) {
+                    if(value === 'naamCatx' || value === 'naamCaty'){
+                        nodeName = data[i][value];
                         // Not yet at the end of the sequence; move down the tree.
                         var foundChild = false;
                         for (var k = 0; k < children.length; k++) {
@@ -230,13 +238,14 @@ export class SunburstComponent {
                             colors[nodeName] = get_random_color();
                         }
                         currentNode = childNode;
-                    } else {
+                    } else if(value === 'naamCatz'){
+                        nodeName = data[i][value];
                         // Reached the end of the sequence; create a leaf node.
                         childNode = {"name": nodeName, "size": size};
                         colors[nodeName] = get_random_color();
                         children.push(childNode);
                     }
-                }
+                });
             }
             console.log(colors);
             return root;

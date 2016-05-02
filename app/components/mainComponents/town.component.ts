@@ -25,7 +25,7 @@ import {Actie} from "../../models/actie";
         <div class="container">
         
         <!-- HiER KOMEN DE KERNGEGEVENS EN OPENSTAANDE PROJECT(EN) VAN EEN GEMEENTE -->  
-        <aside id="info-town"> 
+        <aside id="demographic">
            <form>
             <fieldset >
                <legend>Demografische gegevens</legend>
@@ -45,41 +45,45 @@ import {Actie} from "../../models/actie";
                         <label for="isChild">Aantal kinderen:</label>
                         <input type="number"  [(ngModel)]="mainTown.isKind" step="any"/>
                     </p>
-            </fieldset><br>
-            <fieldset>
-                <legend>Geografische gegevens</legend>
-                
-                     <p><strong>Provincie:</strong> <span>{{mainTown.provincie}}</span></p>
-                     <p>
-                        <label for="oppervlakte">Oppervlakte:</label>
-                        <input type="number"  [(ngModel)]="mainTown.oppervlakte"  readonly step="any" /> 
-                    </p>
-                     <p>
-                        <label for="oppervlakteMaat">Oppervlakte maat:</label>
-                        <input type="text"  [(ngModel)]="mainTown.oppervlakteMaat" size="4" readonly /> 
-                    </p>
-                    <p><strong>Deelgemeenten: </strong></p>
-                    <div  *ngIf="mainTown?.deelGemeenten" >
-                        <ul>
-                            <li *ngFor="#town of mainTown.deelGemeenten"><span>{{town.naam}} - {{town.postCode}}</span></li> 
-                        </ul>
-                    </div>
-                    <p *ngIf="!mainTown.deelGemeenten"><i>Er zijn geen deelgemeentes</i></p>
-                    <button class="showInfo" [hidden]="!isVisable"(click)="toggle()">minder info</button>
             </fieldset>
            </form>
         </aside>
          
         <!-- HIER KOMT DE GRAPH -->
         <section id="content-town">
-            <sunburst [data]=categories width=500 height=600></sunburst>
+            <sunburst [data]=categories width=500 height=600 [onClick]=onClick></sunburst>
             
             <!--@TODO  TEST, NOG TE VERWIJDEREN-->
              <p *ngFor="#town of uitgaves"> {{town.catCode}} - {{town.naamCatx}} - {{town.naamCaty}} - {{town.naamCatz}} - {{town.uitgave}} </p>
         </section>     
          
          <!-- HIER KOMEN DE ACTIES DIE BINNEN EEN BEPAALDE CATEGORIE ZITTEN-->
-        <aside id="actions">
+        <aside id="geographic">
+
+        <form>
+            <fieldset>
+                <legend>Geografische gegevens</legend>
+
+                     <p><strong>Provincie:</strong> <span>{{mainTown.provincie}}</span></p>
+                     <p>
+                        <label for="oppervlakte">Oppervlakte:</label>
+                        <input type="number"  [(ngModel)]="mainTown.oppervlakte"  readonly step="any" />
+                    </p>
+                     <p>
+                        <label for="oppervlakteMaat">Oppervlakte maat:</label>
+                        <input type="text"  [(ngModel)]="mainTown.oppervlakteMaat" size="4" readonly />
+                    </p>
+                    <p><strong>Deelgemeenten: </strong></p>
+                    <div  *ngIf="mainTown?.deelGemeenten" >
+                        <ul>
+                            <li *ngFor="#town of mainTown.deelGemeenten"><span>{{town.naam}} - {{town.postCode}}</span></li>
+                        </ul>
+                    </div>
+                    <p *ngIf="!mainTown.deelGemeenten"><i>Er zijn geen deelgemeentes</i></p>
+                    <button class="showInfo" [hidden]="!isVisable"(click)="toggle()">minder info</button>
+            </fieldset>
+           </form>
+
        <p> hier komen actions bij klik/hover over een categorie</p>
        <!--@TODO  TEST, NOG TE VERWIJDEREN-->
         <p *ngFor="#actie of acties"> {{actie.actieLang}} -  {{actie.actieKort}}</p>
@@ -128,13 +132,21 @@ import {Actie} from "../../models/actie";
     flex: 3;
     -webkit-flex-grow: 3;
     }
-    
+
+    #geographic {
+    padding: 1%;
+    margin-left: 1%;
+    flex: 1;
+    -webkit-flex-grow: 1;
+    text-align: right;
+    }
         
     #actions   {
     padding: 1%;
     margin-left: 1%;
     flex: 1; 
     -webkit-flex-grow: 1;
+
     }
     input[type="number"] 
     {
@@ -181,12 +193,14 @@ export class TownComponent {
     uitgaves: FinancieleLijn [];
     acties: Actie[];
     id:number;
-    categories: [[any]] =
-    [["0990","Algemene financiering","Algemene financiering","Financiële aangelegenheden", 22781],
-        ["0991","Algemene financiering", "Algemene financiering","Patrimonium zonder maatschappelijk doel",281],
-        ["099","Zorg en opvang", "Gezin en kinderen",3311],
-        ["098","Cultuur en vrije tijd","Sport",906],
-        [ "09","Veiligheidszorg ",906]];
+    categories: FinancieleLijn [] =
+    [{catCode:"0990",naamCatx:"Algemene financiering",naamCaty:"Algemene financiering",naamCatz:"Financiële aangelegenheden",uitgave: 22781},
+{catCode:"0991", naamCatx:"Algemene financiering", naamCaty:"Algemene financiering",naamCatz:"Patrimonium zonder maatschappelijk doel",uitgave:281},
+{catCode:"099",naamCaty:"Zorg en opvang", naamCatz:"Gezin en kinderen",uitgave:3311},
+{catCode:"098",naamCaty:"Cultuur en vrije tijd",naamCatz:"Sport",uitgave:906}];
+    onClick: any = () => {
+        alert('hey');
+    }
 
     constructor(private _townService:TownService, _begrotingService:BegrotingService, _actieService:ActieService, private _routeParams:RouteParams)
     {

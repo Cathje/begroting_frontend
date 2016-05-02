@@ -1,11 +1,11 @@
-System.register(['angular2/core', './components/mainComponents/home.component', './components/mainComponents/town.component', './components/mainComponents/project.component', './components/mainComponents/townBudget.component', 'angular2/router', "angular2/http"], function(exports_1) {
+System.register(['angular2/core', './components/mainComponents/home.component', './components/mainComponents/town.component', './components/mainComponents/project.component', './components/mainComponents/townBudget.component', 'angular2/router', "angular2/http"], function(exports_1, context_1) {
+    "use strict";
+    var __moduleName = context_1 && context_1.id;
     var __decorate = (this && this.__decorate) || function (decorators, target, key, desc) {
-        if (typeof Reflect === "object" && typeof Reflect.decorate === "function") return Reflect.decorate(decorators, target, key, desc);
-        switch (arguments.length) {
-            case 2: return decorators.reduceRight(function(o, d) { return (d && d(o)) || o; }, target);
-            case 3: return decorators.reduceRight(function(o, d) { return (d && d(target, key)), void 0; }, void 0);
-            case 4: return decorators.reduceRight(function(o, d) { return (d && d(target, key, o)) || o; }, desc);
-        }
+        var c = arguments.length, r = c < 3 ? target : desc === null ? desc = Object.getOwnPropertyDescriptor(target, key) : desc, d;
+        if (typeof Reflect === "object" && typeof Reflect.decorate === "function") r = Reflect.decorate(decorators, target, key, desc);
+        else for (var i = decorators.length - 1; i >= 0; i--) if (d = decorators[i]) r = (c < 3 ? d(r) : c > 3 ? d(target, key, r) : d(target, key)) || r;
+        return c > 3 && r && Object.defineProperty(target, key, r), r;
     };
     var __metadata = (this && this.__metadata) || function (k, v) {
         if (typeof Reflect === "object" && typeof Reflect.metadata === "function") return Reflect.metadata(k, v);
@@ -47,7 +47,7 @@ System.register(['angular2/core', './components/mainComponents/home.component', 
                         directives: [router_1.ROUTER_DIRECTIVES],
                         providers: [
                             router_1.ROUTER_PROVIDERS, http_1.HTTP_PROVIDERS],
-                        styles: [".menu {\n    background-color: black;\n    color:white;\n    padding: 20px;\n    text-align: left;\n}\n\n.logo {\n    width: 150px;\n    margin: 0 auto;\n\n}\n#social:last-child {\npadding-right: 3%;\n}\n#titelSocial{\npadding-right: 10px;\n}\n\n.socialBtn:hover{\ntext-decoration: none;\n}\n\n.signIn  {\n    color:white;\n    padding:10px;\n}\n\n"]
+                        styles: [".menu {\n    background-color: black;\n    color:white;\n    padding: 20px;\n    text-align: left;\n}\n\n.logo {\n    width: 150px;\n    margin: 0 auto;\n\n}\n#social:last-child {\npadding-right: 3%;\n}\n#titelSocial{\npadding-right: 10px;\n}\n\n.socialBtn:hover{\ntext-decoration: none;\n}\n\n.socialBtn img {\nborder-radius: 50%;\n}\n\n.signIn  {\n    color:white;\n    padding:10px;\n}\n\n"]
                     }),
                     router_1.RouteConfig([
                         { path: '/', name: 'Home', component: home_component_1.HomeComponent },
@@ -58,7 +58,7 @@ System.register(['angular2/core', './components/mainComponents/home.component', 
                     __metadata('design:paramtypes', [])
                 ], AppComponent);
                 return AppComponent;
-            })();
+            }());
             exports_1("AppComponent", AppComponent);
         }
     }

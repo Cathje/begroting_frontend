@@ -1,11 +1,11 @@
-System.register(['angular2/core', 'd3'], function(exports_1) {
+System.register(['angular2/core', 'd3'], function(exports_1, context_1) {
+    "use strict";
+    var __moduleName = context_1 && context_1.id;
     var __decorate = (this && this.__decorate) || function (decorators, target, key, desc) {
-        if (typeof Reflect === "object" && typeof Reflect.decorate === "function") return Reflect.decorate(decorators, target, key, desc);
-        switch (arguments.length) {
-            case 2: return decorators.reduceRight(function(o, d) { return (d && d(o)) || o; }, target);
-            case 3: return decorators.reduceRight(function(o, d) { return (d && d(target, key)), void 0; }, void 0);
-            case 4: return decorators.reduceRight(function(o, d) { return (d && d(target, key, o)) || o; }, desc);
-        }
+        var c = arguments.length, r = c < 3 ? target : desc === null ? desc = Object.getOwnPropertyDescriptor(target, key) : desc, d;
+        if (typeof Reflect === "object" && typeof Reflect.decorate === "function") r = Reflect.decorate(decorators, target, key, desc);
+        else for (var i = decorators.length - 1; i >= 0; i--) if (d = decorators[i]) r = (c < 3 ? d(r) : c > 3 ? d(target, key, r) : d(target, key)) || r;
+        return c > 3 && r && Object.defineProperty(target, key, r), r;
     };
     var __metadata = (this && this.__metadata) || function (k, v) {
         if (typeof Reflect === "object" && typeof Reflect.metadata === "function") return Reflect.metadata(k, v);
@@ -57,7 +57,8 @@ System.register(['angular2/core', 'd3'], function(exports_1) {
                             .attr("fill-rule", "evenodd")
                             .style("fill", function (d) { return colors[d.name]; })
                             .style("opacity", 1)
-                            .on("mouseover", mouseover);
+                            .on("mouseover", mouseover)
+                            .on("mousedown", mouseclick);
                         // Add the mouseleave handler to the bounding circle.
                         d3.select("#container").on("mouseleave", mouseleave);
                         // Get total size of the tree = value of root node from partition.
@@ -106,6 +107,9 @@ System.register(['angular2/core', 'd3'], function(exports_1) {
                         d3.select("#explanation2")
                             .style("visibility", "");
                     }
+                    function mouseclick(d) {
+                        console.log('clicked');
+                    }
                     // Given a node in a partition layout, return an array of all of its ancestor
                     // nodes, highest first, but excluding the root.
                     function getAncestors(node) {
@@ -123,17 +127,18 @@ System.register(['angular2/core', 'd3'], function(exports_1) {
                     // often that sequence occurred.
                     function buildHierarchy(data) {
                         var root = { "name": "root", "children": [Object] };
-                        for (var i = 0; i < data.length; i++) {
-                            var size = +data[i][Object.keys(data[i]).length - 1];
+                        var _loop_1 = function(i) {
+                            var size = +data[i]['uitgave'];
                             if (isNaN(size)) {
-                                continue;
+                                return "continue";
                             }
                             var currentNode = root;
-                            for (var j = 1; j < Object.keys(data[i]).length - 1; j++) {
+                            Object.keys(data[i]).map(function (value) {
                                 var children = currentNode["children"];
-                                var nodeName = data[i][j];
-                                var childNode = void 0;
-                                if (j + 1 < Object.keys(data[i]).length - 1) {
+                                var nodeName;
+                                var childNode;
+                                if (value === 'naamCatx' || value === 'naamCaty') {
+                                    nodeName = data[i][value];
                                     // Not yet at the end of the sequence; move down the tree.
                                     var foundChild = false;
                                     for (var k = 0; k < children.length; k++) {
@@ -151,13 +156,18 @@ System.register(['angular2/core', 'd3'], function(exports_1) {
                                     }
                                     currentNode = childNode;
                                 }
-                                else {
+                                else if (value === 'naamCatz') {
+                                    nodeName = data[i][value];
                                     // Reached the end of the sequence; create a leaf node.
                                     childNode = { "name": nodeName, "size": size };
                                     colors[nodeName] = get_random_color();
                                     children.push(childNode);
                                 }
-                            }
+                            });
+                        };
+                        for (var i = 0; i < data.length; i++) {
+                            var state_1 = _loop_1(i);
+                            if (state_1 === "continue") continue;
                         }
                         console.log(colors);
                         return root;
@@ -176,15 +186,19 @@ System.register(['angular2/core', 'd3'], function(exports_1) {
                 __decorate([
                     core_1.Input(), 
                     __metadata('design:type', Array)
-                ], SunburstComponent.prototype, "data");
+                ], SunburstComponent.prototype, "data", void 0);
                 __decorate([
                     core_1.Input(), 
                     __metadata('design:type', Number)
-                ], SunburstComponent.prototype, "width");
+                ], SunburstComponent.prototype, "width", void 0);
                 __decorate([
                     core_1.Input(), 
                     __metadata('design:type', Number)
-                ], SunburstComponent.prototype, "height");
+                ], SunburstComponent.prototype, "height", void 0);
+                __decorate([
+                    core_1.Input(), 
+                    __metadata('design:type', Object)
+                ], SunburstComponent.prototype, "onClick", void 0);
                 SunburstComponent = __decorate([
                     core_1.Component({
                         selector: 'sunburst',
@@ -195,7 +209,7 @@ System.register(['angular2/core', 'd3'], function(exports_1) {
                     __metadata('design:paramtypes', [core_1.Renderer, core_1.ElementRef])
                 ], SunburstComponent);
                 return SunburstComponent;
-            })();
+            }());
             exports_1("SunburstComponent", SunburstComponent);
         }
     }

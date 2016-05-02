@@ -71,6 +71,10 @@ padding-right: 10px;
 text-decoration: none;
 }
 
+.socialBtn img {
+border-radius: 50%;
+}
+
 .signIn  {
     color:white;
     padding:10px;
