@@ -41,9 +41,9 @@ System.register(['angular2/core', 'd3'], function(exports_1, context_1) {
                         .innerRadius(function (d) { return Math.sqrt(d.y); })
                         .outerRadius(function (d) { return Math.sqrt(d.y + d.dy); });
                     var json = buildHierarchy(this.data);
-                    createVisualization(json);
+                    createVisualization(json, this.onClick);
                     // Main function to draw and set up the visualization, once we have the data.
-                    function createVisualization(json) {
+                    function createVisualization(json, callbackFunction) {
                         // For efficiency, filter nodes to keep only those large enough to see.
                         var nodes = partition.nodes(json)
                             .filter(function (d) {
@@ -58,7 +58,7 @@ System.register(['angular2/core', 'd3'], function(exports_1, context_1) {
                             .style("fill", function (d) { return colors[d.name]; })
                             .style("opacity", 1)
                             .on("mouseover", mouseover)
-                            .on("mousedown", mouseclick);
+                            .on("mousedown", function (d) { return mouseclick(d, callbackFunction); });
                         // Add the mouseleave handler to the bounding circle.
                         d3.select("#container").on("mouseleave", mouseleave);
                         // Get total size of the tree = value of root node from partition.
@@ -107,8 +107,9 @@ System.register(['angular2/core', 'd3'], function(exports_1, context_1) {
                         d3.select("#explanation2")
                             .style("visibility", "");
                     }
-                    function mouseclick(d) {
-                        console.log('clicked');
+                    function mouseclick(clickedObject, callbackFunction) {
+                        console.log(clickedObject);
+                        callbackFunction(clickedObject.name);
                     }
                     // Given a node in a partition layout, return an array of all of its ancestor
                     // nodes, highest first, but excluding the root.
@@ -197,14 +198,14 @@ System.register(['angular2/core', 'd3'], function(exports_1, context_1) {
                 ], SunburstComponent.prototype, "height", void 0);
                 __decorate([
                     core_1.Input(), 
-                    __metadata('design:type', Object)
+                    __metadata('design:type', String)
                 ], SunburstComponent.prototype, "onClick", void 0);
                 SunburstComponent = __decorate([
                     core_1.Component({
                         selector: 'sunburst',
                         template: "\n      <div id=\"chart\">\n        <svg id=\"chartsvg\" [attr.width]=\"width\" [attr.height]=\"height\">\n        <g id=\"container\" [attr.transform]=\"translation\">\n        <circle [attr.r]=\"radius\" opacity=\"0\"></circle>\n        </g>\n        </svg>\n        <div id=\"explanation\" style=\"visibility: hidden;\">\n          <span id=\"percentage\"></span><br/>\n          van het totaal budget gaat naar <span id=\"category\"></span>\n        </div>\n        <div id=\"explanation2\">\n          <span>Welke proportie van de begroting gaat naar welke categorie?</span>\n        </div>\n      </div>\n\n    ",
                         providers: [],
-                        styles: ["\n    #sequence {\n  width: 600px;\n  height: 70px;\n}\n\n#sequence text, #legend text {\n  font-weight: 600;\n  fill: #fff;\n}\n\n#chart {\n  position: relative;\n  text-align: center;\n}\n\n#chart path {\n  stroke: #fff;\n}\n\n#explanation {\n  position: absolute;\n  top: 240px;\n  left: calc(50% - 70px);\n  width: 140px;\n  text-align: center;\n  color: #666;\n  z-index: -1;\n}\n\n#explanation2 {\n  position: absolute;\n  top: 240px;\n  left: calc(50% - 70px);\n  width: 140px;\n  text-align: center;\n  color: #666;\n  z-index: -1;\n    font-size: 1.4em;\n\n}\n\n#percentage{\n  font-size: 2.5em;\n}\n ",]
+                        styles: ["\n    #sequence {\n  width: 600px;\n  height: 70px;\n}\n\n#sequence text, #legend text {\n  font-weight: 600;\n  fill: #fff;\n}\n\n#chart {\n  position: relative;\n  text-align: center;\n}\n\n#chart path {\n  stroke: #fff;\n}\n\n#explanation {\n  position: absolute;\n  top: 190px;\n  left: calc(50% - 70px);\n  width: 140px;\n  text-align: center;\n  color: #666;\n  z-index: -1;\n}\n\n#explanation2 {\n  position: absolute;\n  top: 190px;\n  left: calc(50% - 70px);\n  width: 140px;\n  text-align: center;\n  color: #666;\n  z-index: -1;\n    font-size: 1.4em;\n\n}\n\n#percentage{\n  font-size: 2.5em;\n}\n ",]
                     }), 
                     __metadata('design:paramtypes', [core_1.Renderer, core_1.ElementRef])
                 ], SunburstComponent);

@@ -44,7 +44,7 @@ import * as d3 from 'd3';
 
 #explanation {
   position: absolute;
-  top: 240px;
+  top: 190px;
   left: calc(50% - 70px);
   width: 140px;
   text-align: center;
@@ -54,7 +54,7 @@ import * as d3 from 'd3';
 
 #explanation2 {
   position: absolute;
-  top: 240px;
+  top: 190px;
   left: calc(50% - 70px);
   width: 140px;
   text-align: center;
@@ -74,7 +74,7 @@ export class SunburstComponent {
     @Input() data: [[string, string]];
     @Input() width: number;
     @Input() height: number;
-    @Input() onClick: any;
+    @Input() onClick: string;
     radius: number;
     translation: string;
 
@@ -100,11 +100,11 @@ export class SunburstComponent {
 
             let json: Object = buildHierarchy(this.data);
 
-            createVisualization(json);
+            createVisualization(json, this.onClick);
 
 
         // Main function to draw and set up the visualization, once we have the data.
-        function createVisualization(json: Object) {
+        function createVisualization(json: Object, callbackFunction: any) {
 
             // For efficiency, filter nodes to keep only those large enough to see.
             let nodes: any = partition.nodes(json)
@@ -121,7 +121,7 @@ export class SunburstComponent {
                 .style("fill", function(d : any) { return colors[d.name]; })
                 .style("opacity", 1)
                 .on("mouseover", mouseover)
-                .on("mousedown", mouseclick);
+                .on("mousedown", (d) => mouseclick(d, callbackFunction));
 
             // Add the mouseleave handler to the bounding circle.
             d3.select("#container").on("mouseleave", mouseleave);
@@ -184,9 +184,9 @@ export class SunburstComponent {
                 .style("visibility", "");
         }
 
-        function mouseclick(d : any) {
-            console.log('clicked');
-
+        function mouseclick(clickedObject : any, callbackFunction : any) {
+            console.log(clickedObject);
+            callbackFunction(clickedObject.name);
         }
 
 // Given a node in a partition layout, return an array of all of its ancestor
