@@ -1,4 +1,6 @@
-System.register(['../models/mainTown'], function(exports_1) {
+System.register(['../models/mainTown'], function(exports_1, context_1) {
+    "use strict";
+    var __moduleName = context_1 && context_1.id;
     var mainTown_1;
     var TOWNS;
     return {
