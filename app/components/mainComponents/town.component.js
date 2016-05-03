@@ -57,16 +57,15 @@ System.register(['angular2/core', './../../services/townService.component', 'ang
                     this.onClick = function () {
                         alert('hey');
                     };
-                    this.id = +this._routeParams.get('id');
-                    _townService.getTown(this.id)
+                    _townService.getTown(_routeParams.get('town'))
                         .subscribe(function (town) { return _this.mainTown = town; });
-                    _begrotingService.getFinancieleLijnen(2020, 571)
+                    _begrotingService.getFinancieleLijnen(2020, "Gent")
                         .subscribe(function (finan) { return _this.uitgaves = finan; });
                     /* @TODO Catherine, Deze methode gaat dus de acties tonen die bij een bepaalde cat horen. Je kan dit testen door de gemeente Gent te selecteren
                      Dus wss zal deze methode verplaatst moeten worden naar een onClick event in de sunburst.
                      Nu staat er momenteel een catCode hardcoded in.
                      */
-                    _actieService.getActies("0905", this.id)
+                    _actieService.getActies("0905", "Gent")
                         .subscribe(function (acties) { return _this.acties = acties; });
                 }
                 TownComponent.prototype.ngOnInit = function () {

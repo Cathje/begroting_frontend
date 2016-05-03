@@ -30,8 +30,8 @@ System.register(['angular2/core', 'angular2/http', 'rxjs/observable', 'rxjs/Rx']
                     this.http = http;
                     this._url = 'http://localhost:52597/api/Actie';
                 }
-                ActieService.prototype.getActies = function (catCode, gemeenteId) {
-                    return this.http.get(this._url + "?catCode=" + catCode + "&gemeenteId=" + gemeenteId)
+                ActieService.prototype.getActies = function (catCode, naam) {
+                    return this.http.get(this._url + "?catCode=" + catCode + "&naam=" + naam)
                         .map(function (res) { return res.json(); })
                         .catch(this.handleError);
                 };
