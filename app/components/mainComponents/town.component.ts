@@ -2,12 +2,14 @@ import {Component} from 'angular2/core';
 import {TownService} from './../../services/townService.component';
 import { RouteParams } from 'angular2/router';
 import { ROUTER_DIRECTIVES } from 'angular2/router'; // for routing
-import {TownSelectorComponent} from './../subComponents/input/townSelector.component'
+import {TownSelectorComponent} from './../subComponents/input/townSelector.component';
+import {EditableFieldComponent} from './../subComponents/input/editableField.component';
 import {MainTown} from "../../models/mainTown";
 import {SunburstComponent} from './../subComponents/graphs/sunburst.component'
 import {BegrotingService} from "../../services/begrotingService";
 import {ActieService} from "../../services/ActieService";
 import {Actie} from "../../models/actie";
+import {EditableFieldComponent} from "../subComponents/input/editableField.component";
 
 @Component({ //invoke with metadata object
     selector: 'home-container',
@@ -23,46 +25,49 @@ import {Actie} from "../../models/actie";
                 </div>
         </nav>
         <div class="container">
-        
-        <!-- HiER KOMEN DE KERNGEGEVENS EN OPENSTAANDE PROJECT(EN) VAN EEN GEMEENTE -->  
-        <aside id="demographic">
-           <form>
-            <fieldset >
-               <legend>Demografische gegevens</legend>
-                    <p>
-                        <label for="aantalBewoners">Aantal bewoners:</label>
-                        <input type="number"  [(ngModel)]="mainTown.aantalBewoners" step="any"/>
-                    </p>
-                     <p>
-                        <label for="isVrouw">Aantal vrouwen:</label>
-                        <input type="number"  [(ngModel)]="mainTown.isVrouw" step="any"/>
-                    </p>
-                     <p>
-                        <label for="isMan">Aantal mannen:</label>
-                        <input type="number"  [(ngModel)]="mainTown.isMan" step="any" />
-                    </p>
-                     <p>
-                        <label for="isChild">Aantal kinderen:</label>
-                        <input type="number"  [(ngModel)]="mainTown.isKind" step="any"/>
-                    </p>
-            </fieldset>
-           </form>
-        </aside>
-         
+        <!-- HIER KOMT DE INTRODUCTIE -->
+        <section class="intro col-xs-12 col-sm-4">
+            <h1> De kerngegevens van {{mainTown?.naam}}</h1>
+            <p> Hieronder vindt u de voornaamste gegevens van uw gemeenLorem ipsum dolor sit amet, consectetur adipisicing elit, sed do eiusmod tempor incididunt ut labore et dolore magna aliqua. Ut enim ad minim veniam, quis nostrud exercitation ullamco laboris nisi ut aliquip ex ea commodo consequat. Duis aute irure dolor in reprehenderit in voluptate velit esse cillum dolore eu fugiat nulla pariatur. voluptatem accusantium doloremque laudantium, totam rem aperiam, eaque ipsa quae ab illo inventore veritatis et quasi architecto beatae vitae dicta sunt explicabo. Nemo enim ipsam voluptatem quia voluptas sit aspernatur aut odit aut fugit, sed quia consequuntur magni dolores eos qui ratione voluptatem sequi nesciunt. Neque porro quisquam est, qui dolorem ipsum quia dolor sit amet, consectetur, adipisci velit, sed quia non numquam eius modi tempora incidunt ut labore et dolore magnam aliquam quaerat voluptatem.te.  </p>
+        </section>
+
         <!-- HIER KOMT DE GRAPH -->
-        <section id="content-town">
+        <section class="graph col-xs-12 col-sm-8">
             <sunburst [data]=categories width=500 height=600 [onClick]=onClick></sunburst>
-            
+
             <!--@TODO  TEST, NOG TE VERWIJDEREN-->
              <p *ngFor="#town of uitgaves"> {{town.catCode}} - {{town.naamCatx}} - {{town.naamCaty}} - {{town.naamCatz}} - {{town.uitgave}} </p>
-        </section>     
+        </section>
+
+        <!-- HiER KOMEN DE KERNGEGEVENS EN OPENSTAANDE PROJECT(EN) VAN EEN GEMEENTE -->  
+        <section class="demographic col-xs-12 col-sm-12">
+        <h2>Demografische gegevens</h2>
+                    <div class="col-xs-6 col-sm-3">
+                        <img class='icon' src="./app/images/icons/population.png">
+                        <h4>Aantal bewoners</h4>
+                        <editable-field [isEditable]="isEditor" [data]="mainTown.aantalBewoners"></editable-field>
+                    </div>
+                    <div class="col-xs-6 col-sm-3">
+                        <img class='icon' src="./app/images/icons/woman.png">
+                        <h4>Aantal vrouwen</h4>
+                        <editable-field [isEditable]="isEditor" [data]="mainTown.isVrouw"></editable-field>
+                    </div>
+                    <div class="col-xs-6 col-sm-3">
+                        <img class='icon' src="./app/images/icons/man.png">
+                        <h4>Aantal mannen</h4>
+                        <editable-field [isEditable]="isEditor" [data]="mainTown.isMan"></editable-field>
+                    </div>
+                    <div class="col-xs-6 col-sm-3">
+                        <img class='icon' src="./app/images/icons/child.png">
+                        <h4>Aantal kinderen</h4>
+                        <editable-field [isEditable]="isEditor" [data]="mainTown.isKind"></editable-field>
+                    </div>
+        </section>
+
          
          <!-- HIER KOMEN DE ACTIES DIE BINNEN EEN BEPAALDE CATEGORIE ZITTEN-->
-        <aside id="geographic">
-
-        <form>
-            <fieldset>
-                <legend>Geografische gegevens</legend>
+        <section id="geographic" class="col-xs-12 col-sm-12">
+        <h2>Geografische gegevens</h2>
 
                      <p><strong>Provincie:</strong> <span>{{mainTown.provincie}}</span></p>
                      <p>
@@ -81,16 +86,14 @@ import {Actie} from "../../models/actie";
                     </div>
                     <p *ngIf="!mainTown.deelGemeenten"><i>Er zijn geen deelgemeentes</i></p>
                     <button class="showInfo" [hidden]="!isVisable"(click)="toggle()">minder info</button>
-            </fieldset>
-           </form>
 
        <p> hier komen actions bij klik/hover over een categorie</p>
        <!--@TODO  TEST, NOG TE VERWIJDEREN-->
         <p *ngFor="#actie of acties"> {{actie.actieLang}} -  {{actie.actieKort}}</p>
-        </aside>
+        </section>
        </div>
 `,
-    directives: [ROUTER_DIRECTIVES, TownSelectorComponent, SunburstComponent],
+    directives: [ROUTER_DIRECTIVES, TownSelectorComponent, EditableFieldComponent, SunburstComponent],
     providers: [ BegrotingService,ActieService,
         TownService,  //routing
     ],
@@ -106,34 +109,48 @@ import {Actie} from "../../models/actie";
     sel
     }
 
+    .icon {
+    width: 200px;
+    margin: 10px;
+    float:left;
+    }
+
+    h2 {
+    text-align: left;
+    }
+
     h3 {
     margin: 0;
     padding-bottom: 1%;
     font-size: 3rem;
     color: white;
     }
-    
-    .container {
-    width: inherit;
-    padding: 1%;
-    display: flex;
-    flex-direction: row;
-    align-items: flex-start;
+
+    h4{
+    margin-bottom: 0;
     }
+
+    .container {
+    max-width: 1200px;
+    }
+
     #info-town   {
     padding: 1%;
     flex-shrink: 2; 
     -webkit-flex-shrink: 2;
     }
-    
-    #content-town {
-    padding: 1%;
-    margin-left: 1%;
-    flex: 3;
-    -webkit-flex-grow: 3;
+
+    .intro {
     }
 
-    #geographic {
+    .graph {
+    }
+
+    .demographic{
+    text-align: center;
+    }
+
+    .geographic {
     padding: 1%;
     margin-left: 1%;
     flex: 1;
@@ -148,15 +165,10 @@ import {Actie} from "../../models/actie";
     -webkit-flex-grow: 1;
 
     }
-    input[type="number"] 
-    {
-        width: 15%;
-    }
-    input, span{
-    background-color: transparent;
-    border: 0 solid;
-    color: #a3a3a3;
-    font-size: 1em;
+
+
+    label {
+    display:block;
     }
     
     .showInfo{
@@ -188,11 +200,12 @@ export class TownComponent {
     title = 'Gemeente - home';
     name:string = "";
     mainTown = new MainTown("","",0);  //opm: moet geïnitialiseerd zijn, anders werkt ngModel niet
-    isVisable=false;
+    isVisable = false;
     contentbutton="meer info";
     uitgaves: FinancieleLijn [];
     acties: Actie[];
     id:number;
+    isEditor: boolean = false; //TODO: adapt value when signed in with special role
     categories: FinancieleLijn [] =
     [{catCode:"0990",naamCatx:"Algemene financiering",naamCaty:"Algemene financiering",naamCatz:"Financiële aangelegenheden",uitgave: 22781},
 {catCode:"0991", naamCatx:"Algemene financiering", naamCaty:"Algemene financiering",naamCatz:"Patrimonium zonder maatschappelijk doel",uitgave:281},
@@ -219,6 +232,8 @@ export class TownComponent {
          */
         _actieService.getActies("0905",this.id)
             .subscribe(acties => this.acties = acties);
+
+        this.mainTown.aantalBewoners = 25;
     }
 
     ngOnInit() {
