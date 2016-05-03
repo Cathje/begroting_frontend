@@ -217,12 +217,11 @@ export class TownComponent {
 
     constructor(private _townService:TownService, _begrotingService:BegrotingService, _actieService:ActieService, private _routeParams:RouteParams)
     {
-        this.id = +this._routeParams.get('id');
-        _townService.getTown(this.id)
+        _townService.getTown(_routeParams.get('town'))
             .subscribe(town => this.mainTown = town
              );
 
-        _begrotingService.getFinancieleLijnen(2020,571)
+        _begrotingService.getFinancieleLijnen(2020,"Gent")
             .subscribe(finan => this.uitgaves = finan
             );
 
@@ -230,7 +229,7 @@ export class TownComponent {
          Dus wss zal deze methode verplaatst moeten worden naar een onClick event in de sunburst.
          Nu staat er momenteel een catCode hardcoded in. 
          */
-        _actieService.getActies("0905",this.id)
+        _actieService.getActies("0905","Gent")
             .subscribe(acties => this.acties = acties);
 
         this.mainTown.aantalBewoners = 25;

@@ -85,7 +85,7 @@ border-radius: 50%;
 
 @RouteConfig([
     { path: '/', name: 'Home', component:HomeComponent },
-    { path: '/:id', name: 'MainTown', component:TownComponent },
+    { path: '/:town', name: 'MainTown', component:TownComponent },
     { path: '/:town/:projectNumber', name: 'Project', component:ProjectComponent },
     { path: '/townBudget', name: 'TownBudget', component:TownBudgetComponent }
 ])

@@ -11,7 +11,7 @@ import {MainTown} from "../../../models/mainTown";
                  <div class=" styled-select slate right-align">
                     <select class="" (change)="gotoHome($event)">
                         <option>Selecteer een gemeente</option>
-                        <option *ngFor="#town of towns" [value]="town.GemeenteID">{{town.naam}} </option>
+                        <option *ngFor="#town of towns" [value]="town.naam">{{town.naam}} </option>
                     </select>
                 </div>
     `,
@@ -67,6 +67,6 @@ export class TownSelectorComponent {
 
     gotoHome(event: any) {
        // alert(event.target.value)
-      this._router.navigate(['MainTown', { id: event.target.value}]);
+      this._router.navigate(['MainTown', { town: event.target.value}]);
     }
 }
