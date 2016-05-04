@@ -63,6 +63,7 @@ import {HTTP_PROVIDERS} from "angular2/http";
 }
 #social:last-child {
 padding-right: 3%;
+padding-top: 30px;
 }
 #titelSocial{
 padding-right: 10px;
@@ -74,6 +75,8 @@ text-decoration: none;
 
 .socialBtn img {
 border-radius: 50%;
+width: 30px;
+height: 30px;
 }
 
 .signIn  {
