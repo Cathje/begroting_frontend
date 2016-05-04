@@ -4,6 +4,7 @@ import { RouteParams } from 'angular2/router';
 import { ROUTER_DIRECTIVES } from 'angular2/router'; // for routing
 import {TownSelectorComponent} from './../subComponents/input/townSelector.component';
 import {EditableFieldComponent} from './../subComponents/input/editableField.component';
+import {NavigationMenuComponent} from './../subComponents/nav/menu.component';
 import {MainTown} from "../../models/mainTown";
 import {SunburstComponent} from './../subComponents/graphs/sunburst.component'
 import {BegrotingService} from "../../services/begrotingService";
@@ -13,24 +14,13 @@ import {Actie} from "../../models/actie";
 @Component({ //invoke with metadata object
     selector: 'home-container',
     template: `
-        <nav class="home-menu" >
-                <div class="breadcrum" >
-                    <a [routerLink]="['Home']">Home</a>
-                    <a [routerLink]="['TownBudget']">Begrotingsvoorstel</a>
-                </div>
-                <h3>{{mainTown?.naam}}</h3>
-                <div>
-                    <town-selector></town-selector>
-                </div>
-        </nav>
+        <navigation-menu></navigation-menu>
         <div class="container">
-        <!-- HIER KOMT DE INTRODUCTIE -->
         <section class="intro col-xs-12 col-sm-4">
-            <h1> De kerngegevens van {{mainTown?.naam}}</h1>
-            <p> Hieronder vindt u de voornaamste gegevens van uw gemeenLorem ipsum dolor sit amet, consectetur adipisicing elit, sed do eiusmod tempor incididunt ut labore et dolore magna aliqua. Ut enim ad minim veniam, quis nostrud exercitation ullamco laboris nisi ut aliquip ex ea commodo consequat. Duis aute irure dolor in reprehenderit in voluptate velit esse cillum dolore eu fugiat nulla pariatur. voluptatem accusantium doloremque laudantium, totam rem aperiam, eaque ipsa quae ab illo inventore veritatis et quasi architecto beatae vitae dicta sunt explicabo. Nemo enim ipsam voluptatem quia voluptas sit aspernatur aut odit aut fugit, sed quia consequuntur magni dolores eos qui ratione voluptatem sequi nesciunt. </p>
+            <h1>De kerngegevens van {{mainTown?.naam}}</h1>
+            <p>Hier komt een paragraaf.At vero eos et accusamus et iusto odio dignissimos ducimus qui blanditiis praesentium voluptatum deleniti atque corrupti quos dolores et quas molestias excepturi sint occaecati cupiditate non provident, similique sunt in culpa qui officia deserunt mollitia animi, id est laborum et dolorum fuga. Et harum quidem rerum facilis est et expedita distinctio. Nam libero tempore, cum soluta nobis est eligendi optio cumque nihil impedit quo minus id quod maxime placeat facere possimus, omnis voluptas assumenda est, omnis dolor repellendus. Temporibus autem quibusdam et</p>
         </section>
 
-        <!-- HIER KOMT DE GRAPH -->
         <section class="graph col-xs-12 col-sm-8" (resize)="onResize(el)">
             <sunburst [data]=categories [onClick]=onCircleClick [height]=width [width]=width></sunburst>
 
@@ -42,7 +32,6 @@ import {Actie} from "../../models/actie";
              <p *ngFor="#town of uitgaves"> {{town.catCode}} - {{town.naamCatx}} - {{town.naamCaty}} - {{town.naamCatz}} - {{town.uitgave}} </p>
         </section>
 
-        <!-- HiER KOMEN DE KERNGEGEVENS EN OPENSTAANDE PROJECT(EN) VAN EEN GEMEENTE -->  
         <section class="demographic col-xs-12 col-sm-12">
         <h2>Demografische gegevens</h2>
                     <div class="col-xs-6 col-sm-3">
@@ -67,7 +56,7 @@ import {Actie} from "../../models/actie";
                     </div>
         </section>
 
-         
+
          <!-- HIER KOMEN DE ACTIES DIE BINNEN EEN BEPAALDE CATEGORIE ZITTEN-->
         <section id="geographic" class="col-xs-12 col-sm-12">
         <h2>Geografische gegevens</h2>
@@ -95,7 +84,7 @@ import {Actie} from "../../models/actie";
         </section>
        </div>
 `,
-    directives: [ROUTER_DIRECTIVES, TownSelectorComponent, EditableFieldComponent, SunburstComponent],
+    directives: [ROUTER_DIRECTIVES, TownSelectorComponent, NavigationMenuComponent, EditableFieldComponent, SunburstComponent],
     providers: [ BegrotingService,ActieService,
         TownService,  //routing
     ],

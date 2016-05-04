@@ -43,7 +43,7 @@ import {SimpleChange} from "../../../../node_modules/angular2/src/core/change_de
   margin: auto;
   position: absolute;
   top: 0; left: 0; bottom: 0; right: 0;
-  width: 40%;
+  width: 37%;
   height: 140px;
   color: #666;
       display: flex;
@@ -58,7 +58,7 @@ import {SimpleChange} from "../../../../node_modules/angular2/src/core/change_de
   margin: auto;
   position: absolute;
   top: 0; left: 0; bottom: 0; right: 0;
-  width: 40%;
+  width: 37%;
   height: 140px;
   color: #666;
       display: flex;
