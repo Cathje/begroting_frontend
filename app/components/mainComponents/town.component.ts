@@ -31,8 +31,8 @@ import {Actie} from "../../models/actie";
         </section>
 
         <!-- HIER KOMT DE GRAPH -->
-        <section class="graph col-xs-12 col-sm-8">
-            <sunburst [data]=categories width=500 height=500 [onClick]=onCircleClick></sunburst>
+        <section class="graph col-xs-12 col-sm-8" (window:resize)="onResize($event)">
+            <sunburst [data]=categories [onClick]=onCircleClick [height]=width [width]=width></sunburst>
 
             <div class="pointer">
                 <img src="./app/images/icons/clickPointer.png">
@@ -151,7 +151,7 @@ import {Actie} from "../../models/actie";
 
     }
     .graph {
-    padding: 40px;
+    padding: 40px 20px;
     }
 
     .pointer img{
@@ -225,12 +225,13 @@ export class TownComponent {
 {catCode:"0991", naamCatx:"Algemene financiering", naamCaty:"Algemene financiering",naamCatz:"Patrimonium zonder maatschappelijk doel",uitgave:281},
 {catCode:"099",naamCaty:"Zorg en opvang", naamCatz:"Gezin en kinderen",uitgave:3311},
 {catCode:"098",naamCaty:"Cultuur en vrije tijd",naamCatz:"Sport",uitgave:906}];
+    width: number = 450;
     _actieService: ActieService;
 
     onCircleClick: any = (categorie: string) => {
         alert('hier komt een popup met de acties van de categorie: ' + categorie);
         this._actieService.getActies("0905","Gent")
-            .subscribe(acties => this.acties = acties);
+            .subscribe((acties : any) => this.acties = acties);
     };
 
     constructor(private _townService:TownService, _begrotingService:BegrotingService, private _routeParams:RouteParams)
@@ -249,9 +250,16 @@ export class TownComponent {
         EN DE SERVICE  en aside met naam town-info VAN HIERBOVEN IN COMMENTAAR ZETTEN*/
         //this.name = this._routeParams.get('town');
     }
+
+
     public toggle(): void
     {
         this.isVisable = !this.isVisable;
+    }
+
+
+    onResize(event: any) {
+        this.width = window.innerWidth;
     }
 
 }
