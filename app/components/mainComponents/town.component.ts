@@ -31,7 +31,7 @@ import {Actie} from "../../models/actie";
         </section>
 
         <!-- HIER KOMT DE GRAPH -->
-        <section class="graph col-xs-12 col-sm-8" (window:resize)="onResize($event)">
+        <section class="graph col-xs-12 col-sm-8" (resize)="onResize(el)">
             <sunburst [data]=categories [onClick]=onCircleClick [height]=width [width]=width></sunburst>
 
             <div class="pointer">
@@ -152,6 +152,8 @@ import {Actie} from "../../models/actie";
     }
     .graph {
     padding: 40px 20px;
+    text-align: center;
+    margin: O auto;
     }
 
     .pointer img{
@@ -225,7 +227,7 @@ export class TownComponent {
 {catCode:"0991", naamCatx:"Algemene financiering", naamCaty:"Algemene financiering",naamCatz:"Patrimonium zonder maatschappelijk doel",uitgave:281},
 {catCode:"099",naamCaty:"Zorg en opvang", naamCatz:"Gezin en kinderen",uitgave:3311},
 {catCode:"098",naamCaty:"Cultuur en vrije tijd",naamCatz:"Sport",uitgave:906}];
-    width: number = 450;
+    width: number = window.innerWidth/2.1;
     _actieService: ActieService;
 
     onCircleClick: any = (categorie: string) => {
@@ -258,8 +260,8 @@ export class TownComponent {
     }
 
 
-    onResize(event: any) {
-        this.width = window.innerWidth;
+    onResize = (event: any) => {
+            this.width = window.innerWidth/2;
     }
 
 }

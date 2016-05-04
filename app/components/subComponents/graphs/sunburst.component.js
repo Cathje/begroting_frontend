@@ -27,10 +27,10 @@ System.register(['angular2/core', 'd3'], function(exports_1) {
             .attr("fill-rule", "evenodd")
             .style("fill", function (d) { return colors[d.name]; })
             .style("opacity", 1)
-            .on("mouseover", function (d, chart) { return mouseover(d, totalSize, chart); })
+            .on("mouseover", function (d) { return mouseover(d, totalSize, chart); })
             .on("mousedown", function (d) { return mouseclick(d, callbackFunction); });
         // Add the mouseleave handler to the bounding circle.
-        chart.select("#container").on("mouseleave", function (d, chart) { return mouseleave(d, chart); });
+        chart.select("#container").on("mouseleave", function (d) { return mouseleave(d, chart); });
         // Get total size of the tree = value of root node from partition.
         totalSize = path.node().__data__.value;
     }
@@ -169,6 +169,7 @@ System.register(['angular2/core', 'd3'], function(exports_1) {
                             .size([2 * Math.PI, _this.radius * _this.radius])
                             .value(function (d) { return d.size; });
                         var svg = chart.append("svg:svg")
+                            .attr("id", 'chartsvg')
                             .attr("width", _this.width)
                             .attr("height", _this.height)
                             .append("svg:g")
@@ -190,7 +191,7 @@ System.register(['angular2/core', 'd3'], function(exports_1) {
                 };
                 ;
                 SunburstComponent.prototype.ngOnChanges = function (changes) {
-                    var chart = d3.select(this.el.nativeElement);
+                    var chart = d3.select(this.el.nativeElement).select("#chart");
                     chart.select('#chartsvg').remove();
                     this.createChart(chart);
                 };
@@ -213,9 +214,9 @@ System.register(['angular2/core', 'd3'], function(exports_1) {
                 SunburstComponent = __decorate([
                     core_1.Component({
                         selector: 'sunburst',
-                        template: "\n      <div class=\"chart\">\n        <div id=\"explanation\" style=\"visibility: hidden;\">\n          <span id=\"percentage\"></span><br/>\n          van het totaal budget gaat naar <span id=\"category\"></span>\n        </div>\n        <div id=\"explanation2\">\n          <span>Welke proportie van de begroting gaat naar welke categorie?</span>\n        </div>\n      </div>\n\n    ",
+                        template: "\n      <div id=\"chart\">\n        <h4 id=\"explanation\" style=\"visibility: hidden;\">\n          <span id=\"percentage\"></span><br/>\n          van het totaal budget gaat naar <span id=\"category\"></span>\n        </h4>\n        <h4 id=\"explanation2\">\n          <span>Welke proportie van de begroting gaat naar welke categorie?</span>\n        </h4>\n      </div>\n\n    ",
                         providers: [],
-                        styles: ["\n    #sequence {\n  width: 600px;\n  height: 70px;\n}\n\n#sequence text, #legend text {\n  font-weight: 600;\n  fill: #fff;\n}\n\n.chart {\n  position: relative;\n  text-align: center;\n}\n\n.chart path {\n  stroke: #fff;\n}\n\n#explanation {\n  position: absolute;\n  top: 160px;\n  left: calc(50% - 70px);\n  width: 140px;\n  text-align: center;\n  color: #666;\n  z-index: -1;\n}\n\n#explanation2 {\n  position: absolute;\n  top: 160px;\n  left: calc(50% - 70px);\n  width: 140px;\n  text-align: center;\n  color: #666;\n  z-index: -1;\n    font-size: 1.4em;\n\n}\n\n#percentage{\n  font-size: 2.5em;\n}\n ",]
+                        styles: ["\n    #sequence {\n  width: 600px;\n  height: 70px;\n}\n\n#sequence text, #legend text {\n  font-weight: 600;\n  fill: #fff;\n}\n\n#chart {\n  position: relative;\n  text-align: center;\n}\n\n#chart path {\n  stroke: #fff;\n}\n\n#explanation {\n  position: absolute;\n  margin: auto;\n  position: absolute;\n  top: 0; left: 0; bottom: 0; right: 0;\n  width: 40%;\n  height: 140px;\n  color: #666;\n      display: flex;\n    justify-content:center;\n    align-content:center;\n    flex-direction:column; /* column | row */\n\n}\n\n#explanation2 {\n  position: absolute;\n  margin: auto;\n  position: absolute;\n  top: 0; left: 0; bottom: 0; right: 0;\n  width: 40%;\n  height: 140px;\n  color: #666;\n      display: flex;\n    justify-content:center;\n    align-content:center;\n    flex-direction:column; /* column | row */\n}\n\n#percentage{\n  font-size: 2.5em;\n}\n ",]
                     }), 
                     __metadata('design:paramtypes', [core_1.Renderer, core_1.ElementRef])
                 ], SunburstComponent);

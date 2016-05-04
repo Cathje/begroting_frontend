@@ -6,14 +6,14 @@ import {SimpleChange} from "../../../../node_modules/angular2/src/core/change_de
 @Component({ //invoke with metadata object
     selector: 'sunburst',
     template: `
-      <div class="chart">
-        <div id="explanation" style="visibility: hidden;">
+      <div id="chart">
+        <h4 id="explanation" style="visibility: hidden;">
           <span id="percentage"></span><br/>
           van het totaal budget gaat naar <span id="category"></span>
-        </div>
-        <div id="explanation2">
+        </h4>
+        <h4 id="explanation2">
           <span>Welke proportie van de begroting gaat naar welke categorie?</span>
-        </div>
+        </h4>
       </div>
 
     `,
@@ -29,35 +29,42 @@ import {SimpleChange} from "../../../../node_modules/angular2/src/core/change_de
   fill: #fff;
 }
 
-.chart {
+#chart {
   position: relative;
   text-align: center;
 }
 
-.chart path {
+#chart path {
   stroke: #fff;
 }
 
 #explanation {
   position: absolute;
-  top: 160px;
-  left: calc(50% - 70px);
-  width: 140px;
-  text-align: center;
+  margin: auto;
+  position: absolute;
+  top: 0; left: 0; bottom: 0; right: 0;
+  width: 40%;
+  height: 140px;
   color: #666;
-  z-index: -1;
+      display: flex;
+    justify-content:center;
+    align-content:center;
+    flex-direction:column; /* column | row */
+
 }
 
 #explanation2 {
   position: absolute;
-  top: 160px;
-  left: calc(50% - 70px);
-  width: 140px;
-  text-align: center;
+  margin: auto;
+  position: absolute;
+  top: 0; left: 0; bottom: 0; right: 0;
+  width: 40%;
+  height: 140px;
   color: #666;
-  z-index: -1;
-    font-size: 1.4em;
-
+      display: flex;
+    justify-content:center;
+    align-content:center;
+    flex-direction:column; /* column | row */
 }
 
 #percentage{
@@ -80,8 +87,8 @@ export class SunburstComponent {
     };
 
     ngOnChanges(changes: {[propertyName: string]: SimpleChange}) {
-        var chart = d3.select(this.el.nativeElement);
-            chart.select('#chartsvg').remove();
+        var chart = d3.select(this.el.nativeElement).select("#chart");
+        chart.select('#chartsvg').remove();
         this.createChart(chart);
     }
 
@@ -97,7 +104,8 @@ export class SunburstComponent {
             .size([2 * Math.PI, this.radius * this.radius])
             .value(function(d: any) { return d.size; });
 
-        var svg = chart.append("svg:svg")
+        let svg = chart.append("svg:svg")
+            .attr("id", 'chartsvg')
             .attr("width", this.width)
             .attr("height", this.height)
             .append("svg:g")
@@ -122,7 +130,7 @@ export class SunburstComponent {
 
 
 // Main function to draw and set up the visualization, once we have the data.
-function createVisualization(json: Object, callbackFunction: any, partition: any, arc: any, colors: Object, totalSize: number, chart: any) {
+function createVisualization(json: Object, callbackFunction: any, partition: any, arc: any, colors: Object, totalSize: any, chart: any) {
 
     // For efficiency, filter nodes to keep only those large enough to see.
     let nodes: any = partition.nodes(json)
@@ -138,25 +146,23 @@ function createVisualization(json: Object, callbackFunction: any, partition: any
         .attr("fill-rule", "evenodd")
         .style("fill", function(d : any) { return colors[d.name]; })
         .style("opacity", 1)
-        .on("mouseover", (d: any, chart: any) => mouseover(d, totalSize, chart))
+        .on("mouseover", (d: any) => mouseover(d, totalSize, chart))
         .on("mousedown", (d: any) => mouseclick(d, callbackFunction));
 
     // Add the mouseleave handler to the bounding circle.
-    chart.select("#container").on("mouseleave", (d: any, chart: any) => mouseleave( d, chart));
+    chart.select("#container").on("mouseleave", (d: any) => mouseleave( d, chart));
 
     // Get total size of the tree = value of root node from partition.
     totalSize = path.node().__data__.value;
 };
 
 // Fade all but the current sequence
-function mouseover(d: any, totalSize: number, chart:any) {
-
+function mouseover(d: any, totalSize: any, chart:any) {
     let percentage = (100 * d.value / totalSize).toPrecision(3);
     let percentageString = percentage + "%";
     if (parseFloat(percentage) < 0.1) {
         percentageString = "< 0.1%";
     }
-
     chart.select("#percentage")
         .text(percentageString);
 
