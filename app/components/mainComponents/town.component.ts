@@ -137,7 +137,6 @@ import {Actie} from "../../models/actie";
     }
 
     .provincie {
-
     }
     .graph {
     padding: 40px 20px;
@@ -216,7 +215,7 @@ export class TownComponent {
 {catCode:"0991", naamCatx:"Algemene financiering", naamCaty:"Algemene financiering",naamCatz:"Patrimonium zonder maatschappelijk doel",uitgave:281},
 {catCode:"099",naamCaty:"Zorg en opvang", naamCatz:"Gezin en kinderen",uitgave:3311},
 {catCode:"098",naamCaty:"Cultuur en vrije tijd",naamCatz:"Sport",uitgave:906}];
-    width: number = window.innerWidth/2.1;
+    width: number = window.innerWidth < 768 ? window.innerWidth*0.8 : window.innerWidth/2;
     _actieService: ActieService;
 
     onCircleClick: any = (categorie: string) => {
@@ -250,7 +249,13 @@ export class TownComponent {
 
 
     onResize = (event: any) => {
-        this.width = window.innerWidth/2;
+        if(window.innerWidth < 768){
+            this.width = window.innerWidth*0.8;
+
+        }else {
+            this.width = window.innerWidth/2;
+
+        }
     }
 
 }

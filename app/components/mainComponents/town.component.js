@@ -1,11 +1,11 @@
-System.register(['angular2/core', './../../services/townService.component', 'angular2/router', './../subComponents/input/townSelector.component', './../subComponents/input/editableField.component', './../subComponents/nav/menu.component', "../../models/mainTown", './../subComponents/graphs/sunburst.component', "../../services/begrotingService", "../../services/ActieService"], function(exports_1) {
+System.register(['angular2/core', './../../services/townService.component', 'angular2/router', './../subComponents/input/townSelector.component', './../subComponents/input/editableField.component', './../subComponents/nav/menu.component', "../../models/mainTown", './../subComponents/graphs/sunburst.component', "../../services/begrotingService", "../../services/ActieService"], function(exports_1, context_1) {
+    "use strict";
+    var __moduleName = context_1 && context_1.id;
     var __decorate = (this && this.__decorate) || function (decorators, target, key, desc) {
-        if (typeof Reflect === "object" && typeof Reflect.decorate === "function") return Reflect.decorate(decorators, target, key, desc);
-        switch (arguments.length) {
-            case 2: return decorators.reduceRight(function(o, d) { return (d && d(o)) || o; }, target);
-            case 3: return decorators.reduceRight(function(o, d) { return (d && d(target, key)), void 0; }, void 0);
-            case 4: return decorators.reduceRight(function(o, d) { return (d && d(target, key, o)) || o; }, desc);
-        }
+        var c = arguments.length, r = c < 3 ? target : desc === null ? desc = Object.getOwnPropertyDescriptor(target, key) : desc, d;
+        if (typeof Reflect === "object" && typeof Reflect.decorate === "function") r = Reflect.decorate(decorators, target, key, desc);
+        else for (var i = decorators.length - 1; i >= 0; i--) if (d = decorators[i]) r = (c < 3 ? d(r) : c > 3 ? d(target, key, r) : d(target, key)) || r;
+        return c > 3 && r && Object.defineProperty(target, key, r), r;
     };
     var __metadata = (this && this.__metadata) || function (k, v) {
         if (typeof Reflect === "object" && typeof Reflect.metadata === "function") return Reflect.metadata(k, v);
@@ -61,14 +61,19 @@ System.register(['angular2/core', './../../services/townService.component', 'ang
                         { catCode: "0991", naamCatx: "Algemene financiering", naamCaty: "Algemene financiering", naamCatz: "Patrimonium zonder maatschappelijk doel", uitgave: 281 },
                         { catCode: "099", naamCaty: "Zorg en opvang", naamCatz: "Gezin en kinderen", uitgave: 3311 },
                         { catCode: "098", naamCaty: "Cultuur en vrije tijd", naamCatz: "Sport", uitgave: 906 }];
-                    this.width = window.innerWidth / 2.1;
+                    this.width = window.innerWidth < 768 ? window.innerWidth * 0.8 : window.innerWidth / 2;
                     this.onCircleClick = function (categorie) {
                         alert('hier komt een popup met de acties van de categorie: ' + categorie);
                         _this._actieService.getActies("0905", "Gent")
                             .subscribe(function (acties) { return _this.acties = acties; });
                     };
                     this.onResize = function (event) {
-                        _this.width = window.innerWidth / 2;
+                        if (window.innerWidth < 768) {
+                            _this.width = window.innerWidth * 0.8;
+                        }
+                        else {
+                            _this.width = window.innerWidth / 2;
+                        }
                     };
                     _townService.getTown(_routeParams.get('town'))
                         .subscribe(function (town) { return _this.mainTown = town; });
@@ -91,12 +96,12 @@ System.register(['angular2/core', './../../services/townService.component', 'ang
                         providers: [begrotingService_1.BegrotingService, ActieService_1.ActieService,
                             townService_component_1.TownService,
                         ],
-                        styles: ["\n   \n    .home-menu {\n    padding: 5px;\n    background-color: #2ac7d2;\n    display: flex;\n    flex-direction: row;\n    justify-content: space-between;\n    align-items: center;\n    sel\n    }\n\n    .icon {\n    width: 200px;\n    margin: 10px;\n    float:left;\n    }\n\n    h2 {\n    text-align: left;\n    margin: 40px 0;\n    }\n\n    h3 {\n    margin: 0;\n    padding-bottom: 1%;\n    font-size: 3rem;\n    color: white;\n    }\n\n    h4{\n    margin-bottom: 0;\n    }\n\n    .container {\n    max-width: 1200px;\n    }\n\n    #info-town   {\n    padding: 1%;\n    flex-shrink: 2; \n    -webkit-flex-shrink: 2;\n    }\n\n    .intro {\n    padding: 20px;\n    }\n\n    .provincie {\n\n    }\n    .graph {\n    padding: 40px 20px;\n    text-align: center;\n    margin: O auto;\n    }\n\n    .pointer img{\n     width: 50px;\n     display: inline-block;\n    }\n\n    .pointer p{\n     display: inline-block;\n    }\n\n    .pointer {\n    text-align: center;\n    }\n\n    .demographic{\n    text-align: center;\n    }\n\n    .geographic {\n    padding: 1%;\n    margin-left: 1%;\n    flex: 1;\n    -webkit-flex-grow: 1;\n    text-align: right;\n    }\n        \n    #actions   {\n    padding: 1%;\n    margin-left: 1%;\n    flex: 1; \n    -webkit-flex-grow: 1;\n\n    }\n\n\n    label {\n    display:block;\n    }\n    \n    .showInfo{\n        float: right;\n        background: #3498db;\n         background-image: -webkit-linear-gradient(top, #3498db, #2980b9);\n         background-image: -moz-linear-gradient(top, #3498db, #2980b9);\n         background-image: -ms-linear-gradient(top, #3498db, #2980b9);\n         background-image: -o-linear-gradient(top, #3498db, #2980b9);\n         background-image: linear-gradient(to bottom, #3498db, #2980b9);\n         width: 55%;\n         color: #ffffff;\n         text-decoration: none;\n         font-size: 0.8em;\n    }\n\n    \n"]
+                        styles: ["\n   \n    .home-menu {\n    padding: 5px;\n    background-color: #2ac7d2;\n    display: flex;\n    flex-direction: row;\n    justify-content: space-between;\n    align-items: center;\n    sel\n    }\n\n    .icon {\n    width: 200px;\n    margin: 10px;\n    float:left;\n    }\n\n    h2 {\n    text-align: left;\n    margin: 40px 0;\n    }\n\n    h3 {\n    margin: 0;\n    padding-bottom: 1%;\n    font-size: 3rem;\n    color: white;\n    }\n\n    h4{\n    margin-bottom: 0;\n    }\n\n    .container {\n    max-width: 1200px;\n    }\n\n    #info-town   {\n    padding: 1%;\n    flex-shrink: 2; \n    -webkit-flex-shrink: 2;\n    }\n\n    .intro {\n    padding: 20px;\n    }\n\n    .provincie {\n    }\n    .graph {\n    padding: 40px 20px;\n    text-align: center;\n    margin: O auto;\n    }\n\n    .pointer img{\n     width: 50px;\n     display: inline-block;\n    }\n\n    .pointer p{\n     display: inline-block;\n    }\n\n    .pointer {\n    text-align: center;\n    }\n\n    .demographic{\n    text-align: center;\n    }\n\n    .geographic {\n    padding: 1%;\n    margin-left: 1%;\n    flex: 1;\n    -webkit-flex-grow: 1;\n    text-align: right;\n    }\n        \n    #actions   {\n    padding: 1%;\n    margin-left: 1%;\n    flex: 1; \n    -webkit-flex-grow: 1;\n\n    }\n\n\n    label {\n    display:block;\n    }\n    \n    .showInfo{\n        float: right;\n        background: #3498db;\n         background-image: -webkit-linear-gradient(top, #3498db, #2980b9);\n         background-image: -moz-linear-gradient(top, #3498db, #2980b9);\n         background-image: -ms-linear-gradient(top, #3498db, #2980b9);\n         background-image: -o-linear-gradient(top, #3498db, #2980b9);\n         background-image: linear-gradient(to bottom, #3498db, #2980b9);\n         width: 55%;\n         color: #ffffff;\n         text-decoration: none;\n         font-size: 0.8em;\n    }\n\n    \n"]
                     }), 
                     __metadata('design:paramtypes', [townService_component_1.TownService, begrotingService_1.BegrotingService, router_1.RouteParams])
                 ], TownComponent);
                 return TownComponent;
-            })();
+            }());
             exports_1("TownComponent", TownComponent);
         }
     }

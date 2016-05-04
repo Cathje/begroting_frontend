@@ -18,6 +18,10 @@ body, input[text], button {
     color: #888;
 }
 
+img {
+    width: 100%;
+}
+
 a{
     color:white !important;
 }
