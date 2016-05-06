@@ -3,6 +3,7 @@ import {HomeComponent} from './components/mainComponents/home.component';
 import {TownComponent} from './components/mainComponents/town.component';
 import {ProjectComponent} from './components/mainComponents/project.component';
 import {TownBudgetComponent} from './components/mainComponents/townBudget.component';
+import {SalaryComponent} from './components/mainComponents/salary.component';
 import { RouteConfig, ROUTER_DIRECTIVES, ROUTER_PROVIDERS } from 'angular2/router'; // for routing
 import {HTTP_PROVIDERS} from "angular2/http";
 
@@ -83,7 +84,8 @@ text-decoration: none;
     { path: '/', name: 'Home', component:HomeComponent },
     { path: '/:town', name: 'MainTown', component:TownComponent },
     { path: '/:town/:projectNumber', name: 'Project', component:ProjectComponent },
-    { path: '/townBudget', name: 'TownBudget', component:TownBudgetComponent }
+    { path: '/townBudget', name: 'TownBudget', component:TownBudgetComponent },
+    { path: '/:town/salary', name: 'Salary', component:SalaryComponent }
 ])
 
 export class AppComponent {

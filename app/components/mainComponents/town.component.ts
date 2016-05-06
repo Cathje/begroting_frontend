@@ -175,17 +175,17 @@ import {SunburstComponent} from './../subComponents/graphs/sunburst.component'
 export class TownComponent {
     title = 'Gemeente - home';
     name:string = "";
-    mainTown = new MainTown("","");  //opm: moet geïnitialiseerd zijn, anders werkt ngModel niet
+    mainTown = new MainTown("","", 0);  //opm: moet geïnitialiseerd zijn, anders werkt ngModel niet
     isVisable=false;
     contentbutton="meer info";
     categories: [[string, string]] =
-        [["Algemene financiering -Algemene financiering -Financiële aangelegenheden ", "22781"],
-                ["Algemene financiering -Algemene financiering -Patrimonium zonder maatschappelijk doel ", "281"],
-                ["Zorg en opvang -Gezin en kinderen -Kinderopvang ", "3311"],
-                ["Cultuur en vrije tijd -Sport ", "906"],
-                ["Wonen en ruimtelijke ordening -Woonbeleid -Bestrijding van krotwoningen ", "906"],
-                ["Veiligheidszorg ", "906"],
-                ["Leren en onderwijs -Basisonderwijs -Gewoon basisonderwijs ", "906"]];
+    [["Algemene financiering -Algemene financiering -Financiële aangelegenheden ", "22781"],
+        ["Algemene financiering -Algemene financiering -Patrimonium zonder maatschappelijk doel ", "281"],
+        ["Zorg en opvang -Gezin en kinderen -Kinderopvang ", "3311"],
+        ["Cultuur en vrije tijd -Sport ", "906"],
+        ["Wonen en ruimtelijke ordening -Woonbeleid -Bestrijding van krotwoningen ", "906"],
+        ["Veiligheidszorg ", "906"],
+        ["Leren en onderwijs -Basisonderwijs -Gewoon basisonderwijs ", "906"]];
 
     constructor(private _townService:TownService, private _routeParams:RouteParams)
     {

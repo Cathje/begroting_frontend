@@ -41,7 +41,7 @@ System.register(['angular2/core', './../../services/townService.component', 'ang
                     this._routeParams = _routeParams;
                     this.title = 'Gemeente - home';
                     this.name = "";
-                    this.mainTown = new mainTown_1.MainTown("", ""); //opm: moet geïnitialiseerd zijn, anders werkt ngModel niet
+                    this.mainTown = new mainTown_1.MainTown("", "", 0); //opm: moet geïnitialiseerd zijn, anders werkt ngModel niet
                     this.isVisable = false;
                     this.contentbutton = "meer info";
                     this.categories = [["Algemene financiering -Algemene financiering -Financiële aangelegenheden ", "22781"],
