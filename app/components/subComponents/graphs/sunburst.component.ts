@@ -1,24 +1,19 @@
 import {Component, Directive, ViewChild, ElementRef, Renderer, Input} from 'angular2/core';
+/// <reference path="../../../../typings/browser/definitions/d3/index.d.ts" />
 import * as d3 from 'd3';
-import {Circle} from "~d3/index";
-import {Arc} from "~d3/index";
-import {Pack} from "~d3/index";
-import {Path} from "~d3/index";
-import {ObjectConstructor} from "../../../../../../../../../../../../../Applications/WebStorm.app/Contents/plugins/JavaScriptLanguage/typescriptCompiler/external/lib";
+import {SimpleChange} from "../../../../node_modules/angular2/src/core/change_detection/change_detection_util";
 
 @Component({ //invoke with metadata object
     selector: 'sunburst',
     template: `
       <div id="chart">
-        <svg id="chartsvg" [attr.width]="width" [attr.height]="height">
-        <g id="container">
-        <circle [attr.r]="radius"></circle>
-        </g>
-        </svg>
-        <div id="explanation" style="visibility: hidden;">
+        <h4 id="explanation" style="visibility: hidden;">
           <span id="percentage"></span><br/>
           van het totaal budget gaat naar <span id="category"></span>
-        </div>
+        </h4>
+        <h4 id="explanation2">
+          <span>Welke proportie van de begroting gaat naar welke categorie?</span>
+        </h4>
       </div>
 
     `,
@@ -45,15 +40,34 @@ import {ObjectConstructor} from "../../../../../../../../../../../../../Applicat
 
 #explanation {
   position: absolute;
-  top: 240px;
-  left: calc(50% - 70px);
-  width: 140px;
-  text-align: center;
+  margin: auto;
+  position: absolute;
+  top: 0; left: 0; bottom: 0; right: 0;
+  width: 40%;
+  height: 140px;
   color: #666;
-  z-index: -1;
+      display: flex;
+    justify-content:center;
+    align-content:center;
+    flex-direction:column; /* column | row */
+
 }
 
-#percentage {
+#explanation2 {
+  position: absolute;
+  margin: auto;
+  position: absolute;
+  top: 0; left: 0; bottom: 0; right: 0;
+  width: 40%;
+  height: 140px;
+  color: #666;
+      display: flex;
+    justify-content:center;
+    align-content:center;
+    flex-direction:column; /* column | row */
+}
+
+#percentage{
   font-size: 2.5em;
 }
  `,]
@@ -63,145 +77,152 @@ export class SunburstComponent {
     @Input() data: [[string, string]];
     @Input() width: number;
     @Input() height: number;
+    @Input() onClick: string;
+    radius: number;
+    translation: string;
 
     constructor(public renderer: Renderer, public el: ElementRef){ }
 
     ngOnInit() {
-        let radius = Math.min(this.width, this.height) / 2,
-            totalSize = 0; // total size of all segments
+    };
 
-        // TODO: map the right categories to the right color (from dark to light in same branch)
-        const colors = {
-            "Cultuur en vrije tijd ": "#5687d1",
-            "Sport ": "#5687f1",
-            "Leren en onderwijs ": "#7b615c",
-            "Basisonderwijs ": "#7b61fc",
-            "Gewoon basisonderwijs ": "#7b61ac",
-            "Veiligheidszorg ": "#de783b",
-            "Politiediensten ": "#de789f",
-            "Wonen en ruimtelijke ordening ": "#6ab975",
-            "Woonbeleid ": "#6ab975",
-            "Bestrijding van krotwoningen ": "#6ab975",
-            "Zorg en opvang ": "#a173d1",
-            "Kinderopvang ": "#a173d1",
-            "Gezin en kinderen ": "#a173d1",
-            "Algemene financiering ": "#bbbbbb",
-            "Patrimonium zonder maatschappelijk doel ": "#ddd",
-            "Financiële aangelegenheden ": "#cccccc"
-        };
+    ngOnChanges(changes: {[propertyName: string]: SimpleChange}) {
+        var chart = d3.select(this.el.nativeElement).select("#chart");
+        chart.select('#chartsvg').remove();
+        this.createChart(chart);
+    }
+
+
+    createChart = (chart: any) => {
+        this.radius = Math.min(this.width, this.height) / 2;
+        this.translation = "translate(" + this.width / 2 + "," + this.height / 2 + ")";
+        let totalSize = 0; // total size of all segments
+        const colors = {};
 
         //TODO: refactor as much code as possible from javascript to html components
-        let container = d3.select("#container")
+        let partition = d3.layout.partition()
+            .size([2 * Math.PI, this.radius * this.radius])
+            .value(function(d: any) { return d.size; });
+
+        let svg = chart.append("svg:svg")
+            .attr("id", 'chartsvg')
+            .attr("width", this.width)
+            .attr("height", this.height)
+            .append("svg:g")
+            .attr("id", "container")
             .attr("transform", "translate(" + this.width / 2 + "," + this.height / 2 + ")");
 
-        var partition = d3.layout.partition()
-            .size([2 * Math.PI, radius * radius])
-            .value(function(d: Circle) { return d.size; });
+        svg.append("svg:circle")
+            .attr("r", this.radius)
+            .style("opacity", 0);
+
+        let arc = d3.svg.arc()
+            .startAngle(function(d: any) { return d.x; })
+            .endAngle(function(d: any) { return d.x + d.dx; })
+            .innerRadius(function(d: any) { return Math.sqrt(d.y); })
+            .outerRadius(function(d: any) { return Math.sqrt(d.y + d.dy); });
+
+        let json: Object = buildHierarchy(this.data, colors);
+
+        createVisualization(json, this.onClick, partition, arc, colors, totalSize, chart);
+    }
+}
 
 
-        var arc = d3.svg.arc()
-            .startAngle(function(d: Arc) { return d.x; })
-            .endAngle(function(d: Arc) { return d.x + d.dx; })
-            .innerRadius(function(d: Arc) { return Math.sqrt(d.y); })
-            .outerRadius(function(d: Arc) { return Math.sqrt(d.y + d.dy); });
+// Main function to draw and set up the visualization, once we have the data.
+function createVisualization(json: Object, callbackFunction: any, partition: any, arc: any, colors: Object, totalSize: any, chart: any) {
 
-            var json: Object = buildHierarchy(this.data);
+    // For efficiency, filter nodes to keep only those large enough to see.
+    let nodes: any = partition.nodes(json)
+        .filter(function(d : any) {
+            return (d.dx > 0.005); // 0.005 radians = 0.29 degrees
+        });
 
-            createVisualization(json);
+    let path = chart.select("#container").data([json]).selectAll("path")
+        .data(nodes)
+        .enter().append("svg:path")
+        .attr("display", function(d: any) { return d.depth ? null : "none"; })
+        .attr("d", arc)
+        .attr("fill-rule", "evenodd")
+        .style("fill", function(d : any) { return colors[d.name]; })
+        .style("opacity", 1)
+        .on("mouseover", (d: any) => mouseover(d, totalSize, chart))
+        .on("mousedown", (d: any) => mouseclick(d, callbackFunction));
 
+    // Add the mouseleave handler to the bounding circle.
+    chart.select("#container").on("mouseleave", (d: any) => mouseleave( d, chart));
 
-        // Main function to draw and set up the visualization, once we have the data.
-        function createVisualization(json: Object) {
+    // Get total size of the tree = value of root node from partition.
+    totalSize = path.node().__data__.value;
+};
 
-            // Bounding circle underneath the sunburst, to make it easier to detect
-            // when the mouse leaves the parent g.
-            container.append("svg:circle")
-                .attr("r", radius)
-                .style("opacity", 0);
+// Fade all but the current sequence
+function mouseover(d: any, totalSize: any, chart:any) {
+    let percentage = (100 * d.value / totalSize).toPrecision(3);
+    let percentageString = percentage + "%";
+    if (parseFloat(percentage) < 0.1) {
+        percentageString = "< 0.1%";
+    }
+    chart.select("#percentage")
+        .text(percentageString);
 
-            // For efficiency, filter nodes to keep only those large enough to see.
-            var nodes = partition.nodes(json)
-                .filter(function(d) {
-                    return (d.dx > 0.005); // 0.005 radians = 0.29 degrees
-                });
+    chart.select("#explanation")
+        .style("visibility", "");
 
-            var path = container.data([json]).selectAll("path")
-                .data(nodes)
-                .enter().append("svg:path")
-                .attr("display", function(d: Path) { return d.depth ? null : "none"; })
-                .attr("d", arc)
-                .attr("fill-rule", "evenodd")
-                .style("fill", function(d) { return colors[d.name]; })
-                .style("opacity", 1)
-                .on("mouseover", mouseover);
+    chart.select("#explanation2")
+        .style("visibility", "hidden");
 
-            // Add the mouseleave handler to the bounding circle.
-            d3.select("#container").on("mouseleave", mouseleave);
+    chart.select("#category").text(d.name);
 
-            // Get total size of the tree = value of root node from partition.
-            totalSize = path.node().__data__.value;
-        };
+    var sequenceArray = getAncestors(d);
 
-        // Fade all but the current sequence
-        function mouseover(d) {
+    // Fade all the segments.
+    chart.selectAll("path")
+        .style("opacity", 0.3);
 
-            var percentage = (100 * d.value / totalSize).toPrecision(3);
-            var percentageString = percentage + "%";
-            if (percentage < 0.1) {
-                percentageString = "< 0.1%";
-            }
+    // Then highlight only those that are an ancestor of the current segment.
+    chart.select("#container").selectAll("path")
+        .filter(function(node: any) {
+            return (sequenceArray.indexOf(node) >= 0);
+        })
+        .style("opacity", 1);
+}
 
-            d3.select("#percentage")
-                .text(percentageString);
+// Restore everything to full opacity when moving off the visualization.
+function mouseleave(d : any, chart: any) {
 
-            d3.select("#explanation")
-                .style("visibility", "");
+    // Deactivate all segments during transition.
+    chart.selectAll("path").on("mouseover", null);
 
-            d3.select("#category").text(d.name);
+    // Transition each segment to full opacity and then reactivate it.
+    chart.selectAll("path")
+        .transition()
+        .duration(1000)
+        .style("opacity", 1)
+        .each("end", function() {
+            d3.select(this).on("mouseover", mouseover);
+        });
+    chart.select("#explanation")
+        .style("visibility", "hidden");
+    chart.select("#explanation2")
+        .style("visibility", "");
+}
 
-            var sequenceArray = getAncestors(d);
-
-            // Fade all the segments.
-            d3.selectAll("path")
-                .style("opacity", 0.3);
-
-            // Then highlight only those that are an ancestor of the current segment.
-            container.selectAll("path")
-                .filter(function(node) {
-                    return (sequenceArray.indexOf(node) >= 0);
-                })
-                .style("opacity", 1);
-        }
-
-        // Restore everything to full opacity when moving off the visualization.
-        function mouseleave(d) {
-
-            // Deactivate all segments during transition.
-            d3.selectAll("path").on("mouseover", null);
-
-            // Transition each segment to full opacity and then reactivate it.
-            d3.selectAll("path")
-                .transition()
-                .duration(1000)
-                .style("opacity", 1)
-                .each("end", function() {
-                    d3.select(this).on("mouseover", mouseover);
-                });
-            d3.select("#explanation")
-                .style("visibility", "hidden");
-        }
+function mouseclick(clickedObject : any, callbackFunction : any) {
+    callbackFunction(clickedObject.name);
+}
 
 // Given a node in a partition layout, return an array of all of its ancestor
 // nodes, highest first, but excluding the root.
-        function getAncestors(node) {
-            var path = [];
-            var current = node;
-            while (current.parent) {
-                path.unshift(current);
-                current = current.parent;
-            }
-            return path;
-        }
+function getAncestors(node: any) {
+    let path: Array<Object> = [];
+    let current = node;
+    while (current.parent) {
+        path.unshift(current);
+        current = current.parent;
+    }
+    return path;
+}
 
 
 
@@ -209,46 +230,57 @@ export class SunburstComponent {
 // for a partition layout. The first column is a sequence of step names, from
 // root to leaf, separated by hyphens. The second column is a count of how
 // often that sequence occurred.
-        function buildHierarchy(csv) {
-            var root = {"name": "root", "children": []};
-            for (var i = 0; i < csv.length; i++) {
-                var sequence = csv[i][0];
-                var size = +csv[i][1];
-                if (isNaN(size)) { // e.g. if this is a header row
-                    continue;
-                }
-                var parts = sequence.split("-");
-                var currentNode = root;
-                for (var j = 0; j < parts.length; j++) {
-                    var children = currentNode["children"];
-                    var nodeName = parts[j];
-                    var childNode;
-                    if (j + 1 < parts.length) {
-                        // Not yet at the end of the sequence; move down the tree.
-                        var foundChild = false;
-                        for (var k = 0; k < children.length; k++) {
-                            if (children[k]["name"] == nodeName) {
-                                childNode = children[k];
-                                foundChild = true;
-                                break;
-                            }
-                        }
-                        // If we don't already have a child node for this branch, create it.
-                        if (!foundChild) {
-                            childNode = {"name": nodeName, "children": []};
-                            children.push(childNode);
-                        }
-                        currentNode = childNode;
-                    } else {
-                        // Reached the end of the sequence; create a leaf node.
-                        childNode = {"name": nodeName, "size": size};
-                        children.push(childNode);
+function buildHierarchy(data: [Object], colors: Object) {
+    var root = {"name": "root", "children": [Object]};
+    for (var i = 0; i < data.length; i++) {
+        var size = +data[i]['uitgave'];
+        if (isNaN(size)) { // e.g. if this is a header row
+            continue;
+        }
+
+        var currentNode : Object = root;
+        Object.keys(data[i]).map((value) => {
+            let children = currentNode["children"];
+            let nodeName : string;
+            let childNode: Object;
+            if(value === 'naamCatx' || value === 'naamCaty'){
+                nodeName = data[i][value];
+                // Not yet at the end of the sequence; move down the tree.
+                var foundChild = false;
+                for (var k = 0; k < children.length; k++) {
+                    if (children[k]["name"] == nodeName) {
+                        childNode = children[k];
+                        foundChild = true;
+                        break;
                     }
                 }
+                // If we don't already have a child node for this branch, create it.
+                if (!foundChild) {
+                    childNode = {"name": nodeName, "children": []};
+                    children.push(childNode);
+                    colors[nodeName] = get_random_color();
+                }
+                currentNode = childNode;
+            } else if(value === 'naamCatz'){
+                nodeName = data[i][value];
+                // Reached the end of the sequence; create a leaf node.
+                childNode = {"name": nodeName, "size": size};
+                colors[nodeName] = get_random_color();
+                children.push(childNode);
             }
-            return root;
-        };
-
+        });
     }
+    return root;
+};
 
+function rand(min: number, max: number) {
+    return Math.random() * (max-min+1) + min;
 }
+
+function get_random_color() {
+    var h = rand(180, 190);
+    var s = rand(60, 65);
+    var l = rand(20, 70);
+    return 'hsl(' + h + ',' + s + '%,' + l + '%)';
+}
+

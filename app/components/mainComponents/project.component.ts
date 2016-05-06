@@ -5,9 +5,7 @@ import {RouteParams} from 'angular2/router';
 @Component({ //invoke with metadata object
     selector: 'project-container',
     template: `<h2>Project {{name}}</h2>`,
-    providers: [ProjectService]
-
-
+    providers: [ProjectService],
 })
 
 export class ProjectComponent {

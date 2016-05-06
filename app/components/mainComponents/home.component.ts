@@ -18,17 +18,17 @@ import {ProjectOverviewComponent} from './../subComponents/information/projectOv
     </div>
     <div class="site-information-container">
         <h2> Ontdek de openstaande projecten van jouw favoriete gemeente en participeer!</h2>
+        <p>Het doel van dit platform is om de begrotingen en de uitgaven van Vlaamse steden en gemeenten transparant en begrijpelijk te maken voor de burgers en om
+burgervoorstellen over de begroting te verzamelen en te communiceren met de bevoegde instanties binnen de steden en gemeenten.
+</p>
     </div>
-    <div class="projects-container">
-        <project-overview></project-overview>
-    </div>
-
+    <project-overview></project-overview>
     `
     ,
     directives: [TownSelectorComponent, ProjectOverviewComponent],
     styles: [`
-    town-selector{
 
+    town-selector{
     position:absolute;
     top: 50%;
     left: 0;
@@ -62,20 +62,6 @@ import {ProjectOverviewComponent} from './../subComponents/information/projectOv
     right: 0;
 }
 
-    .projects-container h3 {
-    background-color: black;
-    color:white;
-    margin: 0;
-    text-align: center;
-    padding: 10px;
-}
-
-.projects-container {
-    background-color: #2ac7d2;
-    color:white;
-    text-align: center;
-}
-
 
 .site-information-container {
     padding: 20px;
@@ -91,7 +77,7 @@ import {ProjectOverviewComponent} from './../subComponents/information/projectOv
 }
 .site-information-container p {
     margin: 0;
-
+    padding: 0px 40px;
 }
 
 video {

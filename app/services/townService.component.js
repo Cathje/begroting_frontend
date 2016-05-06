@@ -34,7 +34,7 @@ System.register(['angular2/core', './../mockData/mock-towns', 'angular2/http', '
             TownService = (function () {
                 function TownService(http) {
                     this.http = http;
-                    this._url = 'http://localhost:52597/api/Gemeente';
+                    this._url = 'http://begroting-webapi.azurewebsites.net/Gemeente';
                 }
                 TownService.prototype.getTowns = function () {
                     return this.http.get(this._url)
@@ -42,8 +42,8 @@ System.register(['angular2/core', './../mockData/mock-towns', 'angular2/http', '
                         .catch(this.handleError);
                 };
                 //ophalen van 1 hoofdGemeente
-                TownService.prototype.getTown = function (name) {
-                    return this.http.get(this._url + "?name=" + name)
+                TownService.prototype.getTown = function (naam) {
+                    return this.http.get(this._url + "?naam=" + naam)
                         .map(function (res) { return res.json(); })
                         .catch(this.handleError);
                 };

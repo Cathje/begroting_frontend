@@ -6,9 +6,10 @@ System.register([], function(exports_1, context_1) {
         setters:[],
         execute: function() {
             MainTown = (function () {
-                function MainTown(name, postCode, belasting) {
+                function MainTown(name, postCode, gemeenteId, belasting) {
                     this.naam = name;
                     this.postCode = postCode;
+                    this.GemeenteID = gemeenteId;
                     this.aanslagVoet = belasting;
                 }
                 return MainTown;

@@ -39,7 +39,7 @@ System.register(['angular2/core', './../../services/projectService.component', '
                     core_1.Component({
                         selector: 'project-container',
                         template: "<h2>Project {{name}}</h2>",
-                        providers: [projectService_component_1.ProjectService]
+                        providers: [projectService_component_1.ProjectService],
                     }), 
                     __metadata('design:paramtypes', [projectService_component_1.ProjectService, router_1.RouteParams])
                 ], ProjectComponent);

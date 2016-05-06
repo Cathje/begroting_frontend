@@ -50,7 +50,7 @@ System.register(['angular2/core', './components/mainComponents/home.component', 
                         directives: [router_1.ROUTER_DIRECTIVES],
                         providers: [
                             router_1.ROUTER_PROVIDERS, http_1.HTTP_PROVIDERS],
-                        styles: [".menu {\n    background-color: black;\n    color:white;\n    padding: 20px;\n    text-align: left;\n}\n\n.logo {\n    width: 150px;\n    margin: 0 auto;\n\n}\n#social:last-child {\npadding-right: 3%;\n}\n#titelSocial{\npadding-right: 10px;\n}\n\n.socialBtn:hover{\ntext-decoration: none;\n}\n\n.signIn  {\n    color:white;\n    padding:10px;\n}\n\n"]
+                        styles: [".menu {\n    background-color: black;\n    color:white;\n    padding: 20px;\n    text-align: left;\n}\n\n.logo {\n    width: 150px;\n    margin: 0 auto;\n\n}\n#social:last-child {\npadding-right: 3%;\n}\n#titelSocial{\npadding-right: 10px;\n}\n\n.socialBtn:hover{\ntext-decoration: none;\n}\n\n.socialBtn img {\nborder-radius: 50%;\n}\n\n.signIn  {\n    color:white;\n    padding:10px;\n}\n\n"]
                     }),
                     router_1.RouteConfig([
                         { path: '/', name: 'Home', component: home_component_1.HomeComponent },
