@@ -54,7 +54,7 @@ select {
 
 export class TownSelectorComponent {
     towns: MainTown [];
-    selectedTown = new MainTown("Berchem","2600", 0);
+    selectedTown = new MainTown("Berchem","2600", 0,0);
 
     constructor( private _router: Router, private _townService: TownService)
     {
