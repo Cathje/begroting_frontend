@@ -1,16 +1,16 @@
-System.register(['angular2/core', './components/mainComponents/home.component', './components/mainComponents/town.component', './components/mainComponents/project.component', './components/mainComponents/addProject.component', './components/mainComponents/townBudget.component', 'angular2/router', "angular2/http"], function(exports_1, context_1) {
-    "use strict";
-    var __moduleName = context_1 && context_1.id;
+System.register(['angular2/core', './components/mainComponents/home.component', './components/mainComponents/town.component', './components/mainComponents/project.component', './components/mainComponents/addProject.component', './components/mainComponents/townBudget.component', './components/mainComponents/salary.component', 'angular2/router', "angular2/http"], function(exports_1) {
     var __decorate = (this && this.__decorate) || function (decorators, target, key, desc) {
-        var c = arguments.length, r = c < 3 ? target : desc === null ? desc = Object.getOwnPropertyDescriptor(target, key) : desc, d;
-        if (typeof Reflect === "object" && typeof Reflect.decorate === "function") r = Reflect.decorate(decorators, target, key, desc);
-        else for (var i = decorators.length - 1; i >= 0; i--) if (d = decorators[i]) r = (c < 3 ? d(r) : c > 3 ? d(target, key, r) : d(target, key)) || r;
-        return c > 3 && r && Object.defineProperty(target, key, r), r;
+        if (typeof Reflect === "object" && typeof Reflect.decorate === "function") return Reflect.decorate(decorators, target, key, desc);
+        switch (arguments.length) {
+            case 2: return decorators.reduceRight(function(o, d) { return (d && d(o)) || o; }, target);
+            case 3: return decorators.reduceRight(function(o, d) { return (d && d(target, key)), void 0; }, void 0);
+            case 4: return decorators.reduceRight(function(o, d) { return (d && d(target, key, o)) || o; }, desc);
+        }
     };
     var __metadata = (this && this.__metadata) || function (k, v) {
         if (typeof Reflect === "object" && typeof Reflect.metadata === "function") return Reflect.metadata(k, v);
     };
-    var core_1, home_component_1, town_component_1, project_component_1, addProject_component_1, townBudget_component_1, router_1, http_1;
+    var core_1, home_component_1, town_component_1, project_component_1, addProject_component_1, townBudget_component_1, salary_component_1, router_1, http_1;
     var AppComponent;
     return {
         setters:[
@@ -31,6 +31,9 @@ System.register(['angular2/core', './components/mainComponents/home.component', 
             },
             function (townBudget_component_1_1) {
                 townBudget_component_1 = townBudget_component_1_1;
+            },
+            function (salary_component_1_1) {
+                salary_component_1 = salary_component_1_1;
             },
             function (router_1_1) {
                 router_1 = router_1_1;
@@ -57,12 +60,13 @@ System.register(['angular2/core', './components/mainComponents/home.component', 
                         { path: '/:town', name: 'MainTown', component: town_component_1.TownComponent },
                         { path: '/:town/:projectNumber', name: 'Project', component: project_component_1.ProjectComponent },
                         { path: '/:town/addProject', name: 'AddProject', component: addProject_component_1.AddProjectComponent },
-                        { path: '/townBudget', name: 'TownBudget', component: townBudget_component_1.TownBudgetComponent }
+                        { path: '/townBudget', name: 'TownBudget', component: townBudget_component_1.TownBudgetComponent },
+                        { path: '/:town/salary', name: 'Salary', component: salary_component_1.SalaryComponent }
                     ]), 
                     __metadata('design:paramtypes', [])
                 ], AppComponent);
                 return AppComponent;
-            }());
+            })();
             exports_1("AppComponent", AppComponent);
         }
     }

@@ -4,6 +4,7 @@ import {TownComponent} from './components/mainComponents/town.component';
 import {ProjectComponent} from './components/mainComponents/project.component';
 import {AddProjectComponent} from './components/mainComponents/addProject.component';
 import {TownBudgetComponent} from './components/mainComponents/townBudget.component';
+import {SalaryComponent} from './components/mainComponents/salary.component';
 import { RouteConfig, ROUTER_DIRECTIVES, ROUTER_PROVIDERS } from 'angular2/router'; // for routing
 import {HTTP_PROVIDERS} from "angular2/http";
 
@@ -92,7 +93,8 @@ height: 30px;
     { path: '/:town', name: 'MainTown', component:TownComponent },
     { path: '/:town/:projectNumber', name: 'Project', component:ProjectComponent },
     { path: '/:town/addProject', name: 'AddProject', component:AddProjectComponent },
-    { path: '/townBudget', name: 'TownBudget', component:TownBudgetComponent }
+    { path: '/townBudget', name: 'TownBudget', component:TownBudgetComponent },
+    { path: '/:town/salary', name: 'Salary', component:SalaryComponent }
 ])
 
 export class AppComponent {

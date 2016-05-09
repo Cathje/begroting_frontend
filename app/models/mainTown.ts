@@ -15,9 +15,12 @@ export class MainTown {
     cluster:any;
     deelGemeenten:Town [];
 
-    constructor(name:string, postCode: string, gemeenteId:number) {
+
+    constructor(name:string, postCode: string, gemeenteId:number, belasting: number) {
         this.naam = name;
         this.postCode = postCode;
         this.GemeenteID = gemeenteId;
+        this.aanslagVoet = belasting;
+
     }
 }

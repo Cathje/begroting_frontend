@@ -4,6 +4,7 @@ import {Http,Response}  from 'angular2/http';
 import {Observable} from 'rxjs/observable';
 import {MainTown} from "../models/mainTown";
 import 'rxjs/Rx';
+import {CATS} from './../mockData/mock-catDTO';
 
 
 @Injectable()
@@ -38,4 +39,20 @@ export class TownService {
     getTownsHC() {
         return TOWNS;
     }
+
+    getTownHC(name: string) : MainTown{
+        for (var i = 0; i < TOWNS.length; i++) {
+            if(TOWNS[i].naam == name) {
+                return TOWNS[i];
+            }
+        }
+        
+    }
+    
+    getCatDataHC(){
+        return CATS;
+        
+    }
+    
+     
 }
