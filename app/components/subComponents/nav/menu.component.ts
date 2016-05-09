@@ -26,22 +26,34 @@ import {TownSelectorComponent} from '../input/townSelector.component';
           <a href="#" class="dropdown-toggle" data-toggle="dropdown" role="button" aria-haspopup="true" aria-expanded="false">Begroting<span class="caret"></span></a>
           <ul class="dropdown-menu">
             <li><a [routerLink]="['TownBudget']">Begrotingsvoorstel</a></li>
-            <li><a href="#">Andere optie</a></li>
+            <li><a href="#">Uitgaven</a></li>
+            <li><a href="#">Mijn belastingen</a></li>
           </ul>
         </li>
 
         <li class="dropdown">
-          <a href="#" class="dropdown-toggle" data-toggle="dropdown" role="button" aria-haspopup="true" aria-expanded="false">Participatie<span class="caret"></span></a>
+          <a href="#" class="dropdown-toggle" data-toggle="dropdown" role="button" aria-haspopup="true" aria-expanded="false">Participeren<span class="caret"></span></a>
           <ul class="dropdown-menu">
-            <li><a href="#">Dien een voorstel in</a></li>
-            <li><a href="#">Andere optie</a></li>
+            <li><a href="#">Begrotingsposten</a></li>
+            <li><a href="#">Burgervoorstellen</a></li>
+            <li><a href="#">Voorstel indienen</a></li>
           </ul>
         </li>
         <li class="dropdown">
           <a href="#" class="dropdown-toggle" data-toggle="dropdown" role="button" aria-haspopup="true" aria-expanded="false">Admin<span class="caret"></span></a>
           <ul class="dropdown-menu">
-            <li><a [routerLink]="['AddProject',{town: gent}]">Voeg project toe</a></li>
+            <li><a href="#">Beheer kerngegevens</a></li>
+            <li><a href="#">Informatie toevoegen</a></li>
+            <li><a href="#">Instellingen gemeente</a></li>
+            <li><a [routerLink]="['AddProject',{town: gent}]">Beheer projecten</a></li>
             <li><a href="#">Andere optie</a></li>
+          </ul>
+        </li>
+        <li class="dropdown">
+          <a href="#" class="dropdown-toggle" data-toggle="dropdown" role="button" aria-haspopup="true" aria-expanded="false">SuperAdmin<span class="caret"></span></a>
+          <ul class="dropdown-menu">
+            <li><a href="#">Algemene instellingen</a></li>
+            <li><a href="#">Admin aanmaken</a></li>
           </ul>
         </li>
       </ul>
