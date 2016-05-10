@@ -7,6 +7,5 @@ export class Town {
     naam:string;
     postCode:string;
     provincie:string;
-    hoofdGemeente: MainTown;
 
 }

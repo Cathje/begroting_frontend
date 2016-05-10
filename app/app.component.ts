@@ -7,6 +7,7 @@ import {TownBudgetComponent} from './components/mainComponents/townBudget.compon
 import {SalaryComponent} from './components/mainComponents/salary.component';
 import { RouteConfig, ROUTER_DIRECTIVES, ROUTER_PROVIDERS } from 'angular2/router'; // for routing
 import {HTTP_PROVIDERS} from "angular2/http";
+import {ManageTownComponent} from "./components/mainComponents/manageTown.component";
 
 @Component({ //invoke with metadata object
     selector: 'begroting-app',
@@ -93,6 +94,7 @@ height: 30px;
     { path: '/:town', name: 'MainTown', component:TownComponent },
     { path: '/:town/:projectNumber', name: 'Project', component:ProjectComponent },
     { path: '/:town/addProject', name: 'AddProject', component:AddProjectComponent },
+    { path: '/manageTown/:town', name: 'ManageTown', component:ManageTownComponent },
     { path: '/townBudget', name: 'TownBudget', component:TownBudgetComponent },
     { path: '/:town/salary', name: 'Salary', component:SalaryComponent }
 ])

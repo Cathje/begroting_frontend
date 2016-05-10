@@ -31,7 +31,7 @@ System.register(['angular2/core', 'angular2/http', 'rxjs/observable', 'rxjs/Rx']
             BegrotingService = (function () {
                 function BegrotingService(http) {
                     this.http = http;
-                    this._url = 'http://localhost:52597/api/Begroting';
+                    this._url = 'http://begroting-webapi.azurewebsites.net/api/Begroting';
                 }
                 BegrotingService.prototype.getFinancieleLijnen = function (jaar, naam) {
                     return this.http.get(this._url + "?jaar=" + jaar + "&naam=" + naam)

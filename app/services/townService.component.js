@@ -34,8 +34,9 @@ System.register(['angular2/core', './../mockData/mock-towns', 'angular2/http', '
             TownService = (function () {
                 function TownService(http) {
                     this.http = http;
-                    this._url = 'http://begroting-webapi.azurewebsites.net/Gemeente';
+                    this._url = 'http://begroting-webapi.azurewebsites.net/api/Gemeente';
                 }
+                //private _url = 'http://localhost:52597/api/Gemeente';
                 TownService.prototype.getTowns = function () {
                     return this.http.get(this._url)
                         .map(function (res) { return res.json(); })
@@ -46,6 +47,11 @@ System.register(['angular2/core', './../mockData/mock-towns', 'angular2/http', '
                     return this.http.get(this._url + "?naam=" + naam)
                         .map(function (res) { return res.json(); })
                         .catch(this.handleError);
+                };
+                TownService.prototype.putTown = function (maintown) {
+                    var headers = new http_1.Headers();
+                    headers.append('Content-Type', 'application/json');
+                    return this.http.put(this._url, JSON.stringify(maintown), { headers: headers }).map(function (res) { return res.json(); });
                 };
                 TownService.prototype.handleError = function (error) {
                     console.error(error);

@@ -33,7 +33,7 @@ System.register(['angular2/core', 'angular2/router', './../../../services/townSe
                     var _this = this;
                     this._router = _router;
                     this._townService = _townService;
-                    this.selectedTown = new mainTown_1.MainTown("Berchem", "2600", 0);
+                    this.selectedTown = new mainTown_1.MainTown("Berchem", "2600", 0, 0);
                     _townService.getTowns()
                         .subscribe(function (towns) { return _this.towns = towns; });
                 }

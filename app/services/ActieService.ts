@@ -15,12 +15,12 @@ export class ActieService {
 
 
     }
-    private _url = 'http://localhost:52597/api/Actie';
+    private _url = 'http://begroting-webapi.azurewebsites.net/api/Actie/';
 
 
-    getActies(catCode:string, naam:string): Observable<Actie[]>
+    getActies(id:number): Observable<Actie[]>
     {
-        return this.http.get(this._url + "?catCode=" + catCode + "&naam=" + naam)
+        return this.http.get(this._url + id)
             .map(res => res.json())
             .catch(this.handleError);
     }
