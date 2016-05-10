@@ -1,11 +1,11 @@
-System.register(['angular2/core', 'd3'], function(exports_1, context_1) {
-    "use strict";
-    var __moduleName = context_1 && context_1.id;
+System.register(['angular2/core', 'd3'], function(exports_1) {
     var __decorate = (this && this.__decorate) || function (decorators, target, key, desc) {
-        var c = arguments.length, r = c < 3 ? target : desc === null ? desc = Object.getOwnPropertyDescriptor(target, key) : desc, d;
-        if (typeof Reflect === "object" && typeof Reflect.decorate === "function") r = Reflect.decorate(decorators, target, key, desc);
-        else for (var i = decorators.length - 1; i >= 0; i--) if (d = decorators[i]) r = (c < 3 ? d(r) : c > 3 ? d(target, key, r) : d(target, key)) || r;
-        return c > 3 && r && Object.defineProperty(target, key, r), r;
+        if (typeof Reflect === "object" && typeof Reflect.decorate === "function") return Reflect.decorate(decorators, target, key, desc);
+        switch (arguments.length) {
+            case 2: return decorators.reduceRight(function(o, d) { return (d && d(o)) || o; }, target);
+            case 3: return decorators.reduceRight(function(o, d) { return (d && d(target, key)), void 0; }, void 0);
+            case 4: return decorators.reduceRight(function(o, d) { return (d && d(target, key, o)) || o; }, desc);
+        }
     };
     var __metadata = (this && this.__metadata) || function (k, v) {
         if (typeof Reflect === "object" && typeof Reflect.metadata === "function") return Reflect.metadata(k, v);
@@ -36,19 +36,25 @@ System.register(['angular2/core', 'd3'], function(exports_1, context_1) {
     }
     // Fade all but the current sequence
     function mouseover(d, totalSize, chart) {
-        var percentage = (100 * d.value / totalSize).toPrecision(3);
-        var percentageString = percentage + "%";
-        if (parseFloat(percentage) < 0.1) {
-            percentageString = "< 0.1%";
+        var percentage = 0;
+        if (totalSize !== 0) {
+            percentage = (100 * d.value / totalSize).toPrecision(3);
         }
+        console.log('mousea', percentage);
+        var percentageString = percentage + "%";
+        console.log('mouse1');
+        console.log('mouse2a', percentageString);
         chart.select("#percentage")
             .text(percentageString);
+        console.log('mouse2b');
         chart.select("#explanation")
             .style("visibility", "");
+        console.log('mouse2');
         chart.select("#explanation2")
             .style("visibility", "hidden");
         chart.select("#category").text(d.name);
         var sequenceArray = getAncestors(d);
+        console.log('mouse3');
         // Fade all the segments.
         chart.selectAll("path")
             .style("opacity", 0.3);
@@ -58,6 +64,7 @@ System.register(['angular2/core', 'd3'], function(exports_1, context_1) {
             return (sequenceArray.indexOf(node) >= 0);
         })
             .style("opacity", 1);
+        console.log('mouse4');
     }
     // Restore everything to full opacity when moving off the visualization.
     function mouseleave(d, chart) {
@@ -198,19 +205,19 @@ System.register(['angular2/core', 'd3'], function(exports_1, context_1) {
                 __decorate([
                     core_1.Input(), 
                     __metadata('design:type', Array)
-                ], SunburstComponent.prototype, "data", void 0);
+                ], SunburstComponent.prototype, "data");
                 __decorate([
                     core_1.Input(), 
                     __metadata('design:type', Number)
-                ], SunburstComponent.prototype, "width", void 0);
+                ], SunburstComponent.prototype, "width");
                 __decorate([
                     core_1.Input(), 
                     __metadata('design:type', Number)
-                ], SunburstComponent.prototype, "height", void 0);
+                ], SunburstComponent.prototype, "height");
                 __decorate([
                     core_1.Input(), 
                     __metadata('design:type', String)
-                ], SunburstComponent.prototype, "onClick", void 0);
+                ], SunburstComponent.prototype, "onClick");
                 SunburstComponent = __decorate([
                     core_1.Component({
                         selector: 'sunburst',
@@ -221,7 +228,7 @@ System.register(['angular2/core', 'd3'], function(exports_1, context_1) {
                     __metadata('design:paramtypes', [core_1.Renderer, core_1.ElementRef])
                 ], SunburstComponent);
                 return SunburstComponent;
-            }());
+            })();
             exports_1("SunburstComponent", SunburstComponent);
             ;
             ;

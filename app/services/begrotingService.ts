@@ -14,9 +14,9 @@ export class BegrotingService {
 
 
     }
-    private _url = 'http://localhost:52597/api/Begroting';
+    private _url = 'http://begroting-webapi.azurewebsites.net/api/Begroting';
 
-    getFinancieleLijnen(jaar:number,naam:string):Observable<FinancieleLijn[]> {
+    getFinancieleLijnen(jaar:number,naam:string):Observable<GemeenteCategorie[]> {
         return this.http.get(this._url + "?jaar=" + jaar + "&naam=" + naam)
             .map(res => res.json())
             .catch(this.handleError);

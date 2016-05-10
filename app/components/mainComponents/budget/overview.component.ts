@@ -20,14 +20,14 @@ import {Actie} from "../../../models/actie.js";
         </section>
 
         <section class="graph col-xs-12 col-sm-8" (window:resize)="onResize($event)">
-            <sunburst [data]=categories [onClick]=onCircleClick [height]=width [width]=width></sunburst>
+           <sunburst [data]=categories [onClick]=onCircleClick [height]=width [width]=width></sunburst>
 
             <div class="pointer">
                 <img src="./app/images/icons/clickPointer.png">
                 <p> Klik op een categorie om de acties van deze categorie te bekijken.</p>
             </div>
             <!--@TODO  TEST, NOG TE VERWIJDEREN-->
-             <p *ngFor="#town of uitgaves"> {{town.catCode}} - {{town.naamCatx}} - {{town.naamCaty}} - {{town.naamCatz}} - {{town.uitgave}} </p>
+             <p *ngFor="#town of uitgaves"> {{town.ID}} - {{town.naamCatx}} - {{town.naamCaty}} - {{town.naamCatz}} - {{town.totaal}} </p>
         </section>
 
         <section class="demographic col-xs-12 col-sm-12">
@@ -191,10 +191,10 @@ import {Actie} from "../../../models/actie.js";
 export class OverviewComponent {
     title = 'Gemeente - home';
     name:string = "";
-    mainTown = new MainTown("","",0);  //opm: moet geïnitialiseerd zijn, anders werkt ngModel niet
+    mainTown = new MainTown("","",0,0);  //opm: moet geïnitialiseerd zijn, anders werkt ngModel niet
     isVisable = false;
     contentbutton="meer info";
-    uitgaves: FinancieleLijn [];
+    uitgaves: GemeenteCategorie [];
     acties: Actie[];
     id:number;
     isEditor: boolean = false; //TODO: adapt value when signed in with special role
@@ -208,19 +208,21 @@ export class OverviewComponent {
 
     onCircleClick: any = (categorie: string) => {
         alert('hier komt een popup met de acties van de categorie: ' + categorie);
-        this._actieService.getActies("0905","Gent")
-            .subscribe((acties : any) => this.acties = acties);
+       this._actieService.getActies(15)
+           .subscribe((acties : any) => this.acties = acties);
     };
 
-    constructor(private _townService:TownService, _begrotingService:BegrotingService, private _routeParams:RouteParams)
+    constructor(private _townService:TownService, _begrotingService:BegrotingService, private _routeParams:RouteParams,_actieService: ActieService )
     {
         _townService.getTown(_routeParams.get('town'))
             .subscribe(town => this.mainTown = town
              );
 
         _begrotingService.getFinancieleLijnen(2020,"Gent")
-            .subscribe(finan => this.uitgaves = finan
+           .subscribe(finan => this.uitgaves = finan
             );
+
+        this._actieService = _actieService;
     }
 
     ngOnInit() {

@@ -42,7 +42,7 @@ import {TownSelectorComponent} from '../input/townSelector.component.js';
         <li class="dropdown">
           <a href="#" class="dropdown-toggle" data-toggle="dropdown" role="button" aria-haspopup="true" aria-expanded="false">Admin<span class="caret"></span></a>
           <ul class="dropdown-menu">
-            <li><a [routerLink]="['Admin', {town: 'Berchem'}, 'Admin']">Beheer kerngegevens</a></li>
+            <li><a [routerLink]="['Admin', {town: 'townString'}, 'Admin']">Beheer kerngegevens</a></li>
             <li><a href="#">Informatie toevoegen</a></li>
             <li><a href="#">Instellingen gemeente</a></li>
             <li><a [routerLink]="['Admin', {town: 'Berchem'}, 'ManageProject']">Beheer projecten</a></li>
@@ -93,5 +93,7 @@ import {TownSelectorComponent} from '../input/townSelector.component.js';
 })
 
 export class NavigationMenuComponent{
+
+    townString:string = "Gent";
 
 }

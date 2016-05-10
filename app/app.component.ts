@@ -2,6 +2,7 @@ import {Component} from 'angular2/core';
 import {HomeRouter} from './components/mainComponents/homeRouter.js';
 import { RouteConfig, ROUTER_DIRECTIVES, ROUTER_PROVIDERS } from 'angular2/router'; // for routing
 import {HTTP_PROVIDERS} from "angular2/http";
+import {ManageTownComponent} from "./components/mainComponents/manageTown.component";
 
 @Component({ //invoke with metadata object
     selector: 'begroting-app',
