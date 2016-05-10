@@ -5,7 +5,7 @@ import {Injectable} from 'angular2/core';
 import {Http,Response}  from 'angular2/http';
 import {Observable} from 'rxjs/observable';
 import 'rxjs/Rx';
-import {Actie} from "../models/actie";
+import {Actie} from "../models/actie.js";
 
 
 @Injectable()

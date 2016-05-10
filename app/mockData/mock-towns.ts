@@ -1,4 +1,4 @@
-import {MainTown} from '../models/mainTown';
+import {MainTown} from '../models/mainTown.js';
 
 
 export var TOWNS: MainTown[] = [

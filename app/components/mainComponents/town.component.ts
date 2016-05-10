@@ -1,15 +1,15 @@
 import {Component} from 'angular2/core';
-import {TownService} from './../../services/townService.component';
+import {TownService} from './../../services/townService.component.js';
 import { RouteParams } from 'angular2/router';
 import { ROUTER_DIRECTIVES } from 'angular2/router'; // for routing
-import {TownSelectorComponent} from './../subComponents/input/townSelector.component';
-import {EditableFieldComponent} from './../subComponents/input/editableField.component';
-import {NavigationMenuComponent} from './../subComponents/nav/menu.component';
-import {MainTown} from "../../models/mainTown";
-import {SunburstComponent} from './../subComponents/graphs/sunburst.component'
-import {BegrotingService} from "../../services/begrotingService";
-import {ActieService} from "../../services/ActieService";
-import {Actie} from "../../models/actie";
+import {TownSelectorComponent} from './../subComponents/input/townSelector.component.js';
+import {EditableFieldComponent} from './../subComponents/input/editableField.component.js';
+import {NavigationMenuComponent} from './../subComponents/nav/menu.component.js';
+import {MainTown} from "../../models/mainTown.js";
+import {SunburstComponent} from './../subComponents/graphs/sunburst.component.js'
+import {BegrotingService} from "../../services/begrotingService.js";
+import {ActieService} from "../../services/ActieService.js";
+import {Actie} from "../../models/actie.js";
 
 @Component({ //invoke with metadata object
     selector: 'home-container',

@@ -1,5 +1,5 @@
 import {Injectable} from 'angular2/core';
-import {PROJECTS} from './../mockData/mock-projects';
+import {PROJECTS} from './../mockData/mock-projects.js';
 
 @Injectable()
 export class ProjectService {

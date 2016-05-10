@@ -1,12 +1,12 @@
 import {Component, ChangeDetectorRef} from 'angular2/core';
-import {TownService} from './../../services/townService.component';
+import {TownService} from './../../services/townService.component.js';
 import { RouteParams } from 'angular2/router';
 import { ROUTER_DIRECTIVES } from 'angular2/router'; // for routing
-import {SunburstComponent} from './../subComponents/graphs/sunburst.component'
-import {TownMenuComponent} from './../subComponents/information/townMenu.component';
-import {SunburstCompare} from './../subComponents/graphs/sunburstCompare.component'//SunburstCompare
-import {MainTown} from "./../../models/mainTown";
-import {CatDTO} from "../../models/dto/catDTO";
+import {SunburstComponent} from './../subComponents/graphs/sunburst.component.js'
+import {TownMenuComponent} from './../subComponents/information/townMenu.component.js';
+import {SunburstCompare} from './../subComponents/graphs/sunburstCompare.component.js'//SunburstCompare
+import {MainTown} from "./../../models/mainTown.js";
+import {CatDTO} from "../../models/dto/catDTO.js";
 import {totalmem} from "os";
 import {Observable} from 'rxjs/observable';
 

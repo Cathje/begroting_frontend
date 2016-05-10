@@ -1,4 +1,4 @@
-import {CatDTO} from '../models/dto/catDTO';
+import {CatDTO} from '../models/dto/catDTO.js';
 
 export var CATS: CatDTO[] = [
     {"hoofdCategorie":"Algemene financiering","bedrag":3752410},

@@ -1,7 +1,7 @@
 import {Component} from 'angular2/core';
-import {TownService} from './../../../services/townService.component';
-import {TownSelectorComponent} from './../input/townSelector.component'
-import {MainTown} from "./../../../models/mainTown";
+import {TownService} from './../../../services/townService.component.js';
+import {TownSelectorComponent} from './../input/townSelector.component.js'
+import {MainTown} from "./../../../models/mainTown.js";
 import { ROUTER_DIRECTIVES } from 'angular2/router';
 
 

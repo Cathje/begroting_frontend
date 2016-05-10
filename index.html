@@ -3,35 +3,35 @@
 <head>
     <title>Begroting Vlaanderen</title>
     <meta name="viewport" content="width=device-width, initial-scale=1">
-    <link rel="stylesheet" href="stylesheet.css">
-    <link href="node_modules/bootstrap/dist/css/bootstrap.css" rel="stylesheet" id="theme">
+    <link rel="stylesheet" href="/stylesheet.css">
+    <link href="/node_modules/bootstrap/dist/css/bootstrap.css" rel="stylesheet" id="theme">
     <link href='https://fonts.googleapis.com/css?family=Roboto:400,100,300,500,700,900' rel='stylesheet' type='text/css'>
 
     <!-- 1. Load libraries -->
     <!-- IE required polyfills, in this exact order -->
-    <script src="node_modules/es6-shim/es6-shim.min.js"></script>
-    <script src="node_modules/systemjs/dist/system-polyfills.js"></script>
-    <script src="node_modules/angular2/es6/dev/src/testing/shims_for_IE.js"></script>
-    <script src="node_modules/angular2/bundles/angular2-polyfills.js"></script>
+    <script src="/node_modules/es6-shim/es6-shim.min.js"></script>
+    <script src="/node_modules/systemjs/dist/system-polyfills.js"></script>
+    <script src="/node_modules/angular2/es6/dev/src/testing/shims_for_IE.js"></script>
+    <script src="/node_modules/angular2/bundles/angular2-polyfills.js"></script>
 
-    <script src="node_modules/systemjs/dist/system.src.js"></script>
-    <script src="node_modules/rxjs/bundles/Rx.js"></script>
-    <script src="node_modules/angular2/bundles/angular2.dev.js"></script>
-    <script src="node_modules/angular2/bundles/router.dev.js"></script>
-    <script src="node_modules/angular2/bundles/http.dev.js"></script>
-    <script src="node_modules/d3/d3.js"></script>
+    <script src="/node_modules/systemjs/dist/system.src.js"></script>
+    <script src="/node_modules/rxjs/bundles/Rx.js"></script>
+    <script src="/node_modules/angular2/bundles/angular2.dev.js"></script>
+    <script src="/node_modules/angular2/bundles/router.dev.js"></script>
+    <script src="/node_modules/angular2/bundles/http.dev.js"></script>
+    <script src="/node_modules/d3/d3.js"></script>
 
     <!-- jQuery (necessary for Bootstrap's JavaScript plugins) -->
     <script src="https://ajax.googleapis.com/ajax/libs/jquery/1.11.3/jquery.min.js"></script>
     <!-- Include all compiled plugins (below), or include individual files as needed -->
-    <script src="node_modules/bootstrap/dist/js/bootstrap.min.js"></script>
+    <script src="/node_modules/bootstrap/dist/js/bootstrap.min.js"></script>
 
 
     <!-- 2. Configure SystemJS -->
     <script>
         System.config({
             map: {
-                rxjs: 'node_modules/rxjs' // mappen json
+                rxjs: '/node_modules/rxjs' // mappen json
             },
             packages: {
                 app: {
@@ -43,13 +43,13 @@
                 }
             },
             paths: {
-                'rxjs/operator/*': 'node_modules/rxjs/add/operator/*.js',
-                'rxjs/*' : 'node_modules/rxjs/*.js',
-                'd3': './node_modules/d3/d3.js'
+                'rxjs/operator/*': '/node_modules/rxjs/add/operator/*.js',
+                'rxjs/*' : '/node_modules/rxjs/*.js',
+                'd3': '/node_modules/d3/d3.js'
             }
 
         });
-        System.import('app/main')
+        System.import('/app/main.js')
                 .then(null, console.error.bind(console));
     </script>
 </head>

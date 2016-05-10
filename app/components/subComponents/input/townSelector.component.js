@@ -1,16 +1,16 @@
-System.register(['angular2/core', 'angular2/router', './../../../services/townService.component', "../../../models/mainTown"], function(exports_1) {
+System.register(['angular2/core', 'angular2/router', './../../../services/townService.component.js', "../../../models/mainTown.js"], function(exports_1, context_1) {
+    "use strict";
+    var __moduleName = context_1 && context_1.id;
     var __decorate = (this && this.__decorate) || function (decorators, target, key, desc) {
-        if (typeof Reflect === "object" && typeof Reflect.decorate === "function") return Reflect.decorate(decorators, target, key, desc);
-        switch (arguments.length) {
-            case 2: return decorators.reduceRight(function(o, d) { return (d && d(o)) || o; }, target);
-            case 3: return decorators.reduceRight(function(o, d) { return (d && d(target, key)), void 0; }, void 0);
-            case 4: return decorators.reduceRight(function(o, d) { return (d && d(target, key, o)) || o; }, desc);
-        }
+        var c = arguments.length, r = c < 3 ? target : desc === null ? desc = Object.getOwnPropertyDescriptor(target, key) : desc, d;
+        if (typeof Reflect === "object" && typeof Reflect.decorate === "function") r = Reflect.decorate(decorators, target, key, desc);
+        else for (var i = decorators.length - 1; i >= 0; i--) if (d = decorators[i]) r = (c < 3 ? d(r) : c > 3 ? d(target, key, r) : d(target, key)) || r;
+        return c > 3 && r && Object.defineProperty(target, key, r), r;
     };
     var __metadata = (this && this.__metadata) || function (k, v) {
         if (typeof Reflect === "object" && typeof Reflect.metadata === "function") return Reflect.metadata(k, v);
     };
-    var core_1, router_1, townService_component_1, mainTown_1;
+    var core_1, router_1, townService_component_js_1, mainTown_js_1;
     var TownSelectorComponent;
     return {
         setters:[
@@ -20,11 +20,11 @@ System.register(['angular2/core', 'angular2/router', './../../../services/townSe
             function (router_1_1) {
                 router_1 = router_1_1;
             },
-            function (townService_component_1_1) {
-                townService_component_1 = townService_component_1_1;
+            function (townService_component_js_1_1) {
+                townService_component_js_1 = townService_component_js_1_1;
             },
-            function (mainTown_1_1) {
-                mainTown_1 = mainTown_1_1;
+            function (mainTown_js_1_1) {
+                mainTown_js_1 = mainTown_js_1_1;
             }],
         execute: function() {
             TownSelectorComponent = (function () {
@@ -33,7 +33,7 @@ System.register(['angular2/core', 'angular2/router', './../../../services/townSe
                     var _this = this;
                     this._router = _router;
                     this._townService = _townService;
-                    this.selectedTown = new mainTown_1.MainTown("Berchem", "2600", 0);
+                    this.selectedTown = new mainTown_js_1.MainTown("Berchem", "2600", 0);
                     _townService.getTowns()
                         .subscribe(function (towns) { return _this.towns = towns; });
                 }
@@ -45,13 +45,14 @@ System.register(['angular2/core', 'angular2/router', './../../../services/townSe
                     core_1.Component({
                         selector: 'town-selector',
                         template: "\n                 <div class=\" styled-select slate right-align\">\n                    <select class=\"\" (change)=\"gotoHome($event)\">\n                        <option>Selecteer een gemeente</option>\n                        <option *ngFor=\"#town of towns\" [value]=\"town.naam\">{{town.naam}} </option>\n                    </select>\n                </div>\n    ",
-                        providers: [townService_component_1.TownService],
+                        providers: [townService_component_js_1.TownService],
                         styles: ["\n.slate{\n    text-align: center;\n    color:black;\n}\n\n.styled-select {\n    overflow: hidden;\n    width: 240px;\n    margin: 0 auto;\n}\n\n.styled-select select {\n    background: url(./app/images/arrow_down.png) no-repeat right rgba(255,255,255, 0.6);\n    background-size: 35px 35px;\n    border: none;\n    font-size: 14px;\n    height: 29px;\n    padding: 5px; /* If you add too much padding here, the options won't show in IE */\n    width: 240px;\n}\n\nselect::-ms-expand {\n    display: none;\n}\n\nselect {\n    -webkit-appearance: none;\n    -moz-appearance: none;\n    text-indent: 1px;\n    text-overflow: '';\n}\n\n      ",]
                     }), 
-                    __metadata('design:paramtypes', [router_1.Router, townService_component_1.TownService])
+                    __metadata('design:paramtypes', [router_1.Router, (typeof (_a = typeof townService_component_js_1.TownService !== 'undefined' && townService_component_js_1.TownService) === 'function' && _a) || Object])
                 ], TownSelectorComponent);
                 return TownSelectorComponent;
-            })();
+                var _a;
+            }());
             exports_1("TownSelectorComponent", TownSelectorComponent);
         }
     }

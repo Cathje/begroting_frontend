@@ -1,5 +1,5 @@
 import {Component} from 'angular2/core';
-import {ProjectService} from './../../services/projectService.component';
+import {ProjectService} from './../../services/projectService.component.js';
 import {RouteParams} from 'angular2/router';
 
 @Component({ //invoke with metadata object
@@ -17,7 +17,7 @@ export class ProjectComponent {
     }
 
     ngOnInit() {
-        var number = this._routeParams.get('projectNumber');
-       this.name = this._projectService.getProject(number).name;
+        //var number = this._routeParams.get('projectNumber');
+       //this.name = this._projectService.getProject(number).name;
     }
 }

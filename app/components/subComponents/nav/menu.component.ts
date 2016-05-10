@@ -1,7 +1,7 @@
 import {Component, Input} from 'angular2/core';
 import { RouteParams } from 'angular2/router';
 import { ROUTER_DIRECTIVES } from 'angular2/router'; // for routing
-import {TownSelectorComponent} from '../input/townSelector.component';
+import {TownSelectorComponent} from '../input/townSelector.component.js';
 
 @Component({ //invoke with metadata object
     selector: 'navigation-menu',
@@ -25,8 +25,8 @@ import {TownSelectorComponent} from '../input/townSelector.component';
         <li class="dropdown">
           <a href="#" class="dropdown-toggle" data-toggle="dropdown" role="button" aria-haspopup="true" aria-expanded="false">Begroting<span class="caret"></span></a>
           <ul class="dropdown-menu">
-            <li><a [routerLink]="['TownBudget']">Begrotingsvoorstel</a></li>
-            <li><a href="#">Uitgaven</a></li>
+            <li><a>Begrotingsvoorstel</a></li>
+            <li><a>Uitgaven</a></li>
             <li><a href="#">Mijn belastingen</a></li>
           </ul>
         </li>

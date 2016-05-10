@@ -1,4 +1,4 @@
-System.register(['angular2/core', './../mockData/mock-projects.js'], function(exports_1, context_1) {
+System.register(['angular2/core'], function(exports_1, context_1) {
     "use strict";
     var __moduleName = context_1 && context_1.id;
     var __decorate = (this && this.__decorate) || function (decorators, target, key, desc) {
@@ -10,34 +10,29 @@ System.register(['angular2/core', './../mockData/mock-projects.js'], function(ex
     var __metadata = (this && this.__metadata) || function (k, v) {
         if (typeof Reflect === "object" && typeof Reflect.metadata === "function") return Reflect.metadata(k, v);
     };
-    var core_1, mock_projects_js_1;
-    var ProjectService;
+    var core_1;
+    var TestComponent;
     return {
         setters:[
             function (core_1_1) {
                 core_1 = core_1_1;
-            },
-            function (mock_projects_js_1_1) {
-                mock_projects_js_1 = mock_projects_js_1_1;
             }],
         execute: function() {
-            ProjectService = (function () {
-                function ProjectService() {
+            TestComponent = (function () {
+                function TestComponent() {
+                    this.title = 'Gemeente - Begrotingsvoorstel';
                 }
-                ProjectService.prototype.getProjects = function () {
-                    return mock_projects_js_1.PROJECTS;
-                };
-                ProjectService.prototype.getProject = function (number) {
-                    return mock_projects_js_1.PROJECTS[number];
-                };
-                ProjectService = __decorate([
-                    core_1.Injectable(), 
+                TestComponent = __decorate([
+                    core_1.Component({
+                        selector: 'test-container',
+                        template: '<h3>test</h3>'
+                    }), 
                     __metadata('design:paramtypes', [])
-                ], ProjectService);
-                return ProjectService;
+                ], TestComponent);
+                return TestComponent;
             }());
-            exports_1("ProjectService", ProjectService);
+            exports_1("TestComponent", TestComponent);
         }
     }
 });
-//# sourceMappingURL=projectService.component.js.map
+//# sourceMappingURL=test.component.js.map

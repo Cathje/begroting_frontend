@@ -1,4 +1,4 @@
-import {Project} from '../models/project';
+import {Project} from '../models/project.js';
 
 export var PROJECTS: Project[] = [
     {"projectNumber": 0, "name": "Geld inzameling Nepal","categoryNumber": "00" , "projectDescription": "Dit is een project van Berchem", "town": "Berchem"},

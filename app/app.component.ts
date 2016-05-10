@@ -1,10 +1,10 @@
 import {Component} from 'angular2/core';
-import {HomeComponent} from './components/mainComponents/home.component';
-import {TownComponent} from './components/mainComponents/town.component';
-import {ProjectComponent} from './components/mainComponents/project.component';
-import {AddProjectComponent} from './components/mainComponents/addProject.component';
-import {TownBudgetComponent} from './components/mainComponents/townBudget.component';
-import {SalaryComponent} from './components/mainComponents/salary.component';
+import {HomeComponent} from './components/mainComponents/home.component.js';
+import {TownComponent} from './components/mainComponents/town.component.js';
+import {ProjectComponent} from './components/mainComponents/project.component.js';
+import {AddProjectComponent} from './components/mainComponents/addProject.component.js';
+import {TownBudgetComponent} from './components/mainComponents/townBudget.component.js';
+import {SalaryComponent} from './components/mainComponents/salary.component.js';
 import { RouteConfig, ROUTER_DIRECTIVES, ROUTER_PROVIDERS } from 'angular2/router'; // for routing
 import {HTTP_PROVIDERS} from "angular2/http";
 
@@ -12,7 +12,7 @@ import {HTTP_PROVIDERS} from "angular2/http";
     selector: 'begroting-app',
     template: `
     <div class="menu">
-        <img class="logo" src="./app/images/logo.png"/>
+        <img class="logo" src="/app/images/logo.png"/>
         <span class="pull-xs-right">
             <a class="signIn"[routerLink]="['Home']">Sign in</a>|
             <a class="signIn" [routerLink]="['Home']">Log in</a>
@@ -24,24 +24,24 @@ import {HTTP_PROVIDERS} from "angular2/http";
             <!-- twitter-->
              <a href="http://twitter.com/share?url=http://begrotingwebapi.azurewebsites.net&text=De begroting: Ik doe mee!" 
             target="_blank" class="socialBtn">
-            <img src="./app/images/social_media/twitter.jpg" width="40px" height="40px" border="0" >
+            <img src="/app/images/social_media/twitter.jpg" width="40px" height="40px" border="0" >
             </a>
               <!-- Facebook -->
             <a href="http://www.facebook.com/sharer/sharer.php?u=http://begrotingwebapi.azurewebsites.net" 
             target="_blank" class="socialBtn">
-            <img src="./app/images/social_media/facebook.jpg" width="40px" height="40px">
+            <img src="/app/images/social_media/facebook.jpg" width="40px" height="40px">
             </a>
     
             <!-- LinkedIn -->
             <a href="http://www.linkedin.com/shareArticle?url=http://begrotingwebapi.azurewebsites.net&title=De%20Begroting:%20Ik20doe20mee!&summary=De%20Begroting:%20Ik20doe20mee!&source=http://begrotingwebapi.azurewebsites.net" 
             target="_blank" class="socialBtn">
-            <img src="./app/images/social_media/linkedin.jpg" width="40px" height="40px">
+            <img src="/app/images/social_media/linkedin.jpg" width="40px" height="40px">
             </a>
             
                <!-- Google Plus -->
             <a href="https://plus.google.com/share?url=http://begrotingwebapi.azurewebsites.net" target="_blank"
             class="socialBtn">
-                <img src="./app/images/social_media/googlePlus.jpg" width="40px" height="40px">
+                <img src="/app/images/social_media/googlePlus.jpg" width="40px" height="40px">
             </a>
         </span>
     </div>
@@ -93,7 +93,7 @@ height: 30px;
     { path: '/:town', name: 'MainTown', component:TownComponent },
     { path: '/:town/:projectNumber', name: 'Project', component:ProjectComponent },
     { path: '/:town/addProject', name: 'AddProject', component:AddProjectComponent },
-    { path: '/townBudget', name: 'TownBudget', component:TownBudgetComponent },
+    { path: '/townBudget/...', name: 'TownBudget', component:TownBudgetComponent },
     { path: '/:town/salary', name: 'Salary', component:SalaryComponent }
 ])
 

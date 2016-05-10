@@ -1,7 +1,7 @@
 import {Component} from 'angular2/core';
 import {Router} from 'angular2/router';
-import {TownService} from './../../../services/townService.component';
-import {MainTown} from "../../../models/mainTown";
+import {TownService} from './../../../services/townService.component.js';
+import {MainTown} from "../../../models/mainTown.js";
 
 
 

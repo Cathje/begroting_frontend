@@ -1,6 +1,6 @@
 import {Component, provide} from 'angular2/core';
 import {bootstrap}    from 'angular2/platform/browser'
-import {AppComponent} from './app.component';
+import {AppComponent} from './app.component.js';
 import {HTTP_PROVIDERS} from "angular2/http";
 import {
     APP_BASE_HREF,

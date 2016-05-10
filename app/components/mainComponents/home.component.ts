@@ -1,6 +1,6 @@
 import {Component} from 'angular2/core';
-import {TownSelectorComponent} from './../subComponents/input/townSelector.component'
-import {ProjectOverviewComponent} from './../subComponents/information/projectOverview.component'
+import {TownSelectorComponent} from '/app/components/subComponents/input/townSelector.component.js'
+import {ProjectOverviewComponent} from '/app/components/subComponents/information/projectOverview.component.js'
 
 @Component({ //invoke with metadata object
     selector: 'home-container',
