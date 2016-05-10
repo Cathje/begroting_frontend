@@ -11,7 +11,7 @@ System.register(['angular2/core', 'angular2/router'], function(exports_1, contex
         if (typeof Reflect === "object" && typeof Reflect.metadata === "function") return Reflect.metadata(k, v);
     };
     var core_1, router_1;
-    var AddProjectComponent;
+    var ManageProjectComponent;
     return {
         setters:[
             function (core_1_1) {
@@ -21,24 +21,24 @@ System.register(['angular2/core', 'angular2/router'], function(exports_1, contex
                 router_1 = router_1_1;
             }],
         execute: function() {
-            AddProjectComponent = (function () {
-                function AddProjectComponent(_routeParams) {
+            ManageProjectComponent = (function () {
+                function ManageProjectComponent(_routeParams) {
                     this._routeParams = _routeParams;
                 }
-                AddProjectComponent.prototype.ngOnInit = function () {
+                ManageProjectComponent.prototype.ngOnInit = function () {
                     var number = this._routeParams.get('projectNumber');
                 };
-                AddProjectComponent = __decorate([
+                ManageProjectComponent = __decorate([
                     core_1.Component({
                         selector: 'project-container',
-                        template: "<h2>Voeg project toe</h2>"
+                        template: "<h2>Beheer project</h2>"
                     }), 
                     __metadata('design:paramtypes', [router_1.RouteParams])
-                ], AddProjectComponent);
-                return AddProjectComponent;
+                ], ManageProjectComponent);
+                return ManageProjectComponent;
             }());
-            exports_1("AddProjectComponent", AddProjectComponent);
+            exports_1("ManageProjectComponent", ManageProjectComponent);
         }
     }
 });
-//# sourceMappingURL=addProject.component.js.map
+//# sourceMappingURL=manageProject.component.js.map

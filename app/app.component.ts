@@ -1,10 +1,5 @@
 import {Component} from 'angular2/core';
-import {HomeComponent} from './components/mainComponents/home.component.js';
-import {TownComponent} from './components/mainComponents/town.component.js';
-import {ProjectComponent} from './components/mainComponents/project.component.js';
-import {AddProjectComponent} from './components/mainComponents/addProject.component.js';
-import {TownBudgetComponent} from './components/mainComponents/townBudget.component.js';
-import {SalaryComponent} from './components/mainComponents/salary.component.js';
+import {HomeRouter} from './components/mainComponents/homeRouter.js';
 import { RouteConfig, ROUTER_DIRECTIVES, ROUTER_PROVIDERS } from 'angular2/router'; // for routing
 import {HTTP_PROVIDERS} from "angular2/http";
 
@@ -14,8 +9,8 @@ import {HTTP_PROVIDERS} from "angular2/http";
     <div class="menu">
         <img class="logo" src="/app/images/logo.png"/>
         <span class="pull-xs-right">
-            <a class="signIn"[routerLink]="['Home']">Sign in</a>|
-            <a class="signIn" [routerLink]="['Home']">Log in</a>
+            <a class="signIn"[routerLink]="['App']">Sign in</a>|
+            <a class="signIn" [routerLink]="['App']">Log in</a>
         </span>
         
         <span class="pull-xs-right" id="social">
@@ -89,12 +84,7 @@ height: 30px;
 })
 
 @RouteConfig([
-    { path: '/', name: 'Home', component:HomeComponent },
-    { path: '/:town', name: 'MainTown', component:TownComponent },
-    { path: '/:town/:projectNumber', name: 'Project', component:ProjectComponent },
-    { path: '/:town/addProject', name: 'AddProject', component:AddProjectComponent },
-    { path: '/townBudget/...', name: 'TownBudget', component:TownBudgetComponent },
-    { path: '/:town/salary', name: 'Salary', component:SalaryComponent }
+    {path: '/...', name: 'App', component:HomeRouter}
 ])
 
 export class AppComponent {

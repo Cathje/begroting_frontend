@@ -84,6 +84,7 @@ export class SunburstComponent {
     constructor(public renderer: Renderer, public el: ElementRef){ }
 
     ngOnInit() {
+
     };
 
     ngOnChanges(changes: {[propertyName: string]: SimpleChange}) {

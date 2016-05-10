@@ -67,6 +67,6 @@ export class TownSelectorComponent {
 
     gotoHome(event: any) {
        // alert(event.target.value)
-      this._router.navigate(['MainTown', { town: event.target.value}]);
+      this._router.navigate(['/', 'App','Budget', { town: event.target.value}]);
     }
 }

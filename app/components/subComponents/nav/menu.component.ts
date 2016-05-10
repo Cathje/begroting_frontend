@@ -1,4 +1,4 @@
-import {Component, Input} from 'angular2/core';
+import {Component, Input, OnInit} from 'angular2/core';
 import { RouteParams } from 'angular2/router';
 import { ROUTER_DIRECTIVES } from 'angular2/router'; // for routing
 import {TownSelectorComponent} from '../input/townSelector.component.js';
@@ -25,9 +25,9 @@ import {TownSelectorComponent} from '../input/townSelector.component.js';
         <li class="dropdown">
           <a href="#" class="dropdown-toggle" data-toggle="dropdown" role="button" aria-haspopup="true" aria-expanded="false">Begroting<span class="caret"></span></a>
           <ul class="dropdown-menu">
-            <li><a>Begrotingsvoorstel</a></li>
-            <li><a>Uitgaven</a></li>
-            <li><a href="#">Mijn belastingen</a></li>
+            <li><a [routerLink]="['Budget', {town: 'Berchem'}, 'Overview']">Begrotingsvoorstel</a></li>
+            <li><a [routerLink]="['Budget', {town: 'Berchem'}, 'Expenses']">Uitgaven</a></li>
+            <li><a [routerLink]="['Budget', {town: 'Berchem'}, 'Taxes']">Mijn belastingen</a></li>
           </ul>
         </li>
 
@@ -42,10 +42,10 @@ import {TownSelectorComponent} from '../input/townSelector.component.js';
         <li class="dropdown">
           <a href="#" class="dropdown-toggle" data-toggle="dropdown" role="button" aria-haspopup="true" aria-expanded="false">Admin<span class="caret"></span></a>
           <ul class="dropdown-menu">
-            <li><a href="#">Beheer kerngegevens</a></li>
+            <li><a [routerLink]="['Admin', {town: 'Berchem'}, 'Admin']">Beheer kerngegevens</a></li>
             <li><a href="#">Informatie toevoegen</a></li>
             <li><a href="#">Instellingen gemeente</a></li>
-            <li><a [routerLink]="['AddProject',{town: gent}]">Beheer projecten</a></li>
+            <li><a [routerLink]="['Admin', {town: 'Berchem'}, 'ManageProject']">Beheer projecten</a></li>
             <li><a href="#">Andere optie</a></li>
           </ul>
         </li>
@@ -92,6 +92,6 @@ import {TownSelectorComponent} from '../input/townSelector.component.js';
 
 })
 
-export class NavigationMenuComponent {
+export class NavigationMenuComponent{
 
 }

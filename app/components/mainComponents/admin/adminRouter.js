@@ -1,4 +1,4 @@
-System.register(['angular2/core', 'angular2/router', "angular2/http", "./test.component.js"], function(exports_1, context_1) {
+System.register(['angular2/core', 'angular2/router', './admin.component.js', './manageProject.component.js'], function(exports_1, context_1) {
     "use strict";
     var __moduleName = context_1 && context_1.id;
     var __decorate = (this && this.__decorate) || function (decorators, target, key, desc) {
@@ -10,8 +10,8 @@ System.register(['angular2/core', 'angular2/router', "angular2/http", "./test.co
     var __metadata = (this && this.__metadata) || function (k, v) {
         if (typeof Reflect === "object" && typeof Reflect.metadata === "function") return Reflect.metadata(k, v);
     };
-    var core_1, router_1, http_1, test_component_js_1;
-    var TownBudgetComponent;
+    var core_1, router_1, admin_component_js_1, manageProject_component_js_1;
+    var AdminRouter;
     return {
         setters:[
             function (core_1_1) {
@@ -20,34 +20,32 @@ System.register(['angular2/core', 'angular2/router', "angular2/http", "./test.co
             function (router_1_1) {
                 router_1 = router_1_1;
             },
-            function (http_1_1) {
-                http_1 = http_1_1;
+            function (admin_component_js_1_1) {
+                admin_component_js_1 = admin_component_js_1_1;
             },
-            function (test_component_js_1_1) {
-                test_component_js_1 = test_component_js_1_1;
+            function (manageProject_component_js_1_1) {
+                manageProject_component_js_1 = manageProject_component_js_1_1;
             }],
         execute: function() {
-            TownBudgetComponent = (function () {
-                function TownBudgetComponent() {
-                    this.title = 'Gemeente - Begrotingsvoorstel';
+            AdminRouter = (function () {
+                function AdminRouter() {
                 }
-                TownBudgetComponent = __decorate([
+                AdminRouter = __decorate([
                     core_1.Component({
-                        selector: 'home-container',
-                        template: '<h3>{{title}}</h3>',
-                        directives: [router_1.ROUTER_DIRECTIVES],
-                        providers: [
-                            router_1.ROUTER_PROVIDERS, http_1.HTTP_PROVIDERS],
+                        selector: 'townRouter',
+                        template: " <router-outlet></router-outlet>",
+                        directives: [router_1.ROUTER_DIRECTIVES]
                     }),
                     router_1.RouteConfig([
-                        { path: '/test', name: 'Test', component: test_component_js_1.TestComponent }
+                        { path: '/', name: 'Admin', component: admin_component_js_1.AdminComponent, useAsDefault: true },
+                        { path: '/manageProject', name: 'ManageProject', component: manageProject_component_js_1.ManageProjectComponent }
                     ]), 
                     __metadata('design:paramtypes', [])
-                ], TownBudgetComponent);
-                return TownBudgetComponent;
+                ], AdminRouter);
+                return AdminRouter;
             }());
-            exports_1("TownBudgetComponent", TownBudgetComponent);
+            exports_1("AdminRouter", AdminRouter);
         }
     }
 });
-//# sourceMappingURL=townBudget.component.js.map
+//# sourceMappingURL=adminRouter.js.map

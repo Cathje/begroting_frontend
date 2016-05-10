@@ -1,4 +1,4 @@
-System.register(['angular2/core', './../../services/townService.component.js', 'angular2/router', './../subComponents/graphs/sunburst.component.js', './../subComponents/information/townMenu.component.js', './../subComponents/graphs/sunburstCompare.component.js'], function(exports_1, context_1) {
+System.register(['angular2/core', './../../../services/townService.component.js', 'angular2/router', './../../subComponents/graphs/sunburst.component.js', './../../subComponents/graphs/sunburstCompare.component.js'], function(exports_1, context_1) {
     "use strict";
     var __moduleName = context_1 && context_1.id;
     var __decorate = (this && this.__decorate) || function (decorators, target, key, desc) {
@@ -10,8 +10,8 @@ System.register(['angular2/core', './../../services/townService.component.js', '
     var __metadata = (this && this.__metadata) || function (k, v) {
         if (typeof Reflect === "object" && typeof Reflect.metadata === "function") return Reflect.metadata(k, v);
     };
-    var core_1, townService_component_js_1, router_1, router_2, sunburst_component_js_1, townMenu_component_js_1, sunburstCompare_component_js_1;
-    var SalaryComponent;
+    var core_1, townService_component_js_1, router_1, router_2, sunburst_component_js_1, sunburstCompare_component_js_1;
+    var TaxesComponent;
     return {
         setters:[
             function (core_1_1) {
@@ -27,17 +27,14 @@ System.register(['angular2/core', './../../services/townService.component.js', '
             function (sunburst_component_js_1_1) {
                 sunburst_component_js_1 = sunburst_component_js_1_1;
             },
-            function (townMenu_component_js_1_1) {
-                townMenu_component_js_1 = townMenu_component_js_1_1;
-            },
             function (sunburstCompare_component_js_1_1) {
                 sunburstCompare_component_js_1 = sunburstCompare_component_js_1_1;
             }],
         execute: function() {
-            SalaryComponent = (function () {
+            TaxesComponent = (function () {
                 //categories2: [[string, string]] = null;
                 //categories2: Observable<[ [string, string]]>;
-                function SalaryComponent(_routeParams, _townService, ref) {
+                function TaxesComponent(_routeParams, _townService, ref) {
                     var _this = this;
                     this._routeParams = _routeParams;
                     this._townService = _townService;
@@ -75,10 +72,10 @@ System.register(['angular2/core', './../../services/townService.component.js', '
                         .subscribe(function (town) { return _this.myTown = town; });
                 }
                 //call upon initial load
-                SalaryComponent.prototype.ngOnInit = function () {
+                TaxesComponent.prototype.ngOnInit = function () {
                     this.param = this.routeParams.get('town');
                 };
-                SalaryComponent.prototype.getNewTown = function (event) {
+                TaxesComponent.prototype.getNewTown = function (event) {
                     var total = 0;
                     var tempCategories = [["", ""]];
                     //TODO: get data of chosen town and generate new Sunburst
@@ -102,7 +99,7 @@ System.register(['angular2/core', './../../services/townService.component.js', '
                         console.log(this.categories2[i]);
                     }
                 };
-                SalaryComponent.prototype.calculateSalary = function () {
+                TaxesComponent.prototype.calculateSalary = function () {
                     var total = 0;
                     var tempCategories = [["", ""]];
                     //TODO: calculate tax percentages of provided salary and generate new Sunburst
@@ -127,23 +124,23 @@ System.register(['angular2/core', './../../services/townService.component.js', '
                         console.log(this.categories2[i]);
                     }
                 };
-                SalaryComponent = __decorate([
+                TaxesComponent = __decorate([
                     core_1.Component({
-                        selector: 'home-container',
-                        template: "\n        <townMenu></townMenu>\n        <h1>{{title}} en parameter: {{param}}</h1>\n        \n        \t\t\n\t\t<div class=\"container\">\n            <div class=\"row\">\n                <div class=\"thisTownArea col-lg-6 col-md-6 col-sm-12 col-xs-12\">\n                    <div class=\"row\">\n                        <section id=\"sliderSection\">\n\t\t\t                <input type=\"range\" id=\"speedSlider\" [(ngModel)]=\"mySalary\" min=\"1500\" max=\"15000\" value=\"2000\" step=\"50\" (change)=\"calculateSalary()\"/>\n\t\t                </section>\n                    </div>\n\t\t\t\t\t<div class=\"row\">\n\t\t\t\t\t    <sunburst [data]=categories width=500 height=600></sunburst>\n\t\t            </div>\n                </div>\n                <div class=\"otherTownArea col-lg-6 col-md-6 col-sm-12 col-xs-12\">\n                    <div class=\"row\">\n                        <div class=\"\">\n                            <select class=\"selectClass\" (change)=\"getNewTown($event)\">\n                                <option>Selecteer een gemeente</option>\n                                <option *ngFor=\"#town of towns\" [value]=\"town.naam\">{{town.naam}} </option>\n                            </select>\n                        </div>\n                    </div>\n\t\t\t\t\t<div class=\"row\">\n                        <sunburstCompare [data]=categories2 width=500 height=600></sunburstCompare>\n                    </div>\n                </div>\n\t\t\t</div>\n        </div>\n        \n        \n          \n        \n        \n         \n        \n        \n",
-                        directives: [townMenu_component_js_1.TownMenuComponent, sunburst_component_js_1.SunburstComponent, router_2.ROUTER_DIRECTIVES, sunburstCompare_component_js_1.SunburstCompare],
+                        selector: 'taxes-container',
+                        template: "\n        <h1>{{title}} en parameter: {{param}}</h1>\n\t\t<div class=\"container\">\n            <div class=\"row\">\n                <div class=\"thisTownArea col-lg-6 col-md-6 col-sm-12 col-xs-12\">\n                    <div class=\"row\">\n                        <section id=\"sliderSection\">\n\t\t\t                <input type=\"range\" id=\"speedSlider\" [(ngModel)]=\"mySalary\" min=\"1500\" max=\"15000\" value=\"2000\" step=\"50\" (change)=\"calculateSalary()\"/>\n\t\t                </section>\n                    </div>\n\t\t\t\t\t<div class=\"row\">\n\t\t\t\t\t    <sunburst [data]=categories width=500 height=600></sunburst>\n\t\t            </div>\n                </div>\n                <div class=\"otherTownArea col-lg-6 col-md-6 col-sm-12 col-xs-12\">\n                    <div class=\"row\">\n                        <div class=\"\">\n                            <select class=\"selectClass\" (change)=\"getNewTown($event)\">\n                                <option>Selecteer een gemeente</option>\n                                <option *ngFor=\"#town of towns\" [value]=\"town.naam\">{{town.naam}} </option>\n                            </select>\n                        </div>\n                    </div>\n\t\t\t\t\t<div class=\"row\">\n                        <sunburstCompare [data]=categories2 width=500 height=600></sunburstCompare>\n                    </div>\n                </div>\n\t\t\t</div>\n        </div>\n\n\n\n\n\n\n\n\n",
+                        directives: [sunburst_component_js_1.SunburstComponent, router_2.ROUTER_DIRECTIVES, sunburstCompare_component_js_1.SunburstCompare],
                         providers: [
                             townService_component_js_1.TownService,
                         ],
-                        styles: ["\n   \n   .thisTownArea{\n   //background-color: #00b3ee;\n   }\n   .otherTownArea{\n   //background-color: #9c0033;\n   }\n   #speedSlider {\n   width: 50%;\n   margin: auto;\n   }\n   #sunburstSection{\n   padding: 1%;\n   margin-left: 1%;\n   flex: 3;\n   -webkit-flex-grow: 3;\n   \n   }\n   .selectClass{\n   display: block;\n   margin: 0 auto;\n   \n   }\n   \n   \n/*Range CSS*/   \ninput[type=range] {\n  -webkit-appearance: none;\n  width: 100%;\n  margin: 5.3px 0;\n}\ninput[type=range]:focus {\n  outline: none;\n}\ninput[type=range]::-webkit-slider-runnable-track {\n  width: 100%;\n  height: 8.4px;\n  cursor: pointer;\n  box-shadow: 1px 1px 1px rgba(84, 142, 87, 0.29), 0px 0px 1px rgba(93, 158, 97, 0.29);\n  background: #2ac7d2;\n  border-radius: 17.1px;\n  border: 2.6px solid rgba(133, 148, 132, 0.36);\n}\ninput[type=range]::-webkit-slider-thumb {\n  box-shadow: 1px 1px 1px #6c8f7e, 0px 0px 1px #7a9b8b;\n  border: 1px solid #3d0000;\n  height: 19px;\n  width: 41px;\n  border-radius: 44px;\n  background: rgba(36, 37, 40, 0.88);\n  cursor: pointer;\n  -webkit-appearance: none;\n  margin-top: -7.9px;\n}\ninput[type=range]:focus::-webkit-slider-runnable-track {\n  background: #97e5ea;\n}\ninput[type=range]::-moz-range-track {\n  width: 100%;\n  height: 8.4px;\n  cursor: pointer;\n  box-shadow: 1px 1px 1px rgba(84, 142, 87, 0.29), 0px 0px 1px rgba(93, 158, 97, 0.29);\n  background: #2ac7d2;\n  border-radius: 17.1px;\n  border: 2.6px solid rgba(133, 148, 132, 0.36);\n}\ninput[type=range]::-moz-range-thumb {\n  box-shadow: 1px 1px 1px #6c8f7e, 0px 0px 1px #7a9b8b;\n  border: 1px solid #3d0000;\n  height: 19px;\n  width: 41px;\n  border-radius: 44px;\n  background: rgba(36, 37, 40, 0.88);\n  cursor: pointer;\n}\ninput[type=range]::-ms-track {\n  width: 100%;\n  height: 8.4px;\n  cursor: pointer;\n  background: transparent;\n  border-color: transparent;\n  color: transparent;\n}\ninput[type=range]::-ms-fill-lower {\n  background: #145e63;\n  border: 2.6px solid rgba(133, 148, 132, 0.36);\n  border-radius: 34.2px;\n  box-shadow: 1px 1px 1px rgba(84, 142, 87, 0.29), 0px 0px 1px rgba(93, 158, 97, 0.29);\n}\ninput[type=range]::-ms-fill-upper {\n  background: #2ac7d2;\n  border: 2.6px solid rgba(133, 148, 132, 0.36);\n  border-radius: 34.2px;\n  box-shadow: 1px 1px 1px rgba(84, 142, 87, 0.29), 0px 0px 1px rgba(93, 158, 97, 0.29);\n}\ninput[type=range]::-ms-thumb {\n  box-shadow: 1px 1px 1px #6c8f7e, 0px 0px 1px #7a9b8b;\n  border: 1px solid #3d0000;\n  height: 19px;\n  width: 41px;\n  border-radius: 44px;\n  background: rgba(36, 37, 40, 0.88);\n  cursor: pointer;\n  height: 8.4px;\n}\ninput[type=range]:focus::-ms-fill-lower {\n  background: #2ac7d2;\n}\ninput[type=range]:focus::-ms-fill-upper {\n  background: #97e5ea;\n}\n/*End Range CSS*/ \n\n    \n    \n    \n"]
+                        styles: ["\n\n   .thisTownArea{\n   //background-color: #00b3ee;\n   }\n   .otherTownArea{\n   //background-color: #9c0033;\n   }\n   #speedSlider {\n   width: 50%;\n   margin: auto;\n   }\n   #sunburstSection{\n   padding: 1%;\n   margin-left: 1%;\n   flex: 3;\n   -webkit-flex-grow: 3;\n\n   }\n   .selectClass{\n   display: block;\n   margin: 0 auto;\n\n   }\n\n\n/*Range CSS*/\ninput[type=range] {\n  -webkit-appearance: none;\n  width: 100%;\n  margin: 5.3px 0;\n}\ninput[type=range]:focus {\n  outline: none;\n}\ninput[type=range]::-webkit-slider-runnable-track {\n  width: 100%;\n  height: 8.4px;\n  cursor: pointer;\n  box-shadow: 1px 1px 1px rgba(84, 142, 87, 0.29), 0px 0px 1px rgba(93, 158, 97, 0.29);\n  background: #2ac7d2;\n  border-radius: 17.1px;\n  border: 2.6px solid rgba(133, 148, 132, 0.36);\n}\ninput[type=range]::-webkit-slider-thumb {\n  box-shadow: 1px 1px 1px #6c8f7e, 0px 0px 1px #7a9b8b;\n  border: 1px solid #3d0000;\n  height: 19px;\n  width: 41px;\n  border-radius: 44px;\n  background: rgba(36, 37, 40, 0.88);\n  cursor: pointer;\n  -webkit-appearance: none;\n  margin-top: -7.9px;\n}\ninput[type=range]:focus::-webkit-slider-runnable-track {\n  background: #97e5ea;\n}\ninput[type=range]::-moz-range-track {\n  width: 100%;\n  height: 8.4px;\n  cursor: pointer;\n  box-shadow: 1px 1px 1px rgba(84, 142, 87, 0.29), 0px 0px 1px rgba(93, 158, 97, 0.29);\n  background: #2ac7d2;\n  border-radius: 17.1px;\n  border: 2.6px solid rgba(133, 148, 132, 0.36);\n}\ninput[type=range]::-moz-range-thumb {\n  box-shadow: 1px 1px 1px #6c8f7e, 0px 0px 1px #7a9b8b;\n  border: 1px solid #3d0000;\n  height: 19px;\n  width: 41px;\n  border-radius: 44px;\n  background: rgba(36, 37, 40, 0.88);\n  cursor: pointer;\n}\ninput[type=range]::-ms-track {\n  width: 100%;\n  height: 8.4px;\n  cursor: pointer;\n  background: transparent;\n  border-color: transparent;\n  color: transparent;\n}\ninput[type=range]::-ms-fill-lower {\n  background: #145e63;\n  border: 2.6px solid rgba(133, 148, 132, 0.36);\n  border-radius: 34.2px;\n  box-shadow: 1px 1px 1px rgba(84, 142, 87, 0.29), 0px 0px 1px rgba(93, 158, 97, 0.29);\n}\ninput[type=range]::-ms-fill-upper {\n  background: #2ac7d2;\n  border: 2.6px solid rgba(133, 148, 132, 0.36);\n  border-radius: 34.2px;\n  box-shadow: 1px 1px 1px rgba(84, 142, 87, 0.29), 0px 0px 1px rgba(93, 158, 97, 0.29);\n}\ninput[type=range]::-ms-thumb {\n  box-shadow: 1px 1px 1px #6c8f7e, 0px 0px 1px #7a9b8b;\n  border: 1px solid #3d0000;\n  height: 19px;\n  width: 41px;\n  border-radius: 44px;\n  background: rgba(36, 37, 40, 0.88);\n  cursor: pointer;\n  height: 8.4px;\n}\ninput[type=range]:focus::-ms-fill-lower {\n  background: #2ac7d2;\n}\ninput[type=range]:focus::-ms-fill-upper {\n  background: #97e5ea;\n}\n/*End Range CSS*/\n\n\n\n\n"]
                     }), 
                     __metadata('design:paramtypes', [router_1.RouteParams, (typeof (_a = typeof townService_component_js_1.TownService !== 'undefined' && townService_component_js_1.TownService) === 'function' && _a) || Object, core_1.ChangeDetectorRef])
-                ], SalaryComponent);
-                return SalaryComponent;
+                ], TaxesComponent);
+                return TaxesComponent;
                 var _a;
             }());
-            exports_1("SalaryComponent", SalaryComponent);
+            exports_1("TaxesComponent", TaxesComponent);
         }
     }
 });
-//# sourceMappingURL=salary.component.js.map
+//# sourceMappingURL=taxes.component.js.map

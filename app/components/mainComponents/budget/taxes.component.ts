@@ -1,23 +1,19 @@
 import {Component, ChangeDetectorRef} from 'angular2/core';
-import {TownService} from './../../services/townService.component.js';
+import {TownService} from './../../../services/townService.component.js';
 import { RouteParams } from 'angular2/router';
 import { ROUTER_DIRECTIVES } from 'angular2/router'; // for routing
-import {SunburstComponent} from './../subComponents/graphs/sunburst.component.js'
-import {TownMenuComponent} from './../subComponents/information/townMenu.component.js';
-import {SunburstCompare} from './../subComponents/graphs/sunburstCompare.component.js'//SunburstCompare
-import {MainTown} from "./../../models/mainTown.js";
-import {CatDTO} from "../../models/dto/catDTO.js";
+import {SunburstComponent} from './../../subComponents/graphs/sunburst.component.js'
+import {SunburstCompare} from './../../subComponents/graphs/sunburstCompare.component.js'//SunburstCompare
+import {MainTown} from "./../../../models/mainTown.js";
+import {CatDTO} from "../../../models/dto/catDTO.js";
 import {totalmem} from "os";
 import {Observable} from 'rxjs/observable';
 
 
 @Component({ //invoke with metadata object
-    selector: 'home-container',
+    selector: 'taxes-container',
     template: `
-        <townMenu></townMenu>
         <h1>{{title}} en parameter: {{param}}</h1>
-        
-        		
 		<div class="container">
             <div class="row">
                 <div class="thisTownArea col-lg-6 col-md-6 col-sm-12 col-xs-12">
@@ -45,21 +41,21 @@ import {Observable} from 'rxjs/observable';
                 </div>
 			</div>
         </div>
-        
-        
-          
-        
-        
-         
-        
-        
+
+
+
+
+
+
+
+
 `,
-    directives: [TownMenuComponent, SunburstComponent, ROUTER_DIRECTIVES, SunburstCompare],
+    directives: [SunburstComponent, ROUTER_DIRECTIVES, SunburstCompare],
     providers: [
         TownService,
     ],
     styles: [`
-   
+
    .thisTownArea{
    //background-color: #00b3ee;
    }
@@ -75,16 +71,16 @@ import {Observable} from 'rxjs/observable';
    margin-left: 1%;
    flex: 3;
    -webkit-flex-grow: 3;
-   
+
    }
    .selectClass{
    display: block;
    margin: 0 auto;
-   
+
    }
-   
-   
-/*Range CSS*/   
+
+
+/*Range CSS*/
 input[type=range] {
   -webkit-appearance: none;
   width: 100%;
@@ -170,15 +166,15 @@ input[type=range]:focus::-ms-fill-lower {
 input[type=range]:focus::-ms-fill-upper {
   background: #97e5ea;
 }
-/*End Range CSS*/ 
+/*End Range CSS*/
 
-    
-    
-    
+
+
+
 `]
 })
 
-export class SalaryComponent {
+export class TaxesComponent {
     private title = 'Gemeente - Salarisvoorstel';
     private param : string = ""; //not required
     private routeParams:RouteParams;
@@ -227,13 +223,13 @@ export class SalaryComponent {
 
         _townService.getTowns()
             .subscribe(towns => this.towns = towns);
-        
+
         this.myTown = _townService.getTownHC(this._routeParams.get('town'));//TODO: delete
 
         _townService.getTown(this._routeParams.get('town'))
             .subscribe(town => this.myTown = town
             );
-        
+
     }
 
     //call upon initial load

@@ -34,7 +34,7 @@ System.register(['angular2/core', './../mockData/mock-towns.js', 'angular2/http'
             TownService = (function () {
                 function TownService(http) {
                     this.http = http;
-                    this._url = 'http://begroting-webapi.azurewebsites.net/Gemeente';
+                    this._url = 'http://begroting-webapi.azurewebsites.net/api/Gemeente';
                 }
                 TownService.prototype.getTowns = function () {
                     return this.http.get(this._url)

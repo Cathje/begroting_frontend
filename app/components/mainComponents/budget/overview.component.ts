@@ -1,20 +1,18 @@
 import {Component} from 'angular2/core';
-import {TownService} from './../../services/townService.component.js';
+import {TownService} from './../../../services/townService.component.js';
 import { RouteParams } from 'angular2/router';
-import { ROUTER_DIRECTIVES } from 'angular2/router'; // for routing
-import {TownSelectorComponent} from './../subComponents/input/townSelector.component.js';
-import {EditableFieldComponent} from './../subComponents/input/editableField.component.js';
-import {NavigationMenuComponent} from './../subComponents/nav/menu.component.js';
-import {MainTown} from "../../models/mainTown.js";
-import {SunburstComponent} from './../subComponents/graphs/sunburst.component.js'
-import {BegrotingService} from "../../services/begrotingService.js";
-import {ActieService} from "../../services/ActieService.js";
-import {Actie} from "../../models/actie.js";
+import {TownSelectorComponent} from './../../subComponents/input/townSelector.component.js';
+import {EditableFieldComponent} from './../../subComponents/input/editableField.component.js';
+import {MainTown} from "../../../models/mainTown.js";
+import {SunburstComponent} from './../../subComponents/graphs/sunburst.component.js';
+import {BegrotingService} from "../../../services/begrotingService.js";
+import {ActieService} from "../../../services/ActieService.js";
+import {Actie} from "../../../models/actie.js";
+
 
 @Component({ //invoke with metadata object
     selector: 'home-container',
     template: `
-        <navigation-menu></navigation-menu>
         <div class="container">
         <section class="intro col-xs-12 col-sm-4">
             <h1>De kerngegevens van {{mainTown?.naam}}</h1>
@@ -84,21 +82,11 @@ import {Actie} from "../../models/actie.js";
         </section>
        </div>
 `,
-    directives: [ROUTER_DIRECTIVES, TownSelectorComponent, NavigationMenuComponent, EditableFieldComponent, SunburstComponent],
+    directives: [TownSelectorComponent, EditableFieldComponent, SunburstComponent],
     providers: [ BegrotingService,ActieService,
         TownService,  //routing
     ],
     styles: [`
-   
-    .home-menu {
-    padding: 5px;
-    background-color: #2ac7d2;
-    display: flex;
-    flex-direction: row;
-    justify-content: space-between;
-    align-items: center;
-    sel
-    }
 
     .icon {
     width: 200px;
@@ -200,7 +188,7 @@ import {Actie} from "../../models/actie.js";
 `]
 })
 
-export class TownComponent {
+export class OverviewComponent {
     title = 'Gemeente - home';
     name:string = "";
     mainTown = new MainTown("","",0);  //opm: moet geïnitialiseerd zijn, anders werkt ngModel niet
@@ -259,3 +247,4 @@ export class TownComponent {
     }
 
 }
+

@@ -14,7 +14,7 @@ export class TownService {
 
 
     }
-    private _url = 'http://begroting-webapi.azurewebsites.net/Gemeente';
+    private _url = 'http://begroting-webapi.azurewebsites.net/api/Gemeente';
 
     getTowns():Observable<MainTown[]> {
         return this.http.get(this._url)

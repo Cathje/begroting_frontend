@@ -39,7 +39,7 @@ System.register(['angular2/core', 'angular2/router', './../../../services/townSe
                 }
                 TownSelectorComponent.prototype.gotoHome = function (event) {
                     // alert(event.target.value)
-                    this._router.navigate(['MainTown', { town: event.target.value }]);
+                    this._router.navigate(['/', 'App', 'Budget', { town: event.target.value }]);
                 };
                 TownSelectorComponent = __decorate([
                     core_1.Component({

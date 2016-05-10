@@ -1,6 +1,8 @@
 import {Component} from 'angular2/core';
 import {TownSelectorComponent} from '/app/components/subComponents/input/townSelector.component.js'
 import {ProjectOverviewComponent} from '/app/components/subComponents/information/projectOverview.component.js'
+import {RouteConfig, ROUTER_DIRECTIVES} from 'angular2/router'; // for routing
+import {HTTP_PROVIDERS} from "angular2/http";
 
 @Component({ //invoke with metadata object
     selector: 'home-container',
@@ -25,7 +27,7 @@ burgervoorstellen over de begroting te verzamelen en te communiceren met de bevo
     <project-overview></project-overview>
     `
     ,
-    directives: [TownSelectorComponent, ProjectOverviewComponent],
+    directives: [ROUTER_DIRECTIVES,TownSelectorComponent, ProjectOverviewComponent],
     styles: [`
 
     town-selector{

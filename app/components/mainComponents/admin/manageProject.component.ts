@@ -3,10 +3,10 @@ import {RouteParams} from 'angular2/router';
 
 @Component({ //invoke with metadata object
     selector: 'project-container',
-    template: `<h2>Voeg project toe</h2>`
+    template: `<h2>Beheer project</h2>`
 })
 
-export class AddProjectComponent {
+export class ManageProjectComponent {
 
     constructor(
     private _routeParams: RouteParams) {
