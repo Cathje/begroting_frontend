@@ -15,7 +15,7 @@ export class ActieService {
 
 
     }
-    private _url = 'http://localhost:52597/api/Actie/';
+    private _url = 'http://begroting-webapi.azurewebsites.net/api/Actie/';
 
 
     getActies(id:number): Observable<Actie[]>

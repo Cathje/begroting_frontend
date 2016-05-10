@@ -28,7 +28,7 @@ System.register(['angular2/core', 'angular2/http', 'rxjs/observable', 'rxjs/Rx']
             ActieService = (function () {
                 function ActieService(http) {
                     this.http = http;
-                    this._url = 'http://localhost:52597/api/Actie/';
+                    this._url = 'http://begroting-webapi.azurewebsites.net/api/Actie/';
                 }
                 ActieService.prototype.getActies = function (id) {
                     return this.http.get(this._url + id)

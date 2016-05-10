@@ -42,10 +42,10 @@ import {TownSelectorComponent} from '../input/townSelector.component';
         <li class="dropdown">
           <a href="#" class="dropdown-toggle" data-toggle="dropdown" role="button" aria-haspopup="true" aria-expanded="false">Admin<span class="caret"></span></a>
           <ul class="dropdown-menu">
-            <li><a href="#">Beheer kerngegevens</a></li>
+            <li><a [routerLink]="['ManageTown',{town: townString}]">Beheer kerngegevens</a></li>
             <li><a href="#">Informatie toevoegen</a></li>
             <li><a href="#">Instellingen gemeente</a></li>
-            <li><a [routerLink]="['AddProject',{town: gent}]">Beheer projecten</a></li>
+            <li><a [routerLink]="['AddProject',{town: townString}]">Beheer projecten</a></li>
             <li><a href="#">Andere optie</a></li>
           </ul>
         </li>
@@ -93,5 +93,7 @@ import {TownSelectorComponent} from '../input/townSelector.component';
 })
 
 export class NavigationMenuComponent {
+
+    townString:string = "Gent";
 
 }

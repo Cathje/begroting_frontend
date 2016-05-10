@@ -1,6 +1,6 @@
 import {Injectable} from 'angular2/core';
 import {TOWNS} from './../mockData/mock-towns';
-import {Http,Response}  from 'angular2/http';
+import {Http, Response, Headers}  from 'angular2/http';
 import {Observable} from 'rxjs/observable';
 import {MainTown} from "../models/mainTown";
 import 'rxjs/Rx';
@@ -14,8 +14,8 @@ export class TownService {
 
 
     }
-    //private _url = 'http://begroting-webapi.azurewebsites.net/api/Gemeente';
-    private _url = 'http://localhost:52597/api/Gemeente';
+    private _url = 'http://begroting-webapi.azurewebsites.net/api/Gemeente';
+    //private _url = 'http://localhost:52597/api/Gemeente';
 
     getTowns():Observable<MainTown[]> {
         return this.http.get(this._url)
@@ -28,6 +28,15 @@ export class TownService {
         return this.http.get(this._url + "?naam=" + naam)
             .map(res => res.json())
             .catch(this.handleError);
+    }
+
+    public putTown(maintown: MainTown)
+    {
+        var headers = new Headers();
+        headers.append('Content-Type', 'application/json');
+        return this.http.put(this._url,JSON.stringify(maintown)
+            ,{headers:headers}).map((res:Response) => res.json());
+
     }
 
     private handleError(error: Response)

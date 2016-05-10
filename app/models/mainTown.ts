@@ -1,4 +1,5 @@
 import {Town} from "./town";
+import {Bestuur} from "./bestuur";
 export class MainTown {
     GemeenteID:number;
     naam:string;
@@ -9,7 +10,7 @@ export class MainTown {
     oppervlakteMaat:string;
     isMan:number;
     isVrouw:number;
-    bestuur:number;
+    bestuur:Bestuur [];
     isKind:number;
     aanslagVoet:number;
     cluster:any;
