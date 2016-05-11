@@ -19,20 +19,23 @@ import {GemeenteCategorie} from "../../../models/gemeenteCategorie";
     selector: 'overview-container',
     template: `
         <div class="container">
-        <section class="intro col-xs-12 col-sm-4">
+        <section class="intro col-xs-12">
             <h1>De kerngegevens van {{mainTown?.naam}}</h1>
-            <p>Hier komt een paragraaf.At vero eos et accusamus et iusto odio dignissimos ducimus qui blanditiis praesentium voluptatum deleniti atque corrupti quos dolores et quas molestias excepturi sint occaecati cupiditate non provident, similique sunt in culpa qui officia deserunt mollitia animi, id est laborum et dolorum fuga. Et harum quidem rerum facilis est et expedita distinctio. Nam libero tempore, cum soluta nobis est eligendi optio cumque nihil impedit quo minus id quod maxime placeat facere possimus, omnis voluptas assumenda est, omnis dolor repellendus. Temporibus autem quibusdam et</p>
-        </section>
-
-        <section class="graph col-xs-12 col-sm-8" (window:resize)="onResize($event)">
+            <p>Hier komt een paragraaf.Similiquecilis est et expedita distinctio. Nam libero tempore, cum soluta nobis est eligendi optio cumque nihil impedit quo minus id quod maxime placeat facere possimus, omnis voluptas assumenda est, omnis dolor repellendus. Temporibus autem quibusdam et</p>
+        <div class="clearfix">
+        <div class="graph col-xs-12 col-sm-8" (window:resize)="onResize($event)">
            <sunburst [data]=categories [onClick]=onCircleClick [height]=width [width]=width></sunburst>
-
-            <div class="pointer">
-                <img src="/app/images/icons/clickPointer.png">
-                <p> Klik op een categorie om de acties van deze categorie te bekijken.</p>
+        </div>
+            <div class="pointer col-xs-12 col-sm-4">
+                <h3>Acties</h3>
+                <img [ngClass]="{hide: showActions}" src="/app/images/icons/clickPointer.png">
+                <p [ngClass]="{hide: showActions}"> Klik op een categorie om de acties van deze categorie te bekijken.</p>
+                <ul [ngClass]="{hide: !showActions}"> <li *ngFor="#actie of acties">{{actie.actieLang}}</li></ul>
             </div>
             <!--@TODO  TEST, NOG TE VERWIJDEREN-->
              <p *ngFor="#town of uitgaves"> {{town.ID}} - {{town.naamCatx}} - {{town.naamCaty}} - {{town.naamCatz}} - {{town.totaal}} </p>
+        </div>
+
         </section>
 
         <section class="demographic col-xs-12 col-sm-12">
@@ -80,10 +83,7 @@ import {GemeenteCategorie} from "../../../models/gemeenteCategorie";
                     <button class="showInfo" [hidden]="!isVisable"(click)="toggle()">minder info</button>
                     </div>
         </section>
-        <section>
-             <!--@TODO  TEST, NOG TE VERWIJDEREN-->
-            <p *ngFor="#actie of acties"> {{actie.actieLang}} -  {{actie.actieKort}}</p>
-        </section>
+
        </div>
 `,
     directives: [TownSelectorComponent, EditableFieldComponent, SunburstComponent,ROUTER_DIRECTIVES],
@@ -127,6 +127,13 @@ import {GemeenteCategorie} from "../../../models/gemeenteCategorie";
     padding: 20px;
     }
 
+    .clearfix:after {
+    content: " ";
+   display: block;
+   height: 0;
+   clear: both;
+    }
+
     .provincie {
     }
     .graph {
@@ -138,14 +145,30 @@ import {GemeenteCategorie} from "../../../models/gemeenteCategorie";
     .pointer img{
      width: 50px;
      display: inline-block;
+
     }
 
     .pointer p{
      display: inline-block;
     }
 
+    .pointer h3 {
+    color:black;
+    }
+
     .pointer {
-    text-align: center;
+    margin-top: 40px;
+    }
+
+    .pointer ul {
+    overflow: scroll;
+    height: 400px;
+    border: 1px dashed black;
+    padding:20px;
+    }
+
+    .pointer li {
+    padding: 5px;
     }
 
     .demographic{
@@ -200,6 +223,7 @@ export class OverviewComponent {
     contentbutton="meer info";
     uitgaves: GemeenteCategorie [];
     acties: Actie[];
+    showActions = false;
     id:number;
     isEditor: boolean = false; //TODO: adapt value when signed in with special role
     categories: GemeenteCategorie [] =
@@ -211,8 +235,9 @@ export class OverviewComponent {
     _actieService: ActieService;
 
     onCircleClick: any = (id: number) => {
-        alert('hier komt een popup met de acties van de categorieID: ' + id);
-       this._actieService.getActies(id)
+        this.showActions = true;
+        //TODO: replace hardcoded 15 with id
+       this._actieService.getActies(15)
            .subscribe((acties : any) => this.acties = acties);
     };
 
