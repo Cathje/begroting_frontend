@@ -45,7 +45,7 @@ import {TownSelectorComponent} from '../input/townSelector.component.js';
             <li><a [routerLink]="['Admin', {town: townString}, 'ManageData']">Beheer kerngegevens</a></li>
             <li><a [routerLink]="['Admin', {town: 'townString'}, 'AddInformation']">Informatie toevoegen</a></li>
             <li><a [routerLink]="['Admin', {town: 'Gent'}, 'ManageTown']">Instellingen gemeente</a></li>
-            <li><a [routerLink]="['Admin', {town: 'Berchem'}, 'ManageProject']">Beheer projecten</a></li>
+            <li><a [routerLink]="['Admin', {town: townString}, 'ManageProject']">Beheer projecten</a></li>
           </ul>
         </li>
         <li class="dropdown">
