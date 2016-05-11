@@ -25,35 +25,34 @@ import {TownSelectorComponent} from '../input/townSelector.component.js';
         <li class="dropdown">
           <a href="#" class="dropdown-toggle" data-toggle="dropdown" role="button" aria-haspopup="true" aria-expanded="false">Begroting<span class="caret"></span></a>
           <ul class="dropdown-menu">
-            <li><a [routerLink]="['Budget', {town: 'Berchem'}, 'Overview']">Begrotingsvoorstel</a></li>
-            <li><a [routerLink]="['Budget', {town: 'Berchem'}, 'Expenses']">Uitgaven</a></li>
-            <li><a [routerLink]="['Budget', {town: 'Berchem'}, 'Taxes']">Mijn belastingen</a></li>
+            <li><a [routerLink]="['Budget', {town: 'townString'}, 'Overview']">Begrotingsvoorstel</a></li>
+            <li><a [routerLink]="['Budget', {town: 'townString'}, 'Expenses']">Uitgaven</a></li>
+            <li><a [routerLink]="['Budget', {town: 'townString'}, 'Taxes']">Mijn belastingen</a></li>
           </ul>
         </li>
 
         <li class="dropdown">
           <a href="#" class="dropdown-toggle" data-toggle="dropdown" role="button" aria-haspopup="true" aria-expanded="false">Participeren<span class="caret"></span></a>
           <ul class="dropdown-menu">
-            <li><a href="#">Begrotingsposten</a></li>
-            <li><a href="#">Burgervoorstellen</a></li>
-            <li><a href="#">Voorstel indienen</a></li>
+            <li><a [routerLink]="['Participation', {town: 'townString'}, 'Projects']">Begrotingsposten</a></li>
+            <li><a [routerLink]="['Participation', {town: 'townString'}, 'Propositions']">Burgervoorstellen</a></li>
+            <li><a [routerLink]="['Participation', {town: 'townString'}, 'AddPropositions']">Voorstel indienen</a></li>
           </ul>
         </li>
         <li class="dropdown">
           <a href="#" class="dropdown-toggle" data-toggle="dropdown" role="button" aria-haspopup="true" aria-expanded="false">Admin<span class="caret"></span></a>
           <ul class="dropdown-menu">
-            <li><a [routerLink]="['Admin', {town: 'townString'}, 'Admin']">Beheer kerngegevens</a></li>
-            <li><a href="#">Informatie toevoegen</a></li>
-            <li><a href="#">Instellingen gemeente</a></li>
+            <li><a [routerLink]="['Admin', {town: 'townString'}, 'ManageData']">Beheer kerngegevens</a></li>
+            <li><a [routerLink]="['Admin', {town: 'townString'}, 'AddInformation']">Informatie toevoegen</a></li>
+            <li><a [routerLink]="['Admin', {town: 'townString'}, 'ManageTown']">Instellingen gemeente</a></li>
             <li><a [routerLink]="['Admin', {town: 'Berchem'}, 'ManageProject']">Beheer projecten</a></li>
-            <li><a href="#">Andere optie</a></li>
           </ul>
         </li>
         <li class="dropdown">
           <a href="#" class="dropdown-toggle" data-toggle="dropdown" role="button" aria-haspopup="true" aria-expanded="false">SuperAdmin<span class="caret"></span></a>
           <ul class="dropdown-menu">
-            <li><a href="#">Algemene instellingen</a></li>
-            <li><a href="#">Admin aanmaken</a></li>
+            <li><a [routerLink]="['SuperAdmin', {town: 'townString'}, 'GeneralSettings']">Algemene instellingen</a></li>
+            <li><a [routerLink]="['SuperAdmin', {town: 'townString'}, 'CreateAdmin']">Admin aanmaken</a></li>
           </ul>
         </li>
       </ul>

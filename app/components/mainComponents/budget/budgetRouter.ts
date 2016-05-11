@@ -1,12 +1,12 @@
 import {Component} from 'angular2/core';
-import {RouteConfig, ROUTER_DIRECTIVES} from 'angular2/router'; // for routing
+import {RouteConfig, ROUTER_DIRECTIVES, RouteParams} from 'angular2/router'; // for routing
 import {HTTP_PROVIDERS} from "angular2/http";
 import {OverviewComponent} from './overview.component.js';
 import {ExpensesComponent} from './expenses.component.js';
 import {TaxesComponent} from './taxes.component.js';
 
 @Component({
-    selector: 'budgetRouter',
+    selector: 'budget-router',
     template: ` <router-outlet></router-outlet>`,
     directives: [ROUTER_DIRECTIVES]
 })
@@ -18,5 +18,8 @@ import {TaxesComponent} from './taxes.component.js';
 ])
 
 export class BudgetRouter {
+    constructor(private _routeParams:RouteParams) {
+        console.log('param', _routeParams.get('town'));
+    }
 }
 

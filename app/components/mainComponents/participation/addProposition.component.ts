@@ -2,11 +2,11 @@ import {Component} from 'angular2/core';
 import {RouteParams} from 'angular2/router';
 
 @Component({ //invoke with metadata object
-    selector: 'manage-project-container',
-    template: `<h2>Beheer project</h2>`
+    selector: 'add-proposition-container',
+    template: `<h2>Voorstel indienen</h2>`
 })
 
-export class ManageProjectComponent {
+export class AddPropositionComponent {
 
     constructor(
     private _routeParams: RouteParams) {

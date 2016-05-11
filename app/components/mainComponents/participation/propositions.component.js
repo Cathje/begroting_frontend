@@ -11,27 +11,27 @@ System.register(['angular2/core'], function(exports_1, context_1) {
         if (typeof Reflect === "object" && typeof Reflect.metadata === "function") return Reflect.metadata(k, v);
     };
     var core_1;
-    var AdminComponent;
+    var PropositionsComponent;
     return {
         setters:[
             function (core_1_1) {
                 core_1 = core_1_1;
             }],
         execute: function() {
-            AdminComponent = (function () {
-                function AdminComponent() {
+            PropositionsComponent = (function () {
+                function PropositionsComponent() {
                 }
-                AdminComponent = __decorate([
+                PropositionsComponent = __decorate([
                     core_1.Component({
-                        selector: 'admin-container',
-                        template: "<h2>Admin</h2>"
+                        selector: 'propositions-container',
+                        template: "<h2>Voorstellen</h2>"
                     }), 
                     __metadata('design:paramtypes', [])
-                ], AdminComponent);
-                return AdminComponent;
+                ], PropositionsComponent);
+                return PropositionsComponent;
             }());
-            exports_1("AdminComponent", AdminComponent);
+            exports_1("PropositionsComponent", PropositionsComponent);
         }
     }
 });
-//# sourceMappingURL=admin.component.js.map
+//# sourceMappingURL=propositions.component.js.map

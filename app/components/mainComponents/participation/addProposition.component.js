@@ -1,4 +1,4 @@
-System.register(['angular2/core', './../../services/projectService.component', 'angular2/router'], function(exports_1, context_1) {
+System.register(['angular2/core', 'angular2/router'], function(exports_1, context_1) {
     "use strict";
     var __moduleName = context_1 && context_1.id;
     var __decorate = (this && this.__decorate) || function (decorators, target, key, desc) {
@@ -10,43 +10,35 @@ System.register(['angular2/core', './../../services/projectService.component', '
     var __metadata = (this && this.__metadata) || function (k, v) {
         if (typeof Reflect === "object" && typeof Reflect.metadata === "function") return Reflect.metadata(k, v);
     };
-    var core_1, projectService_component_1, router_1;
-    var ProjectComponent;
+    var core_1, router_1;
+    var AddPropositionComponent;
     return {
         setters:[
             function (core_1_1) {
                 core_1 = core_1_1;
             },
-            function (projectService_component_1_1) {
-                projectService_component_1 = projectService_component_1_1;
-            },
             function (router_1_1) {
                 router_1 = router_1_1;
             }],
         execute: function() {
-            ProjectComponent = (function () {
-                function ProjectComponent(_projectService, _routeParams) {
-                    this._projectService = _projectService;
+            AddPropositionComponent = (function () {
+                function AddPropositionComponent(_routeParams) {
                     this._routeParams = _routeParams;
-                    this.title = 'Project';
-                    this.name = '';
                 }
-                ProjectComponent.prototype.ngOnInit = function () {
+                AddPropositionComponent.prototype.ngOnInit = function () {
                     var number = this._routeParams.get('projectNumber');
-                    this.name = this._projectService.getProject(number).name;
                 };
-                ProjectComponent = __decorate([
+                AddPropositionComponent = __decorate([
                     core_1.Component({
-                        selector: 'project-container',
-                        template: "<h2>Project {{name}}</h2>",
-                        providers: [projectService_component_1.ProjectService],
+                        selector: 'add-proposition-container',
+                        template: "<h2>Voorstel indienen</h2>"
                     }), 
-                    __metadata('design:paramtypes', [projectService_component_1.ProjectService, router_1.RouteParams])
-                ], ProjectComponent);
-                return ProjectComponent;
+                    __metadata('design:paramtypes', [router_1.RouteParams])
+                ], AddPropositionComponent);
+                return AddPropositionComponent;
             }());
-            exports_1("ProjectComponent", ProjectComponent);
+            exports_1("AddPropositionComponent", AddPropositionComponent);
         }
     }
 });
-//# sourceMappingURL=project.component.js.map
+//# sourceMappingURL=addProposition.component.js.map

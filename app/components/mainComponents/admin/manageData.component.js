@@ -1,4 +1,4 @@
-System.register(['angular2/core', 'angular2/router'], function(exports_1, context_1) {
+System.register(['angular2/core'], function(exports_1, context_1) {
     "use strict";
     var __moduleName = context_1 && context_1.id;
     var __decorate = (this && this.__decorate) || function (decorators, target, key, desc) {
@@ -10,35 +10,28 @@ System.register(['angular2/core', 'angular2/router'], function(exports_1, contex
     var __metadata = (this && this.__metadata) || function (k, v) {
         if (typeof Reflect === "object" && typeof Reflect.metadata === "function") return Reflect.metadata(k, v);
     };
-    var core_1, router_1;
-    var ManageProjectComponent;
+    var core_1;
+    var ManageDataComponent;
     return {
         setters:[
             function (core_1_1) {
                 core_1 = core_1_1;
-            },
-            function (router_1_1) {
-                router_1 = router_1_1;
             }],
         execute: function() {
-            ManageProjectComponent = (function () {
-                function ManageProjectComponent(_routeParams) {
-                    this._routeParams = _routeParams;
+            ManageDataComponent = (function () {
+                function ManageDataComponent() {
                 }
-                ManageProjectComponent.prototype.ngOnInit = function () {
-                    var number = this._routeParams.get('projectNumber');
-                };
-                ManageProjectComponent = __decorate([
+                ManageDataComponent = __decorate([
                     core_1.Component({
-                        selector: 'manage-project-container',
-                        template: "<h2>Beheer project</h2>"
+                        selector: 'manage-data-container',
+                        template: "<h2>Beheer informatie</h2>"
                     }), 
-                    __metadata('design:paramtypes', [router_1.RouteParams])
-                ], ManageProjectComponent);
-                return ManageProjectComponent;
+                    __metadata('design:paramtypes', [])
+                ], ManageDataComponent);
+                return ManageDataComponent;
             }());
-            exports_1("ManageProjectComponent", ManageProjectComponent);
+            exports_1("ManageDataComponent", ManageDataComponent);
         }
     }
 });
-//# sourceMappingURL=manageProject.component.js.map
+//# sourceMappingURL=manageData.component.js.map

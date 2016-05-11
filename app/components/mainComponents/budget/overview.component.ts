@@ -1,6 +1,7 @@
-import {Component} from 'angular2/core';
+import {Component, Injector} from 'angular2/core';
 import {TownService} from './../../../services/townService.component.js';
-import { RouteParams } from 'angular2/router';
+import {Http} from 'angular2/http';
+import {ROUTER_DIRECTIVES, Router, RouteParams, RouteConfig} from 'angular2/router';
 import {TownSelectorComponent} from './../../subComponents/input/townSelector.component.js';
 import {EditableFieldComponent} from './../../subComponents/input/editableField.component.js';
 import {MainTown} from "../../../models/mainTown.js";
@@ -82,7 +83,7 @@ import {Actie} from "../../../models/actie.js";
         </section>
        </div>
 `,
-    directives: [TownSelectorComponent, EditableFieldComponent, SunburstComponent],
+    directives: [TownSelectorComponent, EditableFieldComponent, SunburstComponent,ROUTER_DIRECTIVES],
     providers: [ BegrotingService,ActieService,
         TownService,  //routing
     ],
@@ -212,9 +213,9 @@ export class OverviewComponent {
            .subscribe((acties : any) => this.acties = acties);
     };
 
-    constructor(private _townService:TownService, _begrotingService:BegrotingService, private _routeParams:RouteParams,_actieService: ActieService )
+    constructor(private _townService:TownService, _begrotingService:BegrotingService,_actieService: ActieService, public http: Http, params: RouteParams, injector: Injector, private _router: Router)
     {
-        _townService.getTown(_routeParams.get('town'))
+        _townService.getTown(injector.parent.parent.get(RouteParams).get('town'))
             .subscribe(town => this.mainTown = town
              );
 

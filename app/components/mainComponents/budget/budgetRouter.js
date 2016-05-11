@@ -31,11 +31,13 @@ System.register(['angular2/core', 'angular2/router', './overview.component.js', 
             }],
         execute: function() {
             BudgetRouter = (function () {
-                function BudgetRouter() {
+                function BudgetRouter(_routeParams) {
+                    this._routeParams = _routeParams;
+                    console.log('param', _routeParams.get('town'));
                 }
                 BudgetRouter = __decorate([
                     core_1.Component({
-                        selector: 'budgetRouter',
+                        selector: 'budget-router',
                         template: " <router-outlet></router-outlet>",
                         directives: [router_1.ROUTER_DIRECTIVES]
                     }),
@@ -44,7 +46,7 @@ System.register(['angular2/core', 'angular2/router', './overview.component.js', 
                         { path: '/expenses', name: 'Expenses', component: expenses_component_js_1.ExpensesComponent },
                         { path: '/taxes', name: 'Taxes', component: taxes_component_js_1.TaxesComponent }
                     ]), 
-                    __metadata('design:paramtypes', [])
+                    __metadata('design:paramtypes', [router_1.RouteParams])
                 ], BudgetRouter);
                 return BudgetRouter;
             }());

@@ -3,17 +3,15 @@
  */
 import {Component} from 'angular2/core';
 import {RouteParams, ROUTER_DIRECTIVES, Router} from 'angular2/router';
-import {TownService} from "../../services/townService.component";
-import {MainTown} from "../../models/mainTown";
-import {Bestuur} from "../../models/bestuur";
-import {PoliticusType} from "../../models/politicusType";
-import {NavigationMenuComponent} from "../subComponents/nav/menu.component";
-import {TownSelectorComponent} from "../subComponents/input/townSelector.component";
+import {TownService} from "../../../services/townService.component.js";
+import {MainTown} from "../../../models/mainTown.js";
+import {Bestuur} from "../../../models/bestuur.js";
+import {PoliticusType} from "../../../models/politicusType.js";
+import {TownSelectorComponent} from "../../subComponents/input/townSelector.component.js";
 
 @Component({ //invoke with metadata object
-    selector: 'Town-container',
+    selector: 'manage-town-container',
     template: `
-<navigation-menu></navigation-menu>
 <h2>Beheer gegevens</h2>
 
  <h2>Demografische gegevens</h2>
@@ -62,13 +60,13 @@ import {TownSelectorComponent} from "../subComponents/input/townSelector.compone
 
 `,
     providers: [TownService],
-    directives: [ROUTER_DIRECTIVES, TownSelectorComponent, NavigationMenuComponent]
+    directives: [ROUTER_DIRECTIVES, TownSelectorComponent]
 })
 
 export class ManageTownComponent {
 
     mainTown = new MainTown("","",0,0);
-    newBestuur:Bestuur = new Bestuur("");
+    // newBestuur:Bestuur = new Bestuur(""); // this gives an error
     types =  PoliticusType;
     selectedType:PoliticusType = PoliticusType.Schepen;
     _townService:TownService;

@@ -1,4 +1,4 @@
-System.register(['angular2/core', '/app/components/subComponents/input/townSelector.component.js', './../subComponents/nav/menu.component.js', './home.component.js', './admin/adminRouter.js', './budget/budgetRouter.js', 'angular2/router'], function(exports_1, context_1) {
+System.register(['angular2/core', '/app/components/subComponents/input/townSelector.component.js', './../subComponents/nav/menu.component.js', './home.component.js', './admin/adminRouter.js', './budget/budgetRouter.js', "./participation/participationRouter.js", "./superadmin/superAdminRouter.js", 'angular2/router'], function(exports_1, context_1) {
     "use strict";
     var __moduleName = context_1 && context_1.id;
     var __decorate = (this && this.__decorate) || function (decorators, target, key, desc) {
@@ -10,7 +10,7 @@ System.register(['angular2/core', '/app/components/subComponents/input/townSelec
     var __metadata = (this && this.__metadata) || function (k, v) {
         if (typeof Reflect === "object" && typeof Reflect.metadata === "function") return Reflect.metadata(k, v);
     };
-    var core_1, townSelector_component_js_1, menu_component_js_1, home_component_js_1, adminRouter_js_1, budgetRouter_js_1, router_1;
+    var core_1, townSelector_component_js_1, menu_component_js_1, home_component_js_1, adminRouter_js_1, budgetRouter_js_1, participationRouter_js_1, superAdminRouter_js_1, router_1;
     var HomeRouter;
     return {
         setters:[
@@ -32,18 +32,25 @@ System.register(['angular2/core', '/app/components/subComponents/input/townSelec
             function (budgetRouter_js_1_1) {
                 budgetRouter_js_1 = budgetRouter_js_1_1;
             },
+            function (participationRouter_js_1_1) {
+                participationRouter_js_1 = participationRouter_js_1_1;
+            },
+            function (superAdminRouter_js_1_1) {
+                superAdminRouter_js_1 = superAdminRouter_js_1_1;
+            },
             function (router_1_1) {
                 router_1 = router_1_1;
             }],
         execute: function() {
             HomeRouter = (function () {
-                function HomeRouter() {
+                function HomeRouter(_location) {
+                    this._location = _location;
                     this.title = 'Home';
                 }
                 HomeRouter = __decorate([
                     core_1.Component({
                         selector: 'home-router',
-                        template: "\n    <navigation-menu></navigation-menu>\n    <router-outlet></router-outlet>\n    ",
+                        template: "\n    <navigation-menu [ngClass]=\"{hide: _location.path() === ''}\"></navigation-menu>\n    <router-outlet></router-outlet>\n    ",
                         directives: [router_1.ROUTER_DIRECTIVES, menu_component_js_1.NavigationMenuComponent, townSelector_component_js_1.TownSelectorComponent],
                         styles: ["    .home-menu {\n    padding: 5px;\n    background-color: #2ac7d2;\n    display: flex;\n    flex-direction: row;\n    justify-content: space-between;\n    align-items: center;\n    sel\n    }"]
                     }),
@@ -51,8 +58,10 @@ System.register(['angular2/core', '/app/components/subComponents/input/townSelec
                         { path: '/', name: 'Home', component: home_component_js_1.HomeComponent, useAsDefault: true },
                         { path: '/:town/budget/...', name: 'Budget', component: budgetRouter_js_1.BudgetRouter },
                         { path: '/:town/admin/...', name: 'Admin', component: adminRouter_js_1.AdminRouter },
+                        { path: '/:town/participation/...', name: 'Participation', component: participationRouter_js_1.ParticipationRouter },
+                        { path: '/:town/superadmin/...', name: 'SuperAdmin', component: superAdminRouter_js_1.SuperAdminRouter },
                     ]), 
-                    __metadata('design:paramtypes', [])
+                    __metadata('design:paramtypes', [router_1.Location])
                 ], HomeRouter);
                 return HomeRouter;
             }());

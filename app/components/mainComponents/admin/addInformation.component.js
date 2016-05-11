@@ -1,4 +1,4 @@
-System.register(['angular2/core'], function(exports_1, context_1) {
+System.register(['angular2/core', 'angular2/router'], function(exports_1, context_1) {
     "use strict";
     var __moduleName = context_1 && context_1.id;
     var __decorate = (this && this.__decorate) || function (decorators, target, key, desc) {
@@ -10,29 +10,35 @@ System.register(['angular2/core'], function(exports_1, context_1) {
     var __metadata = (this && this.__metadata) || function (k, v) {
         if (typeof Reflect === "object" && typeof Reflect.metadata === "function") return Reflect.metadata(k, v);
     };
-    var core_1;
-    var TownBudgetComponent;
+    var core_1, router_1;
+    var AddInformationComponent;
     return {
         setters:[
             function (core_1_1) {
                 core_1 = core_1_1;
+            },
+            function (router_1_1) {
+                router_1 = router_1_1;
             }],
         execute: function() {
-            TownBudgetComponent = (function () {
-                function TownBudgetComponent() {
-                    this.title = 'Gemeente - Begrotingsvoorstel';
+            AddInformationComponent = (function () {
+                function AddInformationComponent(_routeParams) {
+                    this._routeParams = _routeParams;
                 }
-                TownBudgetComponent = __decorate([
+                AddInformationComponent.prototype.ngOnInit = function () {
+                    var number = this._routeParams.get('projectNumber');
+                };
+                AddInformationComponent = __decorate([
                     core_1.Component({
-                        selector: 'home-container',
-                        template: '<h3>{{title}}</h3>'
+                        selector: 'add-information-container',
+                        template: "<h2>Voeg informatie toe</h2>"
                     }), 
-                    __metadata('design:paramtypes', [])
-                ], TownBudgetComponent);
-                return TownBudgetComponent;
+                    __metadata('design:paramtypes', [router_1.RouteParams])
+                ], AddInformationComponent);
+                return AddInformationComponent;
             }());
-            exports_1("TownBudgetComponent", TownBudgetComponent);
+            exports_1("AddInformationComponent", AddInformationComponent);
         }
     }
 });
-//# sourceMappingURL=townBudget.component.js.map
+//# sourceMappingURL=addInformation.component.js.map
