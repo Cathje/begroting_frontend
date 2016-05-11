@@ -13,6 +13,6 @@ export class ManageProjectComponent {
     }
 
     ngOnInit() {
-        var number = this._routeParams.get('projectNumber');
+       // var number = this._routeParams.get('projectNumber');
     }
 }

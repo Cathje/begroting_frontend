@@ -1,13 +1,13 @@
 import {Component} from 'angular2/core';
-import {TownSelectorComponent} from '/app/components/subComponents/input/townSelector.component.js'
-import {NavigationMenuComponent} from './../subComponents/nav/menu.component.js';
-
-import {HomeComponent} from './home.component.js';
-import {AdminRouter} from './admin/adminRouter.js';
-import {BudgetRouter} from './budget/budgetRouter.js';
+import {NavigationMenuComponent} from './../subComponents/nav/menu.component';
+import {TownSelectorComponent} from "../subComponents/input/townSelector.component";
+import {HomeComponent} from './home.component';
+import {AdminRouter} from './admin/adminRouter';
+import {BudgetRouter} from './budget/budgetRouter';
 
 import {RouteConfig, ROUTER_DIRECTIVES} from 'angular2/router'; // for routing
 import {HTTP_PROVIDERS} from "angular2/http";
+
 
 @Component({ //invoke with metadata object
     selector: 'home-router',

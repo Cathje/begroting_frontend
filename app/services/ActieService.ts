@@ -6,6 +6,7 @@ import {Http,Response}  from 'angular2/http';
 import {Observable} from 'rxjs/observable';
 import 'rxjs/Rx';
 import {Actie} from "../models/actie.js";
+import {Actie} from "../models/actie";
 
 
 @Injectable()
@@ -15,7 +16,8 @@ export class ActieService {
 
 
     }
-    private _url = 'http://begroting-webapi.azurewebsites.net/api/Actie/';
+    // private _url = 'http://begroting-webapi.azurewebsites.net/api/Actie/';
+    private _url = 'http://localhost:52597/api/Actie/';
 
 
     getActies(id:number): Observable<Actie[]>

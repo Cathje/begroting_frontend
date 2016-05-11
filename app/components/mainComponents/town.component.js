@@ -77,7 +77,7 @@ System.register(['angular2/core', './../../services/townService.component', 'ang
                     };
                     _townService.getTown(_routeParams.get('town'))
                         .subscribe(function (town) { return _this.mainTown = town; });
-                    _begrotingService.getFinancieleLijnen(2020, "Gent")
+                    _begrotingService.getGemeenteCategorieen(2020, "Gent")
                         .subscribe(function (finan) { return _this.uitgaves = finan; });
                     this._actieService = _actieService;
                 }

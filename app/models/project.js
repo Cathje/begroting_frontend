@@ -1,13 +1,22 @@
-System.register([], function(exports_1) {
+System.register([], function(exports_1, context_1) {
+    "use strict";
+    var __moduleName = context_1 && context_1.id;
     var Project;
     return {
         setters:[],
         execute: function() {
             Project = (function () {
-                function Project() {
+                function Project(titel) {
+                    this.titel = titel;
+                    this.projectScenario = 0;
+                    this.vraag = "";
+                    this.extraInfo = "";
+                    this.bedrag = 1000;
+                    this.maxBedrag = 10;
+                    this.minBedrag = 10;
                 }
                 return Project;
-            })();
+            }());
             exports_1("Project", Project);
         }
     }

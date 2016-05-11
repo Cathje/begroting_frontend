@@ -1,11 +1,11 @@
-System.register(['angular2/core', './../../../services/townService.component.js', 'angular2/router', './../../subComponents/input/townSelector.component.js', './../../subComponents/input/editableField.component.js', "../../../models/mainTown.js", './../../subComponents/graphs/sunburst.component.js', "../../../services/begrotingService.js", "../../../services/ActieService.js"], function(exports_1) {
+System.register(['angular2/core', './../../../services/townService.component.js', 'angular2/router', './../../subComponents/input/townSelector.component.js', './../../subComponents/input/editableField.component.js', "../../../models/mainTown.js", './../../subComponents/graphs/sunburst.component.js', "../../../services/begrotingService.js", "../../../services/ActieService.js"], function(exports_1, context_1) {
+    "use strict";
+    var __moduleName = context_1 && context_1.id;
     var __decorate = (this && this.__decorate) || function (decorators, target, key, desc) {
-        if (typeof Reflect === "object" && typeof Reflect.decorate === "function") return Reflect.decorate(decorators, target, key, desc);
-        switch (arguments.length) {
-            case 2: return decorators.reduceRight(function(o, d) { return (d && d(o)) || o; }, target);
-            case 3: return decorators.reduceRight(function(o, d) { return (d && d(target, key)), void 0; }, void 0);
-            case 4: return decorators.reduceRight(function(o, d) { return (d && d(target, key, o)) || o; }, desc);
-        }
+        var c = arguments.length, r = c < 3 ? target : desc === null ? desc = Object.getOwnPropertyDescriptor(target, key) : desc, d;
+        if (typeof Reflect === "object" && typeof Reflect.decorate === "function") r = Reflect.decorate(decorators, target, key, desc);
+        else for (var i = decorators.length - 1; i >= 0; i--) if (d = decorators[i]) r = (c < 3 ? d(r) : c > 3 ? d(target, key, r) : d(target, key)) || r;
+        return c > 3 && r && Object.defineProperty(target, key, r), r;
     };
     var __metadata = (this && this.__metadata) || function (k, v) {
         if (typeof Reflect === "object" && typeof Reflect.metadata === "function") return Reflect.metadata(k, v);
@@ -60,6 +60,7 @@ System.register(['angular2/core', './../../../services/townService.component.js'
                     this.width = window.innerWidth < 768 ? window.innerWidth * 0.8 : window.innerWidth / 2;
                     this.onCircleClick = function (categorie) {
                         alert('hier komt een popup met de acties van de categorie: ' + categorie);
+                        //TODO: bij het klikken op de graph moet de ID meegeven worden en hierin gestoken worden
                         _this._actieService.getActies(15)
                             .subscribe(function (acties) { return _this.acties = acties; });
                     };
@@ -73,7 +74,7 @@ System.register(['angular2/core', './../../../services/townService.component.js'
                     };
                     _townService.getTown(_routeParams.get('town'))
                         .subscribe(function (town) { return _this.mainTown = town; });
-                    _begrotingService.getFinancieleLijnen(2020, "Gent")
+                    _begrotingService.getGemeenteCategorieen(2020, "Gent")
                         .subscribe(function (finan) { return _this.uitgaves = finan; });
                     this._actieService = _actieService;
                 }
@@ -99,7 +100,7 @@ System.register(['angular2/core', './../../../services/townService.component.js'
                 ], OverviewComponent);
                 return OverviewComponent;
                 var _a, _b, _c;
-            })();
+            }());
             exports_1("OverviewComponent", OverviewComponent);
         }
     }
