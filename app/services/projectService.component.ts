@@ -6,6 +6,8 @@ import {InspraakCategorie} from "../models/dto/inspraakCategorieDTO.js";
 import {PROJECTS} from "../mockData/mock-projects.js";
 import {Project} from "../models/project.js";
 
+
+
 @Injectable()
 export class ProjectService
 {
