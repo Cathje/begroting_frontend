@@ -1,6 +1,6 @@
 import {Component} from 'angular2/core';
 import {Router} from 'angular2/router';
-import {TownService} from './../../../services/townService.component.js';
+import {TownService} from "../../../services/townService.component.js";
 import {MainTown} from "../../../models/mainTown.js";
 
 
@@ -61,7 +61,7 @@ export class TownSelectorComponent {
        //this.towns = _townService.getTownsHC();
 
         _townService.getTowns()
-           .subscribe(towns => this.towns = towns);
+           .subscribe((towns:any) => this.towns = towns);
 
     }
 

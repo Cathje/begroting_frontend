@@ -1,5 +1,5 @@
-import {Town} from "./town";
-import {Bestuur} from "./bestuur";
+import {Town} from "./town.js";
+import {Bestuur} from "./bestuur.js";
 export class MainTown {
     GemeenteID:number;
     naam:string;

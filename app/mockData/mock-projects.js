@@ -1,17 +1,21 @@
-System.register([], function(exports_1, context_1) {
+System.register(["../models/project.js"], function(exports_1, context_1) {
     "use strict";
     var __moduleName = context_1 && context_1.id;
+    var project_js_1;
     var PROJECTS;
     return {
-        setters:[],
+        setters:[
+            function (project_js_1_1) {
+                project_js_1 = project_js_1_1;
+            }],
         execute: function() {
             exports_1("PROJECTS", PROJECTS = [
-                { "projectNumber": 0, "name": "Geld inzameling Nepal", "categoryNumber": "00", "projectDescription": "Dit is een project van Berchem", "town": "Berchem" },
-                { "projectNumber": 1, "name": "Nieuwe voorzitter", "categoryNumber": "01", "projectDescription": "Dit is een project van Mortsel", "town": "Mortsel" },
-                { "projectNumber": 2, "name": "Heraanleg stratenplan", "categoryNumber": "02", "projectDescription": "Dit is een project van Edegem", "town": "Edegem" },
-                { "projectNumber": 3, "name": "Stadstuintjes", "categoryNumber": "03", "projectDescription": "Dit is een project van Antwerpen", "town": "Antwerpen" },
-                { "projectNumber": 4, "name": "Verkeersregels infosessie", "categoryNumber": "04", "projectDescription": "Dit is een project van Antwerpen", "town": "Antwerpen" },
-                { "projectNumber": 5, "name": "Startups workshop", "categoryNumber": "05", "projectDescription": "Dit is een project van Antwerpen", "town": "Antwerpen" },
+                new project_js_1.Project("Geld inzameling Nepal"),
+                new project_js_1.Project("Nieuwe voorzitter"),
+                new project_js_1.Project("Heraanleg stratenplan"),
+                new project_js_1.Project("Stadstuintjes"),
+                new project_js_1.Project("Verkeersregels infosessie"),
+                new project_js_1.Project("Startups workshop")
             ]);
         }
     }

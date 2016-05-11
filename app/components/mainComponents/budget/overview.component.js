@@ -64,6 +64,7 @@ System.register(['angular2/core', './../../../services/townService.component.js'
                     this.width = window.innerWidth < 768 ? window.innerWidth * 0.8 : window.innerWidth / 2.5;
                     this.onCircleClick = function (categorie) {
                         alert('hier komt een popup met de acties van de categorie: ' + categorie);
+                        //TODO: bij het klikken op de graph moet de ID meegeven worden en hierin gestoken worden
                         _this._actieService.getActies(15)
                             .subscribe(function (acties) { return _this.acties = acties; });
                     };
@@ -77,7 +78,7 @@ System.register(['angular2/core', './../../../services/townService.component.js'
                     };
                     _townService.getTown(injector.parent.parent.get(router_1.RouteParams).get('town'))
                         .subscribe(function (town) { return _this.mainTown = town; });
-                    _begrotingService.getFinancieleLijnen(2020, "Gent")
+                    _begrotingService.getGemeenteCategorieen(2020, "Gent")
                         .subscribe(function (finan) { return _this.uitgaves = finan; });
                     this._actieService = _actieService;
                 }

@@ -1,12 +1,12 @@
-System.register(["./politicusType"], function(exports_1, context_1) {
+System.register(["./politicusType.js"], function(exports_1, context_1) {
     "use strict";
     var __moduleName = context_1 && context_1.id;
-    var politicusType_1;
+    var politicusType_js_1;
     var Bestuur;
     return {
         setters:[
-            function (politicusType_1_1) {
-                politicusType_1 = politicusType_1_1;
+            function (politicusType_js_1_1) {
+                politicusType_js_1 = politicusType_js_1_1;
             }],
         execute: function() {
             /**
@@ -15,7 +15,7 @@ System.register(["./politicusType"], function(exports_1, context_1) {
             Bestuur = (function () {
                 function Bestuur(naam) {
                     this.naam = naam;
-                    this.type = politicusType_1.PoliticusType.Schepen;
+                    this.type = politicusType_js_1.PoliticusType.Schepen;
                 }
                 return Bestuur;
             }());

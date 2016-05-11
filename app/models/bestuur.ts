@@ -1,4 +1,4 @@
-import {PoliticusType} from "./politicusType";
+import {PoliticusType} from "./politicusType.js";
 /**
  * Created by nadya on 10/05/2016.
  */

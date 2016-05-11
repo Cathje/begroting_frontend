@@ -1,4 +1,5 @@
 import {Component} from 'angular2/core';
+
 import {TownSelectorComponent} from '/app/components/subComponents/input/townSelector.component.js'
 import {NavigationMenuComponent} from './../subComponents/nav/menu.component.js';
 
@@ -10,6 +11,7 @@ import {SuperAdminRouter} from "./superadmin/superAdminRouter.js";
 
 import {RouteConfig, ROUTER_DIRECTIVES, Location} from 'angular2/router'; // for routing
 import {HTTP_PROVIDERS} from "angular2/http";
+
 
 @Component({ //invoke with metadata object
     selector: 'home-router',

@@ -1,10 +1,10 @@
 import {Injectable} from 'angular2/core';
-import {TOWNS} from './../mockData/mock-towns.js';
 import {Http, Response, Headers}  from 'angular2/http';
-import {Observable} from 'rxjs/observable';
-import {MainTown} from "../models/mainTown.js";
+import {Observable} from 'rxjs/observable.js';
 import 'rxjs/Rx';
-import {CATS} from './../mockData/mock-catDTO.js';
+import {MainTown} from "../models/mainTown.js";
+import {TOWNS} from "../mockData/mock-towns.js";
+import {CATS} from "../mockData/mock-catDTO.js";
 
 
 @Injectable()
@@ -14,8 +14,8 @@ export class TownService {
 
 
     }
-    private _url = 'http://begroting-webapi.azurewebsites.net/api/Gemeente';
-    //private _url = 'http://localhost:52597/api/Gemeente';
+    //private _url = 'http://begroting-webapi.azurewebsites.net/api/Gemeente';
+    private _url = 'http://localhost:52597/api/Gemeente';
 
     getTowns():Observable<MainTown[]> {
         return this.http.get(this._url)

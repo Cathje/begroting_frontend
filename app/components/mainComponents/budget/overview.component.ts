@@ -9,6 +9,7 @@ import {SunburstComponent} from './../../subComponents/graphs/sunburst.component
 import {BegrotingService} from "../../../services/begrotingService.js";
 import {ActieService} from "../../../services/ActieService.js";
 import {Actie} from "../../../models/actie.js";
+import {GemeenteCategorie} from "../../../models/gemeenteCategorie.js";
 
 
 @Component({ //invoke with metadata object
@@ -209,6 +210,7 @@ export class OverviewComponent {
 
     onCircleClick: any = (categorie: string) => {
         alert('hier komt een popup met de acties van de categorie: ' + categorie);
+        //TODO: bij het klikken op de graph moet de ID meegeven worden en hierin gestoken worden
        this._actieService.getActies(15)
            .subscribe((acties : any) => this.acties = acties);
     };
@@ -219,8 +221,8 @@ export class OverviewComponent {
             .subscribe(town => this.mainTown = town
              );
 
-        _begrotingService.getFinancieleLijnen(2020,"Gent")
-           .subscribe(finan => this.uitgaves = finan
+        _begrotingService.getGemeenteCategorieen(2020,"Gent")
+           .subscribe((finan: any) => this.uitgaves = finan
             );
 
         this._actieService = _actieService;

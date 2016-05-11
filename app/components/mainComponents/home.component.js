@@ -1,4 +1,4 @@
-System.register(['angular2/core', '/app/components/subComponents/input/townSelector.component.js', '/app/components/subComponents/information/projectOverview.component.js', 'angular2/router'], function(exports_1, context_1) {
+System.register(['angular2/core', 'angular2/router', "../subComponents/input/townSelector.component.js", "../subComponents/information/projectOverview.component.js"], function(exports_1, context_1) {
     "use strict";
     var __moduleName = context_1 && context_1.id;
     var __decorate = (this && this.__decorate) || function (decorators, target, key, desc) {
@@ -10,21 +10,21 @@ System.register(['angular2/core', '/app/components/subComponents/input/townSelec
     var __metadata = (this && this.__metadata) || function (k, v) {
         if (typeof Reflect === "object" && typeof Reflect.metadata === "function") return Reflect.metadata(k, v);
     };
-    var core_1, townSelector_component_js_1, projectOverview_component_js_1, router_1;
+    var core_1, router_1, townSelector_component_js_1, projectOverview_component_js_1;
     var HomeComponent;
     return {
         setters:[
             function (core_1_1) {
                 core_1 = core_1_1;
             },
+            function (router_1_1) {
+                router_1 = router_1_1;
+            },
             function (townSelector_component_js_1_1) {
                 townSelector_component_js_1 = townSelector_component_js_1_1;
             },
             function (projectOverview_component_js_1_1) {
                 projectOverview_component_js_1 = projectOverview_component_js_1_1;
-            },
-            function (router_1_1) {
-                router_1 = router_1_1;
             }],
         execute: function() {
             HomeComponent = (function () {
