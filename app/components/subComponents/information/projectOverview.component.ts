@@ -8,7 +8,7 @@ import {ProjectService} from './../../../services/projectService.component.js';
     template: `<div class="container">
                     <div class="polaroid" *ngFor="#project of projects">
                     <div class="img-container">
-                         <img src="./app/images/categories/{{project.categoryNumber}}.jpg"/>
+                         <img src="/app/images/categories/{{project.categoryNumber}}.jpg"/>
                     </div>
                     <p>{{project.town}}</p>
                     <p>{{project.name}}</p>

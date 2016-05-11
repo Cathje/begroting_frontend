@@ -222,7 +222,7 @@ function getAncestors(node: any) {
 function buildHierarchy(data: [Object], colors: Object) {
     var root = {"name": "root", "children": [Object]};
     for (var i = 0; i < data.length; i++) {
-        var size = +data[i]['uitgave'];
+        var size = +data[i]['totaal'];
         if (isNaN(size)) { // e.g. if this is a header row
             continue;
         }
