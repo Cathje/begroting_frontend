@@ -24,7 +24,7 @@ System.register(['angular2/core'], function(exports_1, context_1) {
                 GeneralSettingsComponent = __decorate([
                     core_1.Component({
                         selector: 'general-settings-container',
-                        template: "<h2>Algemene instellingen</h2>"
+                        template: "\n    <div class=\"container\">\n    <h2>Algemene instellingen</h2>\n    </div>\n    "
                     }), 
                     __metadata('design:paramtypes', [])
                 ], GeneralSettingsComponent);

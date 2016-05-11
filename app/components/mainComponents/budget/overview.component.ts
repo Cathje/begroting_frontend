@@ -16,7 +16,7 @@ import {GemeenteCategorie} from "../../../models/gemeenteCategorie";
 
 
 @Component({ //invoke with metadata object
-    selector: 'home-container',
+    selector: 'overview-container',
     template: `
         <div class="container">
         <section class="intro col-xs-12 col-sm-4">

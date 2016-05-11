@@ -31,7 +31,7 @@ System.register(['angular2/core', 'angular2/router'], function(exports_1, contex
                 AddPropositionComponent = __decorate([
                     core_1.Component({
                         selector: 'add-proposition-container',
-                        template: "<h2>Voorstel indienen</h2>"
+                        template: "\n    <div class=\"container\">\n    <h2>Voorstel indienen</h2>\n    </div>\n    "
                     }), 
                     __metadata('design:paramtypes', [router_1.RouteParams])
                 ], AddPropositionComponent);

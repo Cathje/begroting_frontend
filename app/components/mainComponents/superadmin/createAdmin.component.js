@@ -24,7 +24,7 @@ System.register(['angular2/core'], function(exports_1, context_1) {
                 CreateAdminComponent = __decorate([
                     core_1.Component({
                         selector: 'create-admin-container',
-                        template: "<h2>Maak Admin aan</h2>"
+                        template: "\n    <div class=\"container\">\n    <h2>Maak admin aan </h2>\n    </div>\n    "
                     }), 
                     __metadata('design:paramtypes', [])
                 ], CreateAdminComponent);

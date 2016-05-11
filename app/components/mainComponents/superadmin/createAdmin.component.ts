@@ -3,7 +3,11 @@ import {RouteParams} from 'angular2/router';
 
 @Component({ //invoke with metadata object
     selector: 'create-admin-container',
-    template: `<h2>Maak Admin aan</h2>`
+    template: `
+    <div class="container">
+    <h2>Maak admin aan </h2>
+    </div>
+    `
 })
 
 export class CreateAdminComponent {

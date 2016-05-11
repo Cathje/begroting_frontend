@@ -12,6 +12,7 @@ import {TownSelectorComponent} from "../../subComponents/input/townSelector.comp
 @Component({ //invoke with metadata object
     selector: 'manage-town-container',
     template: `
+    <div class="container">
 <h2>Beheer gegevens</h2>
 
  <h2>Demografische gegevens</h2>
@@ -57,7 +58,7 @@ import {TownSelectorComponent} from "../../subComponents/input/townSelector.comp
                         <p *ngIf="!mainTown.deelGemeenten"><i>Er zijn geen deelgemeentes</i></p>
                    
                     <button (click)="submit()">opslaan</button>
-
+</div>
 `,
     providers: [TownService],
     directives: [ROUTER_DIRECTIVES, TownSelectorComponent]

@@ -12,7 +12,9 @@ import {ProjectScenario} from "../../../models/projectScenario.js";
 
 @Component({ //invoke with metadata object
     selector: 'manage-project-container',
-    template: `<h2>Beheer project</h2><h4>Titel:</h4>
+    template: `
+    <div class="container">
+    <h2>Beheer project</h2><h4>Titel:</h4>
      <input type="text" [(ngModel)]="project.titel"/>
      <h4>vraag:</h4>
      <input type="text" [(ngModel)]="project.vraag"/>
@@ -39,7 +41,7 @@ import {ProjectScenario} from "../../../models/projectScenario.js";
                 
                 <button (click)="submit()">opslaan</button>
               
-
+</div>
 `,
     directives: [ROUTER_DIRECTIVES, NavigationMenuComponent],
     providers: [ ProjectService,ActieService//routing

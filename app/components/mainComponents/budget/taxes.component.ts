@@ -13,8 +13,9 @@ import {Observable} from 'rxjs/observable';
 @Component({ //invoke with metadata object
     selector: 'taxes-container',
     template: `
-        <h1>{{title}} en parameter: {{param}}</h1>
 		<div class="container">
+		        <h1>{{title}} en parameter: {{param}}</h1>
+
             <div class="row">
                 <div class="thisTownArea col-lg-6 col-md-6 col-sm-12 col-xs-12">
                     <div class="row">

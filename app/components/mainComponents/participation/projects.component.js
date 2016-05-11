@@ -24,7 +24,7 @@ System.register(['angular2/core'], function(exports_1, context_1) {
                 ProjectsComponent = __decorate([
                     core_1.Component({
                         selector: 'projects-container',
-                        template: "<h2>Begrotingsposten</h2>"
+                        template: "\n    <div class=\"container\">\n    <h2>Begrotingsposten</h2>\n    </div>\n    "
                     }), 
                     __metadata('design:paramtypes', [])
                 ], ProjectsComponent);

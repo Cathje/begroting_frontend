@@ -3,7 +3,11 @@ import {RouteParams} from 'angular2/router';
 
 @Component({ //invoke with metadata object
     selector: 'add-proposition-container',
-    template: `<h2>Voorstel indienen</h2>`
+    template: `
+    <div class="container">
+    <h2>Voorstel indienen</h2>
+    </div>
+    `
 })
 
 export class AddPropositionComponent {

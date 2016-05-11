@@ -7,7 +7,9 @@ import {MainTown} from "../../../models/mainTown.js";
 
 @Component({ //invoke with metadata object
     selector: 'manage-data-container',
-    template: `<h2>Beheer informatie</h2> <h2>Demografische gegevens</h2>
+    template: `
+    <div class="container">
+    <h2>Beheer informatie</h2> <h2>Demografische gegevens</h2>
                         <h4>Aantal bewoners</h4>
                         <input type="number" [(ngModel)]="mainTown.aantalBewoners"/>
 
@@ -50,7 +52,7 @@ import {MainTown} from "../../../models/mainTown.js";
                         <p *ngIf="!mainTown.deelGemeenten"><i>Er zijn geen deelgemeentes</i></p>
                    
                     <button (click)="submit()">opslaan</button>
-
+</div>
 `,
     providers: [TownService],
     directives: [ROUTER_DIRECTIVES, TownSelectorComponent]
