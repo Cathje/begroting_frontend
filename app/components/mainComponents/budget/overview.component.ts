@@ -37,22 +37,22 @@ import {GemeenteCategorie} from "../../../models/gemeenteCategorie";
 
         <section class="demographic col-xs-12 col-sm-12">
         <h2>Demografische gegevens</h2>
-                    <div class="col-xs-6 col-sm-3">
+                    <div class="col-xs-12 col-sm-6 col-md-3">
                         <img class='icon' src="/app/images/icons/population.png">
                         <h4>Aantal bewoners</h4>
                         <editable-field [isEditable]="isEditor" [data]="mainTown.aantalBewoners"></editable-field>
                     </div>
-                    <div class="col-xs-6 col-sm-3">
+                    <div class="col-xs-12 col-sm-6 col-md-3">
                         <img class='icon' src="/app/images/icons/woman.png">
                         <h4>Aantal vrouwen</h4>
                         <editable-field [isEditable]="isEditor" [data]="mainTown.isVrouw"></editable-field>
                     </div>
-                    <div class="col-xs-6 col-sm-3">
+                    <div class="col-xs-12 col-sm-6 col-md-3">
                         <img class='icon' src="/app/images/icons/man.png">
                         <h4>Aantal mannen</h4>
                         <editable-field [isEditable]="isEditor" [data]="mainTown.isMan"></editable-field>
                     </div>
-                    <div class="col-xs-6 col-sm-3">
+                    <div class="col-xs-12 col-sm-6 col-md-3">
                         <img class='icon' src="/app/images/icons/child.png">
                         <h4>Aantal kinderen</h4>
                         <editable-field [isEditable]="isEditor" [data]="mainTown.isKind"></editable-field>
@@ -63,16 +63,15 @@ import {GemeenteCategorie} from "../../../models/gemeenteCategorie";
          <!-- HIER KOMEN DE ACTIES DIE BINNEN EEN BEPAALDE CATEGORIE ZITTEN-->
         <section id="geographic" class="col-xs-12 col-sm-12">
         <h2>Geografische gegevens</h2>
-                    <div class='col-xs-12 col-md-6'>
-                      <img src="/app/images/provincies/vlaamsbrabant.png" class="provincie">
+                    <div class='col-xs-6 col-md-6'>
+                      <img src={{imglink}} class="provincie">
                      </div>
-                     <div class='col-xs-12 col-md-6'>
+                     <div class='col-xs-6 col-md-6'>
                      <h4>Provincie:</h4>
                      <span>{{mainTown.provincie}}</span>
 
                      <h4>Oppervlakte:</h4>
-                        <editable-field [isEditable]="isEditor" [data]="mainTown.oppervlakte"></editable-field>
-                        <span>{{mainTown.oppervlakteMaat}}</span>
+                        <span>{{mainTown.oppervlakte}}{{mainTown.oppervlakteMaat}}</span>
                     <h4>Deelgemeenten: </h4>
                         <ul *ngIf="mainTown?.deelGemeenten" >
                             <li *ngFor="#town of mainTown.deelGemeenten"><span>{{town.naam}} - {{town.postCode}}</span></li>
@@ -94,9 +93,8 @@ import {GemeenteCategorie} from "../../../models/gemeenteCategorie";
     styles: [`
 
     .icon {
-    width: 200px;
+    max-width: 200px;
     margin: 10px;
-    float:left;
     }
 
     h2 {
@@ -195,6 +193,7 @@ import {GemeenteCategorie} from "../../../models/gemeenteCategorie";
 
 export class OverviewComponent {
     title = 'Gemeente - home';
+    imglink: string = "";
     name:string = "";
     mainTown = new MainTown("","",0,0);  //opm: moet geïnitialiseerd zijn, anders werkt ngModel niet
     isVisable = false;
@@ -220,7 +219,10 @@ export class OverviewComponent {
     constructor(private _townService:TownService, _begrotingService:BegrotingService,_actieService: ActieService, public http: Http, params: RouteParams, injector: Injector, private _router: Router)
     {
         _townService.getTown(injector.parent.parent.get(RouteParams).get('town'))
-            .subscribe(town => this.mainTown = town
+            .subscribe(town => {
+                this.mainTown = town;
+                this.imglink = "/app/images/provincies/" + town.provincie.toLowerCase().split(' ').join('') +".png";
+                }
              );
 
         _begrotingService.getGemeenteCategorieen(2020,"Gent")

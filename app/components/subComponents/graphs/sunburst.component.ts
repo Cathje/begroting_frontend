@@ -7,13 +7,13 @@ import {SimpleChange} from "../../../../node_modules/angular2/src/core/change_de
     selector: 'sunburst',
     template: `
       <div id="chart">
-        <h4 id="explanation" style="visibility: hidden;">
+        <h5 id="explanation" style="visibility: hidden;">
           <span id="percentage"></span><br/>
           van het totaal budget gaat naar <span id="category"></span>
-        </h4>
-        <h4 id="explanation2">
+        </h5>
+        <h5 id="explanation2">
           <span>Welke proportie van de begroting gaat naar welke categorie?</span>
-        </h4>
+        </h5>
       </div>
 
     `,
@@ -33,7 +33,7 @@ import {SimpleChange} from "../../../../node_modules/angular2/src/core/change_de
   margin: auto;
   position: absolute;
   top: 0; left: 0; bottom: 0; right: 0;
-  width: 37%;
+  width: 35%;
   height: 180px;
   color: #666;
       display: flex;
@@ -48,7 +48,7 @@ import {SimpleChange} from "../../../../node_modules/angular2/src/core/change_de
   margin: auto;
   position: absolute;
   top: 0; left: 0; bottom: 0; right: 0;
-  width: 37%;
+  width: 35%;
   height: 180px;
   color: #666;
       display: flex;

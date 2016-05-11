@@ -63,6 +63,8 @@ export class TownSelectorComponent {
         _townService.getTowns()
            .subscribe((towns:any) => this.towns = towns);
 
+
+
     }
 
     gotoHome(event: any) {
