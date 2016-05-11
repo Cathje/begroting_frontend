@@ -62,10 +62,9 @@ System.register(['angular2/core', './../../../services/townService.component.js'
                         { ID: "099", naamCaty: "Zorg en opvang", naamCatz: "Gezin en kinderen", totaal: 3311 },
                         { ID: "098", naamCaty: "Cultuur en vrije tijd", naamCatz: "Sport", totaal: 906 }];
                     this.width = window.innerWidth < 768 ? window.innerWidth * 0.8 : window.innerWidth / 2.5;
-                    this.onCircleClick = function (categorie) {
-                        alert('hier komt een popup met de acties van de categorie: ' + categorie);
-                        //TODO: bij het klikken op de graph moet de ID meegeven worden en hierin gestoken worden
-                        _this._actieService.getActies(15)
+                    this.onCircleClick = function (id) {
+                        alert('hier komt een popup met de acties van de categorieID: ' + id);
+                        _this._actieService.getActies(id)
                             .subscribe(function (acties) { return _this.acties = acties; });
                     };
                     this.onResize = function (event) {

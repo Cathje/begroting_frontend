@@ -34,7 +34,7 @@ import {SimpleChange} from "../../../../node_modules/angular2/src/core/change_de
   position: absolute;
   top: 0; left: 0; bottom: 0; right: 0;
   width: 37%;
-  height: 300px;
+  height: 180px;
   color: #666;
       display: flex;
     justify-content:center;
@@ -49,7 +49,7 @@ import {SimpleChange} from "../../../../node_modules/angular2/src/core/change_de
   position: absolute;
   top: 0; left: 0; bottom: 0; right: 0;
   width: 37%;
-  height: 300px;
+  height: 180px;
   color: #666;
       display: flex;
     justify-content:center;
@@ -181,15 +181,14 @@ function mouseover(d: any, totalSize: any, chart:any) {
 
 // Restore everything to full opacity when moving off the visualization.
 function mouseleave(d : any, chart: any) {
-        console.log(c)
-    // Deactivate all segments during transition.
-    chart.selectAll("path").on("mouseover", null);
+
 
     // Transition each segment to full opacity and then reactivate it.
     chart.selectAll("path")
         .transition()
-        .duration(1000)
-        .style("opacity", 1)
+        .duration(500)
+        .style("opacity", 1);
+
 
     chart.select("#explanation")
         .style("visibility", "hidden");
@@ -198,7 +197,7 @@ function mouseleave(d : any, chart: any) {
 }
 
 function mouseclick(clickedObject : any, callbackFunction : any) {
-    callbackFunction(clickedObject.name);
+    callbackFunction(clickedObject.id);
 }
 
 // Given a node in a partition layout, return an array of all of its ancestor
@@ -231,9 +230,11 @@ function buildHierarchy(data: [Object], colors: Object) {
         Object.keys(data[i]).map((value) => {
             let children = currentNode["children"];
             let nodeName : string;
+            let id: number;
             let childNode: Object;
             if(value === 'naamCatx' || value === 'naamCaty'){
                 nodeName = data[i][value];
+                id = data[i]['ID'];
                 // Not yet at the end of the sequence; move down the tree.
                 var foundChild = false;
                 for (var k = 0; k < children.length; k++) {
@@ -245,15 +246,16 @@ function buildHierarchy(data: [Object], colors: Object) {
                 }
                 // If we don't already have a child node for this branch, create it.
                 if (!foundChild) {
-                    childNode = {"name": nodeName, "children": []};
+                    childNode = {"name": nodeName, "id": id, "children": []};
                     children.push(childNode);
                     colors[nodeName] = get_random_color();
                 }
                 currentNode = childNode;
             } else if(value === 'naamCatz'){
                 nodeName = data[i][value];
+                id = data[i]['ID'];
                 // Reached the end of the sequence; create a leaf node.
-                childNode = {"name": nodeName, "size": size};
+                childNode = {"name": nodeName, "id": id, "size": size};
                 colors[nodeName] = get_random_color();
                 children.push(childNode);
             }

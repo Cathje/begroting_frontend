@@ -61,13 +61,10 @@ System.register(['angular2/core', 'd3'], function(exports_1, context_1) {
     }
     // Restore everything to full opacity when moving off the visualization.
     function mouseleave(d, chart) {
-        console.log(c);
-        // Deactivate all segments during transition.
-        chart.selectAll("path").on("mouseover", null);
         // Transition each segment to full opacity and then reactivate it.
         chart.selectAll("path")
             .transition()
-            .duration(1000)
+            .duration(500)
             .style("opacity", 1);
         chart.select("#explanation")
             .style("visibility", "hidden");
@@ -75,7 +72,7 @@ System.register(['angular2/core', 'd3'], function(exports_1, context_1) {
             .style("visibility", "");
     }
     function mouseclick(clickedObject, callbackFunction) {
-        callbackFunction(clickedObject.name);
+        callbackFunction(clickedObject.id);
     }
     // Given a node in a partition layout, return an array of all of its ancestor
     // nodes, highest first, but excluding the root.
@@ -103,9 +100,11 @@ System.register(['angular2/core', 'd3'], function(exports_1, context_1) {
             Object.keys(data[i]).map(function (value) {
                 var children = currentNode["children"];
                 var nodeName;
+                var id;
                 var childNode;
                 if (value === 'naamCatx' || value === 'naamCaty') {
                     nodeName = data[i][value];
+                    id = data[i]['ID'];
                     // Not yet at the end of the sequence; move down the tree.
                     var foundChild = false;
                     for (var k = 0; k < children.length; k++) {
@@ -117,7 +116,7 @@ System.register(['angular2/core', 'd3'], function(exports_1, context_1) {
                     }
                     // If we don't already have a child node for this branch, create it.
                     if (!foundChild) {
-                        childNode = { "name": nodeName, "children": [] };
+                        childNode = { "name": nodeName, "id": id, "children": [] };
                         children.push(childNode);
                         colors[nodeName] = get_random_color();
                     }
@@ -125,8 +124,9 @@ System.register(['angular2/core', 'd3'], function(exports_1, context_1) {
                 }
                 else if (value === 'naamCatz') {
                     nodeName = data[i][value];
+                    id = data[i]['ID'];
                     // Reached the end of the sequence; create a leaf node.
-                    childNode = { "name": nodeName, "size": size };
+                    childNode = { "name": nodeName, "id": id, "size": size };
                     colors[nodeName] = get_random_color();
                     children.push(childNode);
                 }
@@ -214,7 +214,7 @@ System.register(['angular2/core', 'd3'], function(exports_1, context_1) {
                         selector: 'sunburst',
                         template: "\n      <div id=\"chart\">\n        <h4 id=\"explanation\" style=\"visibility: hidden;\">\n          <span id=\"percentage\"></span><br/>\n          van het totaal budget gaat naar <span id=\"category\"></span>\n        </h4>\n        <h4 id=\"explanation2\">\n          <span>Welke proportie van de begroting gaat naar welke categorie?</span>\n        </h4>\n      </div>\n\n    ",
                         providers: [],
-                        styles: ["\n#chart {\n  position: relative;\n  text-align: center;\n}\n\n#chart path {\n  stroke: #fff;\n}\n\n#explanation {\n  position: absolute;\n  margin: auto;\n  position: absolute;\n  top: 0; left: 0; bottom: 0; right: 0;\n  width: 37%;\n  height: 300px;\n  color: #666;\n      display: flex;\n    justify-content:center;\n    align-content:center;\n    flex-direction:column; /* column | row */\n\n}\n\n#explanation2 {\n  position: absolute;\n  margin: auto;\n  position: absolute;\n  top: 0; left: 0; bottom: 0; right: 0;\n  width: 37%;\n  height: 300px;\n  color: #666;\n      display: flex;\n    justify-content:center;\n    align-content:center;\n    flex-direction:column; /* column | row */\n}\n\n#percentage{\n  font-size: 2.5em;\n}\n ",]
+                        styles: ["\n#chart {\n  position: relative;\n  text-align: center;\n}\n\n#chart path {\n  stroke: #fff;\n}\n\n#explanation {\n  position: absolute;\n  margin: auto;\n  position: absolute;\n  top: 0; left: 0; bottom: 0; right: 0;\n  width: 37%;\n  height: 180px;\n  color: #666;\n      display: flex;\n    justify-content:center;\n    align-content:center;\n    flex-direction:column; /* column | row */\n\n}\n\n#explanation2 {\n  position: absolute;\n  margin: auto;\n  position: absolute;\n  top: 0; left: 0; bottom: 0; right: 0;\n  width: 37%;\n  height: 180px;\n  color: #666;\n      display: flex;\n    justify-content:center;\n    align-content:center;\n    flex-direction:column; /* column | row */\n}\n\n#percentage{\n  font-size: 2.5em;\n}\n ",]
                     }), 
                     __metadata('design:paramtypes', [core_1.Renderer, core_1.ElementRef])
                 ], SunburstComponent);

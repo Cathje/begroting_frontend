@@ -2,8 +2,8 @@ import {Component, Injector} from 'angular2/core';
 import {RouteParams, ROUTER_DIRECTIVES, Router} from 'angular2/router';
 import {TownSelectorComponent} from "../../subComponents/input/townSelector.component.js";
 import {TownService} from "../../../services/townService.component.js";
-import {PoliticusType} from "../../../models/politicusType";
-import {MainTown} from "../../../models/mainTown";
+import {PoliticusType} from "../../../models/politicusType.js";
+import {MainTown} from "../../../models/mainTown.js";
 
 @Component({ //invoke with metadata object
     selector: 'manage-data-container',

@@ -1,4 +1,4 @@
-System.register(['angular2/core', 'angular2/router', "../../subComponents/input/townSelector.component.js", "../../../services/townService.component.js", "../../../models/politicusType", "../../../models/mainTown"], function(exports_1, context_1) {
+System.register(['angular2/core', 'angular2/router', "../../subComponents/input/townSelector.component.js", "../../../services/townService.component.js", "../../../models/politicusType.js", "../../../models/mainTown.js"], function(exports_1, context_1) {
     "use strict";
     var __moduleName = context_1 && context_1.id;
     var __decorate = (this && this.__decorate) || function (decorators, target, key, desc) {
@@ -10,7 +10,7 @@ System.register(['angular2/core', 'angular2/router', "../../subComponents/input/
     var __metadata = (this && this.__metadata) || function (k, v) {
         if (typeof Reflect === "object" && typeof Reflect.metadata === "function") return Reflect.metadata(k, v);
     };
-    var core_1, router_1, townSelector_component_js_1, townService_component_js_1, politicusType_1, mainTown_1;
+    var core_1, router_1, townSelector_component_js_1, townService_component_js_1, politicusType_js_1, mainTown_js_1;
     var ManageDataComponent;
     return {
         setters:[
@@ -26,11 +26,11 @@ System.register(['angular2/core', 'angular2/router', "../../subComponents/input/
             function (townService_component_js_1_1) {
                 townService_component_js_1 = townService_component_js_1_1;
             },
-            function (politicusType_1_1) {
-                politicusType_1 = politicusType_1_1;
+            function (politicusType_js_1_1) {
+                politicusType_js_1 = politicusType_js_1_1;
             },
-            function (mainTown_1_1) {
-                mainTown_1 = mainTown_1_1;
+            function (mainTown_js_1_1) {
+                mainTown_js_1 = mainTown_js_1_1;
             }],
         execute: function() {
             ManageDataComponent = (function () {
@@ -39,10 +39,10 @@ System.register(['angular2/core', 'angular2/router', "../../subComponents/input/
                     this._routeParams = _routeParams;
                     this._townService = _townService;
                     this._router = _router;
-                    this.mainTown = new mainTown_1.MainTown("", "", 0, 0);
+                    this.mainTown = new mainTown_js_1.MainTown("", "", 0, 0);
                     // newBestuur:Bestuur = new Bestuur(""); // this gives an error
-                    this.types = politicusType_1.PoliticusType;
-                    this.selectedType = politicusType_1.PoliticusType.Schepen;
+                    this.types = politicusType_js_1.PoliticusType;
+                    this.selectedType = politicusType_js_1.PoliticusType.Schepen;
                     _townService.getTown(injector.parent.parent.get(router_1.RouteParams).get('town'))
                         .subscribe(function (town) { return _this.mainTown = town; });
                 }

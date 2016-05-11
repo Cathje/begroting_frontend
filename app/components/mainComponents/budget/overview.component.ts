@@ -211,10 +211,9 @@ export class OverviewComponent {
     width: number = window.innerWidth < 768 ? window.innerWidth*0.8 : window.innerWidth/2.5;
     _actieService: ActieService;
 
-    onCircleClick: any = (categorie: string) => {
-        alert('hier komt een popup met de acties van de categorie: ' + categorie);
-        //TODO: bij het klikken op de graph moet de ID meegeven worden en hierin gestoken worden
-       this._actieService.getActies(15)
+    onCircleClick: any = (id: number) => {
+        alert('hier komt een popup met de acties van de categorieID: ' + id);
+       this._actieService.getActies(id)
            .subscribe((acties : any) => this.acties = acties);
     };
 
