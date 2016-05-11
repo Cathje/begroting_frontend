@@ -51,7 +51,7 @@ System.register(['angular2/core', 'angular2/router', "../../subComponents/input/
                 };
                 ManageDataComponent.prototype.submit = function () {
                     this._townService.putTown(this.mainTown).subscribe();
-                    this._router.navigate(['MainTown', { town: this.mainTown.naam }]);
+                    this._router.navigate(['/', 'App', 'Budget', { town: this.mainTown.naam }]);
                 };
                 ManageDataComponent = __decorate([
                     core_1.Component({
