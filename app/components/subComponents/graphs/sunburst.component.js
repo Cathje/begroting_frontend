@@ -1,11 +1,11 @@
-System.register(['angular2/core', 'd3'], function(exports_1) {
+System.register(['angular2/core', 'd3'], function(exports_1, context_1) {
+    "use strict";
+    var __moduleName = context_1 && context_1.id;
     var __decorate = (this && this.__decorate) || function (decorators, target, key, desc) {
-        if (typeof Reflect === "object" && typeof Reflect.decorate === "function") return Reflect.decorate(decorators, target, key, desc);
-        switch (arguments.length) {
-            case 2: return decorators.reduceRight(function(o, d) { return (d && d(o)) || o; }, target);
-            case 3: return decorators.reduceRight(function(o, d) { return (d && d(target, key)), void 0; }, void 0);
-            case 4: return decorators.reduceRight(function(o, d) { return (d && d(target, key, o)) || o; }, desc);
-        }
+        var c = arguments.length, r = c < 3 ? target : desc === null ? desc = Object.getOwnPropertyDescriptor(target, key) : desc, d;
+        if (typeof Reflect === "object" && typeof Reflect.decorate === "function") r = Reflect.decorate(decorators, target, key, desc);
+        else for (var i = decorators.length - 1; i >= 0; i--) if (d = decorators[i]) r = (c < 3 ? d(r) : c > 3 ? d(target, key, r) : d(target, key)) || r;
+        return c > 3 && r && Object.defineProperty(target, key, r), r;
     };
     var __metadata = (this && this.__metadata) || function (k, v) {
         if (typeof Reflect === "object" && typeof Reflect.metadata === "function") return Reflect.metadata(k, v);
@@ -36,25 +36,19 @@ System.register(['angular2/core', 'd3'], function(exports_1) {
     }
     // Fade all but the current sequence
     function mouseover(d, totalSize, chart) {
-        var percentage = 0;
-        if (totalSize !== 0) {
-            percentage = (100 * d.value / totalSize).toPrecision(3);
-        }
-        console.log('mousea', percentage);
+        var percentage = (100 * d.value / totalSize).toPrecision(3);
         var percentageString = percentage + "%";
-        console.log('mouse1');
-        console.log('mouse2a', percentageString);
+        if (parseFloat(percentage) < 0.1) {
+            percentageString = "< 0.1%";
+        }
         chart.select("#percentage")
             .text(percentageString);
-        console.log('mouse2b');
         chart.select("#explanation")
             .style("visibility", "");
-        console.log('mouse2');
         chart.select("#explanation2")
             .style("visibility", "hidden");
         chart.select("#category").text(d.name);
         var sequenceArray = getAncestors(d);
-        console.log('mouse3');
         // Fade all the segments.
         chart.selectAll("path")
             .style("opacity", 0.3);
@@ -64,20 +58,17 @@ System.register(['angular2/core', 'd3'], function(exports_1) {
             return (sequenceArray.indexOf(node) >= 0);
         })
             .style("opacity", 1);
-        console.log('mouse4');
     }
     // Restore everything to full opacity when moving off the visualization.
     function mouseleave(d, chart) {
+        console.log(c);
         // Deactivate all segments during transition.
         chart.selectAll("path").on("mouseover", null);
         // Transition each segment to full opacity and then reactivate it.
         chart.selectAll("path")
             .transition()
             .duration(1000)
-            .style("opacity", 1)
-            .each("end", function () {
-            d3.select(this).on("mouseover", mouseover);
-        });
+            .style("opacity", 1);
         chart.select("#explanation")
             .style("visibility", "hidden");
         chart.select("#explanation2")
@@ -205,30 +196,30 @@ System.register(['angular2/core', 'd3'], function(exports_1) {
                 __decorate([
                     core_1.Input(), 
                     __metadata('design:type', Array)
-                ], SunburstComponent.prototype, "data");
+                ], SunburstComponent.prototype, "data", void 0);
                 __decorate([
                     core_1.Input(), 
                     __metadata('design:type', Number)
-                ], SunburstComponent.prototype, "width");
+                ], SunburstComponent.prototype, "width", void 0);
                 __decorate([
                     core_1.Input(), 
                     __metadata('design:type', Number)
-                ], SunburstComponent.prototype, "height");
+                ], SunburstComponent.prototype, "height", void 0);
                 __decorate([
                     core_1.Input(), 
                     __metadata('design:type', String)
-                ], SunburstComponent.prototype, "onClick");
+                ], SunburstComponent.prototype, "onClick", void 0);
                 SunburstComponent = __decorate([
                     core_1.Component({
                         selector: 'sunburst',
                         template: "\n      <div id=\"chart\">\n        <h4 id=\"explanation\" style=\"visibility: hidden;\">\n          <span id=\"percentage\"></span><br/>\n          van het totaal budget gaat naar <span id=\"category\"></span>\n        </h4>\n        <h4 id=\"explanation2\">\n          <span>Welke proportie van de begroting gaat naar welke categorie?</span>\n        </h4>\n      </div>\n\n    ",
                         providers: [],
-                        styles: ["\n    #sequence {\n  width: 600px;\n  height: 70px;\n}\n\n#sequence text, #legend text {\n  font-weight: 600;\n  fill: #fff;\n}\n\n#chart {\n  position: relative;\n  text-align: center;\n}\n\n#chart path {\n  stroke: #fff;\n}\n\n#explanation {\n  position: absolute;\n  margin: auto;\n  position: absolute;\n  top: 0; left: 0; bottom: 0; right: 0;\n  width: 37%;\n  height: 140px;\n  color: #666;\n      display: flex;\n    justify-content:center;\n    align-content:center;\n    flex-direction:column; /* column | row */\n\n}\n\n#explanation2 {\n  position: absolute;\n  margin: auto;\n  position: absolute;\n  top: 0; left: 0; bottom: 0; right: 0;\n  width: 37%;\n  height: 140px;\n  color: #666;\n      display: flex;\n    justify-content:center;\n    align-content:center;\n    flex-direction:column; /* column | row */\n}\n\n#percentage{\n  font-size: 2.5em;\n}\n ",]
+                        styles: ["\n#chart {\n  position: relative;\n  text-align: center;\n}\n\n#chart path {\n  stroke: #fff;\n}\n\n#explanation {\n  position: absolute;\n  margin: auto;\n  position: absolute;\n  top: 0; left: 0; bottom: 0; right: 0;\n  width: 37%;\n  height: 300px;\n  color: #666;\n      display: flex;\n    justify-content:center;\n    align-content:center;\n    flex-direction:column; /* column | row */\n\n}\n\n#explanation2 {\n  position: absolute;\n  margin: auto;\n  position: absolute;\n  top: 0; left: 0; bottom: 0; right: 0;\n  width: 37%;\n  height: 300px;\n  color: #666;\n      display: flex;\n    justify-content:center;\n    align-content:center;\n    flex-direction:column; /* column | row */\n}\n\n#percentage{\n  font-size: 2.5em;\n}\n ",]
                     }), 
                     __metadata('design:paramtypes', [core_1.Renderer, core_1.ElementRef])
                 ], SunburstComponent);
                 return SunburstComponent;
-            })();
+            }());
             exports_1("SunburstComponent", SunburstComponent);
             ;
             ;

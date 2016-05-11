@@ -23,7 +23,7 @@ import {Actie} from "../../../models/actie.js";
            <sunburst [data]=categories [onClick]=onCircleClick [height]=width [width]=width></sunburst>
 
             <div class="pointer">
-                <img src="./app/images/icons/clickPointer.png">
+                <img src="/app/images/icons/clickPointer.png">
                 <p> Klik op een categorie om de acties van deze categorie te bekijken.</p>
             </div>
             <!--@TODO  TEST, NOG TE VERWIJDEREN-->
@@ -33,22 +33,22 @@ import {Actie} from "../../../models/actie.js";
         <section class="demographic col-xs-12 col-sm-12">
         <h2>Demografische gegevens</h2>
                     <div class="col-xs-6 col-sm-3">
-                        <img class='icon' src="./app/images/icons/population.png">
+                        <img class='icon' src="/app/images/icons/population.png">
                         <h4>Aantal bewoners</h4>
                         <editable-field [isEditable]="isEditor" [data]="mainTown.aantalBewoners"></editable-field>
                     </div>
                     <div class="col-xs-6 col-sm-3">
-                        <img class='icon' src="./app/images/icons/woman.png">
+                        <img class='icon' src="/app/images/icons/woman.png">
                         <h4>Aantal vrouwen</h4>
                         <editable-field [isEditable]="isEditor" [data]="mainTown.isVrouw"></editable-field>
                     </div>
                     <div class="col-xs-6 col-sm-3">
-                        <img class='icon' src="./app/images/icons/man.png">
+                        <img class='icon' src="/app/images/icons/man.png">
                         <h4>Aantal mannen</h4>
                         <editable-field [isEditable]="isEditor" [data]="mainTown.isMan"></editable-field>
                     </div>
                     <div class="col-xs-6 col-sm-3">
-                        <img class='icon' src="./app/images/icons/child.png">
+                        <img class='icon' src="/app/images/icons/child.png">
                         <h4>Aantal kinderen</h4>
                         <editable-field [isEditable]="isEditor" [data]="mainTown.isKind"></editable-field>
                     </div>
@@ -59,7 +59,7 @@ import {Actie} from "../../../models/actie.js";
         <section id="geographic" class="col-xs-12 col-sm-12">
         <h2>Geografische gegevens</h2>
                     <div class='col-xs-12 col-md-6'>
-                      <img src="./app/images/provincies/vlaamsbrabant.png" class="provincie">
+                      <img src="/app/images/provincies/vlaamsbrabant.png" class="provincie">
                      </div>
                      <div class='col-xs-12 col-md-6'>
                      <h4>Provincie:</h4>
@@ -203,7 +203,7 @@ export class OverviewComponent {
 {catCode:"0991", naamCatx:"Algemene financiering", naamCaty:"Algemene financiering",naamCatz:"Patrimonium zonder maatschappelijk doel",uitgave:281},
 {catCode:"099",naamCaty:"Zorg en opvang", naamCatz:"Gezin en kinderen",uitgave:3311},
 {catCode:"098",naamCaty:"Cultuur en vrije tijd",naamCatz:"Sport",uitgave:906}];
-    width: number = window.innerWidth < 768 ? window.innerWidth*0.8 : window.innerWidth/2;
+    width: number = window.innerWidth < 768 ? window.innerWidth*0.8 : window.innerWidth/2.5;
     _actieService: ActieService;
 
     onCircleClick: any = (categorie: string) => {
@@ -243,7 +243,7 @@ export class OverviewComponent {
             this.width = window.innerWidth*0.8;
 
         }else {
-            this.width = window.innerWidth/2;
+            this.width = window.innerWidth/2.5;
 
         }
     }

@@ -19,16 +19,6 @@ import {SimpleChange} from "../../../../node_modules/angular2/src/core/change_de
     `,
     providers: [],
     styles:[`
-    #sequence {
-  width: 600px;
-  height: 70px;
-}
-
-#sequence text, #legend text {
-  font-weight: 600;
-  fill: #fff;
-}
-
 #chart {
   position: relative;
   text-align: center;
@@ -44,7 +34,7 @@ import {SimpleChange} from "../../../../node_modules/angular2/src/core/change_de
   position: absolute;
   top: 0; left: 0; bottom: 0; right: 0;
   width: 37%;
-  height: 140px;
+  height: 300px;
   color: #666;
       display: flex;
     justify-content:center;
@@ -59,7 +49,7 @@ import {SimpleChange} from "../../../../node_modules/angular2/src/core/change_de
   position: absolute;
   top: 0; left: 0; bottom: 0; right: 0;
   width: 37%;
-  height: 140px;
+  height: 300px;
   color: #666;
       display: flex;
     justify-content:center;
@@ -191,7 +181,7 @@ function mouseover(d: any, totalSize: any, chart:any) {
 
 // Restore everything to full opacity when moving off the visualization.
 function mouseleave(d : any, chart: any) {
-
+        console.log(c)
     // Deactivate all segments during transition.
     chart.selectAll("path").on("mouseover", null);
 
@@ -200,9 +190,7 @@ function mouseleave(d : any, chart: any) {
         .transition()
         .duration(1000)
         .style("opacity", 1)
-        .each("end", function() {
-            d3.select(this).on("mouseover", mouseover);
-        });
+
     chart.select("#explanation")
         .style("visibility", "hidden");
     chart.select("#explanation2")
