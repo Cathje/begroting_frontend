@@ -26,12 +26,12 @@ export class ProjectService
             .map(res => res.json());
     }
 
-    putProject(p: Project, cats: InspraakCategorie [])
+    putProject(p: Project)
     {
         var headers = new Headers();
         headers.append('Content-Type', 'application/json');
         return this.http.post(this._url2,JSON.stringify({projectScenario:p.projectScenario, vraag:p.vraag,
-                titel:p.titel, extraInfo:p.extraInfo, bedrag: p.bedrag, minBedrag: p.minBedrag, maxBedrag:p.maxBedrag, cats: cats})
+                titel:p.titel, extraInfo:p.extraInfo, bedrag: p.bedrag, minBedrag: p.minBedrag, maxBedrag:p.maxBedrag, cats: p.categorieen, boekjaar: p.boekjaar, gemeente: p.gemeente})
             ,{headers:headers}).map((res:Response) => res.json());
 
     }

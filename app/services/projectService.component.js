@@ -37,11 +37,11 @@ System.register(['angular2/core', 'angular2/http', 'rxjs/Rx', "../mockData/mock-
                     return this.http.get(this._url + "?jaar=" + jaar + "&naam=" + naam)
                         .map(function (res) { return res.json(); });
                 };
-                ProjectService.prototype.putProject = function (p, cats) {
+                ProjectService.prototype.putProject = function (p) {
                     var headers = new http_1.Headers();
                     headers.append('Content-Type', 'application/json');
                     return this.http.post(this._url2, JSON.stringify({ projectScenario: p.projectScenario, vraag: p.vraag,
-                        titel: p.titel, extraInfo: p.extraInfo, bedrag: p.bedrag, minBedrag: p.minBedrag, maxBedrag: p.maxBedrag, cats: cats }), { headers: headers }).map(function (res) { return res.json(); });
+                        titel: p.titel, extraInfo: p.extraInfo, bedrag: p.bedrag, minBedrag: p.minBedrag, maxBedrag: p.maxBedrag, cats: p.categorieen, boekjaar: p.boekjaar, gemeente: p.gemeente }), { headers: headers }).map(function (res) { return res.json(); });
                 };
                 ProjectService.prototype.getProjects = function () {
                     return mock_projects_js_1.PROJECTS;
