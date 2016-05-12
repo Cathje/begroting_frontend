@@ -29,7 +29,7 @@ import {MainTown} from "../../../models/mainTown.js";
 }
 
 .styled-select select {
-    background: url(./app/images/arrow_down.png) no-repeat right rgba(255,255,255, 0.6);
+    background: url(./../../../../app/images/arrow_down.png) no-repeat right rgba(255,255,255, 0.6);
     background-size: 35px 35px;
     border: none;
     font-size: 14px;
