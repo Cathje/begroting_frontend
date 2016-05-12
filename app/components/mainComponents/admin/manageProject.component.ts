@@ -15,7 +15,12 @@ import {ProjectScenario} from "../../../models/projectScenario.js";
     template: `
     <div class="container">
     <h2>Beheer project</h2><h4>Titel:</h4>
+     
      <input type="text" [(ngModel)]="project.titel"/>
+     <h4>boekjaar:</h4>
+     <input type="number" [(ngModel)]="project.boekjaar"/>
+     <h4>gemeente:</h4>
+     <input type="text" [(ngModel)]="project.gemeente"/>
      <h4>vraag:</h4>
      <input type="text" [(ngModel)]="project.vraag"/>
      <h4>ProjectScenario:</h4>
@@ -60,7 +65,7 @@ export class ManageProjectComponent {
         private _routeParams: RouteParams, private _projectService:ProjectService, private _router: Router) {
 
         _projectService.getInspraakcategorieen(2020,"Gent")
-            .subscribe(finan => this.categorieen = finan
+            .subscribe((finan: any) => this.categorieen = finan
             );
     }
 
@@ -80,7 +85,8 @@ export class ManageProjectComponent {
 
     submit()
     {
-        this._projectService.putProject(this.project, this.categorieen).subscribe();
+        this.project.categorieen = this.categorieen;
+        this._projectService.putProject(this.project).subscribe();
         // this._router.navigate(['MainTown', { town: this.town}]);
 
     }

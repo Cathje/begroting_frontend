@@ -7,6 +7,7 @@ import {Http,Response}  from 'angular2/http';
 import {Observable} from 'rxjs/observable';
 import 'rxjs/Rx';
 import {GemeenteCategorie} from "../models/gemeenteCategorie.js";
+import {CATS} from './../mockData/mock-gemeenteCat.js';
 
 @Injectable()
 export class BegrotingService {
@@ -28,5 +29,10 @@ export class BegrotingService {
     {
         console.error(error);
         return Observable.throw(error.json().error || 'server error');
+    }
+
+    getCategorieHC (jaar:number,naam:string): GemeenteCategorie[]{
+        return CATS;
+
     }
 }

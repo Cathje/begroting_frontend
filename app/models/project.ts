@@ -9,6 +9,9 @@ export class Project {
     bedrag: number;
     minBedrag: number;
     maxBedrag: number;
+    gemeente:string;
+    boekjaar: number;
+    categorieen: InspraakCategorie[];
 
     constructor(titel:string)
     {
@@ -19,6 +22,8 @@ export class Project {
         this.bedrag = 1000;
         this.maxBedrag = 10;
         this.minBedrag = 10;
+        this.boekjaar =2020;
+        this.gemeente="Gent"
     }
 
 }

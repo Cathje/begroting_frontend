@@ -1,7 +1,7 @@
 /**
  * Created by nadya on 30/04/2016.
  */
-System.register(['angular2/core', 'angular2/http', 'rxjs/observable', 'rxjs/Rx'], function(exports_1) {
+System.register(['angular2/core', 'angular2/http', 'rxjs/observable', 'rxjs/Rx', './../mockData/mock-gemeenteCat.js'], function(exports_1) {
     var __decorate = (this && this.__decorate) || function (decorators, target, key, desc) {
         if (typeof Reflect === "object" && typeof Reflect.decorate === "function") return Reflect.decorate(decorators, target, key, desc);
         switch (arguments.length) {
@@ -13,7 +13,7 @@ System.register(['angular2/core', 'angular2/http', 'rxjs/observable', 'rxjs/Rx']
     var __metadata = (this && this.__metadata) || function (k, v) {
         if (typeof Reflect === "object" && typeof Reflect.metadata === "function") return Reflect.metadata(k, v);
     };
-    var core_1, http_1, observable_1;
+    var core_1, http_1, observable_1, mock_gemeenteCat_js_1;
     var BegrotingService;
     return {
         setters:[
@@ -26,7 +26,10 @@ System.register(['angular2/core', 'angular2/http', 'rxjs/observable', 'rxjs/Rx']
             function (observable_1_1) {
                 observable_1 = observable_1_1;
             },
-            function (_1) {}],
+            function (_1) {},
+            function (mock_gemeenteCat_js_1_1) {
+                mock_gemeenteCat_js_1 = mock_gemeenteCat_js_1_1;
+            }],
         execute: function() {
             BegrotingService = (function () {
                 function BegrotingService(http) {
@@ -42,6 +45,9 @@ System.register(['angular2/core', 'angular2/http', 'rxjs/observable', 'rxjs/Rx']
                 BegrotingService.prototype.handleError = function (error) {
                     console.error(error);
                     return observable_1.Observable.throw(error.json().error || 'server error');
+                };
+                BegrotingService.prototype.getCategorieHC = function (jaar, naam) {
+                    return mock_gemeenteCat_js_1.CATS;
                 };
                 BegrotingService = __decorate([
                     core_1.Injectable(), 
