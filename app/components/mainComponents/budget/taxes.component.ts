@@ -1,21 +1,22 @@
 import {Component, ChangeDetectorRef} from 'angular2/core';
 import {TownService} from './../../../services/townService.component.js';
+import {BegrotingService} from './../../../services/begrotingService.js';
 import { RouteParams } from 'angular2/router';
 import { ROUTER_DIRECTIVES } from 'angular2/router'; // for routing
 import {SunburstComponent} from './../../subComponents/graphs/sunburst.component.js'
 import {SunburstCompare} from './../../subComponents/graphs/sunburstCompare.component.js'//SunburstCompare
+//import {SunburstComponentSalary} from './../../subComponents/graphs/sunburstSalary.component.js'//sunburst test
 import {MainTown} from "./../../../models/mainTown.js";
-import {CatDTO} from "../../../models/dto/catDTO.js";
 import {totalmem} from "os";
 import {Observable} from 'rxjs/observable';
+import {GemeenteCategorie} from "./../../../models/gemeenteCategorie.js";
 
 
 @Component({ //invoke with metadata object
     selector: 'taxes-container',
     template: `
+        <h1>{{title}} voor stad: {{myTown.naam}}</h1>
 		<div class="container">
-		        <h1>{{title}} en parameter: {{param}}</h1>
-
             <div class="row">
                 <div class="thisTownArea col-lg-6 col-md-6 col-sm-12 col-xs-12">
                     <div class="row">
@@ -37,7 +38,7 @@ import {Observable} from 'rxjs/observable';
                         </div>
                     </div>
 					<div class="row">
-                        <sunburstCompare [data]=categories2 width=500 height=600></sunburstCompare>
+                        <sunburst [data]=categories2 width=500 height=600></sunburst>
                     </div>
                 </div>
 			</div>
@@ -53,7 +54,7 @@ import {Observable} from 'rxjs/observable';
 `,
     directives: [SunburstComponent, ROUTER_DIRECTIVES, SunburstCompare],
     providers: [
-        TownService,
+        TownService,BegrotingService
     ],
     styles: [`
 
@@ -183,126 +184,128 @@ export class TaxesComponent {
     private towns: MainTown [];
     private myTown: MainTown;
     private compareTown: MainTown;
-    private myTownCats: CatDTO [];
-    private compareTownCats: CatDTO [];
     private service: TownService;
+    private budgetService: BegrotingService;
 
-    categories: [[string, string]] =
-        [["Algemene financiering ", "22781"],
-            ["Zorg en opvang ", "281"],
-            ["Wonen en ruimtelijke ordening ", "3311"],
-            ["Veiligheidszorg ", "906"],
-            ["Cultuur en vrije tijd ", "5324"],
-            ["Leren en onderwijs ", "4512"],
-            ["Zich verplaatsen en mobiliteit ", "1203"],
-            ["Algemeen bestuur ", "7854"],
-            ["Natuur en milieubeheer ", "6325"],
-            ["Ondernemen en werken ", "1002"]];
+    /*private categories: [{naamCatz : string, uitgave : number}] = [{"naamCatz" : "", "uitgave" : 0}];
+    private categories2: [{naamCatz : string, uitgave : number}] = [{"naamCatz" : "", "uitgave" : 0}];*/
 
-    categories2: [[string, string]] =
-        [["Algemene financiering ", "22781"],
-            ["Zorg en opvang ", "281"],
-            ["Wonen en ruimtelijke ordening ", "3311"],
-            ["Veiligheidszorg ", "906"],
-            ["Cultuur en vrije tijd ", "5324"],
-            ["Leren en onderwijs ", "4512"],
-            ["Zich verplaatsen en mobiliteit ", "1203"],
-            ["Algemeen bestuur ", "7854"],
-            ["Natuur en milieubeheer ", "6325"],
-            ["Ondernemen en werken ", "1002"]];
-    //categories2: [[string, string]] = null;
-    //categories2: Observable<[ [string, string]]>;
+    private categories: GemeenteCategorie [] = [{"naamCatz" : "", "totaal" : 0}];
+    private categories2: GemeenteCategorie [] = [{"naamCatz" : "", "totaal" : 0}];
 
 
+    categories3: GemeenteCategorie [] =
+        [{catCode:"0990",naamCatz:"Financiële aangelegenheden",totaal: 22781},
+            {catCode:"0991", naamCatz:"Patrimonium zonder maatschappelijk doel",totaal:281},
+            {catCode:"099", naamCatz:"Gezin en kinderen",totaal:3311},
+            {catCode:"098",naamCatz:"Sport",totaal:906}];
 
-    constructor(private _routeParams:RouteParams, private _townService: TownService, private ref: ChangeDetectorRef)
+
+    constructor(private _routeParams:RouteParams, private _townService: TownService, private _budgetService: BegrotingService)
     {
         this.routeParams = _routeParams;
         this.service = _townService;
+        this.budgetService = _budgetService;
 
         this.towns = _townService.getTownsHC();//TODO: delete
 
-        _townService.getTowns()
+        _townService.getTowns()//TODO: service implementation
             .subscribe(towns => this.towns = towns);
 
-        this.myTown = _townService.getTownHC(this._routeParams.get('town'));//TODO: delete
+        this.myTown = _townService.getTownHC("Antwerpen");//TODO: delete
+        //default stad is Antwerpen
+        this.compareTown = _townService.getTownHC("Antwerpen");//TODO: delete and service implementation
 
-        _townService.getTown(this._routeParams.get('town'))
+        _townService.getTown(this._routeParams.get('town'))//TODO: deep routing
             .subscribe(town => this.myTown = town
             );
-        //test merge
 
     }
 
     //call upon initial load
     ngOnInit() {
+        /*TODO: nieuwe deep routing params*/
         this.param = this.routeParams.get('town');
 
+        //load graph for provided town in current year
+        var today = new Date();
+        var year = today.getFullYear;
+        let tempCategories: GemeenteCategorie [] = this.budgetService.getCategorieHC(year, this.param);
+        this.categories.pop();/*TODO: andere manier vinden voor deze omweg (counter?)*/
+        /*TODO: use real service observable*/
+        for (var i = 0; i < tempCategories.length; i++) {
 
+            if (tempCategories[i].naamCaty == null){
+                this.categories.push(tempCategories[i]);
+            }
+
+        }
+        this.calculateSalary(true);
     }
 
     getNewTown(event: any) {
         let total: number = 0;
-        let tempCategories: [[string, string]] = [["", ""]];
-        //TODO: get data of chosen town and generate new Sunburst
-        console.log("te vergelijken gemeente: " + event.target.value);
-
+        let compCategories : GemeenteCategorie [] = [{"naamCatz" : "", "totaal" : 0}];
+        //get town to compare and tax
         this.compareTown = this.service.getTownHC(event.target.value);//TODO: replace by service
-        //get town tax
         let myTax = this.compareTown.aanslagVoet * this.mySalary;
 
-        this.compareTownCats = this._townService.getCatDataHC(); //TODO: implement correct call in service
+        //get cat data for chosen town
+        var today = new Date();
+        var year = today.getFullYear;
+        let tempCategories: GemeenteCategorie [] = this.budgetService.getCategorieHC(year, this.compareTown.naam);
+        compCategories.pop();/*TODO: andere manier vinden voor deze omweg (counter?)*/
+        /*TODO: use real service observable*/
+        for (var i = 0; i < tempCategories.length; i++) {
+
+            if (tempCategories[i].naamCaty == null){
+                compCategories.push(tempCategories[i]);
+            }
+
+        }
         //set the correct tax amounts per category
-        for (var i = 0; i < this.compareTownCats.length; i++) {
-            total += this.compareTownCats[i].bedrag;
+        for (var i = 0; i < compCategories.length; i++) {
+            total += compCategories[i].totaal;
         }
 
-        for (var i = 0; i < this.compareTownCats.length; i++) {
-            let share = (this.compareTownCats[i].bedrag/ total);
+        for (var i = 0; i < compCategories.length; i++) {
+            let share = (compCategories[i].totaal/ total);
             let taxAmount = (myTax * share);
-            tempCategories[i] = [this.compareTownCats[i].hoofdCategorie, taxAmount.toString()];
+            compCategories[i] = {"naamCatz" : compCategories[i].naamCatz, "totaal" : taxAmount};
         }
+        this.categories2 = compCategories;
 
-        //TODO: generate new sunburst!!!???
-        this.categories2 = tempCategories;
-
-        for (var i = 0; i < this.categories.length; i++) {
-            console.log(this.categories2[i])
+        for (var i = 0; i < this.categories2.length; i++) {
+            console.log("cat " + this.categories2[i].naamCatz + " belasting " + this.categories[i].totaal);
         }
-
     }
 
-    calculateSalary(){
+    calculateSalary(init: boolean){
         let total: number = 0;
-        let tempCategories: [[string, string]] = [["", ""]];
-
-        //TODO: calculate tax percentages of provided salary and generate new Sunburst
-        console.log("mijn salaris: " + this.mySalary);
+        let tempCategories : GemeenteCategorie [] = [{"naamCatz" : "", "totaal" : 0}];
 
         //get town tax
         let myTax = this.myTown.aanslagVoet * this.mySalary;
-        console.log("ik betaal " + myTax + " belasting ");
-
-        //get category data
-        this.myTownCats = this._townService.getCatDataHC(); //TODO: implement correct call in service
 
         //set the correct tax amounts per category
-        for (var i = 0; i < this.myTownCats.length; i++) {
-            total += this.myTownCats[i].bedrag;
+        for (var i = 0; i < this.categories.length; i++) {
+            total += this.categories[i].totaal;
         }
-
-        for (var i = 0; i < this.myTownCats.length; i++) {
-            let share = (this.myTownCats[i].bedrag/ total);
-            let taxAmount = (myTax * share);
-            tempCategories[i] = [this.myTownCats[i].hoofdCategorie, taxAmount.toString()];
-        }
-
-        //TODO: generate new sunburst!!!???
-        this.categories2 = tempCategories;
 
         for (var i = 0; i < this.categories.length; i++) {
-            console.log(this.categories2[i])
+            let share = (this.categories[i].totaal/ total);
+            let taxAmount = (myTax * share);
+            tempCategories[i] = {"naamCatz" : this.categories[i].naamCatz, "totaal" : taxAmount};
         }
+
+        //generate new sunburst
+        this.categories = tempCategories;
+
+        if(init){
+            this.categories2 = this.categories;
+        }
+
+
 
 
     }
