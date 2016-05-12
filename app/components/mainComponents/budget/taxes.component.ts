@@ -15,14 +15,25 @@ import {GemeenteCategorie} from "./../../../models/gemeenteCategorie.js";
 @Component({ //invoke with metadata object
     selector: 'taxes-container',
     template: `
-        <h1>{{title}} voor stad: {{myTown.naam}}</h1>
-		<div class="container">
+       <div class="container">
+		    <div class ="row" col-lg-12 col-md-12 col-sm-12 col-xs-12>
+		    <h1>De belastingen in jouw stad: {{myTown.naam}}</h1>
+            <p id="intro">Hier komt een paragraaf met wat uitleg.Similiquecilis est et expedita distinctio. Nam libero tempore, cum soluta nobis est eligendi optio cumque nihil impedit quo minus id quod maxime placeat facere possimus, omnis voluptas assumenda est, omnis dolor repellendus. Temporibus autem quibusdam et</p>
+            </div>
             <div class="row">
                 <div class="thisTownArea col-lg-6 col-md-6 col-sm-12 col-xs-12">
                     <div class="row">
-                        <section id="sliderSection">
-			                <input type="range" id="speedSlider" [(ngModel)]="mySalary" min="1500" max="15000" value="2000" step="50" (change)="calculateSalary()"/>
-		                </section>
+                        <div class="labelArea col-lg-6 col-md-6 col-sm-6 col-xs-6">
+                            <span id="salLabel" class="label label-default glyphicon glyphicon-euro">{{mySalary}}</span>
+                        </div>
+                        <div class="rangeArea col-lg-6 col-md-6 col-sm-6 col-xs-6">
+                            <input type="range" name="slide" id="speedSlider" [(ngModel)]="mySalary" min="1500" max="15000" value="2000" step="50" (change)="calculateSalary()"/>
+                        </div>
+                        <!--<section id="sliderSection">
+                            <span id="salLabel" class="label label-default glyphicon glyphicon-euro">{{mySalary}}</span>
+			                <input type="range" name="slide" id="speedSlider" [(ngModel)]="mySalary" min="1500" max="15000" value="2000" step="50" (change)="calculateSalary()"/>
+			            </section>-->
+			            
                     </div>
 					<div class="row">
 					    <sunburst [data]=categories width=500 height=600></sunburst>
@@ -31,10 +42,16 @@ import {GemeenteCategorie} from "./../../../models/gemeenteCategorie.js";
                 <div class="otherTownArea col-lg-6 col-md-6 col-sm-12 col-xs-12">
                     <div class="row">
                         <div class="">
-                            <select class="selectClass" (change)="getNewTown($event)">
+                            <!--<select class="selectClass" (change)="getNewTown($event)">
                                 <option>Selecteer een gemeente</option>
                                 <option *ngFor="#town of towns" [value]="town.naam">{{town.naam}} </option>
-                            </select>
+                            </select>-->
+                            <div class=" styled-select slate">
+                                <select id="select2" class="" (change)="getNewTown($event)">
+                                    <option>Selecteer een gemeente</option>
+                                    <option *ngFor="#town of towns" [value]="town.naam">{{town.naam}} </option>
+                                </select>
+                            </div>
                         </div>
                     </div>
 					<div class="row">
@@ -59,14 +76,23 @@ import {GemeenteCategorie} from "./../../../models/gemeenteCategorie.js";
     styles: [`
 
    .thisTownArea{
-   //background-color: #00b3ee;
+   /*background-color: #00b3ee;*/
    }
    .otherTownArea{
-   //background-color: #9c0033;
+   /*background-color: #9c0033;*/
    }
+   /*.labelArea{
+   background-color: #00b3ee;
+   }
+   .rangeArea{
+   background-color: #9c0033;
+   }*/
+   
    #speedSlider {
-   width: 50%;
-   margin: auto;
+   width: 85%;
+   margin-top: 1em;
+   /*margin-right: 10em;*/
+   text-align: left;
    }
    #sunburstSection{
    padding: 1%;
@@ -80,6 +106,36 @@ import {GemeenteCategorie} from "./../../../models/gemeenteCategorie.js";
    margin: 0 auto;
 
    }
+   #intro{
+   margin-bottom: 5em;
+   }
+   
+ 
+   .label{
+   display: block;
+   margin: 0 auto;
+   width: 4.5em;
+   height: 1.5em;
+   //margin-bottom: 2em;
+   background-color: #2ac7d2;
+   font-size: 2em;
+   color: #000;
+   }
+   
+  /* output { 
+  position: absolute;
+  background-image: linear-gradient(top, #444444, #999999);
+  width: 40px; 
+  height: 30px; 
+  text-align: center; 
+  color: white; 
+  border-radius: 10px; 
+  display: inline-block; 
+  font: bold 15px/30px Georgia;
+  bottom: 175%;
+  left: 0;
+  margin-left: -1%;
+}*/
 
 
 /*Range CSS*/
@@ -169,6 +225,49 @@ input[type=range]:focus::-ms-fill-upper {
   background: #97e5ea;
 }
 /*End Range CSS*/
+
+
+
+/*dropdown CSS*/
+/*.slate{
+    text-align: center;
+    color:black;
+}
+
+.styled-select {
+    overflow: hidden;
+    width: 240px;
+    margin: 0 auto;
+}*/
+
+.styled-select select {
+    background: url(./../../../../app/images/arrow_down.png) no-repeat right rgba(255,255,255, 0.6);
+    background-size: 35px 35px;
+    border: none;
+    font-size: 14px;
+    /*height: 29px;*/
+    height: 3em;
+    padding: 5px; /* If you add too much padding here, the options won't show in IE */
+    width: 240px;
+    background-color: #2ac7d2;
+    border-radius: 3px;
+    text-align:center;
+}
+
+select::-ms-expand {
+    display: none;
+}
+
+#select2 {
+    -webkit-appearance: none;
+    -moz-appearance: none;
+    text-indent: 1px;
+    text-overflow: '';
+    display: block;
+    margin: 0 auto;
+    
+}
+/*End dropdown CSS*/
 
 
 
