@@ -1,22 +1,264 @@
-import {Component} from 'angular2/core';
-import {RouteParams} from 'angular2/router';
+import {Component, Injector} from 'angular2/core';
+import {TownService} from './../../../services/townService.component.js';
+import {Http} from 'angular2/http';
+import {ROUTER_DIRECTIVES, Router, RouteParams, RouteConfig} from 'angular2/router';
+import {TownSelectorComponent} from './../../subComponents/input/townSelector.component.js';
+import {EditableFieldComponent} from './../../subComponents/input/editableField.component.js';
+import {MainTown} from "../../../models/mainTown.js";
+import {SunburstComponent} from './../../subComponents/graphs/sunburst.component.js';
+import {BegrotingService} from "../../../services/begrotingService.js";
+import {ActieService} from "../../../services/ActieService.js";
+import {Actie} from "../../../models/actie.js";
+import {GemeenteCategorie} from "../../../models/gemeenteCategorie.js";
+import {TownService} from "../../../services/townService.component.js";
+import {Actie} from "../../../models/actie.js";
+import {GemeenteCategorie} from "../../../models/gemeenteCategorie";
+
 
 @Component({ //invoke with metadata object
     selector: 'expenses-container',
     template: `
-    <div class="container">
-    <h2>Uitgaven</h2>
-    </div>
-    `
+        <div class="container">
+        <section class="intro col-xs-12">
+            <h1>De uitgaves van {{mainTown?.naam}}</h1>
+            <p>Hier komt een paragraaf.Similiquecilis est et expedita distinctio. Nam libero tempore, cum soluta nobis est eligendi optio cumque nihil impedit quo minus id quod maxime placeat facere possimus, omnis voluptas assumenda est, omnis dolor repellendus. Temporibus autem quibusdam et</p>
+        <div class="clearfix">
+        <div class="graph col-xs-12 col-sm-8" (window:resize)="onResize($event)">
+           <sunburst [data]=categories [onClick]=onCircleClick [height]=width [width]=width></sunburst>
+           <button type="button" class="btn btn-primary comparebtn" [routerLink]="['Comparison']">Vergelijk 2 gemeentes</button>
+           <button type="button" class="btn btn-primary proposebtn">Doe een voorstel</button>
+           <button type="button" class="btn btn-primary salarybtn" [routerLink]="['Taxes']">Vergelijk met salaris</button>
+           <button type="button" class="btn btn-primary propositionsbtn">Begrotingsvoorstellen</button>
+        </div>
+            <div class="pointer col-xs-12 col-sm-4">
+                <h3>Acties</h3>
+                <ul>
+                <p [ngClass]="{hide: showActions}" class='noData'> U heeft nog geen categorie geselecteerd. </p>
+                <li *ngFor="#actie of acties">{{actie.actieLang}}</li>
+                </ul>
+            </div>
+        </div>
+
+        </section>
+       </div>
+`,
+    directives: [TownSelectorComponent, EditableFieldComponent, SunburstComponent,ROUTER_DIRECTIVES],
+    providers: [ BegrotingService,ActieService,
+        TownService,  //routing
+    ],
+    styles: [`
+
+    .icon {
+    max-width: 200px;
+    margin: 10px;
+    }
+
+    h2 {
+    text-align: left;
+    margin: 20px 0;
+    }
+
+    h3 {
+    margin: 0;
+    padding-bottom: 1%;
+    font-size: 3rem;
+    color: white;
+    }
+
+
+    h4{
+    margin-bottom: 0;
+    }
+
+    .container {
+    max-width: 1200px;
+    }
+
+    .noData {
+    font-size: 1.3em;
+    margin-top: 150px;
+    text-align: center;
+    }
+    .comparebtn {
+    position: absolute;
+    top: 20px;
+    left: 0px;
+    }
+
+    .salarybtn {
+    position: absolute;
+    top: 100px;
+    left: 0px;
+    }
+
+    .propositionsbtn {
+    position: absolute;
+    top: 60px;
+    left: 0px;
+    }
+
+    .proposebtn {
+    position: absolute;
+    top: 140px;
+    left: 0;
+    }
+
+    #info-town   {
+    padding: 1%;
+    flex-shrink: 2; 
+    -webkit-flex-shrink: 2;
+    }
+
+    .intro {
+    padding: 20px;
+    }
+
+    .clearfix:after {
+    content: " ";
+   display: block;
+   height: 0;
+   clear: both;
+    }
+
+    .provincie {
+    }
+    .graph {
+    padding: 40px 20px;
+    text-align: center;
+    margin: O auto;
+    position: relative;
+    }
+
+    .pointer p{
+     display: inline-block;
+    }
+
+    .pointer h3 {
+    color:black;
+    }
+
+    .pointer {
+    margin-top: 20px;
+    }
+
+    .pointer ul {
+    overflow: scroll;
+    height: 400px;
+    border: 1px dashed black;
+    padding:20px;
+    }
+
+    .pointer li {
+    padding: 5px;
+    }
+
+    .demographic{
+    text-align: center;
+    }
+
+    .geographic {
+    padding: 1%;
+    margin-left: 1%;
+    flex: 1;
+    -webkit-flex-grow: 1;
+    text-align: right;
+    }
+        
+    #actions   {
+    padding: 1%;
+    margin-left: 1%;
+    flex: 1; 
+    -webkit-flex-grow: 1;
+
+    }
+
+
+    label {
+    display:block;
+    }
+    
+    .showInfo{
+        float: right;
+        background: #3498db;
+         background-image: -webkit-linear-gradient(top, #3498db, #2980b9);
+         background-image: -moz-linear-gradient(top, #3498db, #2980b9);
+         background-image: -ms-linear-gradient(top, #3498db, #2980b9);
+         background-image: -o-linear-gradient(top, #3498db, #2980b9);
+         background-image: linear-gradient(to bottom, #3498db, #2980b9);
+         width: 55%;
+         color: #ffffff;
+         text-decoration: none;
+         font-size: 0.8em;
+    }
+
+    
+`]
 })
 
 export class ExpensesComponent {
+    title = 'Gemeente - home';
+    imglink: string = "";
+    name:string = "";
+    mainTown = new MainTown("","",0,0);  //opm: moet geïnitialiseerd zijn, anders werkt ngModel niet
+    isVisable = false;
+    contentbutton="meer info";
+    acties: Actie[];
+    showActions = false;
+    id:number;
+    isEditor: boolean = false; //TODO: adapt value when signed in with special role
+    categories: GemeenteCategorie [] =
+    [{ID:"0990",naamCatx:"Algemene financiering",naamCaty:"Algemene financiering",naamCatz:"Financiële aangelegenheden",totaal: 22781},
+{ID:"0991", naamCatx:"Algemene financiering", naamCaty:"Algemene financiering",naamCatz:"Patrimonium zonder maatschappelijk doel",totaal:281},
+{ID:"099",naamCaty:"Zorg en opvang", naamCatz:"Gezin en kinderen", totaal:3311},
+{ID:"098",naamCaty:"Cultuur en vrije tijd",naamCatz:"Sport",totaal:906}];
+    width: number = window.innerWidth < 768 ? window.innerWidth*0.8 : window.innerWidth/2.5;
+    _actieService: ActieService;
 
-    constructor(
-    private _routeParams: RouteParams) {
+    onCircleClick: any = (id: number) => {
+        this.showActions = true;
+        //TODO: replace hardcoded 15 with id
+       this._actieService.getActies(15)
+           .subscribe((acties : any) => this.acties = acties);
+    };
+
+    constructor(private _townService:TownService, _begrotingService:BegrotingService,_actieService: ActieService, public http: Http, params: RouteParams, injector: Injector, private _router: Router)
+    {
+        _townService.getTown(injector.parent.parent.get(RouteParams).get('town'))
+            .subscribe(town => {
+                this.mainTown = town;
+                this.imglink = "/app/images/provincies/" + town.provincie.toLowerCase().split(' ').join('') +".png";
+                }
+             );
+
+        _begrotingService.getGemeenteCategorieen(2020,"Gent")
+           .subscribe((finan: any) => this.categories = finan
+            );
+
+        this._actieService = _actieService;
     }
 
     ngOnInit() {
-        var number = this._routeParams.get('projectNumber');
+        /* @TODO CATHERINE INDIEN BACKEND BIJ JOUW NIET WERKT DEZE CALL UIT COMMENTAAR ZETTEN
+        EN DE SERVICE  en aside met naam town-info VAN HIERBOVEN IN COMMENTAAR ZETTEN*/
+        //this.name = this._routeParams.get('town');
     }
+
+
+    public toggle(): void
+    {
+        this.isVisable = !this.isVisable;
+    }
+
+
+    onResize = (event: any) => {
+        if(window.innerWidth < 768){
+            this.width = window.innerWidth*0.8;
+
+        }else {
+            this.width = window.innerWidth/2.5;
+
+        }
+    }
+
 }
+

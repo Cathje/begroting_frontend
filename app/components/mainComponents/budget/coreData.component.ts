@@ -16,43 +16,58 @@ import {GemeenteCategorie} from "../../../models/gemeenteCategorie";
 
 
 @Component({ //invoke with metadata object
-    selector: 'overview-container',
+    selector: 'core-data-container',
     template: `
         <div class="container">
-        <div class="intro col-xs-12">
-            <h1>Overzicht {{mainTown?.naam}}</h1>
+        <section class="intro col-xs-12">
+            <h1>De kerngegevens van {{mainTown?.naam}}</h1>
             <p>Hier komt een paragraaf.Similiquecilis est et expedita distinctio. Nam libero tempore, cum soluta nobis est eligendi optio cumque nihil impedit quo minus id quod maxime placeat facere possimus, omnis voluptas assumenda est, omnis dolor repellendus. Temporibus autem quibusdam et</p>
-        </div>
+        </section>
 
-        <section class="col-xs-12 col-sm-5">
-            <h4> Kerngegevens</h4>
-                                    <img class='icon' src="/app/images/icons/population.png">
-
-         <button type="button" class="btn btn-primary comparebtn" [routerLink]="['CoreData']">Meer info</button>
+        <section class="demographic col-xs-12 col-sm-12">
+        <h2>Demografische gegevens</h2>
+                    <div class="col-xs-12 col-sm-6 col-md-3">
+                        <img class='icon' src="/app/images/icons/population.png">
+                        <h4>Aantal bewoners</h4>
+                        <editable-field [isEditable]="isEditor" [data]="mainTown.aantalBewoners"></editable-field>
+                    </div>
+                    <div class="col-xs-12 col-sm-6 col-md-3">
+                        <img class='icon' src="/app/images/icons/woman.png">
+                        <h4>Aantal vrouwen</h4>
+                        <editable-field [isEditable]="isEditor" [data]="mainTown.isVrouw"></editable-field>
+                    </div>
+                    <div class="col-xs-12 col-sm-6 col-md-3">
+                        <img class='icon' src="/app/images/icons/man.png">
+                        <h4>Aantal mannen</h4>
+                        <editable-field [isEditable]="isEditor" [data]="mainTown.isMan"></editable-field>
+                    </div>
+                    <div class="col-xs-12 col-sm-6 col-md-3">
+                        <img class='icon' src="/app/images/icons/child.png">
+                        <h4>Aantal kinderen</h4>
+                        <editable-field [isEditable]="isEditor" [data]="mainTown.isKind"></editable-field>
+                    </div>
         </section>
 
 
-        <section class="col-xs-12 col-sm-5">
-           <h4> Uitgaves</h4>
-                      <sunburst [data]=categories [onClick]=onCircleClick [height]=width [width]=width></sunburst>
+         <!-- HIER KOMEN DE ACTIES DIE BINNEN EEN BEPAALDE CATEGORIE ZITTEN-->
+        <section id="geographic" class="col-xs-12 col-sm-12">
+        <h2>Geografische gegevens</h2>
+                    <div class='col-xs-6 col-md-6'>
+                      <img src={{imglink}} class="provincie">
+                     </div>
+                     <div class='col-xs-6 col-md-6'>
+                     <h4>Provincie:</h4>
+                     <span>{{mainTown.provincie}}</span>
 
-           <button type="button" class="btn btn-primary proposebtn" [routerLink]="['Expenses']">Meer info</button>
-
-        </section>
-
-                <section class="col-xs-12 col-sm-5">
-                 <h4> Openstaande projecten</h4>
-
-                 <button type="button" class="btn btn-primary salarybtn" [routerLink]="['Taxes']">Meer info</button>
-
-        </section>
-
-
-        <section class="col-xs-12 col-sm-5">
-                    <h4> Plannen</h4>
-
-           <button type="button" class="btn btn-primary propositionsbtn" >Meer info</button>
-
+                     <h4>Oppervlakte:</h4>
+                        <span>{{mainTown.oppervlakte}}{{mainTown.oppervlakteMaat}}</span>
+                    <h4>Deelgemeenten: </h4>
+                        <ul *ngIf="mainTown?.deelGemeenten" >
+                            <li *ngFor="#town of mainTown.deelGemeenten"><span>{{town.naam}} - {{town.postCode}}</span></li>
+                        </ul>
+                        <p *ngIf="!mainTown.deelGemeenten"><i>Er zijn geen deelgemeentes</i></p>
+                    <button class="showInfo" [hidden]="!isVisable"(click)="toggle()">minder info</button>
+                    </div>
         </section>
 
        </div>
@@ -64,9 +79,8 @@ import {GemeenteCategorie} from "../../../models/gemeenteCategorie";
     styles: [`
 
     .icon {
-    max-width: 300px;
-    margin: 0 auto;
-    display: block;
+    max-width: 200px;
+    margin: 10px;
     }
 
     h2 {
@@ -78,11 +92,12 @@ import {GemeenteCategorie} from "../../../models/gemeenteCategorie";
     margin: 0;
     padding-bottom: 1%;
     font-size: 3rem;
+    color: white;
     }
 
 
     h4{
-    margin-bottom: 20px;
+    margin-bottom: 0;
     }
 
     .container {
@@ -94,11 +109,28 @@ import {GemeenteCategorie} from "../../../models/gemeenteCategorie";
     margin-top: 150px;
     text-align: center;
     }
-    .comparebtn, .salarybtn , .propositionsbtn, .proposebtn {
+    .comparebtn {
     position: absolute;
-    margin: 20px;
-    bottom: 0;
-    right: 0px;
+    top: 20px;
+    left: 0px;
+    }
+
+    .salarybtn {
+    position: absolute;
+    top: 100px;
+    left: 0px;
+    }
+
+    .propositionsbtn {
+    position: absolute;
+    top: 60px;
+    left: 0px;
+    }
+
+    .proposebtn {
+    position: absolute;
+    top: 140px;
+    left: 0;
     }
 
     #info-town   {
@@ -189,17 +221,11 @@ import {GemeenteCategorie} from "../../../models/gemeenteCategorie";
          font-size: 0.8em;
     }
 
-    section {
-    height: 400px;
-    border: 1px solid black;
-    margin: 20px;
-    }
-
     
 `]
 })
 
-export class OverviewComponent {
+export class CoreDataComponent {
     title = 'Gemeente - home';
     imglink: string = "";
     name:string = "";
@@ -215,7 +241,7 @@ export class OverviewComponent {
 {ID:"0991", naamCatx:"Algemene financiering", naamCaty:"Algemene financiering",naamCatz:"Patrimonium zonder maatschappelijk doel",totaal:281},
 {ID:"099",naamCaty:"Zorg en opvang", naamCatz:"Gezin en kinderen", totaal:3311},
 {ID:"098",naamCaty:"Cultuur en vrije tijd",naamCatz:"Sport",totaal:906}];
-    width: number = window.innerWidth < 768 ? window.innerWidth*0.8 : window.innerWidth/4;
+    width: number = window.innerWidth < 768 ? window.innerWidth*0.8 : window.innerWidth/2.5;
     _actieService: ActieService;
 
     onCircleClick: any = (id: number) => {
@@ -259,7 +285,7 @@ export class OverviewComponent {
             this.width = window.innerWidth*0.8;
 
         }else {
-            this.width = window.innerWidth/4;
+            this.width = window.innerWidth/2.5;
 
         }
     }
