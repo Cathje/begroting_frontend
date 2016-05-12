@@ -70,6 +70,7 @@ System.register(['angular2/core', './../../../services/townService.component.js'
                     this.myTown = _townService.getTownHC(this._routeParams.get('town')); //TODO: delete
                     _townService.getTown(this._routeParams.get('town'))
                         .subscribe(function (town) { return _this.myTown = town; });
+                    //test merge
                 }
                 //call upon initial load
                 TaxesComponent.prototype.ngOnInit = function () {

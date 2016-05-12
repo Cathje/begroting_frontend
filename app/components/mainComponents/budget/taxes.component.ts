@@ -230,6 +230,7 @@ export class TaxesComponent {
         _townService.getTown(this._routeParams.get('town'))
             .subscribe(town => this.myTown = town
             );
+        //test merge
 
     }
 
