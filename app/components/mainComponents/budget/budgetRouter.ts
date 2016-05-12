@@ -4,6 +4,7 @@ import {HTTP_PROVIDERS} from "angular2/http";
 import {OverviewComponent} from './overview.component.js';
 import {ExpensesComponent} from './expenses.component.js';
 import {TaxesComponent} from './taxes.component.js';
+import {ComparisonComponent} from "./comparison.component.js";
 
 @Component({
     selector: 'budget-router',
@@ -14,7 +15,9 @@ import {TaxesComponent} from './taxes.component.js';
 @RouteConfig([
     { path: '/overview', name: 'Overview', component:OverviewComponent, useAsDefault:true },
     { path: '/expenses', name: 'Expenses', component:ExpensesComponent},
-    { path: '/taxes', name: 'Taxes', component:TaxesComponent}
+    { path: '/taxes', name: 'Taxes', component:TaxesComponent},
+    { path: '/comparison', name: 'Comparison', component:ComparisonComponent}
+
 ])
 
 export class BudgetRouter {

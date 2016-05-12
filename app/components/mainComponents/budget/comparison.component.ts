@@ -16,80 +16,33 @@ import {GemeenteCategorie} from "../../../models/gemeenteCategorie";
 
 
 @Component({ //invoke with metadata object
-    selector: 'overview-container',
+    selector: 'comparison-container',
     template: `
         <div class="container">
         <section class="intro col-xs-12">
-            <h1>De kerngegevens van {{mainTown?.naam}}</h1>
+            <h1>Vergelijk 2 gemeentes</h1>
             <p>Hier komt een paragraaf.Similiquecilis est et expedita distinctio. Nam libero tempore, cum soluta nobis est eligendi optio cumque nihil impedit quo minus id quod maxime placeat facere possimus, omnis voluptas assumenda est, omnis dolor repellendus. Temporibus autem quibusdam et</p>
         <div class="clearfix">
-        <div class="graph col-xs-12 col-sm-8" (window:resize)="onResize($event)">
-           <sunburst [data]=categories [onClick]=onCircleClick [height]=width [width]=width></sunburst>
-           <button type="button" class="btn btn-primary comparebtn" [routerLink]="['Comparison']">Vergelijk 2 gemeentes</button>
-           <button type="button" class="btn btn-primary proposebtn">Doe een voorstel</button>
-           <button type="button" class="btn btn-primary salarybtn" [routerLink]="['Taxes']">Vergelijk met salaris</button>
-           <button type="button" class="btn btn-primary propositionsbtn">Begrotingsvoorstellen</button>
-        </div>
-            <div class="pointer col-xs-12 col-sm-4">
-                <h3>Acties</h3>
-                <ul>
-                <p [ngClass]="{hide: showActions}" class='noData'> U heeft nog geen categorie geselecteerd. </p>
-                <li *ngFor="#actie of acties">{{actie.actieLang}}</li>
-                </ul>
+            <div class="graph col-xs-12 col-sm-5" (window:resize)="onResize($event)">
+                <town-selector></town-selector>
+                <sunburst [data]=categories [onClick]=onCircleClick [height]=width [width]=width></sunburst>
+
+            </div>
+            <div class="versus col-xs-12 col-sm-2">
+                VS
+            </div>
+            <div class="graph col-xs-12 col-sm-5">
+                <town-selector></town-selector>
+                <sunburst [data]=categories2 [onClick]=onCircleClick [height]=width [width]=width></sunburst>
             </div>
         </div>
 
         </section>
 
-        <section class="demographic col-xs-12 col-sm-12">
-        <h2>Demografische gegevens</h2>
-                    <div class="col-xs-12 col-sm-6 col-md-3">
-                        <img class='icon' src="/app/images/icons/population.png">
-                        <h4>Aantal bewoners</h4>
-                        <editable-field [isEditable]="isEditor" [data]="mainTown.aantalBewoners"></editable-field>
-                    </div>
-                    <div class="col-xs-12 col-sm-6 col-md-3">
-                        <img class='icon' src="/app/images/icons/woman.png">
-                        <h4>Aantal vrouwen</h4>
-                        <editable-field [isEditable]="isEditor" [data]="mainTown.isVrouw"></editable-field>
-                    </div>
-                    <div class="col-xs-12 col-sm-6 col-md-3">
-                        <img class='icon' src="/app/images/icons/man.png">
-                        <h4>Aantal mannen</h4>
-                        <editable-field [isEditable]="isEditor" [data]="mainTown.isMan"></editable-field>
-                    </div>
-                    <div class="col-xs-12 col-sm-6 col-md-3">
-                        <img class='icon' src="/app/images/icons/child.png">
-                        <h4>Aantal kinderen</h4>
-                        <editable-field [isEditable]="isEditor" [data]="mainTown.isKind"></editable-field>
-                    </div>
-        </section>
-
-
-         <!-- HIER KOMEN DE ACTIES DIE BINNEN EEN BEPAALDE CATEGORIE ZITTEN-->
-        <section id="geographic" class="col-xs-12 col-sm-12">
-        <h2>Geografische gegevens</h2>
-                    <div class='col-xs-6 col-md-6'>
-                      <img src={{imglink}} class="provincie">
-                     </div>
-                     <div class='col-xs-6 col-md-6'>
-                     <h4>Provincie:</h4>
-                     <span>{{mainTown.provincie}}</span>
-
-                     <h4>Oppervlakte:</h4>
-                        <span>{{mainTown.oppervlakte}}{{mainTown.oppervlakteMaat}}</span>
-                    <h4>Deelgemeenten: </h4>
-                        <ul *ngIf="mainTown?.deelGemeenten" >
-                            <li *ngFor="#town of mainTown.deelGemeenten"><span>{{town.naam}} - {{town.postCode}}</span></li>
-                        </ul>
-                        <p *ngIf="!mainTown.deelGemeenten"><i>Er zijn geen deelgemeentes</i></p>
-                    <button class="showInfo" [hidden]="!isVisable"(click)="toggle()">minder info</button>
-                    </div>
-        </section>
 
        </div>
 `,
-    directives: [TownSelectorComponent, EditableFieldComponent, SunburstComponent,ROUTER_DIRECTIVES],
+    directives: [TownSelectorComponent, SunburstComponent,ROUTER_DIRECTIVES],
     providers: [ BegrotingService,ActieService,
         TownService,  //routing
     ],
@@ -121,6 +74,9 @@ import {GemeenteCategorie} from "../../../models/gemeenteCategorie";
     max-width: 1200px;
     }
 
+    .versus {
+    text-align: center;
+    }
     .noData {
     font-size: 1.3em;
     margin-top: 150px;
@@ -167,14 +123,27 @@ import {GemeenteCategorie} from "../../../models/gemeenteCategorie";
    clear: both;
     }
 
+    .clearfix {
+    display:flex;
+    align-items: center;
+    justify-content: center;
+    }
+
     .provincie {
     }
     .graph {
     padding: 40px 20px;
-    text-align: center;
+    text-align: left;
     margin: O auto;
     position: relative;
     }
+
+    .graph town-selector {
+    position: absolute;
+border: 1px solid black;
+left: 0px;
+z-index: 500;
+}
 
     .pointer p{
      display: inline-block;
@@ -242,7 +211,7 @@ import {GemeenteCategorie} from "../../../models/gemeenteCategorie";
 `]
 })
 
-export class OverviewComponent {
+export class ComparisonComponent {
     title = 'Gemeente - home';
     imglink: string = "";
     name:string = "";
@@ -258,7 +227,12 @@ export class OverviewComponent {
 {ID:"0991", naamCatx:"Algemene financiering", naamCaty:"Algemene financiering",naamCatz:"Patrimonium zonder maatschappelijk doel",totaal:281},
 {ID:"099",naamCaty:"Zorg en opvang", naamCatz:"Gezin en kinderen", totaal:3311},
 {ID:"098",naamCaty:"Cultuur en vrije tijd",naamCatz:"Sport",totaal:906}];
-    width: number = window.innerWidth < 768 ? window.innerWidth*0.8 : window.innerWidth/2.5;
+    categories2: GemeenteCategorie [] =
+        [{ID:"0990",naamCatx:"Algemene financiering",naamCaty:"Algemene financiering",naamCatz:"Financiële aangelegenheden",totaal: 22781},
+            {ID:"0991", naamCatx:"Algemene financiering", naamCaty:"Algemene financiering",naamCatz:"Patrimonium zonder maatschappelijk doel",totaal:281},
+            {ID:"099",naamCaty:"Zorg en opvang", naamCatz:"Gezin en kinderen", totaal:3311},
+            {ID:"098",naamCaty:"Cultuur en vrije tijd",naamCatz:"Sport",totaal:906}];
+    width: number = window.innerWidth < 768 ? window.innerWidth*0.8 : window.innerWidth/3.5;
     _actieService: ActieService;
 
     onCircleClick: any = (id: number) => {
@@ -302,7 +276,7 @@ export class OverviewComponent {
             this.width = window.innerWidth*0.8;
 
         }else {
-            this.width = window.innerWidth/2.5;
+            this.width = window.innerWidth/3.5;
 
         }
     }
