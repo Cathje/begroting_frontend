@@ -25,15 +25,18 @@ import {GemeenteCategorie} from "../../../models/gemeenteCategorie";
         <div class="clearfix">
         <div class="graph col-xs-12 col-sm-8" (window:resize)="onResize($event)">
            <sunburst [data]=categories [onClick]=onCircleClick [height]=width [width]=width></sunburst>
+           <button type="button" class="btn btn-primary comparebtn">Vergelijk 2 gemeentes</button>
+           <button type="button" class="btn btn-primary proposebtn">Doe een voorstel</button>
+           <button type="button" class="btn btn-primary salarybtn">Vergelijk met salaris</button>
+           <button type="button" class="btn btn-primary propositionsbtn">Begrotingsvoorstellen</button>
         </div>
             <div class="pointer col-xs-12 col-sm-4">
                 <h3>Acties</h3>
-                <img [ngClass]="{hide: showActions}" src="/app/images/icons/clickPointer.png">
-                <p [ngClass]="{hide: showActions}"> Klik op een categorie om de acties van deze categorie te bekijken.</p>
-                <ul [ngClass]="{hide: !showActions}"> <li *ngFor="#actie of acties">{{actie.actieLang}}</li></ul>
+                <ul>
+                <p [ngClass]="{hide: showActions}" class='noData'> U heeft nog geen categorie geselecteerd. </p>
+                <li *ngFor="#actie of acties">{{actie.actieLang}}</li>
+                </ul>
             </div>
-            <!--@TODO  TEST, NOG TE VERWIJDEREN-->
-             <p *ngFor="#town of uitgaves"> {{town.ID}} - {{town.naamCatx}} - {{town.naamCaty}} - {{town.naamCatz}} - {{town.totaal}} </p>
         </div>
 
         </section>
@@ -99,7 +102,7 @@ import {GemeenteCategorie} from "../../../models/gemeenteCategorie";
 
     h2 {
     text-align: left;
-    margin: 40px 0;
+    margin: 20px 0;
     }
 
     h3 {
@@ -109,12 +112,42 @@ import {GemeenteCategorie} from "../../../models/gemeenteCategorie";
     color: white;
     }
 
+
     h4{
     margin-bottom: 0;
     }
 
     .container {
     max-width: 1200px;
+    }
+
+    .noData {
+    font-size: 1.3em;
+    margin-top: 150px;
+    text-align: center;
+    }
+    .comparebtn {
+    position: absolute;
+    top: 20px;
+    left: 0px;
+    }
+
+    .salarybtn {
+    position: absolute;
+    top: 100px;
+    left: 0px;
+    }
+
+    .propositionsbtn {
+    position: absolute;
+    top: 60px;
+    left: 0px;
+    }
+
+    .proposebtn {
+    position: absolute;
+    top: 140px;
+    left: 0;
     }
 
     #info-town   {
@@ -140,12 +173,7 @@ import {GemeenteCategorie} from "../../../models/gemeenteCategorie";
     padding: 40px 20px;
     text-align: center;
     margin: O auto;
-    }
-
-    .pointer img{
-     width: 50px;
-     display: inline-block;
-
+    position: relative;
     }
 
     .pointer p{
@@ -157,7 +185,7 @@ import {GemeenteCategorie} from "../../../models/gemeenteCategorie";
     }
 
     .pointer {
-    margin-top: 40px;
+    margin-top: 20px;
     }
 
     .pointer ul {
@@ -221,7 +249,6 @@ export class OverviewComponent {
     mainTown = new MainTown("","",0,0);  //opm: moet geïnitialiseerd zijn, anders werkt ngModel niet
     isVisable = false;
     contentbutton="meer info";
-    uitgaves: GemeenteCategorie [];
     acties: Actie[];
     showActions = false;
     id:number;
@@ -251,7 +278,7 @@ export class OverviewComponent {
              );
 
         _begrotingService.getGemeenteCategorieen(2020,"Gent")
-           .subscribe((finan: any) => this.uitgaves = finan
+           .subscribe((finan: any) => this.categories = finan
             );
 
         this._actieService = _actieService;

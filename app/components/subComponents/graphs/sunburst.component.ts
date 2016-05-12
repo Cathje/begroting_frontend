@@ -12,7 +12,8 @@ import {SimpleChange} from "../../../../node_modules/angular2/src/core/change_de
           van het totaal budget gaat naar <span id="category"></span>
         </h5>
         <h5 id="explanation2">
-          <span>Welke proportie van de begroting gaat naar welke categorie?</span>
+          <img  src="/app/images/icons/clickPointer.png">
+           <p > Klik op een categorie om de acties van deze categorie te bekijken.</p>
         </h5>
       </div>
 
@@ -27,6 +28,12 @@ import {SimpleChange} from "../../../../node_modules/angular2/src/core/change_de
 #chart path {
   stroke: #fff;
 }
+
+    img{
+     width: 50px;
+     margin: 0 auto;
+     display: inline-block;
+    }
 
 #explanation {
   position: absolute;
