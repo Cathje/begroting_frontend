@@ -5,7 +5,6 @@ import { RouteParams } from 'angular2/router';
 import { ROUTER_DIRECTIVES } from 'angular2/router'; // for routing
 import {SunburstComponent} from './../../subComponents/graphs/sunburst.component.js'
 import {SunburstCompare} from './../../subComponents/graphs/sunburstCompare.component.js'//SunburstCompare
-//import {SunburstComponentSalary} from './../../subComponents/graphs/sunburstSalary.component.js'//sunburst test
 import {MainTown} from "./../../../models/mainTown.js";
 import {totalmem} from "os";
 import {Observable} from 'rxjs/observable';
@@ -22,30 +21,42 @@ import {GemeenteCategorie} from "./../../../models/gemeenteCategorie.js";
             </div>
             <div class="row">
                 <div class="thisTownArea col-lg-6 col-md-6 col-sm-12 col-xs-12">
-                    <div class="row">
-                        <div class="labelArea col-lg-6 col-md-6 col-sm-6 col-xs-6">
+                    <div class="row topRow">
+                        <!--<div class="labelArea col-lg-6 col-md-6 col-sm-6 col-xs-6">
                             <span id="salLabel" class="label label-default glyphicon glyphicon-euro">{{mySalary}}</span>
+                            <span id="salLabel" class="label label-default glyphicon glyphicon-euro">{{my}}</span>
                         </div>
                         <div class="rangeArea col-lg-6 col-md-6 col-sm-6 col-xs-6">
                             <input type="range" name="slide" id="speedSlider" [(ngModel)]="mySalary" min="1500" max="15000" value="2000" step="50" (change)="calculateSalary()"/>
+                        </div>-->
+                        <div class="rangeArea col-lg-12 col-md-12 col-sm-12 col-xs-12">
+                            <input type="range" name="slide" id="speedSlider" [(ngModel)]="mySalary" min="1500" max="15000" value="2000" step="50" (change)="calculateSalary()"/>
                         </div>
+                        <div class="labelArea col-lg-12 col-md-12 col-sm-12 col-xs-126">
+                        <form class="form-inline">
+                          <div class="form-group">
+                            <label for="exampleInputName2">Loon </label>
+                            <input type="text" class="form-control" id="salaryInput" [(ngModel)]="mySalary" readonly>
+                          </div>
+                          <div class="form-group">
+                            <label for="exampleInputEmail2">Belasting </label>
+                            <input type="email" class="form-control" id="taxInput" [(ngModel)]="myTaxes" readonly>
+                          </div>
+                        </form>
+                        </div>
+                        
                         <!--<section id="sliderSection">
                             <span id="salLabel" class="label label-default glyphicon glyphicon-euro">{{mySalary}}</span>
 			                <input type="range" name="slide" id="speedSlider" [(ngModel)]="mySalary" min="1500" max="15000" value="2000" step="50" (change)="calculateSalary()"/>
 			            </section>-->
-			            
-                    </div>
+			        </div>
 					<div class="row">
-					    <sunburst [data]=categories width=500 height=600></sunburst>
+					    <sunburstCompare [data]=categories width=500 height=600></sunburstCompare>
 		            </div>
                 </div>
                 <div class="otherTownArea col-lg-6 col-md-6 col-sm-12 col-xs-12">
-                    <div class="row">
+                    <div class="row topRow">
                         <div class="">
-                            <!--<select class="selectClass" (change)="getNewTown($event)">
-                                <option>Selecteer een gemeente</option>
-                                <option *ngFor="#town of towns" [value]="town.naam">{{town.naam}} </option>
-                            </select>-->
                             <div class=" styled-select slate">
                                 <select id="select2" class="" (change)="getNewTown($event)">
                                     <option>Selecteer een gemeente</option>
@@ -55,7 +66,7 @@ import {GemeenteCategorie} from "./../../../models/gemeenteCategorie.js";
                         </div>
                     </div>
 					<div class="row">
-                        <sunburst [data]=categories2 width=500 height=600></sunburst>
+                        <sunburstCompare [data]=categories2 width=500 height=600></sunburstCompare>
                     </div>
                 </div>
 			</div>
@@ -89,10 +100,11 @@ import {GemeenteCategorie} from "./../../../models/gemeenteCategorie.js";
    }*/
    
    #speedSlider {
-   width: 85%;
+   width: 70%;
    margin-top: 1em;
+   margin-bottom: 3em;
    /*margin-right: 10em;*/
-   text-align: left;
+   text-align: center;
    }
    #sunburstSection{
    padding: 1%;
@@ -108,6 +120,9 @@ import {GemeenteCategorie} from "./../../../models/gemeenteCategorie.js";
    }
    #intro{
    margin-bottom: 5em;
+   }
+   .topRow{
+   min-height: 10em;
    }
    
  
@@ -285,6 +300,7 @@ export class TaxesComponent {
     private compareTown: MainTown;
     private service: TownService;
     private budgetService: BegrotingService;
+    private myTaxes: number = 0;
 
     /*private categories: [{naamCatz : string, uitgave : number}] = [{"naamCatz" : "", "uitgave" : 0}];
     private categories2: [{naamCatz : string, uitgave : number}] = [{"naamCatz" : "", "uitgave" : 0}];*/
@@ -384,7 +400,7 @@ export class TaxesComponent {
         let tempCategories : GemeenteCategorie [] = [{"naamCatz" : "", "totaal" : 0}];
 
         //get town tax
-        let myTax = this.myTown.aanslagVoet * this.mySalary;
+        this.myTaxes = this.myTown.aanslagVoet * this.mySalary;
 
         //set the correct tax amounts per category
         for (var i = 0; i < this.categories.length; i++) {
@@ -393,7 +409,7 @@ export class TaxesComponent {
 
         for (var i = 0; i < this.categories.length; i++) {
             let share = (this.categories[i].totaal/ total);
-            let taxAmount = (myTax * share);
+            let taxAmount = (this.myTaxes * share);
             tempCategories[i] = {"naamCatz" : this.categories[i].naamCatz, "totaal" : taxAmount};
         }
 
