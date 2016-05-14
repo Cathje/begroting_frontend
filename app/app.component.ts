@@ -11,7 +11,7 @@ import {RegisterComponent} from "./components/mainComponents/Login/register.comp
     <div class="menu">
         <img class="logo" src="/app/images/logo.png"/>
         <span class="pull-xs-right">
-            <a class="signIn"[routerLink]="['Register']">Sign in</a>|
+            <a class="signIn"[routerLink]="['Register']">Registreer</a>|
             <a class="signIn" [routerLink]="['Login']">Log in</a>
         </span>
         

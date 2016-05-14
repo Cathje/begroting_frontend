@@ -53,23 +53,6 @@ import {GemeenteCategorie} from "../../../models/gemeenteCategorie";
     margin: 10px;
     }
 
-    h2 {
-    text-align: left;
-    margin: 20px 0;
-    }
-
-    h3 {
-    margin: 0;
-    padding-bottom: 1%;
-    font-size: 3rem;
-    color: white;
-    }
-
-
-    h4{
-    margin-bottom: 0;
-    }
-
     .container {
     max-width: 1200px;
     }

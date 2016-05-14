@@ -1,1 +1,1 @@
-{"version":3,"file":"inspraakNiveau.js","sourceRoot":"","sources":["inspraakNiveau.ts"],"names":["InspraakNiveau"],"mappings":"AAAA;;GAEG;;;;;;YAEH,WAAY,cAAc;gBAEtBA,mDAAIA,CAAAA;gBACJA,yDAAOA,CAAAA;gBACPA,mDAAIA,CAAAA;YACRA,CAACA,EALW,cAAc,KAAd,cAAc,QAKzB;wDAAA"}
+{"version":3,"file":"inspraakNiveau.js","sourceRoot":"","sources":["inspraakNiveau.ts"],"names":[],"mappings":"AAAA;;GAEG;;;;;;;;YAEH,WAAY,cAAc;gBAEtB,mDAAI,CAAA;gBACJ,yDAAO,CAAA;gBACP,mDAAI,CAAA;YACR,CAAC,EALW,cAAc,KAAd,cAAc,QAKzB;wDAAA"}

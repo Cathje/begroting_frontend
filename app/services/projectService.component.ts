@@ -13,8 +13,6 @@ export class ProjectService
 {
 
     constructor(private http: Http ) {
-
-
     }
     //private _url = 'http://begroting-webapi.azurewebsites.net/api/Begroting';
     //private _url2 = 'http://begroting-webapi.azurewebsites.net/api/Project';
