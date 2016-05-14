@@ -1,31 +1,91 @@
 <?xml version="1.0" encoding="UTF-8"?>
 <project version="4">
   <component name="ChangeListManager">
-    <list default="true" id="3d4d0427-5d90-496e-9c9a-c317c33c6a58" name="Default" comment="">
+    <list default="true" id="50eac2ba-bef9-4e9b-a45f-ec0798a2b175" name="Default" comment="">
+      <change type="DELETED" beforePath="$PROJECT_DIR$/.idea/libraries/Frontend_node_modules.xml" afterPath="" />
+      <change type="MODIFICATION" beforePath="$PROJECT_DIR$/.idea/.name" afterPath="$PROJECT_DIR$/.idea/.name" />
+      <change type="MODIFICATION" beforePath="$PROJECT_DIR$/.idea/encodings.xml" afterPath="$PROJECT_DIR$/.idea/encodings.xml" />
+      <change type="MODIFICATION" beforePath="$PROJECT_DIR$/.idea/jsLibraryMappings.xml" afterPath="$PROJECT_DIR$/.idea/jsLibraryMappings.xml" />
+      <change type="MODIFICATION" beforePath="$PROJECT_DIR$/.idea/misc.xml" afterPath="$PROJECT_DIR$/.idea/misc.xml" />
+      <change type="MODIFICATION" beforePath="$PROJECT_DIR$/.idea/modules.xml" afterPath="$PROJECT_DIR$/.idea/modules.xml" />
       <change type="MODIFICATION" beforePath="$PROJECT_DIR$/.idea/workspace.xml" afterPath="$PROJECT_DIR$/.idea/workspace.xml" />
+      <change type="MODIFICATION" beforePath="$PROJECT_DIR$/app/app.component.js" afterPath="$PROJECT_DIR$/app/app.component.js" />
       <change type="MODIFICATION" beforePath="$PROJECT_DIR$/app/app.component.js.map" afterPath="$PROJECT_DIR$/app/app.component.js.map" />
-      <change type="MODIFICATION" beforePath="$PROJECT_DIR$/app/app.component.ts" afterPath="$PROJECT_DIR$/app/app.component.ts" />
-<<<<<<< HEAD
+      <change type="MODIFICATION" beforePath="$PROJECT_DIR$/app/components/mainComponents/Login/login.component.js" afterPath="$PROJECT_DIR$/app/components/mainComponents/Login/login.component.js" />
+      <change type="MODIFICATION" beforePath="$PROJECT_DIR$/app/components/mainComponents/Login/login.component.js.map" afterPath="$PROJECT_DIR$/app/components/mainComponents/Login/login.component.js.map" />
+      <change type="MODIFICATION" beforePath="$PROJECT_DIR$/app/components/mainComponents/Login/login.component.ts" afterPath="$PROJECT_DIR$/app/components/mainComponents/Login/login.component.ts" />
+      <change type="MODIFICATION" beforePath="$PROJECT_DIR$/app/components/mainComponents/Login/register.component.js" afterPath="$PROJECT_DIR$/app/components/mainComponents/Login/register.component.js" />
+      <change type="MODIFICATION" beforePath="$PROJECT_DIR$/app/components/mainComponents/Login/register.component.js.map" afterPath="$PROJECT_DIR$/app/components/mainComponents/Login/register.component.js.map" />
+      <change type="MODIFICATION" beforePath="$PROJECT_DIR$/app/components/mainComponents/admin/addInformation.component.js" afterPath="$PROJECT_DIR$/app/components/mainComponents/admin/addInformation.component.js" />
+      <change type="MODIFICATION" beforePath="$PROJECT_DIR$/app/components/mainComponents/admin/addInformation.component.js.map" afterPath="$PROJECT_DIR$/app/components/mainComponents/admin/addInformation.component.js.map" />
+      <change type="MODIFICATION" beforePath="$PROJECT_DIR$/app/components/mainComponents/admin/adminRouter.js" afterPath="$PROJECT_DIR$/app/components/mainComponents/admin/adminRouter.js" />
+      <change type="MODIFICATION" beforePath="$PROJECT_DIR$/app/components/mainComponents/admin/adminRouter.js.map" afterPath="$PROJECT_DIR$/app/components/mainComponents/admin/adminRouter.js.map" />
+      <change type="MODIFICATION" beforePath="$PROJECT_DIR$/app/components/mainComponents/admin/manageData.component.js" afterPath="$PROJECT_DIR$/app/components/mainComponents/admin/manageData.component.js" />
+      <change type="MODIFICATION" beforePath="$PROJECT_DIR$/app/components/mainComponents/admin/manageData.component.js.map" afterPath="$PROJECT_DIR$/app/components/mainComponents/admin/manageData.component.js.map" />
+      <change type="MODIFICATION" beforePath="$PROJECT_DIR$/app/components/mainComponents/admin/manageProject.component.js" afterPath="$PROJECT_DIR$/app/components/mainComponents/admin/manageProject.component.js" />
+      <change type="MODIFICATION" beforePath="$PROJECT_DIR$/app/components/mainComponents/admin/manageProject.component.js.map" afterPath="$PROJECT_DIR$/app/components/mainComponents/admin/manageProject.component.js.map" />
+      <change type="MODIFICATION" beforePath="$PROJECT_DIR$/app/components/mainComponents/admin/manageTown.component.js" afterPath="$PROJECT_DIR$/app/components/mainComponents/admin/manageTown.component.js" />
+      <change type="MODIFICATION" beforePath="$PROJECT_DIR$/app/components/mainComponents/admin/manageTown.component.js.map" afterPath="$PROJECT_DIR$/app/components/mainComponents/admin/manageTown.component.js.map" />
+      <change type="MODIFICATION" beforePath="$PROJECT_DIR$/app/components/mainComponents/budget/budgetRouter.js" afterPath="$PROJECT_DIR$/app/components/mainComponents/budget/budgetRouter.js" />
+      <change type="MODIFICATION" beforePath="$PROJECT_DIR$/app/components/mainComponents/budget/budgetRouter.js.map" afterPath="$PROJECT_DIR$/app/components/mainComponents/budget/budgetRouter.js.map" />
+      <change type="MODIFICATION" beforePath="$PROJECT_DIR$/app/components/mainComponents/budget/comparison.component.js" afterPath="$PROJECT_DIR$/app/components/mainComponents/budget/comparison.component.js" />
+      <change type="MODIFICATION" beforePath="$PROJECT_DIR$/app/components/mainComponents/budget/comparison.component.js.map" afterPath="$PROJECT_DIR$/app/components/mainComponents/budget/comparison.component.js.map" />
+      <change type="MODIFICATION" beforePath="$PROJECT_DIR$/app/components/mainComponents/budget/coreData.component.js" afterPath="$PROJECT_DIR$/app/components/mainComponents/budget/coreData.component.js" />
+      <change type="MODIFICATION" beforePath="$PROJECT_DIR$/app/components/mainComponents/budget/coreData.component.js.map" afterPath="$PROJECT_DIR$/app/components/mainComponents/budget/coreData.component.js.map" />
+      <change type="MODIFICATION" beforePath="$PROJECT_DIR$/app/components/mainComponents/budget/expenses.component.js" afterPath="$PROJECT_DIR$/app/components/mainComponents/budget/expenses.component.js" />
+      <change type="MODIFICATION" beforePath="$PROJECT_DIR$/app/components/mainComponents/budget/expenses.component.js.map" afterPath="$PROJECT_DIR$/app/components/mainComponents/budget/expenses.component.js.map" />
+      <change type="MODIFICATION" beforePath="$PROJECT_DIR$/app/components/mainComponents/budget/overview.component.js" afterPath="$PROJECT_DIR$/app/components/mainComponents/budget/overview.component.js" />
+      <change type="MODIFICATION" beforePath="$PROJECT_DIR$/app/components/mainComponents/budget/overview.component.js.map" afterPath="$PROJECT_DIR$/app/components/mainComponents/budget/overview.component.js.map" />
+      <change type="MODIFICATION" beforePath="$PROJECT_DIR$/app/components/mainComponents/budget/taxes.component.js" afterPath="$PROJECT_DIR$/app/components/mainComponents/budget/taxes.component.js" />
+      <change type="MODIFICATION" beforePath="$PROJECT_DIR$/app/components/mainComponents/budget/taxes.component.js.map" afterPath="$PROJECT_DIR$/app/components/mainComponents/budget/taxes.component.js.map" />
+      <change type="MODIFICATION" beforePath="$PROJECT_DIR$/app/components/mainComponents/home.component.js" afterPath="$PROJECT_DIR$/app/components/mainComponents/home.component.js" />
+      <change type="MODIFICATION" beforePath="$PROJECT_DIR$/app/components/mainComponents/home.component.js.map" afterPath="$PROJECT_DIR$/app/components/mainComponents/home.component.js.map" />
+      <change type="MODIFICATION" beforePath="$PROJECT_DIR$/app/components/mainComponents/homeRouter.js" afterPath="$PROJECT_DIR$/app/components/mainComponents/homeRouter.js" />
+      <change type="MODIFICATION" beforePath="$PROJECT_DIR$/app/components/mainComponents/homeRouter.js.map" afterPath="$PROJECT_DIR$/app/components/mainComponents/homeRouter.js.map" />
+      <change type="MODIFICATION" beforePath="$PROJECT_DIR$/app/components/mainComponents/participation/addProposition.component.js" afterPath="$PROJECT_DIR$/app/components/mainComponents/participation/addProposition.component.js" />
+      <change type="MODIFICATION" beforePath="$PROJECT_DIR$/app/components/mainComponents/participation/addProposition.component.js.map" afterPath="$PROJECT_DIR$/app/components/mainComponents/participation/addProposition.component.js.map" />
+      <change type="MODIFICATION" beforePath="$PROJECT_DIR$/app/components/mainComponents/participation/participationRouter.js" afterPath="$PROJECT_DIR$/app/components/mainComponents/participation/participationRouter.js" />
+      <change type="MODIFICATION" beforePath="$PROJECT_DIR$/app/components/mainComponents/participation/participationRouter.js.map" afterPath="$PROJECT_DIR$/app/components/mainComponents/participation/participationRouter.js.map" />
+      <change type="MODIFICATION" beforePath="$PROJECT_DIR$/app/components/mainComponents/participation/projects.component.js" afterPath="$PROJECT_DIR$/app/components/mainComponents/participation/projects.component.js" />
+      <change type="MODIFICATION" beforePath="$PROJECT_DIR$/app/components/mainComponents/participation/projects.component.js.map" afterPath="$PROJECT_DIR$/app/components/mainComponents/participation/projects.component.js.map" />
+      <change type="MODIFICATION" beforePath="$PROJECT_DIR$/app/components/mainComponents/participation/propositions.component.js" afterPath="$PROJECT_DIR$/app/components/mainComponents/participation/propositions.component.js" />
+      <change type="MODIFICATION" beforePath="$PROJECT_DIR$/app/components/mainComponents/participation/propositions.component.js.map" afterPath="$PROJECT_DIR$/app/components/mainComponents/participation/propositions.component.js.map" />
+      <change type="MODIFICATION" beforePath="$PROJECT_DIR$/app/components/mainComponents/superadmin/createAdmin.component.js" afterPath="$PROJECT_DIR$/app/components/mainComponents/superadmin/createAdmin.component.js" />
+      <change type="MODIFICATION" beforePath="$PROJECT_DIR$/app/components/mainComponents/superadmin/createAdmin.component.js.map" afterPath="$PROJECT_DIR$/app/components/mainComponents/superadmin/createAdmin.component.js.map" />
+      <change type="MODIFICATION" beforePath="$PROJECT_DIR$/app/components/mainComponents/superadmin/generalSettings.component.js" afterPath="$PROJECT_DIR$/app/components/mainComponents/superadmin/generalSettings.component.js" />
+      <change type="MODIFICATION" beforePath="$PROJECT_DIR$/app/components/mainComponents/superadmin/generalSettings.component.js.map" afterPath="$PROJECT_DIR$/app/components/mainComponents/superadmin/generalSettings.component.js.map" />
+      <change type="MODIFICATION" beforePath="$PROJECT_DIR$/app/components/mainComponents/superadmin/superAdminRouter.js" afterPath="$PROJECT_DIR$/app/components/mainComponents/superadmin/superAdminRouter.js" />
+      <change type="MODIFICATION" beforePath="$PROJECT_DIR$/app/components/mainComponents/superadmin/superAdminRouter.js.map" afterPath="$PROJECT_DIR$/app/components/mainComponents/superadmin/superAdminRouter.js.map" />
+      <change type="MODIFICATION" beforePath="$PROJECT_DIR$/app/components/subComponents/graphs/sunburst.component.js" afterPath="$PROJECT_DIR$/app/components/subComponents/graphs/sunburst.component.js" />
+      <change type="MODIFICATION" beforePath="$PROJECT_DIR$/app/components/subComponents/graphs/sunburst.component.js.map" afterPath="$PROJECT_DIR$/app/components/subComponents/graphs/sunburst.component.js.map" />
+      <change type="MODIFICATION" beforePath="$PROJECT_DIR$/app/components/subComponents/graphs/sunburstCompare.component.js" afterPath="$PROJECT_DIR$/app/components/subComponents/graphs/sunburstCompare.component.js" />
+      <change type="MODIFICATION" beforePath="$PROJECT_DIR$/app/components/subComponents/graphs/sunburstCompare.component.js.map" afterPath="$PROJECT_DIR$/app/components/subComponents/graphs/sunburstCompare.component.js.map" />
+      <change type="MODIFICATION" beforePath="$PROJECT_DIR$/app/components/subComponents/information/projectOverview.component.js" afterPath="$PROJECT_DIR$/app/components/subComponents/information/projectOverview.component.js" />
+      <change type="MODIFICATION" beforePath="$PROJECT_DIR$/app/components/subComponents/information/projectOverview.component.js.map" afterPath="$PROJECT_DIR$/app/components/subComponents/information/projectOverview.component.js.map" />
+      <change type="MODIFICATION" beforePath="$PROJECT_DIR$/app/components/subComponents/information/townMenu.component.js" afterPath="$PROJECT_DIR$/app/components/subComponents/information/townMenu.component.js" />
+      <change type="MODIFICATION" beforePath="$PROJECT_DIR$/app/components/subComponents/information/townMenu.component.js.map" afterPath="$PROJECT_DIR$/app/components/subComponents/information/townMenu.component.js.map" />
+      <change type="MODIFICATION" beforePath="$PROJECT_DIR$/app/components/subComponents/input/editableField.component.js" afterPath="$PROJECT_DIR$/app/components/subComponents/input/editableField.component.js" />
+      <change type="MODIFICATION" beforePath="$PROJECT_DIR$/app/components/subComponents/input/editableField.component.js.map" afterPath="$PROJECT_DIR$/app/components/subComponents/input/editableField.component.js.map" />
       <change type="MODIFICATION" beforePath="$PROJECT_DIR$/app/components/subComponents/input/townSelector.component.js" afterPath="$PROJECT_DIR$/app/components/subComponents/input/townSelector.component.js" />
       <change type="MODIFICATION" beforePath="$PROJECT_DIR$/app/components/subComponents/input/townSelector.component.js.map" afterPath="$PROJECT_DIR$/app/components/subComponents/input/townSelector.component.js.map" />
-      <change type="MODIFICATION" beforePath="$PROJECT_DIR$/app/components/subComponents/input/townSelector.component.ts" afterPath="$PROJECT_DIR$/app/components/subComponents/input/townSelector.component.ts" />
-      <change type="MODIFICATION" beforePath="$PROJECT_DIR$/app/main.js" afterPath="$PROJECT_DIR$/app/main.js" />
-      <change type="MODIFICATION" beforePath="$PROJECT_DIR$/app/main.js.map" afterPath="$PROJECT_DIR$/app/main.js.map" />
-      <change type="MODIFICATION" beforePath="$PROJECT_DIR$/app/main.ts" afterPath="$PROJECT_DIR$/app/main.ts" />
-      <change type="MODIFICATION" beforePath="$PROJECT_DIR$/app/mockData/mock-towns.js" afterPath="$PROJECT_DIR$/app/mockData/mock-towns.js" />
-      <change type="MODIFICATION" beforePath="$PROJECT_DIR$/app/mockData/mock-towns.js.map" afterPath="$PROJECT_DIR$/app/mockData/mock-towns.js.map" />
-      <change type="MODIFICATION" beforePath="$PROJECT_DIR$/app/mockData/mock-towns.ts" afterPath="$PROJECT_DIR$/app/mockData/mock-towns.ts" />
-      <change type="MODIFICATION" beforePath="$PROJECT_DIR$/app/models/town.js" afterPath="$PROJECT_DIR$/app/models/town.js" />
-      <change type="MODIFICATION" beforePath="$PROJECT_DIR$/app/models/town.js.map" afterPath="$PROJECT_DIR$/app/models/town.js.map" />
-      <change type="MODIFICATION" beforePath="$PROJECT_DIR$/app/models/town.ts" afterPath="$PROJECT_DIR$/app/models/town.ts" />
+      <change type="MODIFICATION" beforePath="$PROJECT_DIR$/app/components/subComponents/nav/menu.component.js" afterPath="$PROJECT_DIR$/app/components/subComponents/nav/menu.component.js" />
+      <change type="MODIFICATION" beforePath="$PROJECT_DIR$/app/components/subComponents/nav/menu.component.js.map" afterPath="$PROJECT_DIR$/app/components/subComponents/nav/menu.component.js.map" />
+      <change type="MODIFICATION" beforePath="$PROJECT_DIR$/app/mockData/mock-gemeenteCat.js" afterPath="$PROJECT_DIR$/app/mockData/mock-gemeenteCat.js" />
+      <change type="MODIFICATION" beforePath="$PROJECT_DIR$/app/mockData/mock-gemeenteCat.js.map" afterPath="$PROJECT_DIR$/app/mockData/mock-gemeenteCat.js.map" />
+      <change type="MODIFICATION" beforePath="$PROJECT_DIR$/app/pipes/keysPipe.js" afterPath="$PROJECT_DIR$/app/pipes/keysPipe.js" />
+      <change type="MODIFICATION" beforePath="$PROJECT_DIR$/app/pipes/keysPipe.js.map" afterPath="$PROJECT_DIR$/app/pipes/keysPipe.js.map" />
+      <change type="MODIFICATION" beforePath="$PROJECT_DIR$/app/services/ActieService.js" afterPath="$PROJECT_DIR$/app/services/ActieService.js" />
+      <change type="MODIFICATION" beforePath="$PROJECT_DIR$/app/services/ActieService.js.map" afterPath="$PROJECT_DIR$/app/services/ActieService.js.map" />
+      <change type="MODIFICATION" beforePath="$PROJECT_DIR$/app/services/begrotingService.js" afterPath="$PROJECT_DIR$/app/services/begrotingService.js" />
+      <change type="MODIFICATION" beforePath="$PROJECT_DIR$/app/services/begrotingService.js.map" afterPath="$PROJECT_DIR$/app/services/begrotingService.js.map" />
+      <change type="MODIFICATION" beforePath="$PROJECT_DIR$/app/services/loginService.component.js" afterPath="$PROJECT_DIR$/app/services/loginService.component.js" />
+      <change type="MODIFICATION" beforePath="$PROJECT_DIR$/app/services/loginService.component.js.map" afterPath="$PROJECT_DIR$/app/services/loginService.component.js.map" />
+      <change type="MODIFICATION" beforePath="$PROJECT_DIR$/app/services/projectService.component.js" afterPath="$PROJECT_DIR$/app/services/projectService.component.js" />
+      <change type="MODIFICATION" beforePath="$PROJECT_DIR$/app/services/projectService.component.js.map" afterPath="$PROJECT_DIR$/app/services/projectService.component.js.map" />
       <change type="MODIFICATION" beforePath="$PROJECT_DIR$/app/services/townService.component.js" afterPath="$PROJECT_DIR$/app/services/townService.component.js" />
       <change type="MODIFICATION" beforePath="$PROJECT_DIR$/app/services/townService.component.js.map" afterPath="$PROJECT_DIR$/app/services/townService.component.js.map" />
-      <change type="MODIFICATION" beforePath="$PROJECT_DIR$/app/services/townService.component.ts" afterPath="$PROJECT_DIR$/app/services/townService.component.ts" />
-      <change type="MODIFICATION" beforePath="$PROJECT_DIR$/index.html" afterPath="$PROJECT_DIR$/index.html" />
-=======
->>>>>>> 4fe233ada15512976acfb5a956f8761b29e11fa1
     </list>
-    <ignored path="Frontend.iws" />
+    <ignored path="begroting_frontend.iws" />
     <ignored path=".idea/workspace.xml" />
     <option name="EXCLUDED_CONVERTED_TO_IGNORED" value="true" />
     <option name="TRACKING_ENABLED" value="true" />
@@ -40,234 +100,49 @@
   </component>
   <component name="ExecutionTargetManager" SELECTED_TARGET="default_target" />
   <component name="FavoritesManager">
-    <favorites_list name="Frontend" />
+    <favorites_list name="begroting_frontend" />
   </component>
   <component name="FileEditorManager">
-    <leaf SIDE_TABS_SIZE_LIMIT_KEY="300">
+    <leaf>
+      <file leaf-file-name="login.component.ts" pinned="false" current-in-tab="true">
+        <entry file="file://$PROJECT_DIR$/app/components/mainComponents/Login/login.component.ts">
+          <provider selected="true" editor-type-id="text-editor">
+            <state vertical-scroll-proportion="0.62229615">
+              <caret line="22" column="0" selection-start-line="22" selection-start-column="0" selection-end-line="22" selection-end-column="0" />
+              <folding>
+                <element signature="n#!!doc" expanded="true" />
+                <marker date="1463216795110" expanded="true" signature="699:1270" placeholder="..." />
+                <marker date="1463216795110" expanded="true" signature="1150:1252" placeholder="..." />
+                <marker date="1463216795110" expanded="true" signature="1317:1844" placeholder="..." />
+              </folding>
+            </state>
+          </provider>
+        </entry>
+      </file>
       <file leaf-file-name="home.component.ts" pinned="false" current-in-tab="false">
         <entry file="file://$PROJECT_DIR$/app/components/mainComponents/home.component.ts">
           <provider selected="true" editor-type-id="text-editor">
-            <state relative-caret-position="119">
-              <caret line="9" column="0" selection-start-line="9" selection-start-column="0" selection-end-line="9" selection-end-column="0" />
-              <folding>
-                <marker date="1460642594586" expanded="true" signature="348:727" placeholder="..." />
-                <marker date="1460642594586" expanded="true" signature="439:715" placeholder="..." />
-                <marker date="1460642594586" expanded="true" signature="772:877" placeholder="..." />
-                <marker date="1460642594586" expanded="true" signature="914:971" placeholder="..." />
-              </folding>
-            </state>
-          </provider>
-        </entry>
-      </file>
-      <file leaf-file-name="townSelector.component.ts" pinned="false" current-in-tab="false">
-        <entry file="file://$PROJECT_DIR$/app/components/subComponents/input/townSelector.component.ts">
-          <provider selected="true" editor-type-id="text-editor">
-            <state relative-caret-position="443">
-              <caret line="27" column="9" selection-start-line="27" selection-start-column="9" selection-end-line="27" selection-end-column="9" />
-              <folding>
-                <element signature="e#0#40#0" expanded="true" />
-                <marker date="1460657910632" expanded="true" signature="313:684" placeholder="..." />
-                <marker date="1460657910632" expanded="true" signature="400:673" placeholder="..." />
-                <marker date="1460657910632" expanded="true" signature="493:650" placeholder="..." />
-              </folding>
-            </state>
-          </provider>
-        </entry>
-      </file>
-      <file leaf-file-name="townService.component.ts" pinned="false" current-in-tab="true">
-        <entry file="file://$PROJECT_DIR$/app/services/townService.component.ts">
-          <provider selected="true" editor-type-id="text-editor">
-            <state relative-caret-position="425">
-              <caret line="28" column="18" selection-start-line="28" selection-start-column="18" selection-end-line="28" selection-end-column="18" />
-              <folding>
-                <element signature="e#0#41#0" expanded="true" />
-              </folding>
-            </state>
-          </provider>
-        </entry>
-      </file>
-      <file leaf-file-name="main.ts" pinned="false" current-in-tab="false">
-        <entry file="file://$PROJECT_DIR$/app/main.ts">
-          <provider selected="true" editor-type-id="text-editor">
             <state vertical-scroll-proportion="0.0">
-              <caret line="9" column="55" selection-start-line="9" selection-start-column="55" selection-end-line="9" selection-end-column="55" />
-              <folding />
-            </state>
-          </provider>
-        </entry>
-      </file>
-      <file leaf-file-name="town.ts" pinned="false" current-in-tab="false">
-        <entry file="file://$PROJECT_DIR$/app/models/town.ts">
-          <provider selected="true" editor-type-id="text-editor">
-            <state relative-caret-position="17">
-              <caret line="1" column="22" selection-start-line="1" selection-start-column="22" selection-end-line="1" selection-end-column="22" />
-              <folding />
-            </state>
-          </provider>
-        </entry>
-      </file>
-      <file leaf-file-name="town.component.ts" pinned="false" current-in-tab="false">
-        <entry file="file://$PROJECT_DIR$/app/components/mainComponents/town.component.ts">
-          <provider selected="true" editor-type-id="text-editor">
-<<<<<<< HEAD
-            <state relative-caret-position="340">
-              <caret line="22" column="1" selection-start-line="22" selection-start-column="1" selection-end-line="22" selection-end-column="1" />
-              <folding />
-=======
-            <state vertical-scroll-proportion="0.0">
-              <caret line="13" column="0" selection-start-line="13" selection-start-column="0" selection-end-line="13" selection-end-column="0" />
+              <caret line="0" column="0" selection-start-line="0" selection-start-column="0" selection-end-line="0" selection-end-column="0" />
               <folding>
-                <marker date="1460642789000" expanded="true" signature="2978:3061" placeholder="{...}" />
-                <marker date="1460642789000" expanded="true" signature="2978:3067" placeholder="{...}" />
-                <marker date="1460642789000" expanded="true" signature="2978:3069" placeholder="{...}" />
+                <marker date="1463208654084" expanded="true" signature="479:885" placeholder="..." />
+                <marker date="1463208654084" expanded="true" signature="599:873" placeholder="..." />
+                <marker date="1463208654084" expanded="true" signature="930:1331" placeholder="..." />
+                <marker date="1463208654084" expanded="true" signature="1036:1320" placeholder="..." />
               </folding>
->>>>>>> 4fe233ada15512976acfb5a956f8761b29e11fa1
-            </state>
-          </provider>
-        </entry>
-      </file>
-      <file leaf-file-name="index.html" pinned="false" current-in-tab="false">
-        <entry file="file://$PROJECT_DIR$/index.html">
-          <provider selected="true" editor-type-id="text-editor">
-            <state relative-caret-position="714">
-              <caret line="42" column="13" selection-start-line="42" selection-start-column="13" selection-end-line="42" selection-end-column="13" />
-              <folding />
-            </state>
-          </provider>
-        </entry>
-      </file>
-<<<<<<< HEAD
-      <file leaf-file-name="app.component.ts" pinned="false" current-in-tab="false">
-        <entry file="file://$PROJECT_DIR$/app/app.component.ts">
-          <provider selected="true" editor-type-id="text-editor">
-            <state relative-caret-position="17">
-              <caret line="6" column="0" selection-start-line="6" selection-start-column="0" selection-end-line="6" selection-end-column="0" />
-              <folding>
-                <element signature="e#0#40#0" expanded="true" />
-                <marker date="1460644141021" expanded="true" signature="567:739" placeholder="..." />
-                <marker date="1460644141021" expanded="true" signature="645:731" placeholder="..." />
-                <marker date="1460644141021" expanded="true" signature="769:884" placeholder="..." />
-              </folding>
-            </state>
-          </provider>
-        </entry>
-      </file>
-=======
->>>>>>> 4fe233ada15512976acfb5a956f8761b29e11fa1
-      <file leaf-file-name="mock-towns.ts" pinned="false" current-in-tab="false">
-        <entry file="file://$PROJECT_DIR$/app/mockData/mock-towns.ts">
-          <provider selected="true" editor-type-id="text-editor">
-            <state relative-caret-position="153">
-              <caret line="9" column="0" selection-start-line="9" selection-start-column="0" selection-end-line="9" selection-end-column="0" />
-              <folding />
-            </state>
-          </provider>
-        </entry>
-      </file>
-<<<<<<< HEAD
-      <file leaf-file-name="main.ts" pinned="false" current-in-tab="false">
-        <entry file="file://$PROJECT_DIR$/app/main.ts">
-          <provider selected="true" editor-type-id="text-editor">
-            <state relative-caret-position="34">
-              <caret line="2" column="45" selection-start-line="2" selection-start-column="45" selection-end-line="2" selection-end-column="45" />
-=======
-      <file leaf-file-name="app.component.ts" pinned="false" current-in-tab="false">
-        <entry file="file://$PROJECT_DIR$/app/app.component.ts">
-          <provider selected="true" editor-type-id="text-editor">
-            <state vertical-scroll-proportion="0.0">
-              <caret line="40" column="1" selection-start-line="40" selection-start-column="1" selection-end-line="40" selection-end-column="1" />
-              <folding>
-                <marker date="1460642705000" expanded="true" signature="566:738" placeholder="..." />
-                <marker date="1460642705000" expanded="true" signature="644:730" placeholder="..." />
-                <marker date="1460642705000" expanded="true" signature="768:883" placeholder="..." />
-              </folding>
-            </state>
-          </provider>
-        </entry>
-      </file>
-      <file leaf-file-name="stylesheet.css" pinned="false" current-in-tab="true">
-        <entry file="file://$PROJECT_DIR$/stylesheet.css">
-          <provider selected="true" editor-type-id="text-editor">
-            <state vertical-scroll-proportion="0.9031532">
-              <caret line="135" column="16" selection-start-line="135" selection-start-column="16" selection-end-line="135" selection-end-column="16" />
->>>>>>> 4fe233ada15512976acfb5a956f8761b29e11fa1
-              <folding />
             </state>
           </provider>
         </entry>
       </file>
     </leaf>
   </component>
-  <component name="FileTemplateManagerImpl">
-    <option name="RECENT_TEMPLATES">
-      <list>
-        <option value="package_json" />
-        <option value="HTML File" />
-        <option value="CSS File" />
-        <option value="JavaScript File" />
-        <option value="TypeScript File" />
-      </list>
-    </option>
-  </component>
   <component name="Git.Settings">
     <option name="RECENT_GIT_ROOT_PATH" value="$PROJECT_DIR$" />
-    <option name="RECENT_BRANCH_BY_REPOSITORY">
-      <map>
-        <entry key="$PROJECT_DIR$" value="master" />
-      </map>
-    </option>
   </component>
   <component name="IdeDocumentHistory">
     <option name="CHANGED_PATHS">
       <list>
-        <option value="$PROJECT_DIR$/tsconfig.json.ts" />
-        <option value="$PROJECT_DIR$/tsconfig.json" />
-        <option value="$PROJECT_DIR$/typings.json" />
-        <option value="$PROJECT_DIR$/app.component.ts" />
-        <option value="$PROJECT_DIR$/app/general_styles.css" />
-        <option value="$PROJECT_DIR$/app/home/home.component.ts" />
-        <option value="$PROJECT_DIR$/app/dashboard.component.ts" />
-        <option value="$PROJECT_DIR$/app/mainComponents/home/home.component.js.map" />
-        <option value="$PROJECT_DIR$/app/mainComponents/town_budget.component.ts" />
-        <option value="$PROJECT_DIR$/app/mainComponents/home.component.js" />
-        <option value="$PROJECT_DIR$/app/home.component.ts" />
-        <option value="$PROJECT_DIR$/app/mainComponents/town.component.ts.js" />
-        <option value="$PROJECT_DIR$/app/mainComponents/townBudget.component.ts" />
-        <option value="$PROJECT_DIR$/app/mainComponents/town.component.ts" />
-        <option value="$PROJECT_DIR$/app/subComponents/forms/townSelector.component.js.ts" />
-        <option value="$PROJECT_DIR$/app/dataClasses/town.ts" />
-        <option value="$PROJECT_DIR$/app/subComponents/forms/townSelector.component.ts" />
-        <option value="$PROJECT_DIR$/app/mainComponents/home.component.ts" />
-        <option value="$PROJECT_DIR$/app/components/mainComponents/townBudget.component.js.map" />
-        <option value="$PROJECT_DIR$/app/components/subComponents/forms/townSelector.component.js.map" />
-        <option value="$PROJECT_DIR$/app/components/subComponents/forms/townSelector.component.ts" />
-        <option value="$PROJECT_DIR$/app/components/mainComponents/townBudget.component.ts" />
-        <option value="$PROJECT_DIR$/app/components/subComponents/input/townSelector.component.js" />
-        <option value="$PROJECT_DIR$/app/components/mainComponents/town.component.ts" />
-        <option value="$PROJECT_DIR$/app/components/subComponents/information/projectOverwiew.component.ts" />
-        <option value="$PROJECT_DIR$/app/models/town.js" />
-        <option value="$PROJECT_DIR$/app/mockData/mock-projects.js" />
-        <option value="$PROJECT_DIR$/app/services/projectService.component.ts" />
-        <option value="$PROJECT_DIR$/app/components/mainComponents/project.component.ts" />
-        <option value="$PROJECT_DIR$/app/components/subComponents/information/projectOverview.component.ts" />
-        <option value="$PROJECT_DIR$/app/models/project.ts" />
-        <option value="$PROJECT_DIR$/app/mockData/mock-projects.ts" />
-        <option value="$PROJECT_DIR$/package.json" />
-        <option value="$PROJECT_DIR$/app/components/mainComponents/home.component.ts" />
-        <option value="$PROJECT_DIR$/stylesheet.css" />
-        <option value="$PROJECT_DIR$/app/mockData/mock-towns.ts" />
-        <option value="$PROJECT_DIR$/app/app.component.ts" />
-        <option value="$PROJECT_DIR$/app/models/town.ts" />
-        <option value="$PROJECT_DIR$/index.html" />
-        <option value="$PROJECT_DIR$/app/main.ts" />
-        <option value="$PROJECT_DIR$/app/services/townService.component.ts" />
-        <option value="$PROJECT_DIR$/app/components/subComponents/input/townSelector.component.ts" />
-<<<<<<< HEAD
-=======
-        <option value="$PROJECT_DIR$/app/main.ts" />
-        <option value="$PROJECT_DIR$/app/app.component.ts" />
-        <option value="$PROJECT_DIR$/stylesheet.css" />
->>>>>>> 4fe233ada15512976acfb5a956f8761b29e11fa1
+        <option value="$PROJECT_DIR$/app/components/mainComponents/Login/login.component.ts" />
       </list>
     </option>
   </component>
@@ -277,17 +152,10 @@
     <detection-done>true</detection-done>
   </component>
   <component name="ProjectFrameBounds">
-<<<<<<< HEAD
-    <option name="x" value="-8" />
+    <option name="x" value="1358" />
     <option name="y" value="-8" />
-    <option name="width" value="1616" />
-    <option name="height" value="876" />
-=======
-    <option name="x" value="428" />
-    <option name="y" value="31" />
-    <option name="width" value="898" />
-    <option name="height" value="832" />
->>>>>>> 4fe233ada15512976acfb5a956f8761b29e11fa1
+    <option name="width" value="1936" />
+    <option name="height" value="1066" />
   </component>
   <component name="ProjectLevelVcsManager" settingsEditedManually="false">
     <OptionsSetting value="true" id="Add" />
@@ -318,13 +186,13 @@
         <subPane>
           <PATH>
             <PATH_ELEMENT>
-              <option name="myItemId" value="Frontend" />
+              <option name="myItemId" value="begroting_frontend" />
               <option name="myItemType" value="com.intellij.ide.projectView.impl.nodes.ProjectViewProjectNode" />
             </PATH_ELEMENT>
           </PATH>
           <PATH>
             <PATH_ELEMENT>
-              <option name="myItemId" value="Frontend" />
+              <option name="myItemId" value="begroting_frontend" />
               <option name="myItemType" value="com.intellij.ide.projectView.impl.nodes.ProjectViewProjectNode" />
             </PATH_ELEMENT>
             <PATH_ELEMENT>
@@ -334,21 +202,7 @@
           </PATH>
           <PATH>
             <PATH_ELEMENT>
-              <option name="myItemId" value="Frontend" />
-              <option name="myItemType" value="com.intellij.ide.projectView.impl.nodes.ProjectViewProjectNode" />
-            </PATH_ELEMENT>
-            <PATH_ELEMENT>
               <option name="myItemId" value="begroting_frontend" />
-              <option name="myItemType" value="com.intellij.ide.projectView.impl.nodes.PsiDirectoryNode" />
-            </PATH_ELEMENT>
-            <PATH_ELEMENT>
-              <option name="myItemId" value="app" />
-              <option name="myItemType" value="com.intellij.ide.projectView.impl.nodes.PsiDirectoryNode" />
-            </PATH_ELEMENT>
-          </PATH>
-          <PATH>
-            <PATH_ELEMENT>
-              <option name="myItemId" value="Frontend" />
               <option name="myItemType" value="com.intellij.ide.projectView.impl.nodes.ProjectViewProjectNode" />
             </PATH_ELEMENT>
             <PATH_ELEMENT>
@@ -359,50 +213,10 @@
               <option name="myItemId" value="app" />
               <option name="myItemType" value="com.intellij.ide.projectView.impl.nodes.PsiDirectoryNode" />
             </PATH_ELEMENT>
-            <PATH_ELEMENT>
-              <option name="myItemId" value="services" />
-              <option name="myItemType" value="com.intellij.ide.projectView.impl.nodes.PsiDirectoryNode" />
-            </PATH_ELEMENT>
           </PATH>
           <PATH>
-            <PATH_ELEMENT>
-              <option name="myItemId" value="Frontend" />
-              <option name="myItemType" value="com.intellij.ide.projectView.impl.nodes.ProjectViewProjectNode" />
-            </PATH_ELEMENT>
             <PATH_ELEMENT>
               <option name="myItemId" value="begroting_frontend" />
-              <option name="myItemType" value="com.intellij.ide.projectView.impl.nodes.PsiDirectoryNode" />
-            </PATH_ELEMENT>
-            <PATH_ELEMENT>
-              <option name="myItemId" value="app" />
-              <option name="myItemType" value="com.intellij.ide.projectView.impl.nodes.PsiDirectoryNode" />
-            </PATH_ELEMENT>
-            <PATH_ELEMENT>
-              <option name="myItemId" value="models" />
-              <option name="myItemType" value="com.intellij.ide.projectView.impl.nodes.PsiDirectoryNode" />
-            </PATH_ELEMENT>
-          </PATH>
-          <PATH>
-            <PATH_ELEMENT>
-              <option name="myItemId" value="Frontend" />
-              <option name="myItemType" value="com.intellij.ide.projectView.impl.nodes.ProjectViewProjectNode" />
-            </PATH_ELEMENT>
-            <PATH_ELEMENT>
-              <option name="myItemId" value="begroting_frontend" />
-              <option name="myItemType" value="com.intellij.ide.projectView.impl.nodes.PsiDirectoryNode" />
-            </PATH_ELEMENT>
-            <PATH_ELEMENT>
-              <option name="myItemId" value="app" />
-              <option name="myItemType" value="com.intellij.ide.projectView.impl.nodes.PsiDirectoryNode" />
-            </PATH_ELEMENT>
-            <PATH_ELEMENT>
-              <option name="myItemId" value="mockData" />
-              <option name="myItemType" value="com.intellij.ide.projectView.impl.nodes.PsiDirectoryNode" />
-            </PATH_ELEMENT>
-          </PATH>
-          <PATH>
-            <PATH_ELEMENT>
-              <option name="myItemId" value="Frontend" />
               <option name="myItemType" value="com.intellij.ide.projectView.impl.nodes.ProjectViewProjectNode" />
             </PATH_ELEMENT>
             <PATH_ELEMENT>
@@ -417,52 +231,10 @@
               <option name="myItemId" value="components" />
               <option name="myItemType" value="com.intellij.ide.projectView.impl.nodes.PsiDirectoryNode" />
             </PATH_ELEMENT>
-            <PATH_ELEMENT>
-              <option name="myItemId" value="subComponents" />
-              <option name="myItemType" value="com.intellij.ide.projectView.impl.nodes.PsiDirectoryNode" />
-            </PATH_ELEMENT>
-            <PATH_ELEMENT>
-              <option name="myItemId" value="input" />
-              <option name="myItemType" value="com.intellij.ide.projectView.impl.nodes.PsiDirectoryNode" />
-            </PATH_ELEMENT>
-            <PATH_ELEMENT>
-              <option name="myItemId" value="townSelector.component.ts" />
-              <option name="myItemType" value="com.intellij.lang.typescript.compiler.ui.projectView.TypeScriptNestingTreeNode" />
-            </PATH_ELEMENT>
           </PATH>
           <PATH>
-            <PATH_ELEMENT>
-              <option name="myItemId" value="Frontend" />
-              <option name="myItemType" value="com.intellij.ide.projectView.impl.nodes.ProjectViewProjectNode" />
-            </PATH_ELEMENT>
             <PATH_ELEMENT>
               <option name="myItemId" value="begroting_frontend" />
-              <option name="myItemType" value="com.intellij.ide.projectView.impl.nodes.PsiDirectoryNode" />
-            </PATH_ELEMENT>
-            <PATH_ELEMENT>
-              <option name="myItemId" value="app" />
-              <option name="myItemType" value="com.intellij.ide.projectView.impl.nodes.PsiDirectoryNode" />
-            </PATH_ELEMENT>
-            <PATH_ELEMENT>
-              <option name="myItemId" value="components" />
-              <option name="myItemType" value="com.intellij.ide.projectView.impl.nodes.PsiDirectoryNode" />
-            </PATH_ELEMENT>
-            <PATH_ELEMENT>
-              <option name="myItemId" value="subComponents" />
-              <option name="myItemType" value="com.intellij.ide.projectView.impl.nodes.PsiDirectoryNode" />
-            </PATH_ELEMENT>
-            <PATH_ELEMENT>
-              <option name="myItemId" value="information" />
-              <option name="myItemType" value="com.intellij.ide.projectView.impl.nodes.PsiDirectoryNode" />
-            </PATH_ELEMENT>
-            <PATH_ELEMENT>
-              <option name="myItemId" value="projectOverview.component.ts" />
-              <option name="myItemType" value="com.intellij.lang.typescript.compiler.ui.projectView.TypeScriptNestingTreeNode" />
-            </PATH_ELEMENT>
-          </PATH>
-          <PATH>
-            <PATH_ELEMENT>
-              <option name="myItemId" value="Frontend" />
               <option name="myItemType" value="com.intellij.ide.projectView.impl.nodes.ProjectViewProjectNode" />
             </PATH_ELEMENT>
             <PATH_ELEMENT>
@@ -482,627 +254,106 @@
               <option name="myItemType" value="com.intellij.ide.projectView.impl.nodes.PsiDirectoryNode" />
             </PATH_ELEMENT>
           </PATH>
+          <PATH>
+            <PATH_ELEMENT>
+              <option name="myItemId" value="begroting_frontend" />
+              <option name="myItemType" value="com.intellij.ide.projectView.impl.nodes.ProjectViewProjectNode" />
+            </PATH_ELEMENT>
+            <PATH_ELEMENT>
+              <option name="myItemId" value="begroting_frontend" />
+              <option name="myItemType" value="com.intellij.ide.projectView.impl.nodes.PsiDirectoryNode" />
+            </PATH_ELEMENT>
+            <PATH_ELEMENT>
+              <option name="myItemId" value="app" />
+              <option name="myItemType" value="com.intellij.ide.projectView.impl.nodes.PsiDirectoryNode" />
+            </PATH_ELEMENT>
+            <PATH_ELEMENT>
+              <option name="myItemId" value="components" />
+              <option name="myItemType" value="com.intellij.ide.projectView.impl.nodes.PsiDirectoryNode" />
+            </PATH_ELEMENT>
+            <PATH_ELEMENT>
+              <option name="myItemId" value="mainComponents" />
+              <option name="myItemType" value="com.intellij.ide.projectView.impl.nodes.PsiDirectoryNode" />
+            </PATH_ELEMENT>
+            <PATH_ELEMENT>
+              <option name="myItemId" value="Login" />
+              <option name="myItemType" value="com.intellij.ide.projectView.impl.nodes.PsiDirectoryNode" />
+            </PATH_ELEMENT>
+          </PATH>
         </subPane>
       </pane>
-      <pane id="Scope" />
       <pane id="Scratches" />
+      <pane id="Scope" />
     </panes>
   </component>
   <component name="PropertiesComponent">
-    <property name="settings.editor.selected.configurable" value="vcs.Git" />
-    <property name="settings.editor.splitter.proportion" value="0.2" />
     <property name="WebServerToolWindowFactoryState" value="false" />
-    <property name="js-jscs-nodeInterpreter" value="/usr/local/bin/node" />
     <property name="HbShouldOpenHtmlAsHb" value="" />
-    <property name="DefaultHtmlFileTemplate" value="HTML File" />
-    <property name="list.type.of.created.stylesheet" value="CSS" />
-    <property name="ignore_missing_gitignore" value="true" />
   </component>
-  <component name="RecentsManager">
-    <key name="MoveFile.RECENT_KEYS">
-      <recent name="$PROJECT_DIR$/app/components" />
-      <recent name="$PROJECT_DIR$/app/mainComponents" />
-      <recent name="$PROJECT_DIR$/app" />
-      <recent name="$PROJECT_DIR$/app/subComponents" />
-      <recent name="$PROJECT_DIR$" />
-    </key>
-  </component>
-  <component name="RunManager" selected="JavaScript Debug.index.html">
-    <configuration default="false" name="index.html" type="JavascriptDebugType" factoryName="JavaScript Debug" temporary="true" nameIsGenerated="true" uri="http://localhost:63342/Frontend/index.html">
-      <method />
-    </configuration>
-    <configuration default="true" type="DartCommandLineRunConfigurationType" factoryName="Dart Command Line Application">
-      <method />
-    </configuration>
-    <configuration default="true" type="JavaScriptTestRunnerKarma" factoryName="Karma">
-      <config-file value="" />
-      <node-interpreter value="project" />
-      <envs />
-      <method />
-    </configuration>
-    <configuration default="true" type="JavascriptDebugType" factoryName="JavaScript Debug">
-      <method />
-    </configuration>
-    <configuration default="true" type="NodeJSConfigurationType" factoryName="Node.js" path-to-node="project" working-dir="">
-      <method />
-    </configuration>
-    <configuration default="true" type="cucumber.js" factoryName="Cucumber.js">
-      <option name="cucumberJsArguments" value="" />
-      <option name="executablePath" />
-      <option name="filePath" />
-      <method />
-    </configuration>
-    <configuration default="true" type="js.build_tools.gulp" factoryName="Gulp.js">
-      <node-interpreter>project</node-interpreter>
-      <node-options />
-      <gulpfile />
-      <tasks />
-      <arguments />
-      <envs />
-      <method />
-    </configuration>
-    <configuration default="true" type="js.build_tools.npm" factoryName="npm">
-      <command value="run-script" />
-      <scripts />
-      <node-interpreter value="project" />
-      <envs />
-      <method />
-    </configuration>
-    <configuration default="true" type="mocha-javascript-test-runner" factoryName="Mocha">
-      <node-interpreter>C:/Program Files/nodejs/node.exe</node-interpreter>
-      <node-options />
-      <working-directory>$PROJECT_DIR$</working-directory>
-      <pass-parent-env>true</pass-parent-env>
-      <envs />
-      <ui>bdd</ui>
-      <extra-mocha-options />
-      <test-kind>DIRECTORY</test-kind>
-      <test-directory />
-      <recursive>false</recursive>
-      <method />
-    </configuration>
-    <list size="1">
-      <item index="0" class="java.lang.String" itemvalue="JavaScript Debug.index.html" />
-    </list>
-    <recent_temporary>
-      <list size="1">
-        <item index="0" class="java.lang.String" itemvalue="JavaScript Debug.index.html" />
-      </list>
-    </recent_temporary>
-  </component>
-  <component name="ShelveChangesManager" show_recycled="false">
-    <option name="remove_strategy" value="false" />
-  </component>
-  <component name="SvnConfiguration">
-    <configuration>$USER_HOME$/.subversion</configuration>
-  </component>
+  <component name="ShelveChangesManager" show_recycled="false" />
   <component name="TaskManager">
     <task active="true" id="Default" summary="Default task">
-      <changelist id="3d4d0427-5d90-496e-9c9a-c317c33c6a58" name="Default" comment="" />
-      <created>1459278442667</created>
+      <changelist id="50eac2ba-bef9-4e9b-a45f-ec0798a2b175" name="Default" comment="" />
+      <created>1463208675524</created>
       <option name="number" value="Default" />
-      <option name="presentableId" value="Default" />
-      <updated>1459278442667</updated>
-      <workItem from="1460642927412" duration="4143000" />
-      <workItem from="1460649671237" duration="420000" />
-      <workItem from="1460654896081" duration="3235000" />
+      <updated>1463208675524</updated>
     </task>
     <servers />
   </component>
-  <component name="TimeTrackingManager">
-    <option name="totallyTimeSpent" value="7798000" />
-  </component>
   <component name="ToolWindowManager">
-<<<<<<< HEAD
-    <frame x="-8" y="-8" width="1616" height="876" extended-state="6" />
-    <editor active="false" />
-=======
-    <frame x="428" y="31" width="898" height="832" extended-state="0" />
+    <frame x="1358" y="-8" width="1936" height="1066" extended-state="6" />
     <editor active="true" />
->>>>>>> 4fe233ada15512976acfb5a956f8761b29e11fa1
     <layout>
-      <window_info id="Project" active="false" anchor="left" auto_hide="false" internal_type="DOCKED" type="DOCKED" visible="true" show_stripe_button="true" weight="0.17553866" sideWeight="0.5" order="1" side_tool="false" content_ui="combo" />
-      <window_info id="TODO" active="false" anchor="bottom" auto_hide="false" internal_type="DOCKED" type="DOCKED" visible="false" show_stripe_button="true" weight="0.33" sideWeight="0.5" order="10" side_tool="false" content_ui="tabs" />
-      <window_info id="TypeScript Compiler" active="false" anchor="bottom" auto_hide="false" internal_type="DOCKED" type="DOCKED" visible="false" show_stripe_button="true" weight="0.32974428" sideWeight="0.5" order="0" side_tool="false" content_ui="tabs" />
-      <window_info id="Event Log" active="false" anchor="bottom" auto_hide="false" internal_type="DOCKED" type="DOCKED" visible="false" show_stripe_button="true" weight="0.33" sideWeight="0.5" order="1" side_tool="true" content_ui="tabs" />
-<<<<<<< HEAD
-      <window_info id="Version Control" active="false" anchor="bottom" auto_hide="false" internal_type="DOCKED" type="DOCKED" visible="false" show_stripe_button="true" weight="0.3293011" sideWeight="0.5" order="2" side_tool="false" content_ui="tabs" />
-=======
-      <window_info id="Version Control" active="false" anchor="bottom" auto_hide="false" internal_type="DOCKED" type="DOCKED" visible="false" show_stripe_button="true" weight="0.33" sideWeight="0.5" order="2" side_tool="false" content_ui="tabs" />
->>>>>>> 4fe233ada15512976acfb5a956f8761b29e11fa1
-      <window_info id="Run" active="false" anchor="bottom" auto_hide="false" internal_type="DOCKED" type="DOCKED" visible="false" show_stripe_button="true" weight="0.33" sideWeight="0.5" order="6" side_tool="false" content_ui="tabs" />
-      <window_info id="Structure" active="false" anchor="left" auto_hide="false" internal_type="DOCKED" type="DOCKED" visible="false" show_stripe_button="true" weight="0.25" sideWeight="0.5" order="2" side_tool="false" content_ui="tabs" />
-      <window_info id="Terminal" active="true" anchor="bottom" auto_hide="false" internal_type="DOCKED" type="DOCKED" visible="true" show_stripe_button="true" weight="0.32974428" sideWeight="0.5" order="3" side_tool="false" content_ui="tabs" />
-      <window_info id="Favorites" active="false" anchor="left" auto_hide="false" internal_type="DOCKED" type="DOCKED" visible="false" show_stripe_button="true" weight="0.33" sideWeight="0.5" order="0" side_tool="true" content_ui="tabs" />
-      <window_info id="Debug" active="false" anchor="bottom" auto_hide="false" internal_type="DOCKED" type="DOCKED" visible="false" show_stripe_button="true" weight="0.4" sideWeight="0.5" order="7" side_tool="false" content_ui="tabs" />
-      <window_info id="Cvs" active="false" anchor="bottom" auto_hide="false" internal_type="DOCKED" type="DOCKED" visible="false" show_stripe_button="true" weight="0.25" sideWeight="0.5" order="8" side_tool="false" content_ui="tabs" />
-      <window_info id="Message" active="false" anchor="bottom" auto_hide="false" internal_type="DOCKED" type="DOCKED" visible="false" show_stripe_button="true" weight="0.33" sideWeight="0.5" order="4" side_tool="false" content_ui="tabs" />
-      <window_info id="Commander" active="false" anchor="right" auto_hide="false" internal_type="DOCKED" type="DOCKED" visible="false" show_stripe_button="true" weight="0.4" sideWeight="0.5" order="0" side_tool="false" content_ui="tabs" />
-      <window_info id="Inspection" active="false" anchor="bottom" auto_hide="false" internal_type="DOCKED" type="DOCKED" visible="false" show_stripe_button="true" weight="0.4" sideWeight="0.5" order="9" side_tool="false" content_ui="tabs" />
+      <window_info id="Project" active="false" anchor="left" auto_hide="false" internal_type="DOCKED" type="DOCKED" visible="true" show_stripe_button="true" weight="0.17693523" sideWeight="0.5" order="0" side_tool="false" content_ui="combo" />
+      <window_info id="TODO" active="false" anchor="bottom" auto_hide="false" internal_type="DOCKED" type="DOCKED" visible="false" show_stripe_button="true" weight="0.33" sideWeight="0.5" order="6" side_tool="false" content_ui="tabs" />
+      <window_info id="TypeScript Compiler" active="false" anchor="bottom" auto_hide="false" internal_type="DOCKED" type="DOCKED" visible="false" show_stripe_button="true" weight="0.21925133" sideWeight="0.5" order="-1" side_tool="false" content_ui="tabs" />
+      <window_info id="Event Log" active="false" anchor="bottom" auto_hide="false" internal_type="DOCKED" type="DOCKED" visible="false" show_stripe_button="true" weight="0.33" sideWeight="0.5" order="-1" side_tool="true" content_ui="tabs" />
+      <window_info id="Version Control" active="false" anchor="bottom" auto_hide="false" internal_type="DOCKED" type="DOCKED" visible="false" show_stripe_button="true" weight="0.33" sideWeight="0.5" order="-1" side_tool="false" content_ui="tabs" />
+      <window_info id="Structure" active="false" anchor="left" auto_hide="false" internal_type="DOCKED" type="DOCKED" visible="false" show_stripe_button="true" weight="0.25" sideWeight="0.5" order="1" side_tool="false" content_ui="tabs" />
+      <window_info id="Terminal" active="false" anchor="bottom" auto_hide="false" internal_type="DOCKED" type="DOCKED" visible="true" show_stripe_button="true" weight="0.32941177" sideWeight="0.5" order="-1" side_tool="false" content_ui="tabs" />
+      <window_info id="Favorites" active="false" anchor="left" auto_hide="false" internal_type="DOCKED" type="DOCKED" visible="false" show_stripe_button="true" weight="0.33" sideWeight="0.5" order="-1" side_tool="true" content_ui="tabs" />
+      <window_info id="Cvs" active="false" anchor="bottom" auto_hide="false" internal_type="DOCKED" type="DOCKED" visible="false" show_stripe_button="true" weight="0.25" sideWeight="0.5" order="4" side_tool="false" content_ui="tabs" />
       <window_info id="Hierarchy" active="false" anchor="right" auto_hide="false" internal_type="DOCKED" type="DOCKED" visible="false" show_stripe_button="true" weight="0.25" sideWeight="0.5" order="2" side_tool="false" content_ui="combo" />
-      <window_info id="Find" active="false" anchor="bottom" auto_hide="false" internal_type="DOCKED" type="DOCKED" visible="false" show_stripe_button="true" weight="0.32972974" sideWeight="0.5" order="5" side_tool="false" content_ui="tabs" />
+      <window_info id="Message" active="false" anchor="bottom" auto_hide="false" internal_type="DOCKED" type="DOCKED" visible="false" show_stripe_button="true" weight="0.33" sideWeight="0.5" order="0" side_tool="false" content_ui="tabs" />
+      <window_info id="Commander" active="false" anchor="right" auto_hide="false" internal_type="DOCKED" type="DOCKED" visible="false" show_stripe_button="true" weight="0.4" sideWeight="0.5" order="0" side_tool="false" content_ui="tabs" />
+      <window_info id="Find" active="false" anchor="bottom" auto_hide="false" internal_type="DOCKED" type="DOCKED" visible="false" show_stripe_button="true" weight="0.33" sideWeight="0.5" order="1" side_tool="false" content_ui="tabs" />
+      <window_info id="Inspection" active="false" anchor="bottom" auto_hide="false" internal_type="DOCKED" type="DOCKED" visible="false" show_stripe_button="true" weight="0.4" sideWeight="0.5" order="5" side_tool="false" content_ui="tabs" />
+      <window_info id="Run" active="false" anchor="bottom" auto_hide="false" internal_type="DOCKED" type="DOCKED" visible="false" show_stripe_button="true" weight="0.33" sideWeight="0.5" order="2" side_tool="false" content_ui="tabs" />
       <window_info id="Ant Build" active="false" anchor="right" auto_hide="false" internal_type="DOCKED" type="DOCKED" visible="false" show_stripe_button="true" weight="0.25" sideWeight="0.5" order="1" side_tool="false" content_ui="tabs" />
+      <window_info id="Debug" active="false" anchor="bottom" auto_hide="false" internal_type="DOCKED" type="DOCKED" visible="false" show_stripe_button="true" weight="0.4" sideWeight="0.5" order="3" side_tool="false" content_ui="tabs" />
     </layout>
-  </component>
-  <component name="Vcs.Log.UiProperties">
-    <option name="RECENTLY_FILTERED_USER_GROUPS">
-      <collection />
-    </option>
-    <option name="RECENTLY_FILTERED_BRANCH_GROUPS">
-      <collection />
-    </option>
   </component>
   <component name="VcsContentAnnotationSettings">
     <option name="myLimit" value="2678400000" />
   </component>
   <component name="XDebuggerManager">
-    <breakpoint-manager>
-      <option name="time" value="2" />
-    </breakpoint-manager>
+    <breakpoint-manager />
     <watches-manager />
   </component>
   <component name="editorHistoryManager">
-    <entry file="file://$PROJECT_DIR$/stylesheet.css">
-      <provider selected="true" editor-type-id="text-editor">
-        <state relative-caret-position="0">
-          <caret line="0" column="0" selection-start-line="0" selection-start-column="0" selection-end-line="0" selection-end-column="0" />
-        </state>
-      </provider>
-    </entry>
-    <entry file="file://$PROJECT_DIR$/index.html">
-      <provider selected="true" editor-type-id="text-editor">
-        <state relative-caret-position="0">
-          <caret line="0" column="0" selection-start-line="0" selection-start-column="0" selection-end-line="0" selection-end-column="0" />
-          <folding />
-        </state>
-      </provider>
-    </entry>
-    <entry file="file://$PROJECT_DIR$/package.json">
-      <provider selected="true" editor-type-id="text-editor">
-        <state relative-caret-position="0">
-          <caret line="20" column="4" selection-start-line="20" selection-start-column="4" selection-end-line="20" selection-end-column="4" />
-        </state>
-      </provider>
-    </entry>
-    <entry file="file://$PROJECT_DIR$/node_modules/bootstrap/package.json">
-      <provider selected="true" editor-type-id="text-editor">
-        <state relative-caret-position="0">
-          <caret line="17" column="14" selection-start-line="17" selection-start-column="14" selection-end-line="17" selection-end-column="14" />
-        </state>
-      </provider>
-    </entry>
-    <entry file="file://$PROJECT_DIR$/app/mockData/mock-projects.js">
-      <provider selected="true" editor-type-id="text-editor">
-        <state relative-caret-position="0">
-          <caret line="14" column="41" selection-start-line="14" selection-start-column="41" selection-end-line="14" selection-end-column="41" />
-        </state>
-      </provider>
-    </entry>
-    <entry file="file://$PROJECT_DIR$/app/services/projectService.component.ts">
-      <provider selected="true" editor-type-id="text-editor">
-        <state relative-caret-position="0">
-          <caret line="8" column="1" selection-start-line="8" selection-start-column="1" selection-end-line="8" selection-end-column="1" />
-        </state>
-      </provider>
-    </entry>
-    <entry file="file://$PROJECT_DIR$/app/services/townService.component.ts">
-      <provider selected="true" editor-type-id="text-editor">
-        <state relative-caret-position="0">
-          <caret line="8" column="1" selection-start-line="8" selection-start-column="1" selection-end-line="8" selection-end-column="1" />
-        </state>
-      </provider>
-    </entry>
-    <entry file="file://$PROJECT_DIR$/app/components/subComponents/input/townSelector.component.ts">
-      <provider selected="true" editor-type-id="text-editor">
-        <state relative-caret-position="0">
-          <caret line="29" column="36" selection-start-line="29" selection-start-column="36" selection-end-line="29" selection-end-column="36" />
-          <folding>
-            <element signature="e#0#40#0" expanded="true" />
-            <marker date="1460657910632" expanded="true" signature="313:684" placeholder="..." />
-            <marker date="1460657910632" expanded="true" signature="400:673" placeholder="..." />
-            <marker date="1460657910632" expanded="true" signature="493:650" placeholder="..." />
-          </folding>
-        </state>
-      </provider>
-    </entry>
-    <entry file="file://$PROJECT_DIR$/app/components/subComponents/information/projectOverview.component.ts">
-      <provider selected="true" editor-type-id="text-editor">
-        <state relative-caret-position="0">
-          <caret line="30" column="5" selection-start-line="30" selection-start-column="5" selection-end-line="30" selection-end-column="5" />
-          <folding>
-            <marker date="1460642594606" expanded="true" signature="303:582" placeholder="..." />
-            <marker date="1460642594606" expanded="true" signature="351:471" placeholder="..." />
-          </folding>
-        </state>
-      </provider>
-    </entry>
-    <entry file="file://$PROJECT_DIR$/app/components/mainComponents/town.component.ts">
-      <provider selected="true" editor-type-id="text-editor">
-        <state relative-caret-position="0">
-          <caret line="22" column="1" selection-start-line="22" selection-start-column="1" selection-end-line="22" selection-end-column="1" />
-          <folding />
-        </state>
-      </provider>
-    </entry>
-    <entry file="file://$PROJECT_DIR$/app/components/mainComponents/project.component.ts">
-      <provider selected="true" editor-type-id="text-editor">
-        <state relative-caret-position="0">
-          <caret line="10" column="1" selection-start-line="10" selection-start-column="1" selection-end-line="10" selection-end-column="1" />
-          <folding />
-        </state>
-      </provider>
-    </entry>
-    <entry file="file://$PROJECT_DIR$/index.html">
-      <provider selected="true" editor-type-id="text-editor">
-        <state relative-caret-position="0">
-          <caret line="0" column="0" selection-start-line="0" selection-start-column="0" selection-end-line="0" selection-end-column="0" />
-          <folding />
-        </state>
-      </provider>
-    </entry>
-    <entry file="file://$PROJECT_DIR$/app/mockData/mock-projects.ts">
-      <provider selected="true" editor-type-id="text-editor">
-        <state relative-caret-position="0">
-          <caret line="7" column="2" selection-start-line="7" selection-start-column="2" selection-end-line="7" selection-end-column="2" />
-        </state>
-      </provider>
-    </entry>
-    <entry file="file://$PROJECT_DIR$/app/services/projectService.component.js">
-      <provider selected="true" editor-type-id="text-editor">
-        <state relative-caret-position="0">
-          <caret line="0" column="0" selection-start-line="0" selection-start-column="0" selection-end-line="0" selection-end-column="0" />
-        </state>
-      </provider>
-    </entry>
-    <entry file="file://$PROJECT_DIR$/app/models/project.ts">
-      <provider selected="true" editor-type-id="text-editor">
-        <state relative-caret-position="0">
-          <caret line="4" column="1" selection-start-line="4" selection-start-column="1" selection-end-line="4" selection-end-column="1" />
-        </state>
-      </provider>
-    </entry>
-    <entry file="file://$PROJECT_DIR$/node_modules/angular2/router/router_link_dsl.js">
-      <provider selected="true" editor-type-id="text-editor">
-        <state relative-caret-position="0">
-          <caret line="23" column="73" selection-start-line="23" selection-start-column="46" selection-end-line="23" selection-end-column="73" />
-        </state>
-      </provider>
-    </entry>
-    <entry file="file://$PROJECT_DIR$/app/components/mainComponents/home.component.js">
-      <provider selected="true" editor-type-id="text-editor">
-        <state relative-caret-position="0">
-          <caret line="0" column="0" selection-start-line="0" selection-start-column="0" selection-end-line="0" selection-end-column="0" />
-        </state>
-      </provider>
-    </entry>
-    <entry file="file://$PROJECT_DIR$/app/components/mainComponents/town.component.js">
-      <provider selected="true" editor-type-id="text-editor">
-        <state relative-caret-position="0">
-          <caret line="0" column="0" selection-start-line="0" selection-start-column="0" selection-end-line="0" selection-end-column="0" />
-        </state>
-      </provider>
-    </entry>
-    <entry file="file://$PROJECT_DIR$/app/components/mainComponents/home.component.js.map">
-      <provider editor-type-id="sourcemapFileViewerProvider">
-        <state />
-      </provider>
-      <provider selected="true" editor-type-id="text-editor">
-        <state relative-caret-position="0">
-          <caret line="0" column="0" selection-start-line="0" selection-start-column="0" selection-end-line="0" selection-end-column="0" />
-        </state>
-      </provider>
-    </entry>
-    <entry file="file://$PROJECT_DIR$/app/components/mainComponents/town.component.js.map">
-      <provider editor-type-id="sourcemapFileViewerProvider">
-        <state />
-      </provider>
-      <provider selected="true" editor-type-id="text-editor">
-        <state relative-caret-position="0">
-          <caret line="0" column="0" selection-start-line="0" selection-start-column="0" selection-end-line="0" selection-end-column="0" />
-        </state>
-      </provider>
-    </entry>
-    <entry file="file://$PROJECT_DIR$/app/components/mainComponents/townBudget.component.js">
-      <provider selected="true" editor-type-id="text-editor">
-        <state relative-caret-position="0">
-          <caret line="0" column="0" selection-start-line="0" selection-start-column="0" selection-end-line="0" selection-end-column="0" />
-        </state>
-      </provider>
-    </entry>
-    <entry file="file://$PROJECT_DIR$/app/components/mainComponents/townBudget.component.js.map">
-      <provider editor-type-id="sourcemapFileViewerProvider">
-        <state />
-      </provider>
-      <provider selected="true" editor-type-id="text-editor">
-        <state relative-caret-position="0">
-          <caret line="0" column="0" selection-start-line="0" selection-start-column="0" selection-end-line="0" selection-end-column="0" />
-        </state>
-      </provider>
-    </entry>
-    <entry file="file://$PROJECT_DIR$/app/services/townService.component.js">
-      <provider selected="true" editor-type-id="text-editor">
-        <state relative-caret-position="0">
-          <caret line="18" column="14" selection-start-line="18" selection-start-column="14" selection-end-line="18" selection-end-column="14" />
-        </state>
-      </provider>
-    </entry>
-    <entry file="file://$PROJECT_DIR$/app/services/projectService.component.js">
-      <provider selected="true" editor-type-id="text-editor">
-        <state relative-caret-position="0">
-          <caret line="0" column="0" selection-start-line="0" selection-start-column="0" selection-end-line="0" selection-end-column="0" />
-        </state>
-      </provider>
-    </entry>
-    <entry file="file://$PROJECT_DIR$/app/models/town.js">
-      <provider selected="true" editor-type-id="text-editor">
-        <state relative-caret-position="0">
-          <caret line="0" column="0" selection-start-line="0" selection-start-column="0" selection-end-line="0" selection-end-column="0" />
-        </state>
-      </provider>
-    </entry>
-    <entry file="file://$PROJECT_DIR$/app/mockData/mock-towns.js">
-      <provider selected="true" editor-type-id="text-editor">
-        <state relative-caret-position="0">
-          <caret line="0" column="0" selection-start-line="0" selection-start-column="0" selection-end-line="16" selection-end-column="38" />
-        </state>
-      </provider>
-    </entry>
-    <entry file="file://$PROJECT_DIR$/app/services/projectService.component.ts">
-      <provider selected="true" editor-type-id="text-editor">
-        <state relative-caret-position="0">
-          <caret line="10" column="31" selection-start-line="10" selection-start-column="31" selection-end-line="10" selection-end-column="31" />
-        </state>
-      </provider>
-    </entry>
-    <entry file="file://$PROJECT_DIR$/app/mockData/mock-projects.js">
-      <provider selected="true" editor-type-id="text-editor">
-        <state relative-caret-position="0">
-          <caret line="14" column="41" selection-start-line="14" selection-start-column="41" selection-end-line="14" selection-end-column="41" />
-        </state>
-      </provider>
-    </entry>
-    <entry file="file://$PROJECT_DIR$/node_modules/bootstrap/package.json">
-      <provider selected="true" editor-type-id="text-editor">
-        <state relative-caret-position="0">
-          <caret line="17" column="14" selection-start-line="17" selection-start-column="14" selection-end-line="17" selection-end-column="14" />
-        </state>
-      </provider>
-    </entry>
-    <entry file="file://$PROJECT_DIR$/node_modules/systemjs/index.js">
-      <provider selected="true" editor-type-id="text-editor">
-        <state relative-caret-position="0">
-          <caret line="30" column="0" selection-start-line="30" selection-start-column="0" selection-end-line="30" selection-end-column="0" />
-        </state>
-      </provider>
-    </entry>
-    <entry file="file://$PROJECT_DIR$/tsconfig.json">
-      <provider selected="true" editor-type-id="text-editor">
-        <state relative-caret-position="0">
-          <caret line="4" column="31" selection-start-line="4" selection-start-column="31" selection-end-line="4" selection-end-column="31" />
-          <folding />
-        </state>
-      </provider>
-    </entry>
-    <entry file="file://$PROJECT_DIR$/typings.json">
-      <provider selected="true" editor-type-id="text-editor">
-        <state relative-caret-position="0">
-          <caret line="5" column="1" selection-start-line="5" selection-start-column="1" selection-end-line="5" selection-end-column="1" />
-        </state>
-      </provider>
-    </entry>
-    <entry file="file://$PROJECT_DIR$/package.json">
-      <provider selected="true" editor-type-id="text-editor">
-        <state relative-caret-position="0">
-          <caret line="13" column="27" selection-start-line="13" selection-start-column="27" selection-end-line="13" selection-end-column="27" />
-        </state>
-      </provider>
-    </entry>
-    <entry file="file://$PROJECT_DIR$/app/components/subComponents/information/projectOverview.component.js">
-      <provider selected="true" editor-type-id="text-editor">
-        <state relative-caret-position="0">
-          <caret line="18" column="0" selection-start-line="18" selection-start-column="0" selection-end-line="18" selection-end-column="0" />
-        </state>
-      </provider>
-    </entry>
-    <entry file="file://$PROJECT_DIR$/stylesheet.css">
-      <provider selected="true" editor-type-id="text-editor">
-        <state relative-caret-position="17">
-          <caret line="79" column="1" selection-start-line="79" selection-start-column="1" selection-end-line="79" selection-end-column="1" />
-        </state>
-      </provider>
-    </entry>
-    <entry file="file://$PROJECT_DIR$/app/mockData/mock-projects.ts">
-      <provider selected="true" editor-type-id="text-editor">
-        <state relative-caret-position="153">
-          <caret line="9" column="2" selection-start-line="9" selection-start-column="2" selection-end-line="9" selection-end-column="2" />
-        </state>
-      </provider>
-    </entry>
-    <entry file="file://$PROJECT_DIR$/app/components/subComponents/information/projectOverview.component.ts">
-      <provider selected="true" editor-type-id="text-editor">
-        <state relative-caret-position="102">
-          <caret line="8" column="35" selection-start-line="8" selection-start-column="35" selection-end-line="8" selection-end-column="35" />
-          <folding>
-<<<<<<< HEAD
-            <marker date="1460642594606" expanded="true" signature="303:582" placeholder="..." />
-            <marker date="1460642594606" expanded="true" signature="351:471" placeholder="..." />
-          </folding>
-        </state>
-      </provider>
-    </entry>
-    <entry file="file://$PROJECT_DIR$/app/components/subComponents/input/townSelector.component.js">
-      <provider selected="true" editor-type-id="text-editor">
-        <state relative-caret-position="17">
-          <caret line="13" column="0" selection-start-line="13" selection-start-column="0" selection-end-line="13" selection-end-column="0" />
-          <folding />
-        </state>
-      </provider>
-    </entry>
-    <entry file="file://$PROJECT_DIR$/app/models/project.ts">
-      <provider selected="true" editor-type-id="text-editor">
-        <state relative-caret-position="102">
-          <caret line="6" column="1" selection-start-line="6" selection-start-column="1" selection-end-line="6" selection-end-column="1" />
-=======
-            <marker date="1460642789000" expanded="true" signature="2858:2868" placeholder="{...}" />
-          </folding>
->>>>>>> 4fe233ada15512976acfb5a956f8761b29e11fa1
-        </state>
-      </provider>
-    </entry>
-    <entry file="file://$PROJECT_DIR$/app/components/mainComponents/townBudget.component.ts">
-      <provider selected="true" editor-type-id="text-editor">
-        <state relative-caret-position="153">
-          <caret line="9" column="1" selection-start-line="9" selection-start-column="1" selection-end-line="9" selection-end-column="1" />
-        </state>
-      </provider>
-    </entry>
-    <entry file="file://$PROJECT_DIR$/app/components/mainComponents/project.component.ts">
-      <provider selected="true" editor-type-id="text-editor">
-        <state relative-caret-position="323">
-          <caret line="21" column="57" selection-start-line="21" selection-start-column="57" selection-end-line="21" selection-end-column="57" />
-          <folding />
-        </state>
-      </provider>
-    </entry>
-    <entry file="file://$PROJECT_DIR$/app/components/mainComponents/town.component.ts">
-      <provider selected="true" editor-type-id="text-editor">
-        <state relative-caret-position="340">
-          <caret line="22" column="1" selection-start-line="22" selection-start-column="1" selection-end-line="22" selection-end-column="1" />
-          <folding />
-        </state>
-      </provider>
-    </entry>
-    <entry file="file://$PROJECT_DIR$/app/components/subComponents/input/townSelector.component.js.map">
-      <provider editor-type-id="sourcemapFileViewerProvider">
-        <state />
-      </provider>
-      <provider selected="true" editor-type-id="text-editor">
-        <state relative-caret-position="0">
-          <caret line="0" column="98" selection-start-line="0" selection-start-column="98" selection-end-line="0" selection-end-column="98" />
-        </state>
-      </provider>
-    </entry>
-    <entry file="file://$PROJECT_DIR$/index.html">
-      <provider selected="true" editor-type-id="text-editor">
-        <state relative-caret-position="714">
-          <caret line="42" column="13" selection-start-line="42" selection-start-column="13" selection-end-line="42" selection-end-column="13" />
-          <folding />
-        </state>
-      </provider>
-    </entry>
-    <entry file="file://$PROJECT_DIR$/app/main.ts">
-      <provider selected="true" editor-type-id="text-editor">
-        <state relative-caret-position="34">
-          <caret line="2" column="45" selection-start-line="2" selection-start-column="45" selection-end-line="2" selection-end-column="45" />
-          <folding />
-        </state>
-      </provider>
-    </entry>
-    <entry file="file://$PROJECT_DIR$/app/mockData/mock-towns.ts">
-      <provider selected="true" editor-type-id="text-editor">
-        <state relative-caret-position="153">
-          <caret line="9" column="0" selection-start-line="9" selection-start-column="0" selection-end-line="9" selection-end-column="0" />
-          <folding />
-        </state>
-      </provider>
-    </entry>
-    <entry file="file://$PROJECT_DIR$/app/models/town.ts">
-      <provider selected="true" editor-type-id="text-editor">
-        <state relative-caret-position="17">
-          <caret line="1" column="22" selection-start-line="1" selection-start-column="22" selection-end-line="1" selection-end-column="22" />
-          <folding />
-        </state>
-      </provider>
-    </entry>
-    <entry file="file://$PROJECT_DIR$/app/components/subComponents/input/townSelector.component.ts">
-      <provider selected="true" editor-type-id="text-editor">
-        <state relative-caret-position="443">
-          <caret line="27" column="9" selection-start-line="27" selection-start-column="9" selection-end-line="27" selection-end-column="9" />
-          <folding>
-<<<<<<< HEAD
-            <element signature="e#0#40#0" expanded="true" />
-            <marker date="1460657910632" expanded="true" signature="313:684" placeholder="..." />
-            <marker date="1460657910632" expanded="true" signature="400:673" placeholder="..." />
-            <marker date="1460657910632" expanded="true" signature="493:650" placeholder="..." />
-=======
-            <marker date="1460642789000" expanded="true" signature="2978:3061" placeholder="{...}" />
-            <marker date="1460642789000" expanded="true" signature="2978:3067" placeholder="{...}" />
-            <marker date="1460642789000" expanded="true" signature="2978:3069" placeholder="{...}" />
->>>>>>> 4fe233ada15512976acfb5a956f8761b29e11fa1
-          </folding>
-        </state>
-      </provider>
-    </entry>
-    <entry file="file://$PROJECT_DIR$/app/app.component.ts">
-      <provider selected="true" editor-type-id="text-editor">
-        <state relative-caret-position="17">
-          <caret line="6" column="0" selection-start-line="6" selection-start-column="0" selection-end-line="6" selection-end-column="0" />
-          <folding>
-            <element signature="e#0#40#0" expanded="true" />
-            <marker date="1460644141021" expanded="true" signature="567:739" placeholder="..." />
-            <marker date="1460644141021" expanded="true" signature="645:731" placeholder="..." />
-            <marker date="1460644141021" expanded="true" signature="769:884" placeholder="..." />
-          </folding>
-        </state>
-      </provider>
-    </entry>
     <entry file="file://$PROJECT_DIR$/app/components/mainComponents/home.component.ts">
-<<<<<<< HEAD
-      <provider selected="true" editor-type-id="text-editor">
-        <state relative-caret-position="119">
-          <caret line="9" column="0" selection-start-line="9" selection-start-column="0" selection-end-line="9" selection-end-column="0" />
-          <folding>
-            <marker date="1460642594586" expanded="true" signature="348:727" placeholder="..." />
-            <marker date="1460642594586" expanded="true" signature="439:715" placeholder="..." />
-            <marker date="1460642594586" expanded="true" signature="772:877" placeholder="..." />
-            <marker date="1460642594586" expanded="true" signature="914:971" placeholder="..." />
-=======
       <provider selected="true" editor-type-id="text-editor">
         <state vertical-scroll-proportion="0.0">
-          <caret line="9" column="0" selection-start-line="9" selection-start-column="0" selection-end-line="9" selection-end-column="0" />
+          <caret line="0" column="0" selection-start-line="0" selection-start-column="0" selection-end-line="0" selection-end-column="0" />
           <folding>
-            <marker date="1460565183000" expanded="true" signature="348:727" placeholder="..." />
-            <marker date="1460565183000" expanded="true" signature="439:715" placeholder="..." />
-            <marker date="1460565183000" expanded="true" signature="772:877" placeholder="..." />
-            <marker date="1460565183000" expanded="true" signature="914:971" placeholder="..." />
+            <marker date="1463208654084" expanded="true" signature="479:885" placeholder="..." />
+            <marker date="1463208654084" expanded="true" signature="599:873" placeholder="..." />
+            <marker date="1463208654084" expanded="true" signature="930:1331" placeholder="..." />
+            <marker date="1463208654084" expanded="true" signature="1036:1320" placeholder="..." />
           </folding>
         </state>
       </provider>
     </entry>
-    <entry file="file://$PROJECT_DIR$/app/main.ts">
+    <entry file="file://$PROJECT_DIR$/app/components/mainComponents/Login/login.component.ts">
       <provider selected="true" editor-type-id="text-editor">
-        <state vertical-scroll-proportion="0.0">
-          <caret line="9" column="55" selection-start-line="9" selection-start-column="55" selection-end-line="9" selection-end-column="55" />
-          <folding />
-        </state>
-      </provider>
-    </entry>
-    <entry file="file://$PROJECT_DIR$/app/app.component.ts">
-      <provider selected="true" editor-type-id="text-editor">
-        <state vertical-scroll-proportion="0.0">
-          <caret line="40" column="1" selection-start-line="40" selection-start-column="1" selection-end-line="40" selection-end-column="1" />
+        <state vertical-scroll-proportion="0.62229615">
+          <caret line="22" column="0" selection-start-line="22" selection-start-column="0" selection-end-line="22" selection-end-column="0" />
           <folding>
-            <marker date="1460642705000" expanded="true" signature="566:738" placeholder="..." />
-            <marker date="1460642705000" expanded="true" signature="644:730" placeholder="..." />
-            <marker date="1460642705000" expanded="true" signature="768:883" placeholder="..." />
->>>>>>> 4fe233ada15512976acfb5a956f8761b29e11fa1
+            <element signature="n#!!doc" expanded="true" />
+            <marker date="1463216795110" expanded="true" signature="699:1270" placeholder="..." />
+            <marker date="1463216795110" expanded="true" signature="1150:1252" placeholder="..." />
+            <marker date="1463216795110" expanded="true" signature="1317:1844" placeholder="..." />
           </folding>
-        </state>
-      </provider>
-    </entry>
-    <entry file="file://$PROJECT_DIR$/app/services/townService.component.ts">
-      <provider selected="true" editor-type-id="text-editor">
-<<<<<<< HEAD
-        <state relative-caret-position="425">
-          <caret line="28" column="18" selection-start-line="28" selection-start-column="18" selection-end-line="28" selection-end-column="18" />
-          <folding>
-            <element signature="e#0#41#0" expanded="true" />
-          </folding>
-=======
-        <state vertical-scroll-proportion="0.9031532">
-          <caret line="135" column="16" selection-start-line="135" selection-start-column="16" selection-end-line="135" selection-end-column="16" />
-          <folding />
->>>>>>> 4fe233ada15512976acfb5a956f8761b29e11fa1
         </state>
       </provider>
     </entry>
