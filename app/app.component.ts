@@ -10,13 +10,9 @@ import {RegisterComponent} from "./components/mainComponents/Login/register.comp
     template: `
     <div class="menu">
         <img class="logo" src="/app/images/logo.png"/>
-        <span class="pull-xs-right">
-            <a class="signIn"[routerLink]="['Register']">Registreer</a>|
-            <a class="signIn" [routerLink]="['Login']">Log in</a>
-        </span>
-        
-        <span class="pull-xs-right" id="social">
-        
+        <div class="rightblock">
+
+        <span  id="social">
             <span id="titelSocial"> Deel deze website</span>
             <!-- twitter-->
              <a href="http://twitter.com/share?url=http://begrotingwebapi.azurewebsites.net&text=De begroting: Ik doe mee!" 
@@ -41,48 +37,58 @@ import {RegisterComponent} from "./components/mainComponents/Login/register.comp
                 <img src="/app/images/social_media/googlePlus.jpg" width="40px" height="40px">
             </a>
         </span>
+
+        <span id="registration">
+            <a class="signIn"[routerLink]="['Register']">Registreer</a>|
+            <a class="signIn" [routerLink]="['Login']">Log in</a>
+        </span>
+        </div>
     </div>
                 <router-outlet></router-outlet>    
                 `,
     directives: [ROUTER_DIRECTIVES],
     providers: [
         ROUTER_PROVIDERS, HTTP_PROVIDERS ], //routing    ],
-    styles: [`.menu {
-    background-color: black;
-    color:white;
-    padding: 20px;
-    text-align: left;
-}
+    styles: [`
 
-.logo {
-    width: 150px;
-    margin: 0 auto;
+    .menu {
+        background-color: black;
+        color:white;
+        padding: 20px;
+        text-align: left;
+    }
 
-}
-#social:last-child {
-padding-right: 3%;
-padding-top: 30px;
-}
-#titelSocial{
-padding-right: 10px;
-}
+    .rightblock {
+        margin-top: 30px;
+        float: right;
+    }
 
-.socialBtn:hover{
-text-decoration: none;
-}
+    .logo {
+        width: 150px;
+        margin: 0 auto;
+    }
 
-.socialBtn img {
-border-radius: 50%;
-width: 30px;
-height: 30px;
-}
+    #titelSocial{
+        padding-right: 10px;
+    }
 
-.signIn  {
-    color:white;
-    padding:10px;
-}
+    .socialBtn:hover{
+        text-decoration: none;
+    }
 
-`]
+    .socialBtn img {
+        border-radius: 50%;
+        width: 30px;
+        height: 30px;
+    }
+
+    .signIn  {
+        color:white;
+        padding:10px;
+    }
+
+
+    `]
 })
 
 @RouteConfig([

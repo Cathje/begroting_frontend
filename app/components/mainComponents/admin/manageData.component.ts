@@ -8,26 +8,38 @@ import {MainTown} from "../../../models/mainTown.js";
 @Component({ //invoke with metadata object
     selector: 'manage-data-container',
     template: `
-    <section class="container">
+<section class="container">
     <h1>Beheer informatie</h1>
     <section class="col-xs-12">
         <h3>Demografische gegevens</h3>
-<div>
-                        <label class="col-xs-12 col-sm-3">Aantal bewoners</label>
-                        <input class="col-xs-12 col-sm-3"type="number" [(ngModel)]="mainTown.aantalBewoners"/>
-</div>
-<div>
-                        <label class="col-xs-12 col-sm-3">Aantal vrouwen</label>
-                        <input class="col-xs-12 col-sm-3" type="number" [(ngModel)]="mainTown.isVrouw"/>
-</div>
-<div>
-                        <label class="col-xs-12 col-sm-3">Aantal mannen</label>
-                       <input class="col-xs-12 col-sm-3" type="number" [(ngModel)]="mainTown.isMan"/>
-</div>
-<div>
-                        <label class="col-xs-12 col-sm-3">Aantal kinderen</label>
-                        <input class="col-xs-12 col-sm-3" type="number" [(ngModel)]="mainTown.isKind"/>
-  </div>
+        <div class="col-xs-12 col-sm-6 input-group">
+            <label >Aantal bewoners</label>
+             <div  class="input-group-addon">
+                 <img class='icon' src="/app/images/icons/population.png">
+              </div>
+             <input type="number" [(ngModel)]="mainTown.aantalBewoners"/>
+        </div>
+        <div class="col-xs-12 col-sm-6 input-group">
+                        <label >Aantal vrouwen</label>
+                        <div  class="input-group-addon">
+                            <img class='icon' src="/app/images/icons/woman.png">
+                        </div>
+                        <input  type="number" [(ngModel)]="mainTown.isVrouw"/>
+        </div>
+        <div class="col-xs-12 col-sm-6 input-group">
+                        <label >Aantal mannen</label>
+                        <div  class="input-group-addon">
+                            <img class='icon' src="/app/images/icons/man.png">
+                        </div>
+                       <input type="number" [(ngModel)]="mainTown.isMan"/>
+        </div>
+        <div class="col-xs-12 col-sm-6 input-group">
+                        <label >Aantal kinderen</label>
+                        <div  class="input-group-addon">
+                            <img class='icon' src="/app/images/icons/child.png">
+                        </div>
+                        <input type="number" [(ngModel)]="mainTown.isKind"/>
+        </div>
                         <!-- @TODO uitzoeken hoe bestuur enkel wordt aangepast in backend en niet opnieuw wordt weggeschreven -->
                      <!--    <h4>Bestuur: </h4>
                         <ul *ngIf="mainTown?.bestuur" >
@@ -41,44 +53,60 @@ import {MainTown} from "../../../models/mainTown.js";
                         <option *ngFor="#t of types" [value]="t">{{t}}</option>
                          </select> -->
     </section>
+
     <section class="col-xs-12">
-  <h2>Geografische gegevens</h2>
-  <div>
-                     <label class="col-xs-12 col-sm-3">Provincie:</label>
-                     <span class="col-xs-12 col-sm-3">{{mainTown.provincie}}</span>
-</div>
-<div>
-                     <label class="col-xs-12 col-sm-3">Oppervlakte:</label>
-                     <input class="col-xs-12 col-sm-3" type="number" [(ngModel)]="mainTown.oppervlakte"/>
-                     </div><div>
-                     <label class="col-xs-12 col-sm-3">Oppervlaktemaat:</label>
-                     <input class="col-xs-12 col-sm-3" type="text" [(ngModel)]="mainTown.oppervlakteMaat"/>
-                     </div>
-                     <div>
-                    <label class="col-xs-12 col-sm-3">Deelgemeenten: </label>
+        <h3>Geografische gegevens</h3>
+        <div class="col-xs-12 col-sm-12 input-group">
+                     <label>Provincie:</label>
+                     <span>{{mainTown.provincie}}</span>
+        </div>
+        <div class="col-xs-12 col-sm-6 input-group">
+                     <label>Oppervlakte:</label>
+                     <input  type="number" [(ngModel)]="mainTown.oppervlakte"/>
+        </div>
+        <div class="col-xs-12 col-sm-6 input-group">
+                     <label >Oppervlaktemaat:</label>
+                     <input type="text" [(ngModel)]="mainTown.oppervlakteMaat"/>
+        </div>
+        <div class="col-xs-12 col-sm-6 input-group">
+                    <label>Deelgemeenten: </label>
                         <ul *ngIf="mainTown?.deelGemeenten" >
                             <li *ngFor="#town of mainTown.deelGemeenten"><span>{{town.naam}} - {{town.postCode}}</span></li>
                         </ul>
                         <p *ngIf="!mainTown.deelGemeenten"><i>Er zijn geen deelgemeentes</i></p>
-                   </div>
-                    <button class="btn btn-primary pull-xs-right" (click)="submit()">opslaan</button>
-                    </section>
+        </div>
+    </section>
+    <section class="col-xs-12">
+        <button class="btn btn-primary pull-right" (click)="submit()">opslaan</button>
+    </section>
 </section>
 `,
     providers: [TownService],
     directives: [ROUTER_DIRECTIVES, TownSelectorComponent],
     styles: [`
+
+    .icon {
+        width: 13px;
+    }
     label{
         text-align: left;
+        width: 120px;
+        background-color:white;
     }
     section div {
-        margin: 5px;
+        padding: 5px;
+        box-sizing: border-box;
     }
-    section {
-        display: flex;
-        flex-direction: column;
-        justify-content: flex-start;
-        align-content: left;
+
+    .input-group {
+        float: left;
+    }
+
+    input {
+        text-align: center;
+        border: 1px solid lightgray;
+        height: 30px;
+        width: 100%;
     }
 
     button {

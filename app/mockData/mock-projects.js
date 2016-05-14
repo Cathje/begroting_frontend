@@ -1,6 +1,4 @@
-System.register(["../models/project.js"], function(exports_1, context_1) {
-    "use strict";
-    var __moduleName = context_1 && context_1.id;
+System.register(["../models/project.js"], function(exports_1) {
     var project_js_1;
     var PROJECTS;
     return {
