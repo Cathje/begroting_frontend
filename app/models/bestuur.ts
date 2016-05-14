@@ -9,9 +9,10 @@ export class Bestuur{
     naam:string;
     type:PoliticusType;
     
-    constructor(naam:string)
+    constructor(naam: string, type:PoliticusType)
     {
+        this.PoliticusId= 0;
         this.naam = naam;
-        this.type= PoliticusType.Schepen;
+        this.type= type;
     }
 }

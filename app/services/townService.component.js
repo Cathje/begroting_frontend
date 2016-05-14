@@ -53,6 +53,11 @@ System.register(['angular2/core', 'angular2/http', 'rxjs/observable.js', 'rxjs/R
                     headers.append('Content-Type', 'application/json');
                     return this.http.put(this._url, JSON.stringify(maintown), { headers: headers }).map(function (res) { return res.json(); });
                 };
+                TownService.prototype.deleteBestuurslid = function (id) {
+                    return this.http.delete(this._url + "/" + id)
+                        .map(function (res) { return res.json(); })
+                        .catch(this.handleError);
+                };
                 TownService.prototype.handleError = function (error) {
                     console.error(error);
                     return observable_js_1.Observable.throw(error.json().error || 'server error');

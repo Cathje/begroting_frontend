@@ -38,6 +38,13 @@ export class TownService {
             ,{headers:headers}).map((res:Response) => res.json());
 
     }
+    
+    public deleteBestuurslid(id:number)
+    {
+        return this.http.delete(this._url + "/" + id)
+            .map(res => res.json())
+            .catch(this.handleError);
+    }
 
     private handleError(error: Response)
     {
