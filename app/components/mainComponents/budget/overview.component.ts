@@ -18,10 +18,11 @@ import {GemeenteCategorie} from "../../../models/gemeenteCategorie";
 @Component({ //invoke with metadata object
     selector: 'overview-container',
     template: `
+        <div class="overview-container">
         <div class="container">
         <div class="intro col-xs-12">
-            <h1>Overzicht {{mainTown?.naam}}</h1>
-            <p>Hier komt een paragraaf.Similiquecilis est et expedita distinctio. Nam libero tempore, cum soluta nobis est eligendi optio cumque nihil impedit quo minus id quod maxime placeat facere possimus, omnis voluptas assumenda est, omnis dolor repellendus. Temporibus autem quibusdam et</p>
+            <h1>Dashboard {{mainTown?.naam}}</h1>
+            <p>Welkom op het online platform van {{mainTown?.naam}}. Hieronder vind u een overzicht met de belangrijkste informatie over de gemeente {{mainTown?.naam}}. Klik op een widget van uw keuze om meer informatie te verkrijgen rond een specifiek onderwerp.</p>
         </div>
 
         <section class="col-xs-12 col-sm-5">
@@ -56,12 +57,20 @@ import {GemeenteCategorie} from "../../../models/gemeenteCategorie";
         </section>
 
        </div>
+       </div>
 `,
     directives: [TownSelectorComponent, EditableFieldComponent, SunburstComponent,ROUTER_DIRECTIVES],
     providers: [ BegrotingService,ActieService,
         TownService,  //routing
     ],
     styles: [`
+
+    .overview-container {
+       background-color: #f2f3f8;
+    }
+
+    .container {
+    }
 
     .icon {
     max-width: 300px;
@@ -190,9 +199,10 @@ import {GemeenteCategorie} from "../../../models/gemeenteCategorie";
     }
 
     section {
-    height: 400px;
-    border: 1px solid black;
-    margin: 20px;
+        height: 400px;
+        margin: 20px;
+        background-color: white;
+        box-shadow: 3px 3px 3px lightgray;
     }
 
     

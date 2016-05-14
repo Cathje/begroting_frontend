@@ -66,6 +66,10 @@ import {TownSelectorComponent} from '../input/townSelector.component.js';
 
     `,
     styles:[`
+    .navbar {
+        margin-bottom: 0;
+    }
+
     .navbar-default {
     padding: 5px;
     background-color: #2ac7d2;

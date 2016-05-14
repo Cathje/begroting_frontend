@@ -27,18 +27,19 @@ import {GemeenteCategorie} from "../../../models/gemeenteCategorie";
         <section class="demographic col-xs-12 col-sm-12">
         <h2>Demografische gegevens</h2>
                     <div class="col-xs-12 col-sm-6 col-md-3">
-s                        <h4>Aantal bewoners</h4>
+                         <img class='icon' src="/app/images/icons/population.png">
+                        <h4>Aantal bewoners</h4>
                         <editable-field [isEditable]="isEditor" [data]="mainTown.aantalBewoners"></editable-field>
-                    </div>
-                    <div class="col-xs-12 col-sm-6 col-md-3">
-                        <img class='icon' src="/app/images/icons/woman.png">
-                        <h4>Aantal vrouwen</h4>
-                        <editable-field [isEditable]="isEditor" [data]="mainTown.isVrouw"></editable-field>
                     </div>
                     <div class="col-xs-12 col-sm-6 col-md-3">
                         <img class='icon' src="/app/images/icons/man.png">
                         <h4>Aantal mannen</h4>
                         <editable-field [isEditable]="isEditor" [data]="mainTown.isMan"></editable-field>
+                    </div>
+                    <div class="col-xs-12 col-sm-6 col-md-3">
+                        <img class='icon' src="/app/images/icons/woman.png">
+                        <h4>Aantal vrouwen</h4>
+                        <editable-field [isEditable]="isEditor" [data]="mainTown.isVrouw"></editable-field>
                     </div>
                     <div class="col-xs-12 col-sm-6 col-md-3">
                         <img class='icon' src="/app/images/icons/child.png">
