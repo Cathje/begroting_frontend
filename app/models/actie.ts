@@ -1,4 +1,4 @@
-import {InspraakNiveau} from "./inspraakNiveau.js";
+
 /**
  * Created by nadya on 30/04/2016.
  */
@@ -7,6 +7,6 @@ export class Actie {
     actieKort:string;
     actieLang:string;
     uitgaven:number;
-    inspraakNiveau: InspraakNiveau;
+    inspraakNiveau: number;
 
 }

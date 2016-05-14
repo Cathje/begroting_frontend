@@ -19,12 +19,7 @@ export class ActieService {
     //private _url = 'http://localhost:52597/api/Actie/';
 
 
-    getActies(id:number): Observable<Actie[]>
-    {
-        return this.http.get(this._url + id)
-            .map(res => res.json())
-            .catch(this.handleError);
-    }
+   
 
     private handleError(error: Response)
     {

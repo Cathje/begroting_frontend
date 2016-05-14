@@ -52,14 +52,17 @@ System.register(['angular2/core', 'angular2/router', "../../../pipes/keysPipe.js
                     this.projectScene = projectScenario_js_1.ProjectScenario;
                     this.project = new project_js_1.Project("");
                     this.town = "Gent";
-                    _projectService.getInspraakcategorieen(2020, "Gent")
+                    _projectService.getInspraakitems(2020, "Gent")
                         .subscribe(function (finan) { return _this.categorieen = finan; });
                 }
                 ManageProjectComponent.prototype.ngOnInit = function () {
                     var number = this._routeParams.get('projectNumber');
                 };
-                ManageProjectComponent.prototype.onSelectNiveau = function (event, i) {
+                ManageProjectComponent.prototype.onSelectCatNiveau = function (event, i) {
                     this.categorieen[i].inspraakNiveau = event.target.value;
+                };
+                ManageProjectComponent.prototype.onSelectActieNiveau = function (event, i, j) {
+                    this.categorieen[i].acties[j].inspraakNiveau = event.target.value;
                 };
                 ManageProjectComponent.prototype.onSelectScenario = function (event) {
                     this.project.projectScenario = event.target.value;
@@ -72,11 +75,12 @@ System.register(['angular2/core', 'angular2/router', "../../../pipes/keysPipe.js
                 ManageProjectComponent = __decorate([
                     core_1.Component({
                         selector: 'manage-project-container',
-                        template: "\n    <div class=\"container\">\n    <h2>Beheer project</h2><h4>Titel:</h4>\n     \n     <input type=\"text\" [(ngModel)]=\"project.titel\"/>\n     <h4>boekjaar:</h4>\n     <input type=\"number\" [(ngModel)]=\"project.boekjaar\"/>\n     <h4>gemeente:</h4>\n     <input type=\"text\" [(ngModel)]=\"project.gemeente\"/>\n     <h4>vraag:</h4>\n     <input type=\"text\" [(ngModel)]=\"project.vraag\"/>\n     <h4>ProjectScenario:</h4>\n     <p>{{project.projectScenario}}</p>\n     <select (change)=\"onSelectScenario($event)\">\n                        <option *ngFor=\"#t of projectScene | keys\" [value]=\"t.key\">{{t.value}}</option>\n                         </select>\n     <h4>extraInfo:</h4>\n     <input type=\"text\" [(ngModel)]=\"project.extraInfo\"/>  <!--@TODO wijzigen naar textarea -->\n     <h4>Bedrag:</h4>\n     <input type=\"number\" [(ngModel)]=\"project.bedrag\"/>\n    \n    \n    <h2>InspraakNiveaus vaststellen</h2>\n             <div *ngFor=\"#cat of categorieen #i = index\"> \n                <h5>categorie: {{cat.naamCatz}}</h5>\n                <p>totaal: {{cat.totaal}}</p>\n                <p>InspraakNiveau: {{niveaus[cat.inspraakNiveau]}}</p>\n                <select (change)=\"onSelectNiveau($event, i)\">\n                        <option *ngFor=\"#t of niveaus | keys\" [value]=\"t.key\">{{t.value}}</option>\n                         </select>\n                </div>\n                \n                <button (click)=\"submit()\">opslaan</button>\n              \n</div>\n",
+                        template: "\n<div class=\"container\">\n    <h2>Beheer project</h2><h4>Titel:</h4>\n     \n     <input type=\"text\" [(ngModel)]=\"project.titel\"/>\n     <h4>boekjaar:</h4>\n     <input type=\"number\" [(ngModel)]=\"project.boekjaar\"/>\n     <h4>gemeente:</h4>\n     <input type=\"text\" [(ngModel)]=\"project.gemeente\"/>\n     <h4>vraag:</h4>\n     <input type=\"text\" [(ngModel)]=\"project.vraag\"/>\n     <h4>ProjectScenario:</h4>\n     <p>{{project.projectScenario}}</p>\n                <select (change)=\"onSelectScenario($event)\">\n                        <option *ngFor=\"#t of projectScene | keys\" [value]=\"t.key\">{{t.value}}</option>\n                 </select>\n     <h4>extraInfo:</h4>\n     <input type=\"text\" [(ngModel)]=\"project.extraInfo\"/>  <!--@TODO wijzigen naar textarea -->\n     <h4>Bedrag:</h4>\n     <input type=\"number\" [(ngModel)]=\"project.bedrag\"/>\n    \n    \n    <h2>InspraakNiveaus vaststellen</h2>\n             <div *ngFor=\"#cat of categorieen #i = index\"> \n                <h5>categorie: {{cat.naamCatz}}</h5>\n                <p>totaal: {{cat.totaal}}</p>\n                <p>InspraakNiveau: {{niveaus[cat.inspraakNiveau]}}</p>\n                \n                <select (change)=\"onSelectCatNiveau($event, i)\">\n                        <option *ngFor=\"#t of niveaus | keys\" [value]=\"t.key\">{{t.value}}</option>\n                         </select>\n                    <br>    \n                         <div class=\"acties\" *ngFor=\"#ac of cat.acties #j = index\"> \n                            <h5>Actie: {{ac.actieKort}} - {{ac.actieLang}}</h5>\n                            <p> uitgave: {{ac.uitgaven}}</p>\n                            <select (change)=\"onSelectActieNiveau($event,i,j)\">\n                                <option *ngFor=\"#t of niveaus | keys\" [value]=\"t.key\">{{t.value}}</option>\n                            </select>\n                         <div>\n                    </div> \n            </div> \n                               <br><br>\n\n</div>\n   <button (click)=\"submit()\">opslaan</button>           \n</div>\n",
                         directives: [router_1.ROUTER_DIRECTIVES, menu_component_js_1.NavigationMenuComponent],
                         providers: [projectService_component_js_1.ProjectService, ActieService_js_1.ActieService //routing
                         ],
-                        pipes: [keysPipe_js_1.KeysPipe]
+                        pipes: [keysPipe_js_1.KeysPipe],
+                        styles: ["\n .acties{\n \n    padding-left: 4em; \n }\n \n "]
                     }), 
                     __metadata('design:paramtypes', [router_1.RouteParams, (typeof (_a = typeof projectService_component_js_1.ProjectService !== 'undefined' && projectService_component_js_1.ProjectService) === 'function' && _a) || Object, router_1.Router])
                 ], ManageProjectComponent);

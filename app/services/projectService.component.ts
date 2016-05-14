@@ -2,9 +2,10 @@ import {Injectable} from 'angular2/core';
 import {Http, Response, Headers}  from 'angular2/http';
 import {Observable} from 'rxjs/observable';
 import 'rxjs/Rx';
-import {InspraakCategorie} from "../models/dto/inspraakCategorieDTO.js";
 import {PROJECTS} from "../mockData/mock-projects.js";
 import {Project} from "../models/project.js";
+import {GemeenteCategorie} from "../models/gemeenteCategorie.js";
+import {InspraakCategorie} from "../models/dto/inspraakCategorieDTO";
 
 
 
@@ -19,8 +20,8 @@ export class ProjectService
     private _url = 'http://localhost:52597/api/Begroting';
     private _url2 = 'http://localhost:52597/api/Project';
 
-    getInspraakcategorieen(jaar:number, naam:string):Observable<InspraakCategorie[]> {
-        return this.http.get(this._url + "?jaar=" + jaar + "&naam=" + naam)
+    getInspraakitems(jaar:number, naam:string):Observable<GemeenteCategorie[]> {
+        return this.http.get(this._url2 + "?jaar=" + jaar + "&naam=" + naam)
             .map(res => res.json());
     }
 

@@ -9,9 +9,9 @@ System.register([], function(exports_1, context_1) {
         setters:[],
         execute: function() {
             (function (InspraakNiveau) {
-                InspraakNiveau[InspraakNiveau["Auto"] = 0] = "Auto";
-                InspraakNiveau[InspraakNiveau["Gelockt"] = 1] = "Gelockt";
-                InspraakNiveau[InspraakNiveau["Open"] = 2] = "Open";
+                InspraakNiveau[InspraakNiveau["Auto"] = 1] = "Auto";
+                InspraakNiveau[InspraakNiveau["Gelockt"] = 2] = "Gelockt";
+                InspraakNiveau[InspraakNiveau["Open"] = 3] = "Open";
             })(InspraakNiveau || (InspraakNiveau = {}));
             exports_1("InspraakNiveau", InspraakNiveau);
         }

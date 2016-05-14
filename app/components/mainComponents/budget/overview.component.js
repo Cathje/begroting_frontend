@@ -49,6 +49,7 @@ System.register(['angular2/core', './../../../services/townService.component.js'
                 function OverviewComponent(_townService, _begrotingService, _actieService, http, params, injector, _router) {
                     var _this = this;
                     this._townService = _townService;
+                    this._begrotingService = _begrotingService;
                     this.http = http;
                     this._router = _router;
                     this.title = 'Gemeente - home';
@@ -59,15 +60,15 @@ System.register(['angular2/core', './../../../services/townService.component.js'
                     this.contentbutton = "meer info";
                     this.showActions = false;
                     this.isEditor = false; //TODO: adapt value when signed in with special role
-                    this.categories = [{ ID: "0990", naamCatx: "Algemene financiering", naamCaty: "Algemene financiering", naamCatz: "Financiële aangelegenheden", totaal: 22781 },
-                        { ID: "0991", naamCatx: "Algemene financiering", naamCaty: "Algemene financiering", naamCatz: "Patrimonium zonder maatschappelijk doel", totaal: 281 },
-                        { ID: "099", naamCaty: "Zorg en opvang", naamCatz: "Gezin en kinderen", totaal: 3311 },
-                        { ID: "098", naamCaty: "Cultuur en vrije tijd", naamCatz: "Sport", totaal: 906 }];
+                    this.categories = [{ ID: 24, naamCatx: "Algemene financiering", naamCaty: "Algemene financiering", naamCatz: "Financiële aangelegenheden", totaal: 22781 },
+                        { ID: 24, naamCatx: "Algemene financiering", naamCaty: "Algemene financiering", naamCatz: "Patrimonium zonder maatschappelijk doel", totaal: 281 },
+                        { ID: 24, naamCaty: "Zorg en opvang", naamCatz: "Gezin en kinderen", totaal: 3311 },
+                        { ID: 24, naamCaty: "Cultuur en vrije tijd", naamCatz: "Sport", totaal: 906 }];
                     this.width = window.innerWidth < 768 ? window.innerWidth * 0.8 : window.innerWidth / 4;
                     this.onCircleClick = function (id) {
                         _this.showActions = true;
                         //TODO: replace hardcoded 15 with id
-                        _this._actieService.getActies(15)
+                        _this._begrotingService.getActies(24)
                             .subscribe(function (acties) { return _this.acties = acties; });
                     };
                     this.onResize = function (event) {
@@ -83,8 +84,9 @@ System.register(['angular2/core', './../../../services/townService.component.js'
                         _this.mainTown = town;
                         _this.imglink = "/app/images/provincies/" + town.provincie.toLowerCase().split(' ').join('') + ".png";
                     });
-                    _begrotingService.getGemeenteCategorieen(2020, "Gent")
-                        .subscribe(function (finan) { return _this.categories = finan; });
+                    //   _begrotingService.getGemeenteCategorieen(2020,"Gent")
+                    //      .subscribe((finan: any) => this.categories = finan
+                    //       );
                     this._actieService = _actieService;
                 }
                 OverviewComponent.prototype.ngOnInit = function () {

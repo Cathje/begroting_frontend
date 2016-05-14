@@ -34,9 +34,9 @@ System.register(['angular2/core', 'angular2/http', 'rxjs/observable.js', 'rxjs/R
             TownService = (function () {
                 function TownService(http) {
                     this.http = http;
-                    this._url = 'http://begroting-webapi.azurewebsites.net/api/Gemeente';
+                    //private _url = 'http://begroting-webapi.azurewebsites.net/api/Gemeente';
+                    this._url = 'http://localhost:52597/api/Gemeente';
                 }
-                //private _url = 'http://localhost:52597/api/Gemeente';
                 TownService.prototype.getTowns = function () {
                     return this.http.get(this._url)
                         .map(function (res) { return res.json(); })
