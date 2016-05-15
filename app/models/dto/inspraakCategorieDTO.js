@@ -10,6 +10,7 @@ System.register([], function(exports_1, context_1) {
              */
             InspraakCategorie = (function () {
                 function InspraakCategorie() {
+                    this.acties = null;
                 }
                 return InspraakCategorie;
             }());

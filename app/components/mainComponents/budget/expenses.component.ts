@@ -192,16 +192,15 @@ export class ExpensesComponent {
     isEditor: boolean = false; //TODO: adapt value when signed in with special role
     categories: GemeenteCategorie [] = [];
     width: number = window.innerWidth < 768 ? window.innerWidth*0.8 : window.innerWidth/2.5;
-    _actieService: ActieService;
 
     onCircleClick: any = (id: number) => {
         this.showActions = true;
         //TODO: replace hardcoded 15 with id
-       this._actieService.getActies(15)
+       this._begrotingService.getActies(24)
            .subscribe((acties : any) => this.acties = acties);
     };
 
-    constructor(private _townService:TownService, _begrotingService:BegrotingService,_actieService: ActieService, public http: Http, params: RouteParams, injector: Injector, private _router: Router)
+    constructor(private _townService:TownService, private _begrotingService:BegrotingService,_actieService: ActieService, public http: Http, params: RouteParams, injector: Injector, private _router: Router)
     {
         _townService.getTown(injector.parent.parent.get(RouteParams).get('town'))
             .subscribe(town => {
@@ -213,8 +212,7 @@ export class ExpensesComponent {
         _begrotingService.getGemeenteCategorieen(2020,"Gent")
            .subscribe((finan: any) => this.categories = finan
             );
-
-        this._actieService = _actieService;
+        
     }
 
     ngOnInit() {

@@ -14,8 +14,8 @@ export class TownService {
 
 
     }
-    private _url = 'http://begroting-webapi.azurewebsites.net/api/Gemeente';
-    //private _url = 'http://localhost:52597/api/Gemeente';
+    //private _url = 'http://begroting-webapi.azurewebsites.net/api/Gemeente';
+    private _url = 'http://localhost:52597/api/Gemeente';
 
     getTowns():Observable<MainTown[]> {
         return this.http.get(this._url)
@@ -37,6 +37,13 @@ export class TownService {
         return this.http.put(this._url,JSON.stringify(maintown)
             ,{headers:headers}).map((res:Response) => res.json());
 
+    }
+    
+    public deleteBestuurslid(id:number)
+    {
+        return this.http.delete(this._url + "/" + id)
+            .map(res => res.json())
+            .catch(this.handleError);
     }
 
     private handleError(error: Response)

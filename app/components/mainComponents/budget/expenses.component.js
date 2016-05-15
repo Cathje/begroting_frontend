@@ -49,6 +49,7 @@ System.register(['angular2/core', './../../../services/townService.component.js'
                 function ExpensesComponent(_townService, _begrotingService, _actieService, http, params, injector, _router) {
                     var _this = this;
                     this._townService = _townService;
+                    this._begrotingService = _begrotingService;
                     this.http = http;
                     this._router = _router;
                     this.title = 'Gemeente - home';
@@ -64,7 +65,7 @@ System.register(['angular2/core', './../../../services/townService.component.js'
                     this.onCircleClick = function (id) {
                         _this.showActions = true;
                         //TODO: replace hardcoded 15 with id
-                        _this._actieService.getActies(15)
+                        _this._begrotingService.getActies(24)
                             .subscribe(function (acties) { return _this.acties = acties; });
                     };
                     this.onResize = function (event) {
@@ -82,7 +83,6 @@ System.register(['angular2/core', './../../../services/townService.component.js'
                     });
                     _begrotingService.getGemeenteCategorieen(2020, "Gent")
                         .subscribe(function (finan) { return _this.categories = finan; });
-                    this._actieService = _actieService;
                 }
                 ExpensesComponent.prototype.ngOnInit = function () {
                     /* @TODO CATHERINE INDIEN BACKEND BIJ JOUW NIET WERKT DEZE CALL UIT COMMENTAAR ZETTEN

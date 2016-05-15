@@ -8,12 +8,13 @@ import {InspraakCategorie} from "../../../models/dto/inspraakCategorieDTO.js";
 import {InspraakNiveau} from "../../../models/inspraakNiveau.js";
 import {Project} from "../../../models/project.js";
 import {ProjectScenario} from "../../../models/projectScenario.js";
+import {GemeenteCategorie} from "../../../models/gemeenteCategorie";
 
 
 @Component({ //invoke with metadata object
     selector: 'manage-project-container',
     template: `
-    <div class="container">
+<div class="container">
     <h2>Beheer project</h2><h4>Titel:</h4>
      
      <input type="text" [(ngModel)]="project.titel"/>
@@ -25,9 +26,9 @@ import {ProjectScenario} from "../../../models/projectScenario.js";
      <input type="text" [(ngModel)]="project.vraag"/>
      <h4>ProjectScenario:</h4>
      <p>{{project.projectScenario}}</p>
-     <select (change)="onSelectScenario($event)">
+                <select (change)="onSelectScenario($event)">
                         <option *ngFor="#t of projectScene | keys" [value]="t.key">{{t.value}}</option>
-                         </select>
+                 </select>
      <h4>extraInfo:</h4>
      <input type="text" [(ngModel)]="project.extraInfo"/>  <!--@TODO wijzigen naar textarea -->
      <h4>Bedrag:</h4>
@@ -39,24 +40,43 @@ import {ProjectScenario} from "../../../models/projectScenario.js";
                 <h5>categorie: {{cat.naamCatz}}</h5>
                 <p>totaal: {{cat.totaal}}</p>
                 <p>InspraakNiveau: {{niveaus[cat.inspraakNiveau]}}</p>
-                <select (change)="onSelectNiveau($event, i)">
+                
+                <select (change)="onSelectCatNiveau($event, i)">
                         <option *ngFor="#t of niveaus | keys" [value]="t.key">{{t.value}}</option>
                          </select>
-                </div>
-                
-                <button (click)="submit()">opslaan</button>
-              
+                    <br>    
+                         <div class="acties" *ngFor="#ac of cat.acties #j = index"> 
+                            <h5>Actie: {{ac.actieKort}} - {{ac.actieLang}}</h5>
+                            <p> uitgave: {{ac.uitgaven}}</p>
+                            <select (change)="onSelectActieNiveau($event,i,j)">
+                                <option *ngFor="#t of niveaus | keys" [value]="t.key">{{t.value}}</option>
+                            </select>
+                         <div>
+                    </div> 
+            </div> 
+                               <br><br>
+
+</div>
+   <button (click)="submit()">opslaan</button>           
 </div>
 `,
     directives: [ROUTER_DIRECTIVES, NavigationMenuComponent],
     providers: [ ProjectService,ActieService//routing
     ],
     pipes: [KeysPipe]
+    ,
+    styles: [`
+ .acties{
+ 
+    padding-left: 4em; 
+ }
+ 
+ `]
 })
 
 export class ManageProjectComponent {
 
-    categorieen: InspraakCategorie[];
+    categorieen: GemeenteCategorie[];
     niveaus = InspraakNiveau;
     projectScene = ProjectScenario;
     project: Project = new Project("");
@@ -64,7 +84,7 @@ export class ManageProjectComponent {
     constructor(
         private _routeParams: RouteParams, private _projectService:ProjectService, private _router: Router) {
 
-        _projectService.getInspraakcategorieen(2020,"Gent")
+        _projectService.getInspraakitems(2020,"Gent")
             .subscribe((finan: any) => this.categorieen = finan
             );
     }
@@ -73,9 +93,13 @@ export class ManageProjectComponent {
         var number = this._routeParams.get('projectNumber');
     }
 
-    onSelectNiveau(event: any, i:any)
+    onSelectCatNiveau(event: any, i:any)
     {
         this.categorieen[i].inspraakNiveau = event.target.value;
+    }
+    onSelectActieNiveau(event: any, i:any, j:any)
+    {
+        this.categorieen[i].acties[j].inspraakNiveau = event.target.value;
     }
 
     onSelectScenario(event: any)

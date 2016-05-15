@@ -10,9 +10,7 @@ import {BegrotingService} from "../../../services/begrotingService.js";
 import {ActieService} from "../../../services/ActieService.js";
 import {Actie} from "../../../models/actie.js";
 import {GemeenteCategorie} from "../../../models/gemeenteCategorie.js";
-import {TownService} from "../../../services/townService.component.js";
-import {Actie} from "../../../models/actie.js";
-import {GemeenteCategorie} from "../../../models/gemeenteCategorie";
+import {PoliticusType} from "../../../models/politicusType.js";
 
 
 @Component({ //invoke with metadata object
@@ -66,7 +64,11 @@ import {GemeenteCategorie} from "../../../models/gemeenteCategorie";
                             <li *ngFor="#town of mainTown.deelGemeenten"><span>{{town.naam}} - {{town.postCode}}</span></li>
                         </ul>
                         <p *ngIf="!mainTown.deelGemeenten"><i>Er zijn geen deelgemeentes</i></p>
-                    <button class="showInfo" [hidden]="!isVisable"(click)="toggle()">minder info</button>
+                    <h4>Bestuur: </h4>
+                        <ul *ngIf="mainTown?.bestuur" >
+                            <li *ngFor="#b of mainTown.bestuur"><span>{{b.naam}} - {{types[b.type]}}</span></li>
+                        </ul>
+                        <p *ngIf="!mainTown.bestuur"><i>Er zijn geen gegevens over het bestuur</i></p>
                     </div>
         </section>
 
@@ -234,24 +236,25 @@ export class CoreDataComponent {
     contentbutton="meer info";
     acties: Actie[];
     showActions = false;
+    types = PoliticusType;
     id:number;
     isEditor: boolean = false; //TODO: adapt value when signed in with special role
     categories: GemeenteCategorie [] =
-    [{ID:"0990",naamCatx:"Algemene financiering",naamCaty:"Algemene financiering",naamCatz:"Financiële aangelegenheden",totaal: 22781},
-{ID:"0991", naamCatx:"Algemene financiering", naamCaty:"Algemene financiering",naamCatz:"Patrimonium zonder maatschappelijk doel",totaal:281},
-{ID:"099",naamCaty:"Zorg en opvang", naamCatz:"Gezin en kinderen", totaal:3311},
-{ID:"098",naamCaty:"Cultuur en vrije tijd",naamCatz:"Sport",totaal:906}];
+    [{ID:24,naamCatx:"Algemene financiering",naamCaty:"Algemene financiering",naamCatz:"Financiële aangelegenheden",totaal: 22781},
+{ID:24, naamCatx:"Algemene financiering", naamCaty:"Algemene financiering",naamCatz:"Patrimonium zonder maatschappelijk doel",totaal:281},
+{ID:24,naamCaty:"Zorg en opvang", naamCatz:"Gezin en kinderen", totaal:3311},
+{ID:24,naamCaty:"Cultuur en vrije tijd",naamCatz:"Sport",totaal:906}];
     width: number = window.innerWidth < 768 ? window.innerWidth*0.8 : window.innerWidth/2.5;
     _actieService: ActieService;
 
     onCircleClick: any = (id: number) => {
         this.showActions = true;
         //TODO: replace hardcoded 15 with id
-       this._actieService.getActies(15)
+       this._begrotingService.getActies(15)
            .subscribe((acties : any) => this.acties = acties);
     };
 
-    constructor(private _townService:TownService, _begrotingService:BegrotingService,_actieService: ActieService, public http: Http, params: RouteParams, injector: Injector, private _router: Router)
+    constructor(private _townService:TownService, private _begrotingService:BegrotingService,_actieService: ActieService, public http: Http, params: RouteParams, injector: Injector, private _router: Router)
     {
         _townService.getTown(injector.parent.parent.get(RouteParams).get('town'))
             .subscribe(town => {

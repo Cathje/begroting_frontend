@@ -33,8 +33,8 @@ System.register(['angular2/core', 'angular2/http', 'rxjs/Rx', "../mockData/mock-
                     this._url = 'http://localhost:52597/api/Begroting';
                     this._url2 = 'http://localhost:52597/api/Project';
                 }
-                ProjectService.prototype.getInspraakcategorieen = function (jaar, naam) {
-                    return this.http.get(this._url + "?jaar=" + jaar + "&naam=" + naam)
+                ProjectService.prototype.getInspraakitems = function (jaar, naam) {
+                    return this.http.get(this._url2 + "?jaar=" + jaar + "&naam=" + naam)
                         .map(function (res) { return res.json(); });
                 };
                 ProjectService.prototype.putProject = function (p) {

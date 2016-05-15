@@ -144,7 +144,6 @@ import {ProjectService} from "../../../services/projectService.component.js";
         margin: 0 auto;
         display:block;
     }
-
 `]
 })
 

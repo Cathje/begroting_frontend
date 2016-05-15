@@ -5,4 +5,5 @@ export enum PoliticusType {
 
    Gemeenteraadslid = 1,
     Schepen = 2
+
 }

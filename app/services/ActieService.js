@@ -31,11 +31,6 @@ System.register(['angular2/core', 'angular2/http', 'rxjs/observable', 'rxjs/Rx']
                     this._url = 'http://begroting-webapi.azurewebsites.net/api/Actie/';
                 }
                 //private _url = 'http://localhost:52597/api/Actie/';
-                ActieService.prototype.getActies = function (id) {
-                    return this.http.get(this._url + id)
-                        .map(function (res) { return res.json(); })
-                        .catch(this.handleError);
-                };
                 ActieService.prototype.handleError = function (error) {
                     console.error(error);
                     return observable_1.Observable.throw(error.json().error || 'server error');

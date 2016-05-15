@@ -1,5 +1,5 @@
 import {ProjectScenario} from "./projectScenario.js";
-import {InspraakCategorie} from "./dto/inspraakCategorieDTO.js";
+import {GemeenteCategorie} from "./gemeenteCategorie.js";
 export class Project {
 
     projectScenario: number;
@@ -11,7 +11,7 @@ export class Project {
     maxBedrag: number;
     gemeente:string;
     boekjaar: number;
-    categorieen: InspraakCategorie[];
+    categorieen: GemeenteCategorie[];
 
     constructor(titel:string)
     {

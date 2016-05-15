@@ -4,6 +4,8 @@ import {TownSelectorComponent} from "../../subComponents/input/townSelector.comp
 import {TownService} from "../../../services/townService.component.js";
 import {PoliticusType} from "../../../models/politicusType.js";
 import {MainTown} from "../../../models/mainTown.js";
+import {Bestuur} from "../../../models/bestuur.js";
+import {KeysPipe} from "../../../pipes/keysPipe.js";
 
 @Component({ //invoke with metadata object
     selector: 'manage-data-container',
@@ -40,18 +42,6 @@ import {MainTown} from "../../../models/mainTown.js";
                         </div>
                         <input type="number" [(ngModel)]="mainTown.isKind"/>
         </div>
-                        <!-- @TODO uitzoeken hoe bestuur enkel wordt aangepast in backend en niet opnieuw wordt weggeschreven -->
-                     <!--    <h4>Bestuur: </h4>
-                        <ul *ngIf="mainTown?.bestuur" >
-                            <li *ngFor="#bestuur of mainTown.bestuur"><span>{{bestuur.naam}} - {{types[bestuur.type]}}</span></li>
-                        </ul>
-                        <p *ngIf="!mainTown.bestuur"><i>Er is nog geen bestuur aangesteld</i></p>
-                        
-                       <h4>Voeg bestuurslid toe</h4>
-                        <input type="text" [(ngModel)]="newBestuur.naam"/>
-                         <select (change)="onSelect($event.target.value)">
-                        <option *ngFor="#t of types" [value]="t">{{t}}</option>
-                         </select> -->
     </section>
 
     <section class="col-xs-12">
@@ -74,6 +64,19 @@ import {MainTown} from "../../../models/mainTown.js";
                             <li *ngFor="#town of mainTown.deelGemeenten"><span>{{town.naam}} - {{town.postCode}}</span></li>
                         </ul>
                         <p *ngIf="!mainTown.deelGemeenten"><i>Er zijn geen deelgemeentes</i></p>
+                         <h4>Bestuur: </h4>
+                        <ul *ngIf="mainTown?.bestuur" >
+                            <li *ngFor="#b of mainTown.bestuur" ><span>{{b.naam}} - {{types[b.type]}}</span> <button (click)="verwijder(b.PoliticusId, b)" >verwijder betsuurslid</button></li>
+                        </ul>
+                        <p *ngIf="!mainTown.bestuur"><i>Er zijn geen gegevens over het bestuur</i></p>
+               
+               <h4>voeg bestuurslid toe: </h4>
+                <p>naam: </p>    
+                           <input type="text" [(ngModel)]="bestuur.naam"/>
+                <select (change)="onSelect($event)">
+                        <option *ngFor="#t of types | keys" [value]="t.key">{{t.value}}</option>
+                         </select>
+                <button (click)="voegToe()">voeg toe</button>
         </div>
     </section>
     <section class="col-xs-12">
@@ -82,6 +85,7 @@ import {MainTown} from "../../../models/mainTown.js";
 </section>
 `,
     providers: [TownService],
+    pipes: [KeysPipe],
     directives: [ROUTER_DIRECTIVES, TownSelectorComponent],
     styles: [`
 
@@ -110,10 +114,9 @@ import {MainTown} from "../../../models/mainTown.js";
 export class ManageDataComponent {
 
     mainTown = new MainTown("", "", 0, 0);
-    // newBestuur:Bestuur = new Bestuur(""); // this gives an error
     types = PoliticusType;
-    selectedType:PoliticusType = PoliticusType.Schepen;
     keys:boolean;
+    bestuur: Bestuur = new Bestuur("");
 
     constructor(private _routeParams:RouteParams, private _townService:TownService, private _router:Router, params:RouteParams, injector:Injector) {
         _townService.getTown(injector.parent.parent.get(RouteParams).get('town'))
@@ -123,12 +126,23 @@ export class ManageDataComponent {
     }
 
     onSelect(event:any) {
-        this.selectedType = event.target.value;
+        this.bestuur.type = event.target.value;
     }
 
     submit() {
         this._townService.putTown(this.mainTown).subscribe();
         this._router.navigate(['/', 'App', 'Budget', {town: this.mainTown.naam}]);
 
+    }
+
+    voegToe()
+    {
+        let b = new Bestuur(this.bestuur.naam, this.bestuur.type);
+        this.mainTown.bestuur.push(b);
+    }
+    verwijder(id: number, b: Bestuur)
+    {
+        this.mainTown.bestuur.pop(b);
+        this._townService.deleteBestuurslid(id).subscribe();
     }
 }

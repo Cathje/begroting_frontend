@@ -4,7 +4,7 @@
 
 export enum InspraakNiveau{
 
-    Auto,
-    Gelockt,
-    Open
+    Auto=1,
+    Gelockt=2,
+    Open=3
 }
