@@ -154,6 +154,7 @@ export class SunburstComponent {
 }
 
 function addHeadCategoryCodeToData(data: [Object]){
+    console.log(this.data);
     let categories = []
     for (var i = 0; i < data.length; i++) {
         if(data[i].hasOwnProperty('naamCatx')){

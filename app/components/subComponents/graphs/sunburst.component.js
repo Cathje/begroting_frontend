@@ -13,6 +13,7 @@ System.register(['angular2/core', 'd3'], function(exports_1) {
     var core_1, d3;
     var SunburstComponent;
     function addHeadCategoryCodeToData(data) {
+        console.log(this.data);
         var categories = [];
         for (var i = 0; i < data.length; i++) {
             if (data[i].hasOwnProperty('naamCatx')) {
