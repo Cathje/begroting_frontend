@@ -17,37 +17,6 @@ import {MainTown} from "../../../models/mainTown.js";
     `,
     providers: [TownService],
     styles:[`
-.slate{
-    text-align: center;
-    color:black;
-}
-
-.styled-select {
-    overflow: hidden;
-    width: 240px;
-    margin: 0 auto;
-}
-
-.styled-select select {
-    background: url(./../../../../app/images/arrow_down.png) no-repeat right rgba(255,255,255, 0.6);
-    background-size: 35px 35px;
-    border: none;
-    font-size: 14px;
-    height: 29px;
-    padding: 5px; /* If you add too much padding here, the options won't show in IE */
-    width: 240px;
-}
-
-select::-ms-expand {
-    display: none;
-}
-
-select {
-    -webkit-appearance: none;
-    -moz-appearance: none;
-    text-indent: 1px;
-    text-overflow: '';
-}
 
       `,]
 })

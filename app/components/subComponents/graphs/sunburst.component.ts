@@ -338,6 +338,25 @@ function rand(min: number, max: number) {
 }
 
 function get_random_color(categoryCode: string) {
+
+    /*
+    switch(categoryCode) {
+        case '00': return "#999999"; // grijs* financien
+        case '01': return "#ffdf50"; // geel* financien
+        case '02': return "#f7bdc7"; //pink
+        case '03': return "#d0d257"; //green* natuur
+        case 'O4': return "#ff8e6c"; //orange* veiligheid
+        case '05': return "#00cad2"; //darkblue* ondernemen
+        case '06': return "#80d9be"; //darkgreen* milieu
+        case '07': return "#ff0000"; // red* sport
+        case '08': return "#efb3e9"; //purple* onderwijs
+        case '09': return "#fa7fb8"; // pink* zorg
+        default: return "#ffff99"; // lightgreen
+    }*/
+
+
+    // als we kleurtjes willen met gradaties
+    /*
     var h;
     var s;
     var l;
@@ -356,5 +375,14 @@ function get_random_color(categoryCode: string) {
         default: h = 258;s = 100 ;l =rand(80, 100);break; // darkblue
     }
     return 'hsl(' + h + ',' + s + '%,' + l + '%)';
+    */
+
+    // als we enkel blauwtinten willen
+
+     var h = rand(180, 190);
+     var s = rand(60, 65);
+     var l = rand(20, 70);
+     return 'hsl(' + h + ',' + s + '%,' + l + '%)';
+
 }
 

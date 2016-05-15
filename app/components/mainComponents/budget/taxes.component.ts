@@ -9,6 +9,7 @@ import {MainTown} from "./../../../models/mainTown.js";
 import {totalmem} from "os";
 import {Observable} from 'rxjs/observable';
 import {GemeenteCategorie} from "./../../../models/gemeenteCategorie.js";
+import {rangeSlider} from './../../subComponents/input/rangeSlider.component.js';
 
 
 @Component({ //invoke with metadata object
@@ -29,10 +30,11 @@ import {GemeenteCategorie} from "./../../../models/gemeenteCategorie.js";
                         <div class="rangeArea col-lg-6 col-md-6 col-sm-6 col-xs-6">
                             <input type="range" name="slide" id="speedSlider" [(ngModel)]="mySalary" min="1500" max="15000" value="2000" step="50" (change)="calculateSalary()"/>
                         </div>-->
-                        <div class="rangeArea col-lg-12 col-md-12 col-sm-12 col-xs-12">
-                            <input type="range" name="slide" id="speedSlider" [(ngModel)]="mySalary" min="1500" max="15000" value="2000" step="50" (change)="calculateSalary()"/>
+                        <div class="rangeArea col-lg-12 col-md-12 col-sm-12 col-xs-12 speedSlider">
+                            <!--<input type="range" name="slide" id="speedSlider" [(ngModel)]="mySalary" min="1500" max="15000" value="2000" step="50" (change)="calculateSalary()"/>  [data]=mySalary-->
+                            <slider name="slide" id="speedSlider" [(data)]="mySalary" [min]=1500 [max]=15000 [value]=2000 [step]=50 (changes)="calculateSalary()"></slider>
                         </div>
-                        <div class="labelArea col-lg-12 col-md-12 col-sm-12 col-xs-126">
+                        <div class="labelArea col-lg-12 col-md-12 col-sm-12 col-xs-12">
                         <form class="form-inline">
                           <div class="form-group">
                             <label for="exampleInputName2">Loon </label>
@@ -80,7 +82,7 @@ import {GemeenteCategorie} from "./../../../models/gemeenteCategorie.js";
 
 
 `,
-    directives: [SunburstComponent, ROUTER_DIRECTIVES, SunburstCompare],
+    directives: [SunburstComponent, ROUTER_DIRECTIVES, SunburstCompare, rangeSlider],
     providers: [
         TownService,BegrotingService
     ],
@@ -99,12 +101,12 @@ import {GemeenteCategorie} from "./../../../models/gemeenteCategorie.js";
    background-color: #9c0033;
    }*/
    
-   #speedSlider {
+   .speedSlider {
    width: 70%;
    margin-top: 1em;
    margin-bottom: 3em;
    /*margin-right: 10em;*/
-   text-align: center;
+   /*!/text-align: center;*/
    }
    #sunburstSection{
    padding: 1%;
@@ -396,6 +398,7 @@ export class TaxesComponent {
     }
 
     calculateSalary(init: boolean){
+        console.log("salaris update: " + this.mySalary);
         let total: number = 0;
         let tempCategories : GemeenteCategorie [] = [{"naamCatz" : "", "totaal" : 0}];
 

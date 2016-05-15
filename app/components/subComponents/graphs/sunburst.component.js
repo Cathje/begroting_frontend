@@ -1,11 +1,11 @@
-System.register(['angular2/core', 'd3'], function(exports_1, context_1) {
-    "use strict";
-    var __moduleName = context_1 && context_1.id;
+System.register(['angular2/core', 'd3'], function(exports_1) {
     var __decorate = (this && this.__decorate) || function (decorators, target, key, desc) {
-        var c = arguments.length, r = c < 3 ? target : desc === null ? desc = Object.getOwnPropertyDescriptor(target, key) : desc, d;
-        if (typeof Reflect === "object" && typeof Reflect.decorate === "function") r = Reflect.decorate(decorators, target, key, desc);
-        else for (var i = decorators.length - 1; i >= 0; i--) if (d = decorators[i]) r = (c < 3 ? d(r) : c > 3 ? d(target, key, r) : d(target, key)) || r;
-        return c > 3 && r && Object.defineProperty(target, key, r), r;
+        if (typeof Reflect === "object" && typeof Reflect.decorate === "function") return Reflect.decorate(decorators, target, key, desc);
+        switch (arguments.length) {
+            case 2: return decorators.reduceRight(function(o, d) { return (d && d(o)) || o; }, target);
+            case 3: return decorators.reduceRight(function(o, d) { return (d && d(target, key)), void 0; }, void 0);
+            case 4: return decorators.reduceRight(function(o, d) { return (d && d(target, key, o)) || o; }, desc);
+        }
     };
     var __metadata = (this && this.__metadata) || function (k, v) {
         if (typeof Reflect === "object" && typeof Reflect.metadata === "function") return Reflect.metadata(k, v);
@@ -172,66 +172,45 @@ System.register(['angular2/core', 'd3'], function(exports_1, context_1) {
         return Math.random() * (max - min + 1) + min;
     }
     function get_random_color(categoryCode) {
+        /*
+        switch(categoryCode) {
+            case '00': return "#999999"; // grijs* financien
+            case '01': return "#ffdf50"; // geel* financien
+            case '02': return "#f7bdc7"; //pink
+            case '03': return "#d0d257"; //green* natuur
+            case 'O4': return "#ff8e6c"; //orange* veiligheid
+            case '05': return "#00cad2"; //darkblue* ondernemen
+            case '06': return "#80d9be"; //darkgreen* milieu
+            case '07': return "#ff0000"; // red* sport
+            case '08': return "#efb3e9"; //purple* onderwijs
+            case '09': return "#fa7fb8"; // pink* zorg
+            default: return "#ffff99"; // lightgreen
+        }*/
+        // als we kleurtjes willen met gradaties
+        /*
         var h;
         var s;
         var l;
-        switch (categoryCode) {
-            case '00':
-                h = 0;
-                s = 1;
-                l = rand(30, 80);
-                break; // grijs* financien
-            case '01':
-                h = rand(20, 60);
-                s = 100;
-                l = rand(30, 80);
-                break; // geel* financien
-            case '02':
-                h = 300;
-                s = 50;
-                l = rand(50, 100);
-                break; //pink
-            case '03':
-                h = 80;
-                s = 75;
-                l = rand(70, 100);
-                break; //lightgreen* natuur
-            case 'O4':
-                h = 20;
-                s = 75;
-                l = rand(70, 100);
-                break; //orange* veiligheid
-            case '05':
-                h = 200;
-                s = 75;
-                l = rand(50, 100);
-                break; //darkblue* ondernemen
-            case '06':
-                h = 160;
-                s = 75;
-                l = rand(40, 80);
-                break; //darkgreen* milieu
-            case '07':
-                h = 0;
-                s = 80;
-                l = rand(70, 100);
-                break; // red* sport
-            case '08':
-                h = 270;
-                s = 75;
-                l = rand(40, 100);
-                break; //purple* onderwijs
-            case '09':
-                h = 300;
-                s = 80;
-                l = rand(70, 90);
-                break; // pink* zorg
-            default:
-                h = 258;
-                s = 100;
-                l = rand(80, 100);
-                break; // darkblue
+    
+        switch(categoryCode) {
+            case '00': h = 0;s = 1 ;l =rand(30, 80);break; // grijs* financien
+            case '01': h =rand(20, 60);s = 100 ;l =rand(30, 80);break; // geel* financien
+            case '02': h = 300;s = 50 ;l =rand(50, 100);break; //pink
+            case '03': h = 80;s = 75 ;l =rand(70, 100);break; //lightgreen* natuur
+            case 'O4': h = 20;s = 75 ;l =rand(70, 100);break; //orange* veiligheid
+            case '05': h = 200;s = 75 ;l =rand(50, 100);break; //darkblue* ondernemen
+            case '06': h = 160;s = 75 ;l =rand(40, 80);break; //darkgreen* milieu
+            case '07': h = 0;s = 80 ;l =rand(70, 100);break; // red* sport
+            case '08': h = 270;s = 75 ;l =rand(40, 100);break; //purple* onderwijs
+            case '09': h = 300;s = 80 ;l =rand(70, 90);break; // pink* zorg
+            default: h = 258;s = 100 ;l =rand(80, 100);break; // darkblue
         }
+        return 'hsl(' + h + ',' + s + '%,' + l + '%)';
+        */
+        // als we enkel blauwtinten willen
+        var h = rand(180, 190);
+        var s = rand(60, 65);
+        var l = rand(20, 70);
         return 'hsl(' + h + ',' + s + '%,' + l + '%)';
     }
     return {
@@ -288,19 +267,19 @@ System.register(['angular2/core', 'd3'], function(exports_1, context_1) {
                 __decorate([
                     core_1.Input(), 
                     __metadata('design:type', Array)
-                ], SunburstComponent.prototype, "data", void 0);
+                ], SunburstComponent.prototype, "data");
                 __decorate([
                     core_1.Input(), 
                     __metadata('design:type', Number)
-                ], SunburstComponent.prototype, "width", void 0);
+                ], SunburstComponent.prototype, "width");
                 __decorate([
                     core_1.Input(), 
                     __metadata('design:type', Number)
-                ], SunburstComponent.prototype, "height", void 0);
+                ], SunburstComponent.prototype, "height");
                 __decorate([
                     core_1.Input(), 
                     __metadata('design:type', String)
-                ], SunburstComponent.prototype, "onClick", void 0);
+                ], SunburstComponent.prototype, "onClick");
                 SunburstComponent = __decorate([
                     core_1.Component({
                         selector: 'sunburst',
@@ -311,7 +290,7 @@ System.register(['angular2/core', 'd3'], function(exports_1, context_1) {
                     __metadata('design:paramtypes', [core_1.Renderer, core_1.ElementRef])
                 ], SunburstComponent);
                 return SunburstComponent;
-            }());
+            })();
             exports_1("SunburstComponent", SunburstComponent);
             ;
             ;

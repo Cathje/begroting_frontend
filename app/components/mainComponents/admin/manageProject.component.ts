@@ -1,14 +1,13 @@
 import {Component} from 'angular2/core';
 import {RouteParams, ROUTER_DIRECTIVES, Router} from 'angular2/router';
 import {KeysPipe} from "../../../pipes/keysPipe.js";
-import {ActieService} from "../../../services/ActieService.js";
 import {ProjectService} from "../../../services/projectService.component.js";
 import {NavigationMenuComponent} from "../../subComponents/nav/menu.component.js";
 import {InspraakCategorie} from "../../../models/dto/inspraakCategorieDTO.js";
 import {InspraakNiveau} from "../../../models/inspraakNiveau.js";
 import {Project} from "../../../models/project.js";
 import {ProjectScenario} from "../../../models/projectScenario.js";
-import {GemeenteCategorie} from "../../../models/gemeenteCategorie";
+import {GemeenteCategorie} from "../../../models/gemeenteCategorie.js";
 
 
 @Component({ //invoke with metadata object
@@ -61,7 +60,7 @@ import {GemeenteCategorie} from "../../../models/gemeenteCategorie";
 </div>
 `,
     directives: [ROUTER_DIRECTIVES, NavigationMenuComponent],
-    providers: [ ProjectService,ActieService//routing
+    providers: [ ProjectService
     ],
     pipes: [KeysPipe]
     ,

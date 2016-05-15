@@ -7,7 +7,6 @@ import {EditableFieldComponent} from './../../subComponents/input/editableField.
 import {MainTown} from "../../../models/mainTown.js";
 import {SunburstComponent} from './../../subComponents/graphs/sunburst.component.js';
 import {BegrotingService} from "../../../services/begrotingService.js";
-import {ActieService} from "../../../services/ActieService.js";
 import {Actie} from "../../../models/actie.js";
 import {GemeenteCategorie} from "../../../models/gemeenteCategorie.js";
 import {PoliticusType} from "../../../models/politicusType.js";
@@ -75,7 +74,7 @@ import {PoliticusType} from "../../../models/politicusType.js";
        </div>
 `,
     directives: [TownSelectorComponent, EditableFieldComponent, SunburstComponent,ROUTER_DIRECTIVES],
-    providers: [ BegrotingService,ActieService,
+    providers: [ BegrotingService,
         TownService,  //routing
     ],
     styles: [`
@@ -245,7 +244,6 @@ export class CoreDataComponent {
 {ID:24,naamCaty:"Zorg en opvang", naamCatz:"Gezin en kinderen", totaal:3311},
 {ID:24,naamCaty:"Cultuur en vrije tijd",naamCatz:"Sport",totaal:906}];
     width: number = window.innerWidth < 768 ? window.innerWidth*0.8 : window.innerWidth/2.5;
-    _actieService: ActieService;
 
     onCircleClick: any = (id: number) => {
         this.showActions = true;
@@ -254,7 +252,7 @@ export class CoreDataComponent {
            .subscribe((acties : any) => this.acties = acties);
     };
 
-    constructor(private _townService:TownService, private _begrotingService:BegrotingService,_actieService: ActieService, public http: Http, params: RouteParams, injector: Injector, private _router: Router)
+    constructor(private _townService:TownService, private _begrotingService:BegrotingService, public http: Http, params: RouteParams, injector: Injector, private _router: Router)
     {
         _townService.getTown(injector.parent.parent.get(RouteParams).get('town'))
             .subscribe(town => {
@@ -267,7 +265,6 @@ export class CoreDataComponent {
            .subscribe((finan: any) => this.categories = finan
             );
 
-        this._actieService = _actieService;
     }
 
     ngOnInit() {
