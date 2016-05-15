@@ -12,6 +12,38 @@ System.register(['angular2/core', 'd3'], function(exports_1, context_1) {
     };
     var core_1, d3;
     var SunburstComponent;
+    function addHeadCategoryCodeToData(data) {
+        var categories = [];
+        for (var i = 0; i < data.length; i++) {
+            if (data[i].hasOwnProperty('naamCatx')) {
+                console.log('x');
+                data[i]['code'] = getMainCategoryCode(data[i]['naamCatx']);
+            }
+            else if (data[i].hasOwnProperty('naamCaty')) {
+                console.log('y');
+                data[i]['code'] = getMainCategoryCode(data[i]['naamCaty']);
+            }
+            else {
+                data[i]['code'] = getMainCategoryCode(data[i]['naamCatz']);
+            }
+        }
+        return data;
+    }
+    function getMainCategoryCode(category) {
+        switch (category) {
+            case 'Algemeen bestuur': return "01";
+            case 'Zich verplaatsen en mobiliteit': return "02";
+            case 'Natuur en milieubeheer': return "03";
+            case 'Veiligheidszorg': return "04";
+            case 'Ondernemen en werken': return "05";
+            case 'Wonen en ruimtelijke ordening': return "06";
+            case 'Cultuur en vrije tijd': return "07";
+            case 'Zorg en opvang': return "08";
+            case 'Leren en onderwijs': return "09";
+            case 'Algemene financiering': return "00";
+            default: return "10";
+        }
+    }
     // Main function to draw and set up the visualization, once we have the data.
     function createVisualization(json, callbackFunction, partition, arc, colors, totalSize, chart) {
         // For efficiency, filter nodes to keep only those large enough to see.
@@ -92,7 +124,7 @@ System.register(['angular2/core', 'd3'], function(exports_1, context_1) {
     function buildHierarchy(data, colors) {
         var root = { "name": "root", "children": [Object] };
         for (var i = 0; i < data.length; i++) {
-            var size = +data[i]['totaal'];
+            var size = +Math.abs(data[i]['totaal']);
             if (isNaN(size)) {
                 continue;
             }
@@ -116,9 +148,9 @@ System.register(['angular2/core', 'd3'], function(exports_1, context_1) {
                     }
                     // If we don't already have a child node for this branch, create it.
                     if (!foundChild) {
-                        childNode = { "name": nodeName, "id": id, "children": [] };
+                        childNode = { "name": nodeName, "id": id, "code": data[i]['code'], "children": [] };
                         children.push(childNode);
-                        colors[nodeName] = get_random_color();
+                        colors[nodeName] = get_random_color(data[i]['code']);
                     }
                     currentNode = childNode;
                 }
@@ -126,8 +158,8 @@ System.register(['angular2/core', 'd3'], function(exports_1, context_1) {
                     nodeName = data[i][value];
                     id = data[i]['ID'];
                     // Reached the end of the sequence; create a leaf node.
-                    childNode = { "name": nodeName, "id": id, "size": size };
-                    colors[nodeName] = get_random_color();
+                    childNode = { "name": nodeName, "id": id, "code": data[i]['code'], "size": size };
+                    colors[nodeName] = get_random_color(data[i]['code']);
                     children.push(childNode);
                 }
             });
@@ -137,10 +169,68 @@ System.register(['angular2/core', 'd3'], function(exports_1, context_1) {
     function rand(min, max) {
         return Math.random() * (max - min + 1) + min;
     }
-    function get_random_color() {
-        var h = rand(180, 190);
-        var s = rand(60, 65);
-        var l = rand(20, 70);
+    function get_random_color(categoryCode) {
+        var h;
+        var s;
+        var l;
+        console.log(categoryCode);
+        switch (categoryCode) {
+            case '00':
+                h = 0;
+                s = 1;
+                l = rand(30, 80);
+                break; // grijs* financien
+            case '01':
+                h = 60;
+                s = 100;
+                l = rand(30, 80);
+                break; // geel* financien
+            case '02':
+                h = 300;
+                s = 50;
+                l = rand(50, 100);
+                break; //pink
+            case '03':
+                h = 80;
+                s = 75;
+                l = rand(70, 100);
+                break; //lightgreen* natuur
+            case 'O4':
+                h = 20;
+                s = 75;
+                l = rand(70, 100);
+                break; //orange* veiligheid
+            case '05':
+                h = 200;
+                s = 75;
+                l = rand(50, 100);
+                break; //darkblue* ondernemen
+            case '06':
+                h = 160;
+                s = 75;
+                l = rand(40, 80);
+                break; //darkgreen* milieu
+            case '07':
+                h = 0;
+                s = 80;
+                l = rand(70, 100);
+                break; // red* sport
+            case '08':
+                h = 280;
+                s = 75;
+                l = rand(60, 80);
+                break; //dark purple* onderwijs
+            case '09':
+                h = 300;
+                s = 80;
+                l = rand(70, 100);
+                break; // pink* zorg
+            default:
+                h = 258;
+                s = 100;
+                l = rand(80, 100);
+                break; // darkblue
+        }
         return 'hsl(' + h + ',' + s + '%,' + l + '%)';
     }
     return {
@@ -181,7 +271,8 @@ System.register(['angular2/core', 'd3'], function(exports_1, context_1) {
                             .endAngle(function (d) { return d.x + d.dx; })
                             .innerRadius(function (d) { return Math.sqrt(d.y); })
                             .outerRadius(function (d) { return Math.sqrt(d.y + d.dy); });
-                        var json = buildHierarchy(_this.data, colors);
+                        var formattedData = addHeadCategoryCodeToData(_this.data);
+                        var json = buildHierarchy(formattedData, colors);
                         createVisualization(json, _this.onClick, partition, arc, colors, totalSize, chart);
                     };
                 }
@@ -212,9 +303,9 @@ System.register(['angular2/core', 'd3'], function(exports_1, context_1) {
                 SunburstComponent = __decorate([
                     core_1.Component({
                         selector: 'sunburst',
-                        template: "\n      <div id=\"chart\" [ngClass]=\"{hide: data.length < 1}\">\n        <h5 id=\"explanation\" style=\"visibility: hidden;\">\n          <span id=\"percentage\"></span><br/>\n          van het totaal budget gaat naar <span id=\"category\"></span>\n        </h5>\n        <h5 id=\"explanation2\">\n          <img  src=\"/app/images/icons/clickPointer.png\">\n           <p > Klik op een categorie om de acties van deze categorie te bekijken.</p>\n        </h5>\n      </div>\n      <div [style]=\"'height:' + height + 'px'\" class=\"noData\" [ngClass]=\"{hide: data.length > 0}\">\n        <p>Geen grafiekgegevens beschikbaar.</p>\n      </div>\n\n    ",
+                        template: "\n      <div id=\"chart\" [ngClass]=\"{hide: data.length < 1}\" [style]=\"'width:' + width + 'px'\">\n        <h5 id=\"explanation\" style=\"visibility: hidden;\">\n         <img class=\"centerimg\" src=\"/app/images/categories/01.jpg\"/>\n          <span id=\"percentage\"></span><br/>\n          van het totaal budget gaat naar <span id=\"category\"></span>\n        </h5>\n        <h5 id=\"explanation2\">\n          <img  src=\"/app/images/icons/clickPointer.png\">\n           <p > Klik op een categorie om de acties van deze categorie te bekijken.</p>\n        </h5>\n      </div>\n      <div [style]=\"'height:' + height + 'px'\" class=\"noData\" [ngClass]=\"{hide: data.length > 0}\">\n        <p>Geen grafiekgegevens beschikbaar.</p>\n      </div>\n\n    ",
                         providers: [],
-                        styles: ["\n\n    .noData p{\n        padding-top: 40%;\n        text-align: center;\n    }\n#chart {\n  position: relative;\n  text-align: center;\n}\n\n#chart path {\n  stroke: #fff;\n}\n\n    img{\n     width: 50px;\n     margin: 0 auto;\n     display: inline-block;\n    }\n\n#explanation {\n  position: absolute;\n  margin: auto;\n  position: absolute;\n  top: 0; left: 0; bottom: 0; right: 0;\n  width: 35%;\n  height: 180px;\n  color: #666;\n      display: flex;\n    justify-content:center;\n    align-content:center;\n    flex-direction:column; /* column | row */\n\n}\n\n#explanation2 {\n  position: absolute;\n  margin: auto;\n  position: absolute;\n  top: 0; left: 0; bottom: 0; right: 0;\n  width: 35%;\n  height: 180px;\n  color: #666;\n      display: flex;\n    justify-content:center;\n    align-content:center;\n    flex-direction:column; /* column | row */\n}\n\n#percentage{\n  font-size: 2.5em;\n}\n ",]
+                        styles: ["\n\n    .noData p{\n        padding-top: 40%;\n        text-align: center;\n    }\n#chart {\n  position: relative;\n  text-align: center;\n  margin: 0 auto;\n}\n\n#chart path {\n  stroke: #fff;\n}\n\n    img{\n     width: 50px;\n     margin: 0 auto;\n     display: inline-block;\n    }\n\n#explanation {\n  position: absolute;\n  margin: auto;\n  position: absolute;\n  top: 0; left: 0; bottom: 0; right: 0;\n  width: 50%;\n  height: 50%;\n  border-radius: 50%;\n  color: black;\n      display: flex;\n    justify-content:center;\n    align-content:center;\n    flex-direction:column; /* column | row */\n    z-index: 1;\n\n}\n\n.centerimg {\nposition: absolute;\nborder-radius: 50%;\nwidth: 100%;\nheight: 100%;\ntop: 0;\nleft: 0;\nz-index: 0;\nopacity: 0.5;\n}\n\n#explanation2 {\n  position: absolute;\n  margin: auto;\n  position: absolute;\n  top: 0; left: 0; bottom: 0; right: 0;\n  width: 35%;\n  height: 180px;\n  color: #666;\n      display: flex;\n    justify-content:center;\n    align-content:center;\n    flex-direction:column; /* column | row */\n}\n\n#percentage{\n  font-size: 2.5em;\n  z-index: 1;\n}\n ",]
                     }), 
                     __metadata('design:paramtypes', [core_1.Renderer, core_1.ElementRef])
                 ], SunburstComponent);

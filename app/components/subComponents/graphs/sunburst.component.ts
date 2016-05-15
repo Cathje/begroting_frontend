@@ -6,8 +6,9 @@ import {SimpleChange} from "../../../../node_modules/angular2/src/core/change_de
 @Component({ //invoke with metadata object
     selector: 'sunburst',
     template: `
-      <div id="chart" [ngClass]="{hide: data.length < 1}">
+      <div id="chart" [ngClass]="{hide: data.length < 1}" [style]="'width:' + width + 'px'">
         <h5 id="explanation" style="visibility: hidden;">
+         <img class="centerimg" src="/app/images/categories/01.jpg"/>
           <span id="percentage"></span><br/>
           van het totaal budget gaat naar <span id="category"></span>
         </h5>
@@ -31,6 +32,7 @@ import {SimpleChange} from "../../../../node_modules/angular2/src/core/change_de
 #chart {
   position: relative;
   text-align: center;
+  margin: 0 auto;
 }
 
 #chart path {
@@ -48,14 +50,27 @@ import {SimpleChange} from "../../../../node_modules/angular2/src/core/change_de
   margin: auto;
   position: absolute;
   top: 0; left: 0; bottom: 0; right: 0;
-  width: 35%;
-  height: 180px;
-  color: #666;
+  width: 50%;
+  height: 50%;
+  border-radius: 50%;
+  color: black;
       display: flex;
     justify-content:center;
     align-content:center;
     flex-direction:column; /* column | row */
+    z-index: 1;
 
+}
+
+.centerimg {
+position: absolute;
+border-radius: 50%;
+width: 100%;
+height: 100%;
+top: 0;
+left: 0;
+z-index: 0;
+opacity: 0.5;
 }
 
 #explanation2 {
@@ -74,6 +89,7 @@ import {SimpleChange} from "../../../../node_modules/angular2/src/core/change_de
 
 #percentage{
   font-size: 2.5em;
+  z-index: 1;
 }
  `,]
 })
@@ -85,6 +101,7 @@ export class SunburstComponent {
     @Input() onClick: string;
     radius: number;
     translation: string;
+    activeBlock: string;
 
     constructor(public renderer: Renderer, public el: ElementRef){
     }
@@ -129,12 +146,46 @@ export class SunburstComponent {
             .innerRadius(function(d: any) { return Math.sqrt(d.y); })
             .outerRadius(function(d: any) { return Math.sqrt(d.y + d.dy); });
 
-        let json: Object = buildHierarchy(this.data, colors);
+        let formattedData = addHeadCategoryCodeToData(this.data);
+
+        let json: Object = buildHierarchy(formattedData, colors);
 
         createVisualization(json, this.onClick, partition, arc, colors, totalSize, chart);
     }
 }
 
+function addHeadCategoryCodeToData(data: [Object]){
+    let categories = []
+    for (var i = 0; i < data.length; i++) {
+        if(data[i].hasOwnProperty('naamCatx')){
+            console.log('x');
+            data[i]['code'] = getMainCategoryCode(data[i]['naamCatx']);
+        } else if(data[i].hasOwnProperty('naamCaty')){
+            console.log('y');
+            data[i]['code'] = getMainCategoryCode(data[i]['naamCaty']);
+        } else {
+            data[i]['code'] = getMainCategoryCode(data[i]['naamCatz']);
+        }
+    }
+    return data;
+
+}
+
+function getMainCategoryCode(category: string){
+    switch(category) {
+        case 'Algemeen bestuur': return "01";
+        case 'Zich verplaatsen en mobiliteit': return "02";
+        case 'Natuur en milieubeheer': return "03";
+        case 'Veiligheidszorg': return "04";
+        case 'Ondernemen en werken': return "05";
+        case 'Wonen en ruimtelijke ordening': return "06";
+        case 'Cultuur en vrije tijd': return "07";
+        case 'Zorg en opvang': return "08";
+        case 'Leren en onderwijs': return "09";
+        case 'Algemene financiering': return "00";
+        default: return "10";
+    }
+}
 
 // Main function to draw and set up the visualization, once we have the data.
 function createVisualization(json: Object, callbackFunction: any, partition: any, arc: any, colors: Object, totalSize: any, chart: any) {
@@ -237,7 +288,7 @@ function getAncestors(node: any) {
 function buildHierarchy(data: [Object], colors: Object) {
     var root = {"name": "root", "children": [Object]};
     for (var i = 0; i < data.length; i++) {
-        var size = +data[i]['totaal'];
+        var size = + Math.abs(data[i]['totaal']);
         if (isNaN(size)) { // e.g. if this is a header row
             continue;
         }
@@ -262,17 +313,17 @@ function buildHierarchy(data: [Object], colors: Object) {
                 }
                 // If we don't already have a child node for this branch, create it.
                 if (!foundChild) {
-                    childNode = {"name": nodeName, "id": id, "children": []};
+                    childNode = {"name": nodeName, "id": id, "code": data[i]['code'], "children": []};
                     children.push(childNode);
-                    colors[nodeName] = get_random_color();
+                    colors[nodeName] = get_random_color(data[i]['code']);
                 }
                 currentNode = childNode;
             } else if(value === 'naamCatz'){
                 nodeName = data[i][value];
                 id = data[i]['ID'];
                 // Reached the end of the sequence; create a leaf node.
-                childNode = {"name": nodeName, "id": id, "size": size};
-                colors[nodeName] = get_random_color();
+                childNode = {"name": nodeName, "id": id,"code": data[i]['code'], "size": size};
+                colors[nodeName] = get_random_color(data[i]['code']);
                 children.push(childNode);
             }
         });
@@ -284,10 +335,27 @@ function rand(min: number, max: number) {
     return Math.random() * (max-min+1) + min;
 }
 
-function get_random_color() {
-    var h = rand(180, 190);
-    var s = rand(60, 65);
-    var l = rand(20, 70);
+function get_random_color(categoryCode: string) {
+    var h;
+    var s;
+    var l;
+
+    console.log(categoryCode);
+
+    switch(categoryCode) {
+        case '00': h = 0;s = 1 ;l =rand(30, 80);break; // grijs* financien
+        case '01': h = 60;s = 100 ;l =rand(30, 80);break; // geel* financien
+        case '02': h = 300;s = 50 ;l =rand(50, 100);break; //pink
+        case '03': h = 80;s = 75 ;l =rand(70, 100);break; //lightgreen* natuur
+        case 'O4': h = 20;s = 75 ;l =rand(70, 100);break; //orange* veiligheid
+        case '05': h = 200;s = 75 ;l =rand(50, 100);break; //darkblue* ondernemen
+        case '06': h = 160;s = 75 ;l =rand(40, 80);break; //darkgreen* milieu
+        case '07': h = 0;s = 80 ;l =rand(70, 100);break; // red* sport
+        case '08': h = 280;s = 75 ;l =rand(60, 80);break; //dark purple* onderwijs
+        case '09': h = 300;s = 80 ;l =rand(70, 100);break; // pink* zorg
+        default: h = 258;s = 100 ;l =rand(80, 100);break; // darkblue
+    }
+
     return 'hsl(' + h + ',' + s + '%,' + l + '%)';
 }
 

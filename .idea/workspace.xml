@@ -15,10 +15,8 @@
       <change type="MODIFICATION" beforePath="$PROJECT_DIR$/app/components/mainComponents/admin/adminRouter.js.map" afterPath="$PROJECT_DIR$/app/components/mainComponents/admin/adminRouter.js.map" />
       <change type="MODIFICATION" beforePath="$PROJECT_DIR$/app/components/mainComponents/admin/manageData.component.js" afterPath="$PROJECT_DIR$/app/components/mainComponents/admin/manageData.component.js" />
       <change type="MODIFICATION" beforePath="$PROJECT_DIR$/app/components/mainComponents/admin/manageData.component.js.map" afterPath="$PROJECT_DIR$/app/components/mainComponents/admin/manageData.component.js.map" />
-      <change type="MODIFICATION" beforePath="$PROJECT_DIR$/app/components/mainComponents/admin/manageData.component.ts" afterPath="$PROJECT_DIR$/app/components/mainComponents/admin/manageData.component.ts" />
       <change type="MODIFICATION" beforePath="$PROJECT_DIR$/app/components/mainComponents/admin/manageProject.component.js" afterPath="$PROJECT_DIR$/app/components/mainComponents/admin/manageProject.component.js" />
       <change type="MODIFICATION" beforePath="$PROJECT_DIR$/app/components/mainComponents/admin/manageProject.component.js.map" afterPath="$PROJECT_DIR$/app/components/mainComponents/admin/manageProject.component.js.map" />
-      <change type="MODIFICATION" beforePath="$PROJECT_DIR$/app/components/mainComponents/admin/manageProject.component.ts" afterPath="$PROJECT_DIR$/app/components/mainComponents/admin/manageProject.component.ts" />
       <change type="MODIFICATION" beforePath="$PROJECT_DIR$/app/components/mainComponents/admin/manageTown.component.js" afterPath="$PROJECT_DIR$/app/components/mainComponents/admin/manageTown.component.js" />
       <change type="MODIFICATION" beforePath="$PROJECT_DIR$/app/components/mainComponents/admin/manageTown.component.js.map" afterPath="$PROJECT_DIR$/app/components/mainComponents/admin/manageTown.component.js.map" />
       <change type="MODIFICATION" beforePath="$PROJECT_DIR$/app/components/mainComponents/budget/budgetRouter.js" afterPath="$PROJECT_DIR$/app/components/mainComponents/budget/budgetRouter.js" />
@@ -27,15 +25,12 @@
       <change type="MODIFICATION" beforePath="$PROJECT_DIR$/app/components/mainComponents/budget/comparison.component.js.map" afterPath="$PROJECT_DIR$/app/components/mainComponents/budget/comparison.component.js.map" />
       <change type="MODIFICATION" beforePath="$PROJECT_DIR$/app/components/mainComponents/budget/coreData.component.js" afterPath="$PROJECT_DIR$/app/components/mainComponents/budget/coreData.component.js" />
       <change type="MODIFICATION" beforePath="$PROJECT_DIR$/app/components/mainComponents/budget/coreData.component.js.map" afterPath="$PROJECT_DIR$/app/components/mainComponents/budget/coreData.component.js.map" />
-      <change type="MODIFICATION" beforePath="$PROJECT_DIR$/app/components/mainComponents/budget/coreData.component.ts" afterPath="$PROJECT_DIR$/app/components/mainComponents/budget/coreData.component.ts" />
       <change type="MODIFICATION" beforePath="$PROJECT_DIR$/app/components/mainComponents/budget/expenses.component.js" afterPath="$PROJECT_DIR$/app/components/mainComponents/budget/expenses.component.js" />
       <change type="MODIFICATION" beforePath="$PROJECT_DIR$/app/components/mainComponents/budget/expenses.component.js.map" afterPath="$PROJECT_DIR$/app/components/mainComponents/budget/expenses.component.js.map" />
-      <change type="MODIFICATION" beforePath="$PROJECT_DIR$/app/components/mainComponents/budget/expenses.component.ts" afterPath="$PROJECT_DIR$/app/components/mainComponents/budget/expenses.component.ts" />
       <change type="MODIFICATION" beforePath="$PROJECT_DIR$/app/components/mainComponents/budget/income.component.js" afterPath="$PROJECT_DIR$/app/components/mainComponents/budget/income.component.js" />
       <change type="MODIFICATION" beforePath="$PROJECT_DIR$/app/components/mainComponents/budget/income.component.js.map" afterPath="$PROJECT_DIR$/app/components/mainComponents/budget/income.component.js.map" />
       <change type="MODIFICATION" beforePath="$PROJECT_DIR$/app/components/mainComponents/budget/overview.component.js" afterPath="$PROJECT_DIR$/app/components/mainComponents/budget/overview.component.js" />
       <change type="MODIFICATION" beforePath="$PROJECT_DIR$/app/components/mainComponents/budget/overview.component.js.map" afterPath="$PROJECT_DIR$/app/components/mainComponents/budget/overview.component.js.map" />
-      <change type="MODIFICATION" beforePath="$PROJECT_DIR$/app/components/mainComponents/budget/overview.component.ts" afterPath="$PROJECT_DIR$/app/components/mainComponents/budget/overview.component.ts" />
       <change type="MODIFICATION" beforePath="$PROJECT_DIR$/app/components/mainComponents/budget/taxes.component.js" afterPath="$PROJECT_DIR$/app/components/mainComponents/budget/taxes.component.js" />
       <change type="MODIFICATION" beforePath="$PROJECT_DIR$/app/components/mainComponents/budget/taxes.component.js.map" afterPath="$PROJECT_DIR$/app/components/mainComponents/budget/taxes.component.js.map" />
       <change type="MODIFICATION" beforePath="$PROJECT_DIR$/app/components/mainComponents/home.component.js" afterPath="$PROJECT_DIR$/app/components/mainComponents/home.component.js" />
@@ -58,6 +53,7 @@
       <change type="MODIFICATION" beforePath="$PROJECT_DIR$/app/components/mainComponents/superadmin/superAdminRouter.js.map" afterPath="$PROJECT_DIR$/app/components/mainComponents/superadmin/superAdminRouter.js.map" />
       <change type="MODIFICATION" beforePath="$PROJECT_DIR$/app/components/subComponents/graphs/sunburst.component.js" afterPath="$PROJECT_DIR$/app/components/subComponents/graphs/sunburst.component.js" />
       <change type="MODIFICATION" beforePath="$PROJECT_DIR$/app/components/subComponents/graphs/sunburst.component.js.map" afterPath="$PROJECT_DIR$/app/components/subComponents/graphs/sunburst.component.js.map" />
+      <change type="MODIFICATION" beforePath="$PROJECT_DIR$/app/components/subComponents/graphs/sunburst.component.ts" afterPath="$PROJECT_DIR$/app/components/subComponents/graphs/sunburst.component.ts" />
       <change type="MODIFICATION" beforePath="$PROJECT_DIR$/app/components/subComponents/graphs/sunburstCompare.component.js" afterPath="$PROJECT_DIR$/app/components/subComponents/graphs/sunburstCompare.component.js" />
       <change type="MODIFICATION" beforePath="$PROJECT_DIR$/app/components/subComponents/graphs/sunburstCompare.component.js.map" afterPath="$PROJECT_DIR$/app/components/subComponents/graphs/sunburstCompare.component.js.map" />
       <change type="MODIFICATION" beforePath="$PROJECT_DIR$/app/components/subComponents/information/projectOverview.component.js" afterPath="$PROJECT_DIR$/app/components/subComponents/information/projectOverview.component.js" />
@@ -84,31 +80,23 @@
       <change type="MODIFICATION" beforePath="$PROJECT_DIR$/app/mockData/mock-towns.js.map" afterPath="$PROJECT_DIR$/app/mockData/mock-towns.js.map" />
       <change type="MODIFICATION" beforePath="$PROJECT_DIR$/app/models/actie.js" afterPath="$PROJECT_DIR$/app/models/actie.js" />
       <change type="MODIFICATION" beforePath="$PROJECT_DIR$/app/models/actie.js.map" afterPath="$PROJECT_DIR$/app/models/actie.js.map" />
-      <change type="MODIFICATION" beforePath="$PROJECT_DIR$/app/models/actie.ts" afterPath="$PROJECT_DIR$/app/models/actie.ts" />
       <change type="MODIFICATION" beforePath="$PROJECT_DIR$/app/models/bestuur.js" afterPath="$PROJECT_DIR$/app/models/bestuur.js" />
       <change type="MODIFICATION" beforePath="$PROJECT_DIR$/app/models/bestuur.js.map" afterPath="$PROJECT_DIR$/app/models/bestuur.js.map" />
-      <change type="MODIFICATION" beforePath="$PROJECT_DIR$/app/models/bestuur.ts" afterPath="$PROJECT_DIR$/app/models/bestuur.ts" />
       <change type="MODIFICATION" beforePath="$PROJECT_DIR$/app/models/dto/catDTO.js" afterPath="$PROJECT_DIR$/app/models/dto/catDTO.js" />
       <change type="MODIFICATION" beforePath="$PROJECT_DIR$/app/models/dto/catDTO.js.map" afterPath="$PROJECT_DIR$/app/models/dto/catDTO.js.map" />
       <change type="MODIFICATION" beforePath="$PROJECT_DIR$/app/models/dto/inspraakCategorieDTO.js" afterPath="$PROJECT_DIR$/app/models/dto/inspraakCategorieDTO.js" />
       <change type="MODIFICATION" beforePath="$PROJECT_DIR$/app/models/dto/inspraakCategorieDTO.js.map" afterPath="$PROJECT_DIR$/app/models/dto/inspraakCategorieDTO.js.map" />
-      <change type="MODIFICATION" beforePath="$PROJECT_DIR$/app/models/dto/inspraakCategorieDTO.ts" afterPath="$PROJECT_DIR$/app/models/dto/inspraakCategorieDTO.ts" />
       <change type="MODIFICATION" beforePath="$PROJECT_DIR$/app/models/gemeenteCategorie.js" afterPath="$PROJECT_DIR$/app/models/gemeenteCategorie.js" />
-      <change type="MODIFICATION" beforePath="$PROJECT_DIR$/app/models/gemeenteCategorie.js.map" afterPath="$PROJECT_DIR$/app/models/gemeenteCategorie.js.map" />
-      <change type="MODIFICATION" beforePath="$PROJECT_DIR$/app/models/gemeenteCategorie.ts" afterPath="$PROJECT_DIR$/app/models/gemeenteCategorie.ts" />
       <change type="MODIFICATION" beforePath="$PROJECT_DIR$/app/models/ingelogdeGebruiker.js" afterPath="$PROJECT_DIR$/app/models/ingelogdeGebruiker.js" />
       <change type="MODIFICATION" beforePath="$PROJECT_DIR$/app/models/ingelogdeGebruiker.js.map" afterPath="$PROJECT_DIR$/app/models/ingelogdeGebruiker.js.map" />
       <change type="MODIFICATION" beforePath="$PROJECT_DIR$/app/models/inspraakNiveau.js" afterPath="$PROJECT_DIR$/app/models/inspraakNiveau.js" />
       <change type="MODIFICATION" beforePath="$PROJECT_DIR$/app/models/inspraakNiveau.js.map" afterPath="$PROJECT_DIR$/app/models/inspraakNiveau.js.map" />
-      <change type="MODIFICATION" beforePath="$PROJECT_DIR$/app/models/inspraakNiveau.ts" afterPath="$PROJECT_DIR$/app/models/inspraakNiveau.ts" />
       <change type="MODIFICATION" beforePath="$PROJECT_DIR$/app/models/mainTown.js" afterPath="$PROJECT_DIR$/app/models/mainTown.js" />
       <change type="MODIFICATION" beforePath="$PROJECT_DIR$/app/models/mainTown.js.map" afterPath="$PROJECT_DIR$/app/models/mainTown.js.map" />
       <change type="MODIFICATION" beforePath="$PROJECT_DIR$/app/models/politicusType.js" afterPath="$PROJECT_DIR$/app/models/politicusType.js" />
       <change type="MODIFICATION" beforePath="$PROJECT_DIR$/app/models/politicusType.js.map" afterPath="$PROJECT_DIR$/app/models/politicusType.js.map" />
-      <change type="MODIFICATION" beforePath="$PROJECT_DIR$/app/models/politicusType.ts" afterPath="$PROJECT_DIR$/app/models/politicusType.ts" />
       <change type="MODIFICATION" beforePath="$PROJECT_DIR$/app/models/project.js" afterPath="$PROJECT_DIR$/app/models/project.js" />
       <change type="MODIFICATION" beforePath="$PROJECT_DIR$/app/models/project.js.map" afterPath="$PROJECT_DIR$/app/models/project.js.map" />
-      <change type="MODIFICATION" beforePath="$PROJECT_DIR$/app/models/project.ts" afterPath="$PROJECT_DIR$/app/models/project.ts" />
       <change type="MODIFICATION" beforePath="$PROJECT_DIR$/app/models/projectScenario.js" afterPath="$PROJECT_DIR$/app/models/projectScenario.js" />
       <change type="MODIFICATION" beforePath="$PROJECT_DIR$/app/models/projectScenario.js.map" afterPath="$PROJECT_DIR$/app/models/projectScenario.js.map" />
       <change type="MODIFICATION" beforePath="$PROJECT_DIR$/app/models/town.js" afterPath="$PROJECT_DIR$/app/models/town.js" />
@@ -117,15 +105,12 @@
       <change type="MODIFICATION" beforePath="$PROJECT_DIR$/app/pipes/keysPipe.js.map" afterPath="$PROJECT_DIR$/app/pipes/keysPipe.js.map" />
       <change type="MODIFICATION" beforePath="$PROJECT_DIR$/app/services/ActieService.js" afterPath="$PROJECT_DIR$/app/services/ActieService.js" />
       <change type="MODIFICATION" beforePath="$PROJECT_DIR$/app/services/ActieService.js.map" afterPath="$PROJECT_DIR$/app/services/ActieService.js.map" />
-      <change type="MODIFICATION" beforePath="$PROJECT_DIR$/app/services/ActieService.ts" afterPath="$PROJECT_DIR$/app/services/ActieService.ts" />
       <change type="MODIFICATION" beforePath="$PROJECT_DIR$/app/services/begrotingService.js" afterPath="$PROJECT_DIR$/app/services/begrotingService.js" />
       <change type="MODIFICATION" beforePath="$PROJECT_DIR$/app/services/begrotingService.js.map" afterPath="$PROJECT_DIR$/app/services/begrotingService.js.map" />
-      <change type="MODIFICATION" beforePath="$PROJECT_DIR$/app/services/begrotingService.ts" afterPath="$PROJECT_DIR$/app/services/begrotingService.ts" />
       <change type="MODIFICATION" beforePath="$PROJECT_DIR$/app/services/loginService.component.js" afterPath="$PROJECT_DIR$/app/services/loginService.component.js" />
       <change type="MODIFICATION" beforePath="$PROJECT_DIR$/app/services/loginService.component.js.map" afterPath="$PROJECT_DIR$/app/services/loginService.component.js.map" />
       <change type="MODIFICATION" beforePath="$PROJECT_DIR$/app/services/projectService.component.js" afterPath="$PROJECT_DIR$/app/services/projectService.component.js" />
       <change type="MODIFICATION" beforePath="$PROJECT_DIR$/app/services/projectService.component.js.map" afterPath="$PROJECT_DIR$/app/services/projectService.component.js.map" />
-      <change type="MODIFICATION" beforePath="$PROJECT_DIR$/app/services/projectService.component.ts" afterPath="$PROJECT_DIR$/app/services/projectService.component.ts" />
       <change type="MODIFICATION" beforePath="$PROJECT_DIR$/app/services/townService.component.js" afterPath="$PROJECT_DIR$/app/services/townService.component.js" />
       <change type="MODIFICATION" beforePath="$PROJECT_DIR$/app/services/townService.component.js.map" afterPath="$PROJECT_DIR$/app/services/townService.component.js.map" />
       <change type="MODIFICATION" beforePath="$PROJECT_DIR$/app/services/townService.component.ts" afterPath="$PROJECT_DIR$/app/services/townService.component.ts" />
@@ -153,7 +138,7 @@
         <entry file="file://$PROJECT_DIR$/app/components/mainComponents/homeRouter.ts">
           <provider selected="true" editor-type-id="text-editor">
             <state vertical-scroll-proportion="0.0">
-              <caret line="36" column="19" selection-start-line="36" selection-start-column="0" selection-end-line="37" selection-end-column="0" />
+              <caret line="48" column="1" selection-start-line="48" selection-start-column="1" selection-end-line="48" selection-end-column="1" />
               <folding />
             </state>
           </provider>
@@ -178,7 +163,33 @@
         <entry file="file://$PROJECT_DIR$/app/components/mainComponents/budget/overview.component.ts">
           <provider selected="true" editor-type-id="text-editor">
             <state vertical-scroll-proportion="0.0">
-              <caret line="174" column="8" selection-start-line="174" selection-start-column="8" selection-end-line="178" selection-end-column="15" />
+              <caret line="187" column="5" selection-start-line="187" selection-start-column="5" selection-end-line="187" selection-end-column="5" />
+              <folding />
+            </state>
+          </provider>
+        </entry>
+      </file>
+      <file leaf-file-name="sunburst.component.ts" pinned="false" current-in-tab="true">
+        <entry file="file://$PROJECT_DIR$/app/components/subComponents/graphs/sunburst.component.ts">
+          <provider selected="true" editor-type-id="text-editor">
+            <state vertical-scroll-proportion="0.7747989">
+              <caret line="232" column="0" selection-start-line="232" selection-start-column="0" selection-end-line="232" selection-end-column="0" />
+              <folding>
+                <marker date="1463283204000" expanded="true" signature="486:946" placeholder="..." />
+                <marker date="1463283204000" expanded="false" signature="524:543" placeholder="..." />
+                <marker date="1463283204000" expanded="true" signature="544:743" placeholder="..." />
+                <marker date="1463283204000" expanded="true" signature="774:933" placeholder="..." />
+                <marker date="1463283204000" expanded="true" signature="1045:1107" placeholder="..." />
+              </folding>
+            </state>
+          </provider>
+        </entry>
+      </file>
+      <file leaf-file-name="gemeenteCategorie.ts" pinned="false" current-in-tab="false">
+        <entry file="file://$PROJECT_DIR$/app/models/gemeenteCategorie.ts">
+          <provider selected="true" editor-type-id="text-editor">
+            <state vertical-scroll-proportion="0.0">
+              <caret line="0" column="0" selection-start-line="0" selection-start-column="0" selection-end-line="0" selection-end-column="0" />
               <folding />
             </state>
           </provider>
@@ -194,29 +205,16 @@
           </provider>
         </entry>
       </file>
-      <file leaf-file-name="income.component.ts" pinned="false" current-in-tab="false">
-        <entry file="file://$PROJECT_DIR$/app/components/mainComponents/budget/income.component.ts">
+      <file leaf-file-name="projectOverview.component.ts" pinned="false" current-in-tab="false">
+        <entry file="file://$PROJECT_DIR$/app/components/subComponents/information/projectOverview.component.ts">
           <provider selected="true" editor-type-id="text-editor">
             <state vertical-scroll-proportion="0.0">
-              <caret line="21" column="41" selection-start-line="21" selection-start-column="41" selection-end-line="21" selection-end-column="41" />
+              <caret line="10" column="45" selection-start-line="10" selection-start-column="0" selection-end-line="11" selection-end-column="0" />
               <folding>
-                <marker date="1463270941000" expanded="true" signature="1144:2611" placeholder="..." />
-                <marker date="1463270941000" expanded="true" signature="1186:2597" placeholder="..." />
-                <marker date="1463270941000" expanded="true" signature="1572:2577" placeholder="..." />
-                <marker date="1463270941000" expanded="true" signature="1654:2223" placeholder="..." />
-                <marker date="1463270941000" expanded="true" signature="2276:2562" placeholder="..." />
-                <marker date="1463270941000" expanded="true" signature="2329:2543" placeholder="..." />
+                <marker date="1462997238000" expanded="true" signature="277:651" placeholder="..." />
+                <marker date="1462997238000" expanded="true" signature="350:628" placeholder="..." />
+                <marker date="1462997238000" expanded="true" signature="398:517" placeholder="..." />
               </folding>
-            </state>
-          </provider>
-        </entry>
-      </file>
-      <file leaf-file-name="budgetRouter.ts" pinned="false" current-in-tab="false">
-        <entry file="file://$PROJECT_DIR$/app/components/mainComponents/budget/budgetRouter.ts">
-          <provider selected="true" editor-type-id="text-editor">
-            <state vertical-scroll-proportion="0.0">
-              <caret line="22" column="71" selection-start-line="22" selection-start-column="71" selection-end-line="22" selection-end-column="71" />
-              <folding />
             </state>
           </provider>
         </entry>
@@ -225,36 +223,16 @@
         <entry file="file://$PROJECT_DIR$/app/services/begrotingService.ts">
           <provider selected="true" editor-type-id="text-editor">
             <state vertical-scroll-proportion="0.0">
-              <caret line="17" column="0" selection-start-line="17" selection-start-column="0" selection-end-line="17" selection-end-column="0" />
+              <caret line="19" column="20" selection-start-line="19" selection-start-column="20" selection-end-line="19" selection-end-column="75" />
               <folding />
             </state>
           </provider>
         </entry>
       </file>
-      <file leaf-file-name="sunburst.component.ts" pinned="false" current-in-tab="false">
-        <entry file="file://$PROJECT_DIR$/app/components/subComponents/graphs/sunburst.component.ts">
-          <provider selected="true" editor-type-id="text-editor">
-            <state vertical-scroll-proportion="0.0">
-              <caret line="27" column="23" selection-start-line="27" selection-start-column="23" selection-end-line="27" selection-end-column="23" />
-              <folding />
-            </state>
-          </provider>
-        </entry>
-      </file>
-      <file leaf-file-name="menu.component.ts" pinned="false" current-in-tab="false">
-        <entry file="file://$PROJECT_DIR$/app/components/subComponents/nav/menu.component.ts">
-          <provider selected="true" editor-type-id="text-editor">
-            <state vertical-scroll-proportion="0.0">
-              <caret line="38" column="36" selection-start-line="38" selection-start-column="36" selection-end-line="38" selection-end-column="36" />
-              <folding />
-            </state>
-          </provider>
-        </entry>
-      </file>
-      <file leaf-file-name="expenses.component.ts" pinned="false" current-in-tab="true">
+      <file leaf-file-name="expenses.component.ts" pinned="false" current-in-tab="false">
         <entry file="file://$PROJECT_DIR$/app/components/mainComponents/budget/expenses.component.ts">
           <provider selected="true" editor-type-id="text-editor">
-            <state vertical-scroll-proportion="0.7875">
+            <state vertical-scroll-proportion="0.0">
               <caret line="212" column="61" selection-start-line="212" selection-start-column="61" selection-end-line="212" selection-end-column="61" />
               <folding>
                 <marker date="1463271696000" expanded="true" signature="1146:2612" placeholder="..." />
@@ -263,6 +241,23 @@
                 <marker date="1463271696000" expanded="true" signature="1655:2224" placeholder="..." />
                 <marker date="1463271696000" expanded="true" signature="2277:2563" placeholder="..." />
                 <marker date="1463271696000" expanded="true" signature="2330:2544" placeholder="..." />
+              </folding>
+            </state>
+          </provider>
+        </entry>
+      </file>
+      <file leaf-file-name="comparison.component.ts" pinned="false" current-in-tab="false">
+        <entry file="file://$PROJECT_DIR$/app/components/mainComponents/budget/comparison.component.ts">
+          <provider selected="true" editor-type-id="text-editor">
+            <state vertical-scroll-proportion="0.0">
+              <caret line="0" column="0" selection-start-line="0" selection-start-column="0" selection-end-line="0" selection-end-column="0" />
+              <folding>
+                <marker date="1463218656000" expanded="true" signature="1148:2194" placeholder="..." />
+                <marker date="1463218656000" expanded="true" signature="1190:2178" placeholder="..." />
+                <marker date="1463218656000" expanded="true" signature="1562:2158" placeholder="..." />
+                <marker date="1463218656000" expanded="true" signature="1648:1825" placeholder="..." />
+                <marker date="1463218656000" expanded="true" signature="1877:1915" placeholder="..." />
+                <marker date="1463218656000" expanded="true" signature="1966:2143" placeholder="..." />
               </folding>
             </state>
           </provider>
@@ -283,7 +278,6 @@
         <option value="$PROJECT_DIR$/app/components/subComponents/input/selector.ts" />
         <option value="$PROJECT_DIR$/app/components/mainComponents/admin/manageData.component.ts" />
         <option value="$PROJECT_DIR$/app/services/projectService.component.ts" />
-        <option value="$PROJECT_DIR$/app/components/subComponents/graphs/sunburst.component.ts" />
         <option value="$PROJECT_DIR$/stylesheet.css" />
         <option value="$PROJECT_DIR$/app/components/mainComponents/budget/budgetRouter.ts" />
         <option value="$PROJECT_DIR$/app/components/subComponents/nav/menu.component.ts" />
@@ -292,6 +286,8 @@
         <option value="$PROJECT_DIR$/app/services/begrotingService.ts" />
         <option value="$PROJECT_DIR$/app/components/mainComponents/budget/overview.component.ts" />
         <option value="$PROJECT_DIR$/app/components/mainComponents/budget/expenses.component.ts" />
+        <option value="$PROJECT_DIR$/app/services/townService.component.ts" />
+        <option value="$PROJECT_DIR$/app/components/subComponents/graphs/sunburst.component.ts" />
       </list>
     </option>
   </component>
@@ -301,8 +297,8 @@
     <detection-done>true</detection-done>
   </component>
   <component name="ProjectFrameBounds">
-    <option name="x" value="240" />
-    <option name="y" value="127" />
+    <option name="x" value="34" />
+    <option name="y" value="215" />
     <option name="width" value="1486" />
     <option name="height" value="826" />
   </component>
@@ -493,6 +489,10 @@
             </PATH_ELEMENT>
             <PATH_ELEMENT>
               <option name="myItemId" value="subComponents" />
+              <option name="myItemType" value="com.intellij.ide.projectView.impl.nodes.PsiDirectoryNode" />
+            </PATH_ELEMENT>
+            <PATH_ELEMENT>
+              <option name="myItemId" value="information" />
               <option name="myItemType" value="com.intellij.ide.projectView.impl.nodes.PsiDirectoryNode" />
             </PATH_ELEMENT>
           </PATH>
@@ -732,7 +732,7 @@
     <servers />
   </component>
   <component name="ToolWindowManager">
-    <frame x="240" y="127" width="1486" height="826" extended-state="0" />
+    <frame x="34" y="215" width="1486" height="826" extended-state="0" />
     <editor active="true" />
     <layout>
       <window_info id="Project" active="false" anchor="left" auto_hide="false" internal_type="DOCKED" type="DOCKED" visible="true" show_stripe_button="true" weight="0.3331058" sideWeight="0.5" order="0" side_tool="false" content_ui="combo" />
@@ -740,18 +740,18 @@
       <window_info id="TypeScript Compiler" active="false" anchor="bottom" auto_hide="false" internal_type="DOCKED" type="DOCKED" visible="true" show_stripe_button="true" weight="0.41689372" sideWeight="0.5" order="7" side_tool="false" content_ui="tabs" />
       <window_info id="Event Log" active="false" anchor="bottom" auto_hide="false" internal_type="DOCKED" type="DOCKED" visible="false" show_stripe_button="true" weight="0.33" sideWeight="0.5" order="10" side_tool="true" content_ui="tabs" />
       <window_info id="Version Control" active="false" anchor="bottom" auto_hide="false" internal_type="DOCKED" type="DOCKED" visible="false" show_stripe_button="true" weight="0.33" sideWeight="0.5" order="8" side_tool="false" content_ui="tabs" />
+      <window_info id="Run" active="false" anchor="bottom" auto_hide="false" internal_type="DOCKED" type="DOCKED" visible="false" show_stripe_button="true" weight="0.33" sideWeight="0.5" order="2" side_tool="false" content_ui="tabs" />
       <window_info id="Structure" active="false" anchor="left" auto_hide="false" internal_type="DOCKED" type="DOCKED" visible="false" show_stripe_button="true" weight="0.25" sideWeight="0.5" order="1" side_tool="false" content_ui="tabs" />
       <window_info id="Terminal" active="false" anchor="bottom" auto_hide="false" internal_type="DOCKED" type="DOCKED" visible="false" show_stripe_button="true" weight="0.32970026" sideWeight="0.5" order="9" side_tool="false" content_ui="tabs" />
       <window_info id="Favorites" active="false" anchor="left" auto_hide="false" internal_type="DOCKED" type="DOCKED" visible="false" show_stripe_button="true" weight="0.33" sideWeight="0.5" order="2" side_tool="true" content_ui="tabs" />
+      <window_info id="Debug" active="false" anchor="bottom" auto_hide="false" internal_type="DOCKED" type="DOCKED" visible="false" show_stripe_button="true" weight="0.4" sideWeight="0.5" order="3" side_tool="false" content_ui="tabs" />
       <window_info id="Cvs" active="false" anchor="bottom" auto_hide="false" internal_type="DOCKED" type="DOCKED" visible="false" show_stripe_button="true" weight="0.25" sideWeight="0.5" order="4" side_tool="false" content_ui="tabs" />
       <window_info id="Message" active="false" anchor="bottom" auto_hide="false" internal_type="DOCKED" type="DOCKED" visible="false" show_stripe_button="true" weight="0.33" sideWeight="0.5" order="0" side_tool="false" content_ui="tabs" />
       <window_info id="Commander" active="false" anchor="right" auto_hide="false" internal_type="DOCKED" type="DOCKED" visible="false" show_stripe_button="true" weight="0.4" sideWeight="0.5" order="0" side_tool="false" content_ui="tabs" />
       <window_info id="Inspection" active="false" anchor="bottom" auto_hide="false" internal_type="DOCKED" type="DOCKED" visible="false" show_stripe_button="true" weight="0.4" sideWeight="0.5" order="5" side_tool="false" content_ui="tabs" />
-      <window_info id="Run" active="false" anchor="bottom" auto_hide="false" internal_type="DOCKED" type="DOCKED" visible="false" show_stripe_button="true" weight="0.33" sideWeight="0.5" order="2" side_tool="false" content_ui="tabs" />
       <window_info id="Hierarchy" active="false" anchor="right" auto_hide="false" internal_type="DOCKED" type="DOCKED" visible="false" show_stripe_button="true" weight="0.25" sideWeight="0.5" order="2" side_tool="false" content_ui="combo" />
       <window_info id="Find" active="false" anchor="bottom" auto_hide="false" internal_type="DOCKED" type="DOCKED" visible="false" show_stripe_button="true" weight="0.33" sideWeight="0.5" order="1" side_tool="false" content_ui="tabs" />
       <window_info id="Ant Build" active="false" anchor="right" auto_hide="false" internal_type="DOCKED" type="DOCKED" visible="false" show_stripe_button="true" weight="0.25" sideWeight="0.5" order="1" side_tool="false" content_ui="tabs" />
-      <window_info id="Debug" active="false" anchor="bottom" auto_hide="false" internal_type="DOCKED" type="DOCKED" visible="false" show_stripe_button="true" weight="0.4" sideWeight="0.5" order="3" side_tool="false" content_ui="tabs" />
     </layout>
   </component>
   <component name="Vcs.Log.UiProperties">
@@ -770,29 +770,6 @@
     <watches-manager />
   </component>
   <component name="editorHistoryManager">
-    <entry file="file://$PROJECT_DIR$/app/components/mainComponents/budget/income.component.ts">
-      <provider selected="true" editor-type-id="text-editor">
-        <state vertical-scroll-proportion="0.0">
-          <caret line="181" column="19" selection-start-line="181" selection-start-column="19" selection-end-line="181" selection-end-column="19" />
-          <folding>
-            <marker date="1463270941000" expanded="true" signature="1144:2611" placeholder="..." />
-            <marker date="1463270941000" expanded="true" signature="1186:2597" placeholder="..." />
-            <marker date="1463270941000" expanded="true" signature="1572:2577" placeholder="..." />
-            <marker date="1463270941000" expanded="true" signature="1654:2223" placeholder="..." />
-            <marker date="1463270941000" expanded="true" signature="2276:2562" placeholder="..." />
-            <marker date="1463270941000" expanded="true" signature="2329:2543" placeholder="..." />
-          </folding>
-        </state>
-      </provider>
-    </entry>
-    <entry file="file://$PROJECT_DIR$/app/components/mainComponents/budget/budgetRouter.ts">
-      <provider selected="true" editor-type-id="text-editor">
-        <state vertical-scroll-proportion="0.0">
-          <caret line="23" column="2" selection-start-line="23" selection-start-column="2" selection-end-line="23" selection-end-column="2" />
-          <folding />
-        </state>
-      </provider>
-    </entry>
     <entry file="file://$PROJECT_DIR$/stylesheet.css">
       <provider selected="true" editor-type-id="text-editor">
         <state vertical-scroll-proportion="0.0">
@@ -805,7 +782,13 @@
       <provider selected="true" editor-type-id="text-editor">
         <state vertical-scroll-proportion="0.0">
           <caret line="27" column="23" selection-start-line="27" selection-start-column="23" selection-end-line="27" selection-end-column="23" />
-          <folding />
+          <folding>
+            <marker date="1463283204000" expanded="true" signature="486:946" placeholder="..." />
+            <marker date="1463283204000" expanded="false" signature="524:543" placeholder="..." />
+            <marker date="1463283204000" expanded="true" signature="544:743" placeholder="..." />
+            <marker date="1463283204000" expanded="true" signature="774:933" placeholder="..." />
+            <marker date="1463283204000" expanded="true" signature="1045:1107" placeholder="..." />
+          </folding>
         </state>
       </provider>
     </entry>
@@ -1074,21 +1057,6 @@
         </state>
       </provider>
     </entry>
-    <entry file="file://$PROJECT_DIR$/app/components/mainComponents/budget/comparison.component.ts">
-      <provider selected="true" editor-type-id="text-editor">
-        <state vertical-scroll-proportion="0.0">
-          <caret line="0" column="0" selection-start-line="0" selection-start-column="0" selection-end-line="0" selection-end-column="0" />
-          <folding>
-            <marker date="1463218656000" expanded="true" signature="1148:2194" placeholder="..." />
-            <marker date="1463218656000" expanded="true" signature="1190:2178" placeholder="..." />
-            <marker date="1463218656000" expanded="true" signature="1562:2158" placeholder="..." />
-            <marker date="1463218656000" expanded="true" signature="1648:1825" placeholder="..." />
-            <marker date="1463218656000" expanded="true" signature="1877:1915" placeholder="..." />
-            <marker date="1463218656000" expanded="true" signature="1966:2143" placeholder="..." />
-          </folding>
-        </state>
-      </provider>
-    </entry>
     <entry file="file://$PROJECT_DIR$/app/mockData/mock-projects.ts">
       <provider selected="true" editor-type-id="text-editor">
         <state vertical-scroll-proportion="0.0">
@@ -1111,14 +1079,6 @@
             <marker date="1463073331000" expanded="true" signature="362:645" placeholder="..." />
             <marker date="1463073331000" expanded="true" signature="428:622" placeholder="..." />
           </folding>
-        </state>
-      </provider>
-    </entry>
-    <entry file="file://$PROJECT_DIR$/app/services/townService.component.ts">
-      <provider selected="true" editor-type-id="text-editor">
-        <state vertical-scroll-proportion="0.0">
-          <caret line="16" column="20" selection-start-line="16" selection-start-column="20" selection-end-line="16" selection-end-column="74" />
-          <folding />
         </state>
       </provider>
     </entry>
@@ -1154,47 +1114,10 @@
         </state>
       </provider>
     </entry>
-    <entry file="file://$PROJECT_DIR$/app/components/subComponents/graphs/sunburst.component.ts">
-      <provider selected="true" editor-type-id="text-editor">
-        <state vertical-scroll-proportion="0.0">
-          <caret line="27" column="23" selection-start-line="27" selection-start-column="23" selection-end-line="27" selection-end-column="23" />
-          <folding />
-        </state>
-      </provider>
-    </entry>
     <entry file="file://$PROJECT_DIR$/app/components/subComponents/nav/menu.component.ts">
       <provider selected="true" editor-type-id="text-editor">
         <state vertical-scroll-proportion="0.0">
           <caret line="38" column="36" selection-start-line="38" selection-start-column="36" selection-end-line="38" selection-end-column="36" />
-          <folding />
-        </state>
-      </provider>
-    </entry>
-    <entry file="file://$PROJECT_DIR$/app/components/mainComponents/home.component.ts">
-      <provider selected="true" editor-type-id="text-editor">
-        <state vertical-scroll-proportion="0.0">
-          <caret line="0" column="0" selection-start-line="0" selection-start-column="0" selection-end-line="0" selection-end-column="0" />
-          <folding>
-            <marker date="1462997238000" expanded="true" signature="479:885" placeholder="..." />
-            <marker date="1462997238000" expanded="true" signature="599:873" placeholder="..." />
-            <marker date="1462997238000" expanded="true" signature="930:1331" placeholder="..." />
-            <marker date="1462997238000" expanded="true" signature="1036:1320" placeholder="..." />
-          </folding>
-        </state>
-      </provider>
-    </entry>
-    <entry file="file://$PROJECT_DIR$/app/components/mainComponents/homeRouter.ts">
-      <provider selected="true" editor-type-id="text-editor">
-        <state vertical-scroll-proportion="0.0">
-          <caret line="36" column="19" selection-start-line="36" selection-start-column="0" selection-end-line="37" selection-end-column="0" />
-          <folding />
-        </state>
-      </provider>
-    </entry>
-    <entry file="file://$PROJECT_DIR$/app/components/mainComponents/budget/budgetRouter.ts">
-      <provider selected="true" editor-type-id="text-editor">
-        <state vertical-scroll-proportion="0.0">
-          <caret line="22" column="71" selection-start-line="22" selection-start-column="71" selection-end-line="22" selection-end-column="71" />
           <folding />
         </state>
       </provider>
@@ -1214,18 +1137,10 @@
         </state>
       </provider>
     </entry>
-    <entry file="file://$PROJECT_DIR$/app/services/projectService.component.ts">
+    <entry file="file://$PROJECT_DIR$/app/components/mainComponents/budget/budgetRouter.ts">
       <provider selected="true" editor-type-id="text-editor">
         <state vertical-scroll-proportion="0.0">
-          <caret line="37" column="0" selection-start-line="37" selection-start-column="0" selection-end-line="37" selection-end-column="0" />
-          <folding />
-        </state>
-      </provider>
-    </entry>
-    <entry file="file://$PROJECT_DIR$/app/services/begrotingService.ts">
-      <provider selected="true" editor-type-id="text-editor">
-        <state vertical-scroll-proportion="0.0">
-          <caret line="17" column="0" selection-start-line="17" selection-start-column="0" selection-end-line="17" selection-end-column="0" />
+          <caret line="22" column="71" selection-start-line="22" selection-start-column="71" selection-end-line="22" selection-end-column="71" />
           <folding />
         </state>
       </provider>
@@ -1233,14 +1148,35 @@
     <entry file="file://$PROJECT_DIR$/app/components/mainComponents/budget/overview.component.ts">
       <provider selected="true" editor-type-id="text-editor">
         <state vertical-scroll-proportion="0.0">
-          <caret line="174" column="8" selection-start-line="174" selection-start-column="8" selection-end-line="178" selection-end-column="15" />
+          <caret line="187" column="5" selection-start-line="187" selection-start-column="5" selection-end-line="187" selection-end-column="5" />
           <folding />
+        </state>
+      </provider>
+    </entry>
+    <entry file="file://$PROJECT_DIR$/app/services/townService.component.ts">
+      <provider selected="true" editor-type-id="text-editor">
+        <state vertical-scroll-proportion="0.3025">
+          <caret line="16" column="4" selection-start-line="16" selection-start-column="4" selection-end-line="16" selection-end-column="4" />
+          <folding />
+        </state>
+      </provider>
+    </entry>
+    <entry file="file://$PROJECT_DIR$/app/components/mainComponents/home.component.ts">
+      <provider selected="true" editor-type-id="text-editor">
+        <state vertical-scroll-proportion="0.0">
+          <caret line="0" column="0" selection-start-line="0" selection-start-column="0" selection-end-line="0" selection-end-column="0" />
+          <folding>
+            <marker date="1462997238000" expanded="true" signature="479:885" placeholder="..." />
+            <marker date="1462997238000" expanded="true" signature="599:873" placeholder="..." />
+            <marker date="1462997238000" expanded="true" signature="930:1331" placeholder="..." />
+            <marker date="1462997238000" expanded="true" signature="1036:1320" placeholder="..." />
+          </folding>
         </state>
       </provider>
     </entry>
     <entry file="file://$PROJECT_DIR$/app/components/mainComponents/budget/expenses.component.ts">
       <provider selected="true" editor-type-id="text-editor">
-        <state vertical-scroll-proportion="0.7875">
+        <state vertical-scroll-proportion="0.0">
           <caret line="212" column="61" selection-start-line="212" selection-start-column="61" selection-end-line="212" selection-end-column="61" />
           <folding>
             <marker date="1463271696000" expanded="true" signature="1146:2612" placeholder="..." />
@@ -1249,6 +1185,79 @@
             <marker date="1463271696000" expanded="true" signature="1655:2224" placeholder="..." />
             <marker date="1463271696000" expanded="true" signature="2277:2563" placeholder="..." />
             <marker date="1463271696000" expanded="true" signature="2330:2544" placeholder="..." />
+          </folding>
+        </state>
+      </provider>
+    </entry>
+    <entry file="file://$PROJECT_DIR$/app/components/mainComponents/budget/comparison.component.ts">
+      <provider selected="true" editor-type-id="text-editor">
+        <state vertical-scroll-proportion="0.0">
+          <caret line="0" column="0" selection-start-line="0" selection-start-column="0" selection-end-line="0" selection-end-column="0" />
+          <folding>
+            <marker date="1463218656000" expanded="true" signature="1148:2194" placeholder="..." />
+            <marker date="1463218656000" expanded="true" signature="1190:2178" placeholder="..." />
+            <marker date="1463218656000" expanded="true" signature="1562:2158" placeholder="..." />
+            <marker date="1463218656000" expanded="true" signature="1648:1825" placeholder="..." />
+            <marker date="1463218656000" expanded="true" signature="1877:1915" placeholder="..." />
+            <marker date="1463218656000" expanded="true" signature="1966:2143" placeholder="..." />
+          </folding>
+        </state>
+      </provider>
+    </entry>
+    <entry file="file://$PROJECT_DIR$/app/components/mainComponents/homeRouter.ts">
+      <provider selected="true" editor-type-id="text-editor">
+        <state vertical-scroll-proportion="0.0">
+          <caret line="48" column="1" selection-start-line="48" selection-start-column="1" selection-end-line="48" selection-end-column="1" />
+          <folding />
+        </state>
+      </provider>
+    </entry>
+    <entry file="file://$PROJECT_DIR$/app/models/gemeenteCategorie.ts">
+      <provider selected="true" editor-type-id="text-editor">
+        <state vertical-scroll-proportion="0.0">
+          <caret line="0" column="0" selection-start-line="0" selection-start-column="0" selection-end-line="0" selection-end-column="0" />
+          <folding />
+        </state>
+      </provider>
+    </entry>
+    <entry file="file://$PROJECT_DIR$/app/services/projectService.component.ts">
+      <provider selected="true" editor-type-id="text-editor">
+        <state vertical-scroll-proportion="0.0">
+          <caret line="37" column="0" selection-start-line="37" selection-start-column="0" selection-end-line="37" selection-end-column="0" />
+          <folding />
+        </state>
+      </provider>
+    </entry>
+    <entry file="file://$PROJECT_DIR$/app/components/subComponents/information/projectOverview.component.ts">
+      <provider selected="true" editor-type-id="text-editor">
+        <state vertical-scroll-proportion="0.0">
+          <caret line="10" column="45" selection-start-line="10" selection-start-column="0" selection-end-line="11" selection-end-column="0" />
+          <folding>
+            <marker date="1462997238000" expanded="true" signature="277:651" placeholder="..." />
+            <marker date="1462997238000" expanded="true" signature="350:628" placeholder="..." />
+            <marker date="1462997238000" expanded="true" signature="398:517" placeholder="..." />
+          </folding>
+        </state>
+      </provider>
+    </entry>
+    <entry file="file://$PROJECT_DIR$/app/services/begrotingService.ts">
+      <provider selected="true" editor-type-id="text-editor">
+        <state vertical-scroll-proportion="0.0">
+          <caret line="19" column="20" selection-start-line="19" selection-start-column="20" selection-end-line="19" selection-end-column="75" />
+          <folding />
+        </state>
+      </provider>
+    </entry>
+    <entry file="file://$PROJECT_DIR$/app/components/subComponents/graphs/sunburst.component.ts">
+      <provider selected="true" editor-type-id="text-editor">
+        <state vertical-scroll-proportion="0.7747989">
+          <caret line="232" column="0" selection-start-line="232" selection-start-column="0" selection-end-line="232" selection-end-column="0" />
+          <folding>
+            <marker date="1463283204000" expanded="true" signature="486:946" placeholder="..." />
+            <marker date="1463283204000" expanded="false" signature="524:543" placeholder="..." />
+            <marker date="1463283204000" expanded="true" signature="544:743" placeholder="..." />
+            <marker date="1463283204000" expanded="true" signature="774:933" placeholder="..." />
+            <marker date="1463283204000" expanded="true" signature="1045:1107" placeholder="..." />
           </folding>
         </state>
       </provider>
