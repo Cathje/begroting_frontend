@@ -1,1 +1,1 @@
-{"version":3,"file":"inspraakCategorieDTO.js","sourceRoot":"","sources":["inspraakCategorieDTO.ts"],"names":["InspraakCategorie","InspraakCategorie.constructor"],"mappings":";;;;;YAIA;;eAEG;YAEH;gBAAAA;oBAOIC,WAAMA,GAAYA,IAAIA,CAAEA;gBAC5BA,CAACA;gBAADD,wBAACA;YAADA,CAACA,AARD,IAQC;YARD,iDAQC,CAAA"}
+{"version":3,"file":"inspraakCategorieDTO.js","sourceRoot":"","sources":["inspraakCategorieDTO.ts"],"names":[],"mappings":";;;;;;;YAIA;;eAEG;YAEH;gBAAA;oBAOI,WAAM,GAAY,IAAI,CAAE;gBAC5B,CAAC;gBAAD,wBAAC;YAAD,CAAC,AARD,IAQC;YARD,iDAQC,CAAA"}
