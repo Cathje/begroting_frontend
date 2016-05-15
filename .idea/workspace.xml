@@ -3,9 +3,117 @@
   <component name="ChangeListManager">
     <list default="true" id="50eac2ba-bef9-4e9b-a45f-ec0798a2b175" name="Default" comment="">
       <change type="MODIFICATION" beforePath="$PROJECT_DIR$/.idea/workspace.xml" afterPath="$PROJECT_DIR$/.idea/workspace.xml" />
+      <change type="MODIFICATION" beforePath="$PROJECT_DIR$/app/app.component.js" afterPath="$PROJECT_DIR$/app/app.component.js" />
+      <change type="MODIFICATION" beforePath="$PROJECT_DIR$/app/app.component.js.map" afterPath="$PROJECT_DIR$/app/app.component.js.map" />
+      <change type="MODIFICATION" beforePath="$PROJECT_DIR$/app/components/mainComponents/Login/login.component.js" afterPath="$PROJECT_DIR$/app/components/mainComponents/Login/login.component.js" />
+      <change type="MODIFICATION" beforePath="$PROJECT_DIR$/app/components/mainComponents/Login/login.component.js.map" afterPath="$PROJECT_DIR$/app/components/mainComponents/Login/login.component.js.map" />
+      <change type="MODIFICATION" beforePath="$PROJECT_DIR$/app/components/mainComponents/Login/register.component.js" afterPath="$PROJECT_DIR$/app/components/mainComponents/Login/register.component.js" />
+      <change type="MODIFICATION" beforePath="$PROJECT_DIR$/app/components/mainComponents/Login/register.component.js.map" afterPath="$PROJECT_DIR$/app/components/mainComponents/Login/register.component.js.map" />
+      <change type="MODIFICATION" beforePath="$PROJECT_DIR$/app/components/mainComponents/admin/addInformation.component.js" afterPath="$PROJECT_DIR$/app/components/mainComponents/admin/addInformation.component.js" />
+      <change type="MODIFICATION" beforePath="$PROJECT_DIR$/app/components/mainComponents/admin/addInformation.component.js.map" afterPath="$PROJECT_DIR$/app/components/mainComponents/admin/addInformation.component.js.map" />
+      <change type="MODIFICATION" beforePath="$PROJECT_DIR$/app/components/mainComponents/admin/adminRouter.js" afterPath="$PROJECT_DIR$/app/components/mainComponents/admin/adminRouter.js" />
+      <change type="MODIFICATION" beforePath="$PROJECT_DIR$/app/components/mainComponents/admin/adminRouter.js.map" afterPath="$PROJECT_DIR$/app/components/mainComponents/admin/adminRouter.js.map" />
+      <change type="MODIFICATION" beforePath="$PROJECT_DIR$/app/components/mainComponents/admin/manageData.component.js" afterPath="$PROJECT_DIR$/app/components/mainComponents/admin/manageData.component.js" />
+      <change type="MODIFICATION" beforePath="$PROJECT_DIR$/app/components/mainComponents/admin/manageData.component.js.map" afterPath="$PROJECT_DIR$/app/components/mainComponents/admin/manageData.component.js.map" />
+      <change type="MODIFICATION" beforePath="$PROJECT_DIR$/app/components/mainComponents/admin/manageProject.component.js" afterPath="$PROJECT_DIR$/app/components/mainComponents/admin/manageProject.component.js" />
+      <change type="MODIFICATION" beforePath="$PROJECT_DIR$/app/components/mainComponents/admin/manageProject.component.js.map" afterPath="$PROJECT_DIR$/app/components/mainComponents/admin/manageProject.component.js.map" />
+      <change type="MODIFICATION" beforePath="$PROJECT_DIR$/app/components/mainComponents/admin/manageTown.component.js" afterPath="$PROJECT_DIR$/app/components/mainComponents/admin/manageTown.component.js" />
+      <change type="MODIFICATION" beforePath="$PROJECT_DIR$/app/components/mainComponents/admin/manageTown.component.js.map" afterPath="$PROJECT_DIR$/app/components/mainComponents/admin/manageTown.component.js.map" />
+      <change type="MODIFICATION" beforePath="$PROJECT_DIR$/app/components/mainComponents/budget/budgetRouter.js" afterPath="$PROJECT_DIR$/app/components/mainComponents/budget/budgetRouter.js" />
+      <change type="MODIFICATION" beforePath="$PROJECT_DIR$/app/components/mainComponents/budget/budgetRouter.js.map" afterPath="$PROJECT_DIR$/app/components/mainComponents/budget/budgetRouter.js.map" />
+      <change type="MODIFICATION" beforePath="$PROJECT_DIR$/app/components/mainComponents/budget/comparison.component.js" afterPath="$PROJECT_DIR$/app/components/mainComponents/budget/comparison.component.js" />
+      <change type="MODIFICATION" beforePath="$PROJECT_DIR$/app/components/mainComponents/budget/comparison.component.js.map" afterPath="$PROJECT_DIR$/app/components/mainComponents/budget/comparison.component.js.map" />
+      <change type="MODIFICATION" beforePath="$PROJECT_DIR$/app/components/mainComponents/budget/coreData.component.js" afterPath="$PROJECT_DIR$/app/components/mainComponents/budget/coreData.component.js" />
+      <change type="MODIFICATION" beforePath="$PROJECT_DIR$/app/components/mainComponents/budget/coreData.component.js.map" afterPath="$PROJECT_DIR$/app/components/mainComponents/budget/coreData.component.js.map" />
+      <change type="MODIFICATION" beforePath="$PROJECT_DIR$/app/components/mainComponents/budget/expenses.component.js" afterPath="$PROJECT_DIR$/app/components/mainComponents/budget/expenses.component.js" />
+      <change type="MODIFICATION" beforePath="$PROJECT_DIR$/app/components/mainComponents/budget/expenses.component.js.map" afterPath="$PROJECT_DIR$/app/components/mainComponents/budget/expenses.component.js.map" />
+      <change type="MODIFICATION" beforePath="$PROJECT_DIR$/app/components/mainComponents/budget/expenses.component.ts" afterPath="$PROJECT_DIR$/app/components/mainComponents/budget/expenses.component.ts" />
       <change type="MODIFICATION" beforePath="$PROJECT_DIR$/app/components/mainComponents/budget/income.component.js" afterPath="$PROJECT_DIR$/app/components/mainComponents/budget/income.component.js" />
       <change type="MODIFICATION" beforePath="$PROJECT_DIR$/app/components/mainComponents/budget/income.component.js.map" afterPath="$PROJECT_DIR$/app/components/mainComponents/budget/income.component.js.map" />
       <change type="MODIFICATION" beforePath="$PROJECT_DIR$/app/components/mainComponents/budget/income.component.ts" afterPath="$PROJECT_DIR$/app/components/mainComponents/budget/income.component.ts" />
+      <change type="MODIFICATION" beforePath="$PROJECT_DIR$/app/components/mainComponents/budget/overview.component.js" afterPath="$PROJECT_DIR$/app/components/mainComponents/budget/overview.component.js" />
+      <change type="MODIFICATION" beforePath="$PROJECT_DIR$/app/components/mainComponents/budget/overview.component.js.map" afterPath="$PROJECT_DIR$/app/components/mainComponents/budget/overview.component.js.map" />
+      <change type="MODIFICATION" beforePath="$PROJECT_DIR$/app/components/mainComponents/budget/taxes.component.js" afterPath="$PROJECT_DIR$/app/components/mainComponents/budget/taxes.component.js" />
+      <change type="MODIFICATION" beforePath="$PROJECT_DIR$/app/components/mainComponents/budget/taxes.component.js.map" afterPath="$PROJECT_DIR$/app/components/mainComponents/budget/taxes.component.js.map" />
+      <change type="MODIFICATION" beforePath="$PROJECT_DIR$/app/components/mainComponents/home.component.js" afterPath="$PROJECT_DIR$/app/components/mainComponents/home.component.js" />
+      <change type="MODIFICATION" beforePath="$PROJECT_DIR$/app/components/mainComponents/home.component.js.map" afterPath="$PROJECT_DIR$/app/components/mainComponents/home.component.js.map" />
+      <change type="MODIFICATION" beforePath="$PROJECT_DIR$/app/components/mainComponents/homeRouter.js" afterPath="$PROJECT_DIR$/app/components/mainComponents/homeRouter.js" />
+      <change type="MODIFICATION" beforePath="$PROJECT_DIR$/app/components/mainComponents/homeRouter.js.map" afterPath="$PROJECT_DIR$/app/components/mainComponents/homeRouter.js.map" />
+      <change type="MODIFICATION" beforePath="$PROJECT_DIR$/app/components/mainComponents/participation/addProposition.component.js" afterPath="$PROJECT_DIR$/app/components/mainComponents/participation/addProposition.component.js" />
+      <change type="MODIFICATION" beforePath="$PROJECT_DIR$/app/components/mainComponents/participation/addProposition.component.js.map" afterPath="$PROJECT_DIR$/app/components/mainComponents/participation/addProposition.component.js.map" />
+      <change type="MODIFICATION" beforePath="$PROJECT_DIR$/app/components/mainComponents/participation/participationRouter.js" afterPath="$PROJECT_DIR$/app/components/mainComponents/participation/participationRouter.js" />
+      <change type="MODIFICATION" beforePath="$PROJECT_DIR$/app/components/mainComponents/participation/participationRouter.js.map" afterPath="$PROJECT_DIR$/app/components/mainComponents/participation/participationRouter.js.map" />
+      <change type="MODIFICATION" beforePath="$PROJECT_DIR$/app/components/mainComponents/participation/projects.component.js" afterPath="$PROJECT_DIR$/app/components/mainComponents/participation/projects.component.js" />
+      <change type="MODIFICATION" beforePath="$PROJECT_DIR$/app/components/mainComponents/participation/projects.component.js.map" afterPath="$PROJECT_DIR$/app/components/mainComponents/participation/projects.component.js.map" />
+      <change type="MODIFICATION" beforePath="$PROJECT_DIR$/app/components/mainComponents/participation/propositions.component.js" afterPath="$PROJECT_DIR$/app/components/mainComponents/participation/propositions.component.js" />
+      <change type="MODIFICATION" beforePath="$PROJECT_DIR$/app/components/mainComponents/participation/propositions.component.js.map" afterPath="$PROJECT_DIR$/app/components/mainComponents/participation/propositions.component.js.map" />
+      <change type="MODIFICATION" beforePath="$PROJECT_DIR$/app/components/mainComponents/superadmin/createAdmin.component.js" afterPath="$PROJECT_DIR$/app/components/mainComponents/superadmin/createAdmin.component.js" />
+      <change type="MODIFICATION" beforePath="$PROJECT_DIR$/app/components/mainComponents/superadmin/createAdmin.component.js.map" afterPath="$PROJECT_DIR$/app/components/mainComponents/superadmin/createAdmin.component.js.map" />
+      <change type="MODIFICATION" beforePath="$PROJECT_DIR$/app/components/mainComponents/superadmin/generalSettings.component.js" afterPath="$PROJECT_DIR$/app/components/mainComponents/superadmin/generalSettings.component.js" />
+      <change type="MODIFICATION" beforePath="$PROJECT_DIR$/app/components/mainComponents/superadmin/generalSettings.component.js.map" afterPath="$PROJECT_DIR$/app/components/mainComponents/superadmin/generalSettings.component.js.map" />
+      <change type="MODIFICATION" beforePath="$PROJECT_DIR$/app/components/mainComponents/superadmin/superAdminRouter.js" afterPath="$PROJECT_DIR$/app/components/mainComponents/superadmin/superAdminRouter.js" />
+      <change type="MODIFICATION" beforePath="$PROJECT_DIR$/app/components/mainComponents/superadmin/superAdminRouter.js.map" afterPath="$PROJECT_DIR$/app/components/mainComponents/superadmin/superAdminRouter.js.map" />
+      <change type="MODIFICATION" beforePath="$PROJECT_DIR$/app/components/subComponents/graphs/sunburst.component.js" afterPath="$PROJECT_DIR$/app/components/subComponents/graphs/sunburst.component.js" />
+      <change type="MODIFICATION" beforePath="$PROJECT_DIR$/app/components/subComponents/graphs/sunburst.component.js.map" afterPath="$PROJECT_DIR$/app/components/subComponents/graphs/sunburst.component.js.map" />
+      <change type="MODIFICATION" beforePath="$PROJECT_DIR$/app/components/subComponents/graphs/sunburstCompare.component.js" afterPath="$PROJECT_DIR$/app/components/subComponents/graphs/sunburstCompare.component.js" />
+      <change type="MODIFICATION" beforePath="$PROJECT_DIR$/app/components/subComponents/graphs/sunburstCompare.component.js.map" afterPath="$PROJECT_DIR$/app/components/subComponents/graphs/sunburstCompare.component.js.map" />
+      <change type="MODIFICATION" beforePath="$PROJECT_DIR$/app/components/subComponents/information/projectOverview.component.js" afterPath="$PROJECT_DIR$/app/components/subComponents/information/projectOverview.component.js" />
+      <change type="MODIFICATION" beforePath="$PROJECT_DIR$/app/components/subComponents/information/projectOverview.component.js.map" afterPath="$PROJECT_DIR$/app/components/subComponents/information/projectOverview.component.js.map" />
+      <change type="MODIFICATION" beforePath="$PROJECT_DIR$/app/components/subComponents/information/townMenu.component.js" afterPath="$PROJECT_DIR$/app/components/subComponents/information/townMenu.component.js" />
+      <change type="MODIFICATION" beforePath="$PROJECT_DIR$/app/components/subComponents/information/townMenu.component.js.map" afterPath="$PROJECT_DIR$/app/components/subComponents/information/townMenu.component.js.map" />
+      <change type="MODIFICATION" beforePath="$PROJECT_DIR$/app/components/subComponents/input/editableField.component.js" afterPath="$PROJECT_DIR$/app/components/subComponents/input/editableField.component.js" />
+      <change type="MODIFICATION" beforePath="$PROJECT_DIR$/app/components/subComponents/input/editableField.component.js.map" afterPath="$PROJECT_DIR$/app/components/subComponents/input/editableField.component.js.map" />
+      <change type="MODIFICATION" beforePath="$PROJECT_DIR$/app/components/subComponents/input/selector.js" afterPath="$PROJECT_DIR$/app/components/subComponents/input/selector.js" />
+      <change type="MODIFICATION" beforePath="$PROJECT_DIR$/app/components/subComponents/input/selector.js.map" afterPath="$PROJECT_DIR$/app/components/subComponents/input/selector.js.map" />
+      <change type="MODIFICATION" beforePath="$PROJECT_DIR$/app/components/subComponents/input/townSelector.component.js" afterPath="$PROJECT_DIR$/app/components/subComponents/input/townSelector.component.js" />
+      <change type="MODIFICATION" beforePath="$PROJECT_DIR$/app/components/subComponents/input/townSelector.component.js.map" afterPath="$PROJECT_DIR$/app/components/subComponents/input/townSelector.component.js.map" />
+      <change type="MODIFICATION" beforePath="$PROJECT_DIR$/app/components/subComponents/nav/menu.component.js" afterPath="$PROJECT_DIR$/app/components/subComponents/nav/menu.component.js" />
+      <change type="MODIFICATION" beforePath="$PROJECT_DIR$/app/components/subComponents/nav/menu.component.js.map" afterPath="$PROJECT_DIR$/app/components/subComponents/nav/menu.component.js.map" />
+      <change type="MODIFICATION" beforePath="$PROJECT_DIR$/app/main.js" afterPath="$PROJECT_DIR$/app/main.js" />
+      <change type="MODIFICATION" beforePath="$PROJECT_DIR$/app/main.js.map" afterPath="$PROJECT_DIR$/app/main.js.map" />
+      <change type="MODIFICATION" beforePath="$PROJECT_DIR$/app/mockData/mock-catDTO.js" afterPath="$PROJECT_DIR$/app/mockData/mock-catDTO.js" />
+      <change type="MODIFICATION" beforePath="$PROJECT_DIR$/app/mockData/mock-catDTO.js.map" afterPath="$PROJECT_DIR$/app/mockData/mock-catDTO.js.map" />
+      <change type="MODIFICATION" beforePath="$PROJECT_DIR$/app/mockData/mock-gemeenteCat.js" afterPath="$PROJECT_DIR$/app/mockData/mock-gemeenteCat.js" />
+      <change type="MODIFICATION" beforePath="$PROJECT_DIR$/app/mockData/mock-gemeenteCat.js.map" afterPath="$PROJECT_DIR$/app/mockData/mock-gemeenteCat.js.map" />
+      <change type="MODIFICATION" beforePath="$PROJECT_DIR$/app/mockData/mock-projects.js" afterPath="$PROJECT_DIR$/app/mockData/mock-projects.js" />
+      <change type="MODIFICATION" beforePath="$PROJECT_DIR$/app/mockData/mock-projects.js.map" afterPath="$PROJECT_DIR$/app/mockData/mock-projects.js.map" />
+      <change type="MODIFICATION" beforePath="$PROJECT_DIR$/app/mockData/mock-towns.js" afterPath="$PROJECT_DIR$/app/mockData/mock-towns.js" />
+      <change type="MODIFICATION" beforePath="$PROJECT_DIR$/app/mockData/mock-towns.js.map" afterPath="$PROJECT_DIR$/app/mockData/mock-towns.js.map" />
+      <change type="MODIFICATION" beforePath="$PROJECT_DIR$/app/models/actie.js" afterPath="$PROJECT_DIR$/app/models/actie.js" />
+      <change type="MODIFICATION" beforePath="$PROJECT_DIR$/app/models/actie.js.map" afterPath="$PROJECT_DIR$/app/models/actie.js.map" />
+      <change type="MODIFICATION" beforePath="$PROJECT_DIR$/app/models/bestuur.js" afterPath="$PROJECT_DIR$/app/models/bestuur.js" />
+      <change type="MODIFICATION" beforePath="$PROJECT_DIR$/app/models/bestuur.js.map" afterPath="$PROJECT_DIR$/app/models/bestuur.js.map" />
+      <change type="MODIFICATION" beforePath="$PROJECT_DIR$/app/models/dto/catDTO.js" afterPath="$PROJECT_DIR$/app/models/dto/catDTO.js" />
+      <change type="MODIFICATION" beforePath="$PROJECT_DIR$/app/models/dto/catDTO.js.map" afterPath="$PROJECT_DIR$/app/models/dto/catDTO.js.map" />
+      <change type="MODIFICATION" beforePath="$PROJECT_DIR$/app/models/dto/inspraakCategorieDTO.js" afterPath="$PROJECT_DIR$/app/models/dto/inspraakCategorieDTO.js" />
+      <change type="MODIFICATION" beforePath="$PROJECT_DIR$/app/models/dto/inspraakCategorieDTO.js.map" afterPath="$PROJECT_DIR$/app/models/dto/inspraakCategorieDTO.js.map" />
+      <change type="MODIFICATION" beforePath="$PROJECT_DIR$/app/models/gemeenteCategorie.js" afterPath="$PROJECT_DIR$/app/models/gemeenteCategorie.js" />
+      <change type="MODIFICATION" beforePath="$PROJECT_DIR$/app/models/ingelogdeGebruiker.js" afterPath="$PROJECT_DIR$/app/models/ingelogdeGebruiker.js" />
+      <change type="MODIFICATION" beforePath="$PROJECT_DIR$/app/models/ingelogdeGebruiker.js.map" afterPath="$PROJECT_DIR$/app/models/ingelogdeGebruiker.js.map" />
+      <change type="MODIFICATION" beforePath="$PROJECT_DIR$/app/models/inspraakNiveau.js" afterPath="$PROJECT_DIR$/app/models/inspraakNiveau.js" />
+      <change type="MODIFICATION" beforePath="$PROJECT_DIR$/app/models/inspraakNiveau.js.map" afterPath="$PROJECT_DIR$/app/models/inspraakNiveau.js.map" />
+      <change type="MODIFICATION" beforePath="$PROJECT_DIR$/app/models/mainTown.js" afterPath="$PROJECT_DIR$/app/models/mainTown.js" />
+      <change type="MODIFICATION" beforePath="$PROJECT_DIR$/app/models/mainTown.js.map" afterPath="$PROJECT_DIR$/app/models/mainTown.js.map" />
+      <change type="MODIFICATION" beforePath="$PROJECT_DIR$/app/models/politicusType.js" afterPath="$PROJECT_DIR$/app/models/politicusType.js" />
+      <change type="MODIFICATION" beforePath="$PROJECT_DIR$/app/models/politicusType.js.map" afterPath="$PROJECT_DIR$/app/models/politicusType.js.map" />
+      <change type="MODIFICATION" beforePath="$PROJECT_DIR$/app/models/project.js" afterPath="$PROJECT_DIR$/app/models/project.js" />
+      <change type="MODIFICATION" beforePath="$PROJECT_DIR$/app/models/project.js.map" afterPath="$PROJECT_DIR$/app/models/project.js.map" />
+      <change type="MODIFICATION" beforePath="$PROJECT_DIR$/app/models/projectScenario.js" afterPath="$PROJECT_DIR$/app/models/projectScenario.js" />
+      <change type="MODIFICATION" beforePath="$PROJECT_DIR$/app/models/projectScenario.js.map" afterPath="$PROJECT_DIR$/app/models/projectScenario.js.map" />
+      <change type="MODIFICATION" beforePath="$PROJECT_DIR$/app/models/town.js" afterPath="$PROJECT_DIR$/app/models/town.js" />
+      <change type="MODIFICATION" beforePath="$PROJECT_DIR$/app/models/town.js.map" afterPath="$PROJECT_DIR$/app/models/town.js.map" />
+      <change type="MODIFICATION" beforePath="$PROJECT_DIR$/app/pipes/keysPipe.js" afterPath="$PROJECT_DIR$/app/pipes/keysPipe.js" />
+      <change type="MODIFICATION" beforePath="$PROJECT_DIR$/app/pipes/keysPipe.js.map" afterPath="$PROJECT_DIR$/app/pipes/keysPipe.js.map" />
+      <change type="MODIFICATION" beforePath="$PROJECT_DIR$/app/services/ActieService.js" afterPath="$PROJECT_DIR$/app/services/ActieService.js" />
+      <change type="MODIFICATION" beforePath="$PROJECT_DIR$/app/services/ActieService.js.map" afterPath="$PROJECT_DIR$/app/services/ActieService.js.map" />
+      <change type="MODIFICATION" beforePath="$PROJECT_DIR$/app/services/begrotingService.js" afterPath="$PROJECT_DIR$/app/services/begrotingService.js" />
+      <change type="MODIFICATION" beforePath="$PROJECT_DIR$/app/services/begrotingService.js.map" afterPath="$PROJECT_DIR$/app/services/begrotingService.js.map" />
+      <change type="MODIFICATION" beforePath="$PROJECT_DIR$/app/services/loginService.component.js" afterPath="$PROJECT_DIR$/app/services/loginService.component.js" />
+      <change type="MODIFICATION" beforePath="$PROJECT_DIR$/app/services/loginService.component.js.map" afterPath="$PROJECT_DIR$/app/services/loginService.component.js.map" />
+      <change type="MODIFICATION" beforePath="$PROJECT_DIR$/app/services/projectService.component.js" afterPath="$PROJECT_DIR$/app/services/projectService.component.js" />
+      <change type="MODIFICATION" beforePath="$PROJECT_DIR$/app/services/projectService.component.js.map" afterPath="$PROJECT_DIR$/app/services/projectService.component.js.map" />
+      <change type="MODIFICATION" beforePath="$PROJECT_DIR$/app/services/townService.component.js" afterPath="$PROJECT_DIR$/app/services/townService.component.js" />
+      <change type="MODIFICATION" beforePath="$PROJECT_DIR$/app/services/townService.component.js.map" afterPath="$PROJECT_DIR$/app/services/townService.component.js.map" />
     </list>
     <ignored path="begroting_frontend.iws" />
     <ignored path=".idea/workspace.xml" />
@@ -65,14 +173,14 @@
         <entry file="file://$PROJECT_DIR$/app/components/mainComponents/budget/income.component.ts">
           <provider selected="true" editor-type-id="text-editor">
             <state vertical-scroll-proportion="0.0">
-              <caret line="22" column="48" selection-start-line="22" selection-start-column="48" selection-end-line="22" selection-end-column="48" />
+              <caret line="21" column="41" selection-start-line="21" selection-start-column="41" selection-end-line="21" selection-end-column="41" />
               <folding>
-                <marker date="1463270886000" expanded="true" signature="1144:2610" placeholder="..." />
-                <marker date="1463270886000" expanded="true" signature="1186:2596" placeholder="..." />
-                <marker date="1463270886000" expanded="true" signature="1571:2576" placeholder="..." />
-                <marker date="1463270886000" expanded="true" signature="1653:2222" placeholder="..." />
-                <marker date="1463270886000" expanded="true" signature="2275:2561" placeholder="..." />
-                <marker date="1463270886000" expanded="true" signature="2328:2542" placeholder="..." />
+                <marker date="1463270941000" expanded="true" signature="1144:2611" placeholder="..." />
+                <marker date="1463270941000" expanded="true" signature="1186:2597" placeholder="..." />
+                <marker date="1463270941000" expanded="true" signature="1572:2577" placeholder="..." />
+                <marker date="1463270941000" expanded="true" signature="1654:2223" placeholder="..." />
+                <marker date="1463270941000" expanded="true" signature="2276:2562" placeholder="..." />
+                <marker date="1463270941000" expanded="true" signature="2329:2543" placeholder="..." />
               </folding>
             </state>
           </provider>
@@ -131,9 +239,16 @@
       <file leaf-file-name="expenses.component.ts" pinned="false" current-in-tab="true">
         <entry file="file://$PROJECT_DIR$/app/components/mainComponents/budget/expenses.component.ts">
           <provider selected="true" editor-type-id="text-editor">
-            <state vertical-scroll-proportion="0.0375">
-              <caret line="196" column="0" selection-start-line="196" selection-start-column="0" selection-end-line="201" selection-end-column="6" />
-              <folding />
+            <state vertical-scroll-proportion="0.825">
+              <caret line="22" column="27" selection-start-line="22" selection-start-column="27" selection-end-line="22" selection-end-column="27" />
+              <folding>
+                <marker date="1463270968000" expanded="true" signature="1146:2612" placeholder="..." />
+                <marker date="1463270968000" expanded="true" signature="1188:2598" placeholder="..." />
+                <marker date="1463270968000" expanded="true" signature="1573:2578" placeholder="..." />
+                <marker date="1463270968000" expanded="true" signature="1655:2224" placeholder="..." />
+                <marker date="1463270968000" expanded="true" signature="2277:2563" placeholder="..." />
+                <marker date="1463270968000" expanded="true" signature="2330:2544" placeholder="..." />
+              </folding>
             </state>
           </provider>
         </entry>
@@ -153,7 +268,6 @@
         <option value="$PROJECT_DIR$/app/components/subComponents/input/selector.ts" />
         <option value="$PROJECT_DIR$/app/components/mainComponents/admin/manageData.component.ts" />
         <option value="$PROJECT_DIR$/app/services/projectService.component.ts" />
-        <option value="$PROJECT_DIR$/app/components/mainComponents/budget/expenses.component.ts" />
         <option value="$PROJECT_DIR$/app/components/subComponents/graphs/sunburst.component.ts" />
         <option value="$PROJECT_DIR$/stylesheet.css" />
         <option value="$PROJECT_DIR$/app/components/mainComponents/budget/budgetRouter.ts" />
@@ -161,6 +275,7 @@
         <option value="$PROJECT_DIR$/app/components/subComponents/nav/menu.component.ts" />
         <option value="$PROJECT_DIR$/app/components/mainComponents/homeRouter.ts" />
         <option value="$PROJECT_DIR$/app/components/mainComponents/budget/income.component.ts" />
+        <option value="$PROJECT_DIR$/app/components/mainComponents/budget/expenses.component.ts" />
       </list>
     </option>
   </component>
@@ -644,12 +759,12 @@
         <state vertical-scroll-proportion="0.0">
           <caret line="181" column="19" selection-start-line="181" selection-start-column="19" selection-end-line="181" selection-end-column="19" />
           <folding>
-            <marker date="1463270886000" expanded="true" signature="1144:2610" placeholder="..." />
-            <marker date="1463270886000" expanded="true" signature="1186:2596" placeholder="..." />
-            <marker date="1463270886000" expanded="true" signature="1571:2576" placeholder="..." />
-            <marker date="1463270886000" expanded="true" signature="1653:2222" placeholder="..." />
-            <marker date="1463270886000" expanded="true" signature="2275:2561" placeholder="..." />
-            <marker date="1463270886000" expanded="true" signature="2328:2542" placeholder="..." />
+            <marker date="1463270941000" expanded="true" signature="1144:2611" placeholder="..." />
+            <marker date="1463270941000" expanded="true" signature="1186:2597" placeholder="..." />
+            <marker date="1463270941000" expanded="true" signature="1572:2577" placeholder="..." />
+            <marker date="1463270941000" expanded="true" signature="1654:2223" placeholder="..." />
+            <marker date="1463270941000" expanded="true" signature="2276:2562" placeholder="..." />
+            <marker date="1463270941000" expanded="true" signature="2329:2543" placeholder="..." />
           </folding>
         </state>
       </provider>
@@ -706,7 +821,14 @@
       <provider selected="true" editor-type-id="text-editor">
         <state vertical-scroll-proportion="0.0">
           <caret line="196" column="0" selection-start-line="196" selection-start-column="0" selection-end-line="201" selection-end-column="6" />
-          <folding />
+          <folding>
+            <marker date="1463270968000" expanded="true" signature="1146:2612" placeholder="..." />
+            <marker date="1463270968000" expanded="true" signature="1188:2598" placeholder="..." />
+            <marker date="1463270968000" expanded="true" signature="1573:2578" placeholder="..." />
+            <marker date="1463270968000" expanded="true" signature="1655:2224" placeholder="..." />
+            <marker date="1463270968000" expanded="true" signature="2277:2563" placeholder="..." />
+            <marker date="1463270968000" expanded="true" signature="2330:2544" placeholder="..." />
+          </folding>
         </state>
       </provider>
     </entry>
@@ -786,7 +908,14 @@
       <provider selected="true" editor-type-id="text-editor">
         <state vertical-scroll-proportion="0.0">
           <caret line="25" column="46" selection-start-line="25" selection-start-column="46" selection-end-line="25" selection-end-column="80" />
-          <folding />
+          <folding>
+            <marker date="1463270968000" expanded="true" signature="1146:2612" placeholder="..." />
+            <marker date="1463270968000" expanded="true" signature="1188:2598" placeholder="..." />
+            <marker date="1463270968000" expanded="true" signature="1573:2578" placeholder="..." />
+            <marker date="1463270968000" expanded="true" signature="1655:2224" placeholder="..." />
+            <marker date="1463270968000" expanded="true" signature="2277:2563" placeholder="..." />
+            <marker date="1463270968000" expanded="true" signature="2330:2544" placeholder="..." />
+          </folding>
         </state>
       </provider>
     </entry>
@@ -1081,23 +1210,30 @@
     <entry file="file://$PROJECT_DIR$/app/components/mainComponents/budget/income.component.ts">
       <provider selected="true" editor-type-id="text-editor">
         <state vertical-scroll-proportion="0.0">
-          <caret line="22" column="48" selection-start-line="22" selection-start-column="48" selection-end-line="22" selection-end-column="48" />
+          <caret line="21" column="41" selection-start-line="21" selection-start-column="41" selection-end-line="21" selection-end-column="41" />
           <folding>
-            <marker date="1463270886000" expanded="true" signature="1144:2610" placeholder="..." />
-            <marker date="1463270886000" expanded="true" signature="1186:2596" placeholder="..." />
-            <marker date="1463270886000" expanded="true" signature="1571:2576" placeholder="..." />
-            <marker date="1463270886000" expanded="true" signature="1653:2222" placeholder="..." />
-            <marker date="1463270886000" expanded="true" signature="2275:2561" placeholder="..." />
-            <marker date="1463270886000" expanded="true" signature="2328:2542" placeholder="..." />
+            <marker date="1463270941000" expanded="true" signature="1144:2611" placeholder="..." />
+            <marker date="1463270941000" expanded="true" signature="1186:2597" placeholder="..." />
+            <marker date="1463270941000" expanded="true" signature="1572:2577" placeholder="..." />
+            <marker date="1463270941000" expanded="true" signature="1654:2223" placeholder="..." />
+            <marker date="1463270941000" expanded="true" signature="2276:2562" placeholder="..." />
+            <marker date="1463270941000" expanded="true" signature="2329:2543" placeholder="..." />
           </folding>
         </state>
       </provider>
     </entry>
     <entry file="file://$PROJECT_DIR$/app/components/mainComponents/budget/expenses.component.ts">
       <provider selected="true" editor-type-id="text-editor">
-        <state vertical-scroll-proportion="0.0375">
-          <caret line="196" column="0" selection-start-line="196" selection-start-column="0" selection-end-line="201" selection-end-column="6" />
-          <folding />
+        <state vertical-scroll-proportion="0.825">
+          <caret line="22" column="27" selection-start-line="22" selection-start-column="27" selection-end-line="22" selection-end-column="27" />
+          <folding>
+            <marker date="1463270968000" expanded="true" signature="1146:2612" placeholder="..." />
+            <marker date="1463270968000" expanded="true" signature="1188:2598" placeholder="..." />
+            <marker date="1463270968000" expanded="true" signature="1573:2578" placeholder="..." />
+            <marker date="1463270968000" expanded="true" signature="1655:2224" placeholder="..." />
+            <marker date="1463270968000" expanded="true" signature="2277:2563" placeholder="..." />
+            <marker date="1463270968000" expanded="true" signature="2330:2544" placeholder="..." />
+          </folding>
         </state>
       </provider>
     </entry>
