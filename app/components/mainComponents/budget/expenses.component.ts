@@ -7,12 +7,8 @@ import {EditableFieldComponent} from './../../subComponents/input/editableField.
 import {MainTown} from "../../../models/mainTown.js";
 import {SunburstComponent} from './../../subComponents/graphs/sunburst.component.js';
 import {BegrotingService} from "../../../services/begrotingService.js";
-import {ActieService} from "../../../services/ActieService.js";
 import {Actie} from "../../../models/actie.js";
 import {GemeenteCategorie} from "../../../models/gemeenteCategorie.js";
-import {TownService} from "../../../services/townService.component.js";
-import {Actie} from "../../../models/actie.js";
-import {GemeenteCategorie} from "../../../models/gemeenteCategorie";
 
 
 @Component({ //invoke with metadata object
@@ -43,7 +39,7 @@ import {GemeenteCategorie} from "../../../models/gemeenteCategorie";
        </div>
 `,
     directives: [TownSelectorComponent, EditableFieldComponent, SunburstComponent,ROUTER_DIRECTIVES],
-    providers: [ BegrotingService,ActieService,
+    providers: [ BegrotingService,
         TownService,  //routing
     ],
     styles: [`
@@ -200,7 +196,7 @@ export class ExpensesComponent {
            .subscribe((acties : any) => this.acties = acties);
     };
 
-    constructor(private _townService:TownService, private _begrotingService:BegrotingService,_actieService: ActieService, public http: Http, params: RouteParams, injector: Injector, private _router: Router)
+    constructor(private _townService:TownService, private _begrotingService:BegrotingService, public http: Http, params: RouteParams, injector: Injector, private _router: Router)
     {
         _townService.getTown(injector.parent.parent.get(RouteParams).get('town'))
             .subscribe(town => {

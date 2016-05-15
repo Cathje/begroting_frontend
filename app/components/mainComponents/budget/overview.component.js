@@ -71,7 +71,7 @@ System.register(['angular2/core', 'angular2/router', './../../subComponents/grap
                     });
                     //@TODO nadya: een webapi opzetten om de openstaande projecten op te halen
                     this.projects = _projectService.getProjects();
-                    //TODO nadya: webapi aanpassen zodat het ook werkt voor andere jaren en steden
+                    //TODO nadya: webapi aanpassen zodat het ook werkt voor andere jaren en steden --> Deze werkt met andere gemeenten en jaren. Je moet de hardcoded data wijzigen door variabelen
                     _begrotingService.getGemeenteCategorieen(2020, "Gent")
                         .subscribe(function (finan) { return _this.expenses = finan; });
                 }
