@@ -182,7 +182,7 @@ System.register(['angular2/core', 'd3'], function(exports_1) {
                 l = rand(30, 80);
                 break; // grijs* financien
             case '01':
-                h =  = rand(20, 60);
+                h = rand(20, 60);
                 s = 100;
                 l = rand(30, 80);
                 break; // geel* financien
