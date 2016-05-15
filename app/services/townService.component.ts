@@ -41,7 +41,7 @@ export class TownService {
     
     public deleteBestuurslid(id:number)
     {
-        return this.http.delete(this._url + "/" + id)
+        return this.http.delete(this._url + "?id=" + id)
             .map(res => res.json())
             .catch(this.handleError);
     }

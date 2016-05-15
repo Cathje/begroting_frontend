@@ -28,7 +28,7 @@ export class BegrotingService {
 
     getActies(id:number): Observable<Actie[]>
     {
-        return this.http.get(this._url +  "/" + id)
+        return this.http.get(this._url +  "?id=" + id)
             .map(res => res.json())
             .catch(this.handleError);
     }

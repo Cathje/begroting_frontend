@@ -1,11 +1,11 @@
-System.register(['angular2/core', 'angular2/router', "../../../pipes/keysPipe.js", "../../../services/projectService.component.js", "../../subComponents/nav/menu.component.js", "../../../models/inspraakNiveau.js", "../../../models/project.js", "../../../models/projectScenario.js"], function(exports_1) {
+System.register(['angular2/core', 'angular2/router', "../../../pipes/keysPipe.js", "../../../services/projectService.component.js", "../../subComponents/nav/menu.component.js", "../../../models/inspraakNiveau.js", "../../../models/project.js", "../../../models/projectScenario.js"], function(exports_1, context_1) {
+    "use strict";
+    var __moduleName = context_1 && context_1.id;
     var __decorate = (this && this.__decorate) || function (decorators, target, key, desc) {
-        if (typeof Reflect === "object" && typeof Reflect.decorate === "function") return Reflect.decorate(decorators, target, key, desc);
-        switch (arguments.length) {
-            case 2: return decorators.reduceRight(function(o, d) { return (d && d(o)) || o; }, target);
-            case 3: return decorators.reduceRight(function(o, d) { return (d && d(target, key)), void 0; }, void 0);
-            case 4: return decorators.reduceRight(function(o, d) { return (d && d(target, key, o)) || o; }, desc);
-        }
+        var c = arguments.length, r = c < 3 ? target : desc === null ? desc = Object.getOwnPropertyDescriptor(target, key) : desc, d;
+        if (typeof Reflect === "object" && typeof Reflect.decorate === "function") r = Reflect.decorate(decorators, target, key, desc);
+        else for (var i = decorators.length - 1; i >= 0; i--) if (d = decorators[i]) r = (c < 3 ? d(r) : c > 3 ? d(target, key, r) : d(target, key)) || r;
+        return c > 3 && r && Object.defineProperty(target, key, r), r;
     };
     var __metadata = (this && this.__metadata) || function (k, v) {
         if (typeof Reflect === "object" && typeof Reflect.metadata === "function") return Reflect.metadata(k, v);
@@ -56,10 +56,58 @@ System.register(['angular2/core', 'angular2/router', "../../../pipes/keysPipe.js
                     var number = this._routeParams.get('projectNumber');
                 };
                 ManageProjectComponent.prototype.onSelectCatNiveau = function (event, i) {
-                    this.categorieen[i].inspraakNiveau = event.target.value;
+                    var _this = this;
+                    this.cat = this.categorieen.filter(function (cat) { return cat.ID === _this.categorieen[i].gemcatID; });
+                    if (event.target.value == 2) {
+                        this.categorieen[i].inspraakNiveau = event.target.value;
+                        this.changeInspraak(event.target.value, i);
+                    }
+                    else {
+                        if (this.cat.length == 0) {
+                            alert("A");
+                            this.categorieen[i].inspraakNiveau = event.target.value;
+                        }
+                        if (this.cat.length != 0 && this.cat[0].inspraakNiveau != 2) {
+                            alert("lower cat: " + this.cat[0].inspraakNiveau);
+                            this.categorieen[i].inspraakNiveau = event.target.value;
+                        }
+                    }
+                };
+                ManageProjectComponent.prototype.changeInspraak = function (inspraak, i) {
+                    //CAT A
+                    if (this.categorieen[i].acties != null) {
+                        for (var k = 0; k < this.categorieen[i].acties.length; k++) {
+                            this.categorieen[i].acties[k].inspraakNiveau = 2;
+                        }
+                    }
+                    for (var j = 0; j < this.categorieen.length; j++) {
+                        if (this.categorieen[j].gemcatID == this.categorieen[i].ID) {
+                            //CAT B
+                            this.categorieen[j].inspraakNiveau = 2;
+                            if (this.categorieen[j].acties != null) {
+                                for (var k = 0; k < this.categorieen[j].acties.length; k++) {
+                                    this.categorieen[j].acties[k].inspraakNiveau = 2;
+                                }
+                            }
+                            for (var a = 0; a < this.categorieen.length; a++) {
+                                if (this.categorieen[a].gemcatID == this.categorieen[j].ID) {
+                                    //CAT C
+                                    this.categorieen[a].inspraakNiveau = 2;
+                                    if (this.categorieen[a].acties != null) {
+                                        for (var k = 0; k < this.categorieen[a].acties.length; k++) {
+                                            this.categorieen[a].acties[k].inspraakNiveau = 2;
+                                        }
+                                    }
+                                }
+                            }
+                        }
+                    }
                 };
                 ManageProjectComponent.prototype.onSelectActieNiveau = function (event, i, j) {
-                    this.categorieen[i].acties[j].inspraakNiveau = event.target.value;
+                    //actie mag je enkel veranderen als de parent niet gelocked is
+                    if (this.categorieen[i].inspraakNiveau != 2) {
+                        this.categorieen[i].acties[j].inspraakNiveau = event.target.value;
+                    }
                 };
                 ManageProjectComponent.prototype.onSelectScenario = function (event) {
                     this.project.projectScenario = event.target.value;
@@ -72,9 +120,9 @@ System.register(['angular2/core', 'angular2/router', "../../../pipes/keysPipe.js
                 ManageProjectComponent = __decorate([
                     core_1.Component({
                         selector: 'manage-project-container',
-                        template: "\n<div class=\"container\">\n    <h2>Beheer project</h2><h4>Titel:</h4>\n     \n     <input type=\"text\" [(ngModel)]=\"project.titel\"/>\n     <h4>boekjaar:</h4>\n     <input type=\"number\" [(ngModel)]=\"project.boekjaar\"/>\n     <h4>gemeente:</h4>\n     <input type=\"text\" [(ngModel)]=\"project.gemeente\"/>\n     <h4>vraag:</h4>\n     <input type=\"text\" [(ngModel)]=\"project.vraag\"/>\n     <h4>ProjectScenario:</h4>\n     <p>{{project.projectScenario}}</p>\n                <select (change)=\"onSelectScenario($event)\">\n                        <option *ngFor=\"#t of projectScene | keys\" [value]=\"t.key\">{{t.value}}</option>\n                 </select>\n     <h4>extraInfo:</h4>\n     <input type=\"text\" [(ngModel)]=\"project.extraInfo\"/>  <!--@TODO wijzigen naar textarea -->\n     <h4>Bedrag:</h4>\n     <input type=\"number\" [(ngModel)]=\"project.bedrag\"/>\n    \n    \n    <h2>InspraakNiveaus vaststellen</h2>\n             <div *ngFor=\"#cat of categorieen #i = index\"> \n                <h5>categorie: {{cat.naamCatz}}</h5>\n                <p>totaal: {{cat.totaal}}</p>\n                <p>InspraakNiveau: {{niveaus[cat.inspraakNiveau]}}</p>\n                \n                <select (change)=\"onSelectCatNiveau($event, i)\">\n                        <option *ngFor=\"#t of niveaus | keys\" [value]=\"t.key\">{{t.value}}</option>\n                         </select>\n                    <br>    \n                         <div class=\"acties\" *ngFor=\"#ac of cat.acties #j = index\"> \n                            <h5>Actie: {{ac.actieKort}} - {{ac.actieLang}}</h5>\n                            <p> uitgave: {{ac.uitgaven}}</p>\n                            <select (change)=\"onSelectActieNiveau($event,i,j)\">\n                                <option *ngFor=\"#t of niveaus | keys\" [value]=\"t.key\">{{t.value}}</option>\n                            </select>\n                         <div>\n                    </div> \n            </div> \n                               <br><br>\n\n</div>\n   <button (click)=\"submit()\">opslaan</button>           \n</div>\n",
+                        template: "\n<div class=\"container\">\n    <h2>Beheer project</h2><h4>Titel:</h4>\n     \n     <input type=\"text\" [(ngModel)]=\"project.titel\"/>\n     <h4>boekjaar:</h4>\n     <input type=\"number\" [(ngModel)]=\"project.boekjaar\"/>\n     <h4>gemeente:</h4>\n     <input type=\"text\" [(ngModel)]=\"project.gemeente\"/>\n     <h4>vraag:</h4>\n     <input type=\"text\" [(ngModel)]=\"project.vraag\"/>\n     <h4>ProjectScenario:</h4>\n     <p>{{project.projectScenario}}</p>\n                <select (change)=\"onSelectScenario($event)\">\n                        <option *ngFor=\"#t of projectScene | keys\" [value]=\"t.key\">{{t.value}}</option>\n                 </select>\n     <h4>extraInfo:</h4>\n     <input type=\"text\" [(ngModel)]=\"project.extraInfo\"/>  <!--@TODO wijzigen naar textarea -->\n     <h4>Bedrag:</h4>\n     <input type=\"number\" [(ngModel)]=\"project.bedrag\"/>\n    \n    \n    <h2>InspraakNiveaus vaststellen</h2>\n             <div *ngFor=\"#cat of categorieen #i = index\"> \n                <h5>categorie: {{cat.naamCatz}}</h5>\n                <h5>ID: {{cat.ID}}</h5>\n                <h5>gemCatId: {{cat.gemcatID}}</h5>\n                <p>totaal: {{cat.totaal}}</p>\n                <p>InspraakNiveau: {{niveaus[cat.inspraakNiveau]}}</p>\n                \n                <select (change)=\"onSelectCatNiveau($event, i)\">\n                        <option *ngFor=\"#t of niveaus | keys\" [value]=\"t.key\">{{t.value}}</option>\n                         </select>\n                    <br>    \n                         <div class=\"acties\" *ngFor=\"#ac of cat.acties #j = index\"> \n                            <h5>Actie: {{ac.actieKort}} - {{ac.actieLang}}</h5>\n                            <p> uitgave: {{ac.uitgaven}}</p>\n                             <p>InspraakNiveau: {{niveaus[ac.inspraakNiveau]}}</p>\n                            <select (change)=\"onSelectActieNiveau($event,i,j)\">\n                                <option *ngFor=\"#t of niveaus | keys\" [value]=\"t.key\">{{t.value}}</option>\n                            </select>\n                         <div>\n                    </div> \n            </div> \n                               <br><br>\n\n</div>\n   <button (click)=\"submit()\">opslaan</button>           \n</div>\n",
                         directives: [router_1.ROUTER_DIRECTIVES, menu_component_js_1.NavigationMenuComponent],
-                        providers: [projectService_component_js_1.ProjectService
+                        providers: [projectService_component_js_1.ProjectService //routing
                         ],
                         pipes: [keysPipe_js_1.KeysPipe],
                         styles: ["\n .acties{\n \n    padding-left: 4em; \n }\n \n "]
@@ -83,7 +131,7 @@ System.register(['angular2/core', 'angular2/router', "../../../pipes/keysPipe.js
                 ], ManageProjectComponent);
                 return ManageProjectComponent;
                 var _a;
-            })();
+            }());
             exports_1("ManageProjectComponent", ManageProjectComponent);
         }
     }
