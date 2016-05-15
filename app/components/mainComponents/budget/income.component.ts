@@ -16,7 +16,7 @@ import {GemeenteCategorie} from "../../../models/gemeenteCategorie";
 
 
 @Component({ //invoke with metadata object
-    selector: 'expenses-container',
+    selector: 'income-container',
     template: `
         <div class="container">
         <section class="intro col-xs-12">
@@ -179,7 +179,7 @@ import {GemeenteCategorie} from "../../../models/gemeenteCategorie";
 `]
 })
 
-export class ExpensesComponent {
+export class IncomeComponent {
     title = 'Gemeente - home';
     imglink: string = "";
     name:string = "";
