@@ -1,11 +1,11 @@
-System.register(['angular2/core', 'd3'], function(exports_1, context_1) {
-    "use strict";
-    var __moduleName = context_1 && context_1.id;
+System.register(['angular2/core', 'd3'], function(exports_1) {
     var __decorate = (this && this.__decorate) || function (decorators, target, key, desc) {
-        var c = arguments.length, r = c < 3 ? target : desc === null ? desc = Object.getOwnPropertyDescriptor(target, key) : desc, d;
-        if (typeof Reflect === "object" && typeof Reflect.decorate === "function") r = Reflect.decorate(decorators, target, key, desc);
-        else for (var i = decorators.length - 1; i >= 0; i--) if (d = decorators[i]) r = (c < 3 ? d(r) : c > 3 ? d(target, key, r) : d(target, key)) || r;
-        return c > 3 && r && Object.defineProperty(target, key, r), r;
+        if (typeof Reflect === "object" && typeof Reflect.decorate === "function") return Reflect.decorate(decorators, target, key, desc);
+        switch (arguments.length) {
+            case 2: return decorators.reduceRight(function(o, d) { return (d && d(o)) || o; }, target);
+            case 3: return decorators.reduceRight(function(o, d) { return (d && d(target, key)), void 0; }, void 0);
+            case 4: return decorators.reduceRight(function(o, d) { return (d && d(target, key, o)) || o; }, desc);
+        }
     };
     var __metadata = (this && this.__metadata) || function (k, v) {
         if (typeof Reflect === "object" && typeof Reflect.metadata === "function") return Reflect.metadata(k, v);
@@ -16,11 +16,9 @@ System.register(['angular2/core', 'd3'], function(exports_1, context_1) {
         var categories = [];
         for (var i = 0; i < data.length; i++) {
             if (data[i].hasOwnProperty('naamCatx')) {
-                console.log('x');
                 data[i]['code'] = getMainCategoryCode(data[i]['naamCatx']);
             }
             else if (data[i].hasOwnProperty('naamCaty')) {
-                console.log('y');
                 data[i]['code'] = getMainCategoryCode(data[i]['naamCaty']);
             }
             else {
@@ -38,8 +36,8 @@ System.register(['angular2/core', 'd3'], function(exports_1, context_1) {
             case 'Ondernemen en werken': return "05";
             case 'Wonen en ruimtelijke ordening': return "06";
             case 'Cultuur en vrije tijd': return "07";
-            case 'Zorg en opvang': return "08";
-            case 'Leren en onderwijs': return "09";
+            case 'Leren en onderwijs': return "08";
+            case 'Zorg en opvang': return "09";
             case 'Algemene financiering': return "00";
             default: return "10";
         }
@@ -58,6 +56,8 @@ System.register(['angular2/core', 'd3'], function(exports_1, context_1) {
             .attr("d", arc)
             .attr("fill-rule", "evenodd")
             .style("fill", function (d) { return colors[d.name]; })
+            .attr("stroke", "white")
+            .attr("stroke-width", 1)
             .style("opacity", 1)
             .on("mouseover", function (d) { return mouseover(d, totalSize, chart); })
             .on("mousedown", function (d) { return mouseclick(d, callbackFunction); });
@@ -80,6 +80,8 @@ System.register(['angular2/core', 'd3'], function(exports_1, context_1) {
         chart.select("#explanation2")
             .style("visibility", "hidden");
         chart.select("#category").text(d.name);
+        chart.select("#centerimg")
+            .attr("src", "/app/images/categories/" + d.code + ".jpg");
         var sequenceArray = getAncestors(d);
         // Fade all the segments.
         chart.selectAll("path")
@@ -173,7 +175,6 @@ System.register(['angular2/core', 'd3'], function(exports_1, context_1) {
         var h;
         var s;
         var l;
-        console.log(categoryCode);
         switch (categoryCode) {
             case '00':
                 h = 0;
@@ -181,7 +182,7 @@ System.register(['angular2/core', 'd3'], function(exports_1, context_1) {
                 l = rand(30, 80);
                 break; // grijs* financien
             case '01':
-                h = 60;
+                h =  = rand(20, 60);
                 s = 100;
                 l = rand(30, 80);
                 break; // geel* financien
@@ -216,14 +217,14 @@ System.register(['angular2/core', 'd3'], function(exports_1, context_1) {
                 l = rand(70, 100);
                 break; // red* sport
             case '08':
-                h = 280;
+                h = 270;
                 s = 75;
-                l = rand(60, 80);
-                break; //dark purple* onderwijs
+                l = rand(40, 100);
+                break; //purple* onderwijs
             case '09':
                 h = 300;
                 s = 80;
-                l = rand(70, 100);
+                l = rand(70, 90);
                 break; // pink* zorg
             default:
                 h = 258;
@@ -287,30 +288,30 @@ System.register(['angular2/core', 'd3'], function(exports_1, context_1) {
                 __decorate([
                     core_1.Input(), 
                     __metadata('design:type', Array)
-                ], SunburstComponent.prototype, "data", void 0);
+                ], SunburstComponent.prototype, "data");
                 __decorate([
                     core_1.Input(), 
                     __metadata('design:type', Number)
-                ], SunburstComponent.prototype, "width", void 0);
+                ], SunburstComponent.prototype, "width");
                 __decorate([
                     core_1.Input(), 
                     __metadata('design:type', Number)
-                ], SunburstComponent.prototype, "height", void 0);
+                ], SunburstComponent.prototype, "height");
                 __decorate([
                     core_1.Input(), 
                     __metadata('design:type', String)
-                ], SunburstComponent.prototype, "onClick", void 0);
+                ], SunburstComponent.prototype, "onClick");
                 SunburstComponent = __decorate([
                     core_1.Component({
                         selector: 'sunburst',
-                        template: "\n      <div id=\"chart\" [ngClass]=\"{hide: data.length < 1}\" [style]=\"'width:' + width + 'px'\">\n        <h5 id=\"explanation\" style=\"visibility: hidden;\">\n         <img class=\"centerimg\" src=\"/app/images/categories/01.jpg\"/>\n          <span id=\"percentage\"></span><br/>\n          van het totaal budget gaat naar <span id=\"category\"></span>\n        </h5>\n        <h5 id=\"explanation2\">\n          <img  src=\"/app/images/icons/clickPointer.png\">\n           <p > Klik op een categorie om de acties van deze categorie te bekijken.</p>\n        </h5>\n      </div>\n      <div [style]=\"'height:' + height + 'px'\" class=\"noData\" [ngClass]=\"{hide: data.length > 0}\">\n        <p>Geen grafiekgegevens beschikbaar.</p>\n      </div>\n\n    ",
+                        template: "\n      <div id=\"chart\" [ngClass]=\"{hide: data.length < 1}\" [style]=\"'width:' + width + 'px'\">\n        <h5 id=\"explanation\" style=\"visibility: hidden;\">\n          <img id=\"centerimg\" src=\"/app/images/categories/01.jpg\"/>\n          <span id=\"percentage\"></span><br/>\n          <span id=\"category\"></span>\n        </h5>\n        <h5 id=\"explanation2\">\n          <img  src=\"/app/images/icons/clickPointer.png\">\n           <p > Klik op een categorie om de acties van deze categorie te bekijken.</p>\n        </h5>\n      </div>\n      <div [style]=\"'height:' + height + 'px'\" class=\"noData\" [ngClass]=\"{hide: data.length > 0}\">\n        <p>Geen grafiekgegevens beschikbaar.</p>\n      </div>\n\n    ",
                         providers: [],
-                        styles: ["\n\n    .noData p{\n        padding-top: 40%;\n        text-align: center;\n    }\n#chart {\n  position: relative;\n  text-align: center;\n  margin: 0 auto;\n}\n\n#chart path {\n  stroke: #fff;\n}\n\n    img{\n     width: 50px;\n     margin: 0 auto;\n     display: inline-block;\n    }\n\n#explanation {\n  position: absolute;\n  margin: auto;\n  position: absolute;\n  top: 0; left: 0; bottom: 0; right: 0;\n  width: 50%;\n  height: 50%;\n  border-radius: 50%;\n  color: black;\n      display: flex;\n    justify-content:center;\n    align-content:center;\n    flex-direction:column; /* column | row */\n    z-index: 1;\n\n}\n\n.centerimg {\nposition: absolute;\nborder-radius: 50%;\nwidth: 100%;\nheight: 100%;\ntop: 0;\nleft: 0;\nz-index: 0;\nopacity: 0.5;\n}\n\n#explanation2 {\n  position: absolute;\n  margin: auto;\n  position: absolute;\n  top: 0; left: 0; bottom: 0; right: 0;\n  width: 35%;\n  height: 180px;\n  color: #666;\n      display: flex;\n    justify-content:center;\n    align-content:center;\n    flex-direction:column; /* column | row */\n}\n\n#percentage{\n  font-size: 2.5em;\n  z-index: 1;\n}\n ",]
+                        styles: ["\n\n    .noData p{\n        padding-top: 40%;\n        text-align: center;\n    }\n\n    #chart {\n        position: relative;\n        text-align: center;\n        margin: 0 auto;\n    }\n\n    #explanation {\n        position: absolute;\n        margin: auto;\n        position: absolute;\n        top: 0; left: 0; bottom: 0; right: 0;\n        width: 50%;\n        height: 50%;\n        border-radius: 50%;\n        color: black;\n        display: flex;\n        justify-content:center;\n        align-content:center;\n        flex-direction:column; /* column | row */\n        z-index: 1;\n    }\n\n    #explanation2 {\n        position: absolute;\n        margin: auto;\n        position: absolute;\n        top: 0; left: 0; bottom: 0; right: 0;\n        width: 35%;\n        height: 180px;\n        color: #666;\n        display: flex;\n        justify-content:center;\n        align-content:center;\n        flex-direction:column; /* column | row */\n    }\n\n    #explanation2 img{\n     width: 50px;\n     margin: 0 auto;\n     display: inline-block;\n    }\n\n    #centerimg {\n        position: absolute;\n        border-radius: 50%;\n        width: 100%;\n        height: 100%;\n        top: 0;\n        left: 0;\n        z-index: 0;\n        opacity: 0.5;\n    }\n\n    #percentage{\n          font-size: 2.5em;\n          z-index: 1;\n    }\n\n    #category {\n        z-index: 1\n    }\n ",]
                     }), 
                     __metadata('design:paramtypes', [core_1.Renderer, core_1.ElementRef])
                 ], SunburstComponent);
                 return SunburstComponent;
-            }());
+            })();
             exports_1("SunburstComponent", SunburstComponent);
             ;
             ;

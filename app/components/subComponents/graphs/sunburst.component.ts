@@ -8,9 +8,9 @@ import {SimpleChange} from "../../../../node_modules/angular2/src/core/change_de
     template: `
       <div id="chart" [ngClass]="{hide: data.length < 1}" [style]="'width:' + width + 'px'">
         <h5 id="explanation" style="visibility: hidden;">
-         <img class="centerimg" src="/app/images/categories/01.jpg"/>
+          <img id="centerimg" src="/app/images/categories/01.jpg"/>
           <span id="percentage"></span><br/>
-          van het totaal budget gaat naar <span id="category"></span>
+          <span id="category"></span>
         </h5>
         <h5 id="explanation2">
           <img  src="/app/images/icons/clickPointer.png">
@@ -29,68 +29,68 @@ import {SimpleChange} from "../../../../node_modules/angular2/src/core/change_de
         padding-top: 40%;
         text-align: center;
     }
-#chart {
-  position: relative;
-  text-align: center;
-  margin: 0 auto;
-}
 
-#chart path {
-  stroke: #fff;
-}
+    #chart {
+        position: relative;
+        text-align: center;
+        margin: 0 auto;
+    }
 
-    img{
+    #explanation {
+        position: absolute;
+        margin: auto;
+        position: absolute;
+        top: 0; left: 0; bottom: 0; right: 0;
+        width: 50%;
+        height: 50%;
+        border-radius: 50%;
+        color: black;
+        display: flex;
+        justify-content:center;
+        align-content:center;
+        flex-direction:column; /* column | row */
+        z-index: 1;
+    }
+
+    #explanation2 {
+        position: absolute;
+        margin: auto;
+        position: absolute;
+        top: 0; left: 0; bottom: 0; right: 0;
+        width: 35%;
+        height: 180px;
+        color: #666;
+        display: flex;
+        justify-content:center;
+        align-content:center;
+        flex-direction:column; /* column | row */
+    }
+
+    #explanation2 img{
      width: 50px;
      margin: 0 auto;
      display: inline-block;
     }
 
-#explanation {
-  position: absolute;
-  margin: auto;
-  position: absolute;
-  top: 0; left: 0; bottom: 0; right: 0;
-  width: 50%;
-  height: 50%;
-  border-radius: 50%;
-  color: black;
-      display: flex;
-    justify-content:center;
-    align-content:center;
-    flex-direction:column; /* column | row */
-    z-index: 1;
+    #centerimg {
+        position: absolute;
+        border-radius: 50%;
+        width: 100%;
+        height: 100%;
+        top: 0;
+        left: 0;
+        z-index: 0;
+        opacity: 0.5;
+    }
 
-}
+    #percentage{
+          font-size: 2.5em;
+          z-index: 1;
+    }
 
-.centerimg {
-position: absolute;
-border-radius: 50%;
-width: 100%;
-height: 100%;
-top: 0;
-left: 0;
-z-index: 0;
-opacity: 0.5;
-}
-
-#explanation2 {
-  position: absolute;
-  margin: auto;
-  position: absolute;
-  top: 0; left: 0; bottom: 0; right: 0;
-  width: 35%;
-  height: 180px;
-  color: #666;
-      display: flex;
-    justify-content:center;
-    align-content:center;
-    flex-direction:column; /* column | row */
-}
-
-#percentage{
-  font-size: 2.5em;
-  z-index: 1;
-}
+    #category {
+        z-index: 1
+    }
  `,]
 })
 
@@ -101,7 +101,6 @@ export class SunburstComponent {
     @Input() onClick: string;
     radius: number;
     translation: string;
-    activeBlock: string;
 
     constructor(public renderer: Renderer, public el: ElementRef){
     }
@@ -158,10 +157,8 @@ function addHeadCategoryCodeToData(data: [Object]){
     let categories = []
     for (var i = 0; i < data.length; i++) {
         if(data[i].hasOwnProperty('naamCatx')){
-            console.log('x');
             data[i]['code'] = getMainCategoryCode(data[i]['naamCatx']);
         } else if(data[i].hasOwnProperty('naamCaty')){
-            console.log('y');
             data[i]['code'] = getMainCategoryCode(data[i]['naamCaty']);
         } else {
             data[i]['code'] = getMainCategoryCode(data[i]['naamCatz']);
@@ -180,8 +177,8 @@ function getMainCategoryCode(category: string){
         case 'Ondernemen en werken': return "05";
         case 'Wonen en ruimtelijke ordening': return "06";
         case 'Cultuur en vrije tijd': return "07";
-        case 'Zorg en opvang': return "08";
-        case 'Leren en onderwijs': return "09";
+        case 'Leren en onderwijs': return "08";
+        case 'Zorg en opvang': return "09";
         case 'Algemene financiering': return "00";
         default: return "10";
     }
@@ -203,6 +200,8 @@ function createVisualization(json: Object, callbackFunction: any, partition: any
         .attr("d", arc)
         .attr("fill-rule", "evenodd")
         .style("fill", function(d : any) { return colors[d.name]; })
+        .attr("stroke", "white")
+        .attr("stroke-width", 1)
         .style("opacity", 1)
         .on("mouseover", (d: any) => mouseover(d, totalSize, chart))
         .on("mousedown", (d: any) => mouseclick(d, callbackFunction));
@@ -231,6 +230,9 @@ function mouseover(d: any, totalSize: any, chart:any) {
         .style("visibility", "hidden");
 
     chart.select("#category").text(d.name);
+
+    chart.select("#centerimg")
+            .attr("src","/app/images/categories/"+d.code+".jpg" );
 
     var sequenceArray = getAncestors(d);
 
@@ -340,22 +342,19 @@ function get_random_color(categoryCode: string) {
     var s;
     var l;
 
-    console.log(categoryCode);
-
     switch(categoryCode) {
         case '00': h = 0;s = 1 ;l =rand(30, 80);break; // grijs* financien
-        case '01': h = 60;s = 100 ;l =rand(30, 80);break; // geel* financien
+        case '01': h = =rand(20, 60);s = 100 ;l =rand(30, 80);break; // geel* financien
         case '02': h = 300;s = 50 ;l =rand(50, 100);break; //pink
         case '03': h = 80;s = 75 ;l =rand(70, 100);break; //lightgreen* natuur
         case 'O4': h = 20;s = 75 ;l =rand(70, 100);break; //orange* veiligheid
         case '05': h = 200;s = 75 ;l =rand(50, 100);break; //darkblue* ondernemen
         case '06': h = 160;s = 75 ;l =rand(40, 80);break; //darkgreen* milieu
         case '07': h = 0;s = 80 ;l =rand(70, 100);break; // red* sport
-        case '08': h = 280;s = 75 ;l =rand(60, 80);break; //dark purple* onderwijs
-        case '09': h = 300;s = 80 ;l =rand(70, 100);break; // pink* zorg
+        case '08': h = 270;s = 75 ;l =rand(40, 100);break; //purple* onderwijs
+        case '09': h = 300;s = 80 ;l =rand(70, 90);break; // pink* zorg
         default: h = 258;s = 100 ;l =rand(80, 100);break; // darkblue
     }
-
     return 'hsl(' + h + ',' + s + '%,' + l + '%)';
 }
 
