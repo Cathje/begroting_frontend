@@ -6,7 +6,7 @@ import {SimpleChange} from "../../../../node_modules/angular2/src/core/change_de
 @Component({ //invoke with metadata object
     selector: 'sunburst',
     template: `
-      <div id="chart">
+      <div id="chart" [ngClass]="{hide: data.length < 1}">
         <h5 id="explanation" style="visibility: hidden;">
           <span id="percentage"></span><br/>
           van het totaal budget gaat naar <span id="category"></span>
@@ -16,10 +16,18 @@ import {SimpleChange} from "../../../../node_modules/angular2/src/core/change_de
            <p > Klik op een categorie om de acties van deze categorie te bekijken.</p>
         </h5>
       </div>
+      <div [style]="'height:' + height + 'px'" class="noData" [ngClass]="{hide: data.length > 0}">
+        <p>Geen grafiekgegevens beschikbaar.</p>
+      </div>
 
     `,
     providers: [],
     styles:[`
+
+    .noData p{
+        padding-top: 40%;
+        text-align: center;
+    }
 #chart {
   position: relative;
   text-align: center;
@@ -78,7 +86,8 @@ export class SunburstComponent {
     radius: number;
     translation: string;
 
-    constructor(public renderer: Renderer, public el: ElementRef){ }
+    constructor(public renderer: Renderer, public el: ElementRef){
+    }
 
     ngOnInit() {
 

@@ -102,15 +102,7 @@ import {MainTown} from "../../../models/mainTown.js";
         float: left;
     }
 
-    input {
-        text-align: center;
-        border: 1px solid lightgray;
-        height: 30px;
-        width: 100%;
-    }
 
-    button {
-    }
     `]
 })
 
