@@ -8,5 +8,6 @@ export class Actie {
     actieLang:string;
     uitgaven:number;
     inspraakNiveau: number;
+    bestuurtype:number;
 
 }

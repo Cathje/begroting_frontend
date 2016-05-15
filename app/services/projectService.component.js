@@ -1,4 +1,4 @@
-System.register(['angular2/core', 'angular2/http', 'rxjs/Rx', "../mockData/mock-projects.js"], function(exports_1, context_1) {
+System.register(['angular2/core', 'angular2/http', 'rxjs/Rx'], function(exports_1, context_1) {
     "use strict";
     var __moduleName = context_1 && context_1.id;
     var __decorate = (this && this.__decorate) || function (decorators, target, key, desc) {
@@ -10,7 +10,7 @@ System.register(['angular2/core', 'angular2/http', 'rxjs/Rx', "../mockData/mock-
     var __metadata = (this && this.__metadata) || function (k, v) {
         if (typeof Reflect === "object" && typeof Reflect.metadata === "function") return Reflect.metadata(k, v);
     };
-    var core_1, http_1, mock_projects_js_1;
+    var core_1, http_1;
     var ProjectService;
     return {
         setters:[
@@ -20,10 +20,7 @@ System.register(['angular2/core', 'angular2/http', 'rxjs/Rx', "../mockData/mock-
             function (http_1_1) {
                 http_1 = http_1_1;
             },
-            function (_1) {},
-            function (mock_projects_js_1_1) {
-                mock_projects_js_1 = mock_projects_js_1_1;
-            }],
+            function (_1) {}],
         execute: function() {
             ProjectService = (function () {
                 function ProjectService(http) {
@@ -47,8 +44,9 @@ System.register(['angular2/core', 'angular2/http', 'rxjs/Rx', "../mockData/mock-
                     return this.http.get(this._url2 + "/projectGET" + "?jaar=" + jaar + "&naam=" + naam)
                         .map(function (res) { return res.json(); });
                 };
-                ProjectService.prototype.getProjects = function () {
-                    return mock_projects_js_1.PROJECTS;
+                ProjectService.prototype.getProjects = function (naam) {
+                    return this.http.get(this._url2 + "?naam=" + naam)
+                        .map(function (res) { return res.json(); });
                 };
                 ProjectService = __decorate([
                     core_1.Injectable(), 

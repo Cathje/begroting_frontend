@@ -30,7 +30,7 @@ import {GemeenteCategorie} from "../../../models/gemeenteCategorie.js";
                 <h3>Acties</h3>
                 <ul>
                     <p [ngClass]="{hide: showActions}" class='noData'> U heeft nog geen categorie geselecteerd. </p>
-                    <li *ngFor="#actie of acties">{{actie.actieLang}}</li>
+                    <li *ngFor="#actie of acties">{{actie.actieLang}} - {{actie.bestuurtype}}</li>
                 </ul>
             </div>
         </div>

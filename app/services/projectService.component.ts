@@ -41,11 +41,9 @@ export class ProjectService
     }
 
 
-    getProjects() {
-        return PROJECTS;
+    getProjects(naam:string):Observable<Project[]> {
+        return this.http.get(this._url2 +"?naam=" + naam)
+            .map(res => res.json());
     }
-
-    //  getProject(number: number){
-    //      return PROJECTS[number];
-    // }
+    
 }

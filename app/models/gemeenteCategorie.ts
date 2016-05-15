@@ -11,7 +11,7 @@ export interface GemeenteCategorie
     naamCaty?:string;
     naamCatz?:string;
     inspraakNiveau?:number;
-    gemcatId?:number;
+    gemcatID?:number;
     acties?:Actie [];
     
 }
