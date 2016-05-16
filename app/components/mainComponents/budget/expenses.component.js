@@ -63,7 +63,7 @@ System.register(['angular2/core', './../../../services/townService.component.js'
                         _this.showActions = true;
                         //TODO: replace hardcoded 15 with id
                         _this._begrotingService.getActies(24)
-                            .subscribe(function (acties) { return _this.acties = acties; });
+                            .subscribe(function (acties) { return _this.acties = acties; }, function (err) { return _this.errorMessage = err; });
                     };
                     this.onResize = function (event) {
                         if (window.innerWidth < 768) {
@@ -77,11 +77,9 @@ System.register(['angular2/core', './../../../services/townService.component.js'
                         .subscribe(function (town) {
                         _this.mainTown = town;
                         _this.imglink = "/app/images/provincies/" + town.provincie.toLowerCase().split(' ').join('') + ".png";
-                    });
+                    }, function (err) { return _this.errorMessage = err; });
                     _begrotingService.getGemeenteCategorieen(2020, "Gent")
-                        .subscribe(function (finan) {
-                        _this.categories = finan;
-                    });
+                        .subscribe(function (finan) { return _this.categories = finan; }, function (err) { return _this.errorMessage = err; });
                 }
                 ExpensesComponent.prototype.ngOnInit = function () {
                     /* @TODO CATHERINE INDIEN BACKEND BIJ JOUW NIET WERKT DEZE CALL UIT COMMENTAAR ZETTEN
@@ -94,7 +92,7 @@ System.register(['angular2/core', './../../../services/townService.component.js'
                 ExpensesComponent = __decorate([
                     core_1.Component({
                         selector: 'expenses-container',
-                        template: "\n        <div class=\"container\">\n        <section class=\"intro col-xs-12\">\n            <h1>De uitgaven van {{mainTown?.naam}}</h1>\n            <p>Hier komt een paragraaf.Similiquecilis est et expedita distinctio. Nam libero tempore, cum soluta nobis est eligendi optio cumque nihil impedit quo minus id quod maxime placeat facere possimus, omnis voluptas assumenda est, omnis dolor repellendus. Temporibus autem quibusdam et</p>\n        <div class=\"clearfix\">\n        <div class=\"graph col-xs-12 col-sm-8\" (window:resize)=\"onResize($event)\">\n           <sunburst [data]=categories [onClick]=onCircleClick [height]=width [width]=width></sunburst>\n           <button type=\"button\" class=\"btn btn-primary comparebtn\" [routerLink]=\"['Comparison']\">Vergelijk 2 gemeentes</button>\n           <button type=\"button\" class=\"btn btn-primary proposebtn\">Doe een voorstel</button>\n           <button type=\"button\" class=\"btn btn-primary salarybtn\" [routerLink]=\"['Taxes']\">Vergelijk met salaris</button>\n           <button type=\"button\" class=\"btn btn-primary propositionsbtn\">Begrotingsvoorstellen</button>\n        </div>\n            <div class=\"pointer col-xs-12 col-sm-4\">\n                <h3>Acties</h3>\n                <ul>\n                    <p [ngClass]=\"{hide: showActions}\" class='noData'> U heeft nog geen categorie geselecteerd. </p>\n                    <li *ngFor=\"#actie of acties\">{{actie.actieLang}}</li>\n                </ul>\n            </div>\n        </div>\n\n        </section>\n       </div>\n",
+                        template: "\n        <div class=\"container\">\n        <section class=\"intro col-xs-12\">\n            <h1>De uitgaven van {{mainTown?.naam}}</h1>\n            <p>Hier komt een paragraaf.Similiquecilis est et expedita distinctio. Nam libero tempore, cum soluta nobis est eligendi optio cumque nihil impedit quo minus id quod maxime placeat facere possimus, omnis voluptas assumenda est, omnis dolor repellendus. Temporibus autem quibusdam et</p>\n        <div class=\"clearfix\">\n        <div class=\"graph col-xs-12 col-sm-8\" (window:resize)=\"onResize($event)\">\n           <sunburst [data]=categories [onClick]=onCircleClick [height]=width [width]=width></sunburst>\n           <button type=\"button\" class=\"btn btn-primary comparebtn\" [routerLink]=\"['Comparison']\">Vergelijk 2 gemeentes</button>\n           <button type=\"button\" class=\"btn btn-primary proposebtn\">Doe een voorstel</button>\n           <button type=\"button\" class=\"btn btn-primary salarybtn\" [routerLink]=\"['Taxes']\">Vergelijk met salaris</button>\n           <button type=\"button\" class=\"btn btn-primary propositionsbtn\">Begrotingsvoorstellen</button>\n        </div>\n            <div class=\"pointer col-xs-12 col-sm-4\">\n                <h3>Acties</h3>\n                <ul>\n                    <p [ngClass]=\"{hide: showActions}\" class='noData'> U heeft nog geen categorie geselecteerd. </p>\n                    <li *ngFor=\"#actie of acties\">{{actie.actieLang}} - {{actie.bestuurtype}}</li>\n                </ul>\n            </div>\n        </div>\n\n        </section>\n       </div>\n",
                         directives: [townSelector_component_js_1.TownSelectorComponent, editableField_component_js_1.EditableFieldComponent, sunburst_component_js_1.SunburstComponent, router_1.ROUTER_DIRECTIVES],
                         providers: [begrotingService_js_1.BegrotingService,
                             townService_component_js_1.TownService,

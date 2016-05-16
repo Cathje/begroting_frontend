@@ -16,14 +16,6 @@ export class Project {
     constructor(titel:string)
     {
         this.titel = titel;
-        this.projectScenario = 0;
-        this.vraag = "";
-        this.extraInfo="";
-        this.bedrag = 1000;
-        this.maxBedrag = 10;
-        this.minBedrag = 10;
-        this.boekjaar =2020;
-        this.gemeente="Gent"
     }
 
 }

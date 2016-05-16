@@ -62,7 +62,7 @@ import {ProjectService} from './../../../services/projectService.component.js';
 
 export class ProjectOverviewComponent {
     title = 'Overzicht projecten';
-    projects = this._projectService.getProjects();
+  //  projects = this._projectService.getProjects();
     selectedTown = { 'name':'Berchem' };
 
     constructor(

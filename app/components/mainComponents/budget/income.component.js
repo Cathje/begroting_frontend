@@ -63,7 +63,7 @@ System.register(['angular2/core', './../../../services/townService.component.js'
                         _this.showActions = true;
                         //TODO: replace hardcoded 15 with id
                         _this._begrotingService.getActies(24)
-                            .subscribe(function (acties) { return _this.acties = acties; });
+                            .subscribe(function (acties) { return _this.acties = acties; }, function (err) { return _this.errorMessage = err; });
                     };
                     this.onResize = function (event) {
                         if (window.innerWidth < 768) {
@@ -77,9 +77,9 @@ System.register(['angular2/core', './../../../services/townService.component.js'
                         .subscribe(function (town) {
                         _this.mainTown = town;
                         _this.imglink = "/app/images/provincies/" + town.provincie.toLowerCase().split(' ').join('') + ".png";
-                    });
+                    }, function (err) { return _this.errorMessage = err; });
                     _begrotingService.getGemeenteCategorieen(2020, "Gent")
-                        .subscribe(function (finan) { return _this.categories = finan; });
+                        .subscribe(function (finan) { return _this.categories = finan; }, function (err) { return _this.errorMessage = err; });
                 }
                 IncomeComponent.prototype.ngOnInit = function () {
                     /* @TODO CATHERINE INDIEN BACKEND BIJ JOUW NIET WERKT DEZE CALL UIT COMMENTAAR ZETTEN

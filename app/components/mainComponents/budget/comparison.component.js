@@ -81,9 +81,9 @@ System.register(['angular2/core', './../../../services/townService.component.js'
                         .subscribe(function (town) {
                         _this.mainTown = town;
                         _this.imglink = "/app/images/provincies/" + town.provincie.toLowerCase().split(' ').join('') + ".png";
-                    });
+                    }, function (err) { return _this.errorMessage = err; });
                     _begrotingService.getGemeenteCategorieen(2020, "Gent")
-                        .subscribe(function (finan) { return _this.categories = finan; });
+                        .subscribe(function (finan) { return _this.categories = finan; }, function (err) { return _this.errorMessage = err; });
                 }
                 ComparisonComponent.prototype.ngOnInit = function () {
                     /* @TODO CATHERINE INDIEN BACKEND BIJ JOUW NIET WERKT DEZE CALL UIT COMMENTAAR ZETTEN

@@ -303,6 +303,7 @@ export class TaxesComponent {
     private service: TownService;
     private budgetService: BegrotingService;
     private myTaxes: number = 0;
+    errorMessage:any;
 
     /*private categories: [{naamCatz : string, uitgave : number}] = [{"naamCatz" : "", "uitgave" : 0}];
     private categories2: [{naamCatz : string, uitgave : number}] = [{"naamCatz" : "", "uitgave" : 0}];*/
@@ -327,14 +328,16 @@ export class TaxesComponent {
         this.towns = _townService.getTownsHC();//TODO: delete
 
         _townService.getTowns()//TODO: service implementation
-            .subscribe(towns => this.towns = towns);
+            .subscribe((towns:any) => this.towns = towns,
+                (err:any) => this.errorMessage = err);
 
         this.myTown = _townService.getTownHC("Antwerpen");//TODO: delete
         //default stad is Antwerpen
         this.compareTown = _townService.getTownHC("Antwerpen");//TODO: delete and service implementation
 
         _townService.getTown(this._routeParams.get('town'))//TODO: deep routing
-            .subscribe(town => this.myTown = town
+            .subscribe((town:any) => this.myTown = town,
+                (err:any) => this.errorMessage = err
             );
 
     }

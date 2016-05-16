@@ -7,11 +7,11 @@ export interface GemeenteCategorie
 {
     ID: number;
     totaal:any;
-    naamCatx?:string;
-    naamCaty?:string;
-    naamCatz?:string;
+    catA?:string;
+    catB?:string;
+    catC?:string;
     inspraakNiveau?:number;
-    gemcatId?:number;
+    gemcatID?:number;
     acties?:Actie [];
     
 }

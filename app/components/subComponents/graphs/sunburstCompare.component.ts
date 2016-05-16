@@ -253,7 +253,7 @@ function buildHierarchy(data: [Object], colors: Object) {
             let nodeName : string;
             let id: number;
             let childNode: Object;
-            if(value === 'naamCatx' || value === 'naamCaty'){
+            if(value === 'catA' || value === 'naamCaty'){
                 nodeName = data[i][value];
                 id = data[i]['ID'];
                 // Not yet at the end of the sequence; move down the tree.

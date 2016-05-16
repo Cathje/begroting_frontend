@@ -5,7 +5,7 @@ import 'rxjs/Rx';
 import {PROJECTS} from "../mockData/mock-projects.js";
 import {Project} from "../models/project.js";
 import {GemeenteCategorie} from "../models/gemeenteCategorie.js";
-import {InspraakCategorie} from "../models/dto/inspraakCategorieDTO";
+
 
 
 
@@ -21,8 +21,8 @@ export class ProjectService
     private _url2 = 'http://localhost:52597/api/Project';
 
     getInspraakitems(jaar:number, naam:string):Observable<GemeenteCategorie[]> {
-        return this.http.get(this._url2 + "?jaar=" + jaar + "&naam=" + naam)
-            .map(res => res.json());
+        return this.http.get(this._url2 + "/itemsGET" +"?jaar=" + jaar + "&naam=" + naam)
+            .map(this.extractData);
     }
 
     putProject(p: Project)
@@ -35,12 +35,21 @@ export class ProjectService
 
     }
 
-
-    getProjects() {
-         return PROJECTS;
+    getProject(jaar:number, naam:string):Observable<Project> {
+        return this.http.get(this._url2 + "/projectGET" +"?jaar=" + jaar + "&naam=" + naam)
+            .map(this.extractData);
     }
 
-    getProject(number: number){
-         return PROJECTS[number];
+
+    getProjects(naam:string):Observable<Project[]> {
+        return this.http.get(this._url2 +"?naam=" + naam)
+            .map(this.extractData);
+    }
+
+    private extractData(res: Response) {
+        if (res.status < 200 || res.status >= 300) {
+            throw new Error('Response status: ' + res.status);
+        }
+        return res.json();
     }
 }

@@ -60,12 +60,12 @@ System.register(['angular2/core', './../../../services/townService.component.js'
                     this.budgetService = _budgetService;
                     this.towns = _townService.getTownsHC(); //TODO: delete
                     _townService.getTowns() //TODO: service implementation
-                        .subscribe(function (towns) { return _this.towns = towns; });
+                        .subscribe(function (towns) { return _this.towns = towns; }, function (err) { return _this.errorMessage = err; });
                     this.myTown = _townService.getTownHC("Antwerpen"); //TODO: delete
                     //default stad is Antwerpen
                     this.compareTown = _townService.getTownHC("Antwerpen"); //TODO: delete and service implementation
                     _townService.getTown(this._routeParams.get('town')) //TODO: deep routing
-                        .subscribe(function (town) { return _this.myTown = town; });
+                        .subscribe(function (town) { return _this.myTown = town; }, function (err) { return _this.errorMessage = err; });
                 }
                 //call upon initial load
                 TaxesComponent.prototype.ngOnInit = function () {

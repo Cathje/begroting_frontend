@@ -29,7 +29,7 @@ System.register(['angular2/core', 'angular2/router', './../../../services/projec
                     this._router = _router;
                     this._projectService = _projectService;
                     this.title = 'Overzicht projecten';
-                    this.projects = this._projectService.getProjects();
+                    //  projects = this._projectService.getProjects();
                     this.selectedTown = { 'name': 'Berchem' };
                 }
                 ProjectOverviewComponent = __decorate([

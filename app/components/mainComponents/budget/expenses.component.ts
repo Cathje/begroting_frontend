@@ -30,7 +30,7 @@ import {GemeenteCategorie} from "../../../models/gemeenteCategorie.js";
                 <h3>Acties</h3>
                 <ul>
                     <p [ngClass]="{hide: showActions}" class='noData'> U heeft nog geen categorie geselecteerd. </p>
-                    <li *ngFor="#actie of acties">{{actie.actieLang}}</li>
+                    <li *ngFor="#actie of acties">{{actie.actieLang}} - {{actie.bestuurtype}}</li>
                 </ul>
             </div>
         </div>
@@ -185,6 +185,7 @@ export class ExpensesComponent {
     acties: Actie[];
     showActions = false;
     id:number;
+    errorMessage:any;
     isEditor: boolean = false; //TODO: adapt value when signed in with special role
     categories: GemeenteCategorie [] = [];
 
@@ -193,24 +194,27 @@ export class ExpensesComponent {
     onCircleClick: any = (id: number) => {
         this.showActions = true;
         //TODO: replace hardcoded 15 with id
-        this._begrotingService.getActies(24)
-            .subscribe((acties : any) => this.acties = acties);
+
+       this._begrotingService.getActies(24)
+           .subscribe((acties : any) => this.acties = acties,
+               (err:any) => this.errorMessage = err);
 
     };
 
     constructor(private _townService:TownService, private _begrotingService:BegrotingService, public http: Http, params: RouteParams, injector: Injector, private _router: Router)
     {
         _townService.getTown(injector.parent.parent.get(RouteParams).get('town'))
-            .subscribe(town => {
+            .subscribe((town:any) => {
                 this.mainTown = town;
                 this.imglink = "/app/images/provincies/" + town.provincie.toLowerCase().split(' ').join('') +".png";
-                }
+                },
+                (err:any) => this.errorMessage = err
              );
 
         _begrotingService.getGemeenteCategorieen(2020,"Gent")
-           .subscribe((finan:any) => {
-               this.categories =  finan;
-               }
+
+           .subscribe((finan: any) => this.categories = finan,
+               (err:any) => this.errorMessage = err
             );
 
     }

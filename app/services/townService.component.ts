@@ -14,20 +14,18 @@ export class TownService {
 
 
     }
-    private _url = 'http://begroting-webapi.azurewebsites.net/api/Gemeente';
-   //private _url = 'http://localhost:52597/api/Gemeente';
+   // private _url = 'http://begroting-webapi.azurewebsites.net/api/Gemeente';
+   private _url = 'http://localhost:52597/api/Gemeente';
 
     getTowns():Observable<MainTown[]> {
         return this.http.get(this._url)
-            .map(res => res.json())
-            .catch(this.handleError);
+            .map(this.extractData);
     }
 
     //ophalen van 1 hoofdGemeente
     getTown(naam: string):Observable<MainTown> {
         return this.http.get(this._url + "?naam=" + naam)
-            .map(res => res.json())
-            .catch(this.handleError);
+            .map(this.extractData);
     }
 
     public putTown(maintown: MainTown)
@@ -41,17 +39,16 @@ export class TownService {
     
     public deleteBestuurslid(id:number)
     {
-        return this.http.delete(this._url + "/" + id)
-            .map(res => res.json())
-            .catch(this.handleError);
+        return this.http.delete(this._url + "?id=" + id)
+            .map((res:Response) => res.json());
     }
 
-    private handleError(error: Response)
-    {
-        console.error(error);
-        return Observable.throw(error.json().error || 'server error');
+    private extractData(res: Response) {
+        if (res.status < 200 || res.status >= 300) {
+            throw new Error('Response status: ' + res.status);
+        }
+        return res.json();
     }
-
 
     getTownsHC() {
         return TOWNS;

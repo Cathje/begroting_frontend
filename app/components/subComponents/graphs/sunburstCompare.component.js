@@ -108,7 +108,7 @@ System.register(['angular2/core', 'd3'], function(exports_1) {
                 var nodeName;
                 var id;
                 var childNode;
-                if (value === 'naamCatx' || value === 'naamCaty') {
+                if (value === 'catA' || value === 'naamCaty') {
                     nodeName = data[i][value];
                     id = data[i]['ID'];
                     // Not yet at the end of the sequence; move down the tree.
