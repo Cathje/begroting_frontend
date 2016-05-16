@@ -13,7 +13,6 @@ System.register(['angular2/core', 'd3'], function(exports_1) {
     var core_1, d3;
     var SunburstComponent;
     function addHeadCategoryCodeToData(data) {
-        console.log(this.data);
         var categories = [];
         for (var i = 0; i < data.length; i++) {
             if (data[i].hasOwnProperty('naamCatx')) {
@@ -50,6 +49,7 @@ System.register(['angular2/core', 'd3'], function(exports_1) {
             .filter(function (d) {
             return (d.dx > 0.005); // 0.005 radians = 0.29 degrees
         });
+        console.log('hey');
         var path = chart.select("#container").data([json]).selectAll("path")
             .data(nodes)
             .enter().append("svg:path")
@@ -59,16 +59,19 @@ System.register(['angular2/core', 'd3'], function(exports_1) {
             .style("fill", function (d) { return colors[d.name]; })
             .attr("stroke", "white")
             .attr("stroke-width", 1)
-            .style("opacity", 1)
-            .on("mouseover", function (d) { return mouseover(d, totalSize, chart); })
-            .on("mousedown", function (d) { return mouseclick(d, callbackFunction); });
+            .style("opacity", 1);
+        //.on("mouseover", (d: any) => mouseover(d, totalSize, chart))
+        //.on("mousedown", (d: any) => mouseclick(d, callbackFunction));
+        console.log('hey9');
         // Add the mouseleave handler to the bounding circle.
         chart.select("#container").on("mouseleave", function (d) { return mouseleave(d, chart); });
         // Get total size of the tree = value of root node from partition.
         totalSize = path.node().__data__.value;
+        console.log('hey3');
     }
     // Fade all but the current sequence
     function mouseover(d, totalSize, chart) {
+        console.log('hey0');
         var percentage = (100 * d.value / totalSize).toPrecision(3);
         var percentageString = percentage + "%";
         if (parseFloat(percentage) < 0.1) {
@@ -76,14 +79,18 @@ System.register(['angular2/core', 'd3'], function(exports_1) {
         }
         chart.select("#percentage")
             .text(percentageString);
+        console.log('hey6');
         chart.select("#explanation")
             .style("visibility", "");
         chart.select("#explanation2")
             .style("visibility", "hidden");
+        console.log('hey4');
         chart.select("#category").text(d.name);
         chart.select("#centerimg")
             .attr("src", "/app/images/categories/" + d.code + ".jpg");
         var sequenceArray = getAncestors(d);
+        console.log('hey5');
+        console.log('hey');
         // Fade all the segments.
         chart.selectAll("path")
             .style("opacity", 0.3);
@@ -255,19 +262,22 @@ System.register(['angular2/core', 'd3'], function(exports_1) {
                         var formattedData = addHeadCategoryCodeToData(_this.data);
                         var json = buildHierarchy(formattedData, colors);
                         createVisualization(json, _this.onClick, partition, arc, colors, totalSize, chart);
+                        console.log('hey2');
                     };
+                    console.log('333', this.data);
                 }
                 SunburstComponent.prototype.ngOnInit = function () {
                 };
                 ;
                 SunburstComponent.prototype.ngOnChanges = function (changes) {
+                    console.log('555', this.data);
                     var chart = d3.select(this.el.nativeElement).select("#chart");
                     chart.select('#chartsvg').remove();
                     this.createChart(chart);
                 };
                 __decorate([
                     core_1.Input(), 
-                    __metadata('design:type', Array)
+                    __metadata('design:type', Object)
                 ], SunburstComponent.prototype, "data");
                 __decorate([
                     core_1.Input(), 

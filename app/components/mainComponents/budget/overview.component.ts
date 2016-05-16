@@ -208,5 +208,15 @@ export class OverviewComponent {
         }
     }
 
+    onCircleClick: any = (id: number) => {
+        alert('hey');
+        /*
+         this.showActions = true;
+         //TODO: replace hardcoded 15 with id
+         this._begrotingService.getActies(24)
+         .subscribe((acties : any) => this.acties = acties);
+         */
+    };
+
 }
 

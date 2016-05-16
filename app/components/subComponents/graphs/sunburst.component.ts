@@ -95,7 +95,7 @@ import {SimpleChange} from "../../../../node_modules/angular2/src/core/change_de
 })
 
 export class SunburstComponent {
-    @Input() data: [[string, string]];
+    @Input() data: any;
     @Input() width: number;
     @Input() height: number;
     @Input() onClick: string;
@@ -103,6 +103,7 @@ export class SunburstComponent {
     translation: string;
 
     constructor(public renderer: Renderer, public el: ElementRef){
+        console.log('333', this.data);
     }
 
     ngOnInit() {
@@ -110,6 +111,8 @@ export class SunburstComponent {
     };
 
     ngOnChanges(changes: {[propertyName: string]: SimpleChange}) {
+        console.log('555', this.data)
+
         var chart = d3.select(this.el.nativeElement).select("#chart");
         chart.select('#chartsvg').remove();
         this.createChart(chart);
@@ -149,12 +152,14 @@ export class SunburstComponent {
 
         let json: Object = buildHierarchy(formattedData, colors);
 
+
         createVisualization(json, this.onClick, partition, arc, colors, totalSize, chart);
+        console.log('hey2');
+
     }
 }
 
 function addHeadCategoryCodeToData(data: [Object]){
-    console.log(this.data);
     let categories = []
     for (var i = 0; i < data.length; i++) {
         if(data[i].hasOwnProperty('naamCatx')){
@@ -193,6 +198,7 @@ function createVisualization(json: Object, callbackFunction: any, partition: any
         .filter(function(d : any) {
             return (d.dx > 0.005); // 0.005 radians = 0.29 degrees
         });
+    console.log('hey');
 
     let path = chart.select("#container").data([json]).selectAll("path")
         .data(nodes)
@@ -204,18 +210,23 @@ function createVisualization(json: Object, callbackFunction: any, partition: any
         .attr("stroke", "white")
         .attr("stroke-width", 1)
         .style("opacity", 1)
-        .on("mouseover", (d: any) => mouseover(d, totalSize, chart))
-        .on("mousedown", (d: any) => mouseclick(d, callbackFunction));
+        //.on("mouseover", (d: any) => mouseover(d, totalSize, chart))
+        //.on("mousedown", (d: any) => mouseclick(d, callbackFunction));
+    console.log('hey9');
 
     // Add the mouseleave handler to the bounding circle.
     chart.select("#container").on("mouseleave", (d: any) => mouseleave( d, chart));
 
     // Get total size of the tree = value of root node from partition.
     totalSize = path.node().__data__.value;
+    console.log('hey3');
+
 };
 
 // Fade all but the current sequence
 function mouseover(d: any, totalSize: any, chart:any) {
+    console.log('hey0');
+
     let percentage = (100 * d.value / totalSize).toPrecision(3);
     let percentageString = percentage + "%";
     if (parseFloat(percentage) < 0.1) {
@@ -223,12 +234,14 @@ function mouseover(d: any, totalSize: any, chart:any) {
     }
     chart.select("#percentage")
         .text(percentageString);
+    console.log('hey6');
 
     chart.select("#explanation")
         .style("visibility", "");
 
     chart.select("#explanation2")
         .style("visibility", "hidden");
+    console.log('hey4');
 
     chart.select("#category").text(d.name);
 
@@ -236,6 +249,9 @@ function mouseover(d: any, totalSize: any, chart:any) {
             .attr("src","/app/images/categories/"+d.code+".jpg" );
 
     var sequenceArray = getAncestors(d);
+    console.log('hey5');
+
+    console.log('hey');
 
     // Fade all the segments.
     chart.selectAll("path")

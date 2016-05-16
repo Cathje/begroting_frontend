@@ -60,10 +60,13 @@ System.register(['angular2/core', './../../../services/townService.component.js'
                     this.categories = [];
                     this.width = window.innerWidth < 768 ? window.innerWidth * 0.8 : window.innerWidth / 2.5;
                     this.onCircleClick = function (id) {
-                        _this.showActions = true;
+                        alert('hey');
+                        /*
+                        this.showActions = true;
                         //TODO: replace hardcoded 15 with id
-                        _this._begrotingService.getActies(24)
-                            .subscribe(function (acties) { return _this.acties = acties; });
+                        this._begrotingService.getActies(24)
+                            .subscribe((acties : any) => this.acties = acties);
+                            */
                     };
                     this.onResize = function (event) {
                         if (window.innerWidth < 768) {
@@ -79,7 +82,9 @@ System.register(['angular2/core', './../../../services/townService.component.js'
                         _this.imglink = "/app/images/provincies/" + town.provincie.toLowerCase().split(' ').join('') + ".png";
                     });
                     _begrotingService.getGemeenteCategorieen(2020, "Gent")
-                        .subscribe(function (finan) { return _this.categories = finan; });
+                        .subscribe(function (finan) {
+                        _this.categories = finan;
+                    });
                 }
                 ExpensesComponent.prototype.ngOnInit = function () {
                     /* @TODO CATHERINE INDIEN BACKEND BIJ JOUW NIET WERKT DEZE CALL UIT COMMENTAAR ZETTEN
