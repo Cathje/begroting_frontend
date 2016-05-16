@@ -13,17 +13,8 @@ System.register(['angular2/core', 'd3'], function(exports_1) {
     var core_1, d3;
     var SunburstComponent;
     function addHeadCategoryCodeToData(data) {
-        var categories = [];
         for (var i = 0; i < data.length; i++) {
-            if (data[i].hasOwnProperty('naamCatx')) {
-                data[i]['code'] = getMainCategoryCode(data[i]['naamCatx']);
-            }
-            else if (data[i].hasOwnProperty('naamCaty')) {
-                data[i]['code'] = getMainCategoryCode(data[i]['naamCaty']);
-            }
-            else {
-                data[i]['code'] = getMainCategoryCode(data[i]['naamCatz']);
-            }
+            data[i]['code'] = getMainCategoryCode(data[i]['catA']);
         }
         return data;
     }
@@ -39,7 +30,7 @@ System.register(['angular2/core', 'd3'], function(exports_1) {
             case 'Leren en onderwijs': return "08";
             case 'Zorg en opvang': return "09";
             case 'Algemene financiering': return "00";
-            default: return "10";
+            default: return "00";
         }
     }
     // Main function to draw and set up the visualization, once we have the data.
@@ -59,9 +50,9 @@ System.register(['angular2/core', 'd3'], function(exports_1) {
             .style("fill", function (d) { return colors[d.name]; })
             .attr("stroke", "white")
             .attr("stroke-width", 1)
-            .style("opacity", 1);
-        //.on("mouseover", (d: any) => mouseover(d, totalSize, chart))
-        //.on("mousedown", (d: any) => mouseclick(d, callbackFunction));
+            .style("opacity", 1)
+            .on("mouseover", function (d) { return mouseover(d, totalSize, chart); })
+            .on("mousedown", function (d) { return mouseclick(d, callbackFunction); });
         console.log('hey9');
         // Add the mouseleave handler to the bounding circle.
         chart.select("#container").on("mouseleave", function (d) { return mouseleave(d, chart); });
@@ -132,56 +123,85 @@ System.register(['angular2/core', 'd3'], function(exports_1) {
     // root to leaf, separated by hyphens. The second column is a count of how
     // often that sequence occurred.
     function buildHierarchy(data, colors) {
+        console.log('555 hier', data);
         var root = { "name": "root", "children": [Object] };
         for (var i = 0; i < data.length; i++) {
-            var size = +Math.abs(data[i]['totaal']);
-            if (isNaN(size)) {
-                continue;
-            }
             var currentNode = root;
-            Object.keys(data[i]).map(function (value) {
-                var children = currentNode["children"];
-                var nodeName;
-                var id;
-                var childNode;
-                if (value === 'naamCatx' || value === 'naamCaty') {
-                    nodeName = data[i][value];
-                    id = data[i]['ID'];
-                    // Not yet at the end of the sequence; move down the tree.
-                    var foundChild = false;
-                    for (var k = 0; k < children.length; k++) {
-                        if (children[k]["name"] == nodeName) {
-                            childNode = children[k];
-                            foundChild = true;
-                            break;
-                        }
-                    }
-                    // If we don't already have a child node for this branch, create it.
-                    if (!foundChild) {
-                        childNode = { "name": nodeName, "id": id, "code": data[i]['code'], "children": [] };
-                        children.push(childNode);
-                        colors[nodeName] = get_random_color(data[i]['code']);
-                    }
-                    currentNode = childNode;
+            //TOP LEVEL CAT A
+            if (!data[i].hasOwnProperty('catB') && !data[i].hasOwnProperty('catC')) {
+                var size = +Math.abs(data[i]['totaal']);
+                var nodeName = data[i]['catA'];
+                var catA = { "name": nodeName, "id": data[i]['ID'], "code": data[i]['code'], "size": size, "children": [] };
+                colors[nodeName] = get_random_color(data[i]['code']);
+                root["children"].push(catA);
+            }
+            else if (!data[i].hasOwnProperty('catC')) {
+                var children = root["children"];
+                var id = data[i]['ID'];
+                // check if Cat A already exists
+                var catA = children.filter(function (obj) { return obj["name"] == data[i]['catA']; });
+                // If we don't already have a Cat A for this branch, create it.
+                if (Object.keys(catA).length === 0) {
+                    var catANode = { "name": data[i]['catA'], "id": id, "code": data[i]['code'], "size": size, "children": [] };
+                    children.push(catANode);
+                    colors[data[i]['catA']] = get_random_color(data[i]['code']);
                 }
-                else if (value === 'naamCatz') {
-                    nodeName = data[i][value];
-                    id = data[i]['ID'];
-                    // Reached the end of the sequence; create a leaf node.
-                    childNode = { "name": nodeName, "id": id, "code": data[i]['code'], "size": size };
-                    colors[nodeName] = get_random_color(data[i]['code']);
-                    children.push(childNode);
+                // move node down in hierarchy > to level A children
+                children = _moveNodeDown(children, data[i]['catA']);
+                // add catB to the catA children array
+                var catBNode = { "name": data[i]['catB'], "id": id, "code": data[i]['code'], "size": size, "children": [] };
+                colors[data[i]['catB']] = get_random_color(data[i]['code']);
+                children.push(catBNode);
+            }
+            else {
+                var children = root["children"]; // root level children
+                var id = data[i]['ID'];
+                // check if Cat A already exists
+                var catA = children.filter(function (obj) { return obj["name"] == data[i]['catA']; });
+                // If we don't already have a Cat A for this branch, create it.
+                if (Object.keys(catA).length === 0) {
+                    var catANode = { "name": data[i]['catA'], "id": id, "code": data[i]['code'], "size": size, "children": [] };
+                    children.push(catANode);
+                    colors[data[i]['catA']] = get_random_color(data[i]['code']);
                 }
-            });
+                // move node down in hierarchy > to level A children
+                children = _moveNodeDown(children, data[i]['catA']);
+                // check if Cat B already exists
+                var catB = children.filter(function (obj) { return obj["name"] == data[i]['catA']; });
+                // If we don't already have a Cat B for this branch, create it.
+                if (Object.keys(catB).length === 0) {
+                    var catBNode = { "name": data[i]['catB'], "id": id, "code": data[i]['code'], "size": size, "children": [] };
+                    children.push(catBNode);
+                    colors[data[i]['catB']] = get_random_color(data[i]['code']);
+                }
+                // move node down in hierarchy > to level B children
+                children = _moveNodeDown(children, data[i]['catB']);
+                // add catC to the catB children array
+                var catCNode = { "name": data[i]['catC'], "id": id, "code": data[i]['code'], "size": size, "children": [] };
+                children.push(catCNode);
+                colors[data[i]['catC']] = get_random_color(data[i]['code']);
+            }
         }
+        console.log('root', root);
         return root;
+    }
+    function _moveNodeDown(children, categoryName) {
+        console.log(children, categoryName);
+        for (var k = 0; k < children.length; k++) {
+            if (children[k]["name"] == categoryName) {
+                return children[k]["children"];
+            }
+        }
+        return children;
+    }
+    function _createCategory() {
     }
     function rand(min, max) {
         return Math.random() * (max - min + 1) + min;
     }
     function get_random_color(categoryCode) {
-        /*
-        switch(categoryCode) {
+        //TODO: niet hard coded mappen, maar ahv category string
+        switch (categoryCode) {
             case '00': return "#999999"; // grijs* financien
             case '01': return "#ffdf50"; // geel* financien
             case '02': return "#f7bdc7"; //pink
@@ -193,7 +213,7 @@ System.register(['angular2/core', 'd3'], function(exports_1) {
             case '08': return "#efb3e9"; //purple* onderwijs
             case '09': return "#fa7fb8"; // pink* zorg
             default: return "#ffff99"; // lightgreen
-        }*/
+        }
         // als we kleurtjes willen met gradaties
         /*
         var h;
@@ -216,10 +236,12 @@ System.register(['angular2/core', 'd3'], function(exports_1) {
         return 'hsl(' + h + ',' + s + '%,' + l + '%)';
         */
         // als we enkel blauwtinten willen
-        var h = rand(180, 190);
-        var s = rand(60, 65);
-        var l = rand(20, 70);
-        return 'hsl(' + h + ',' + s + '%,' + l + '%)';
+        /*
+     var h = rand(180, 190);
+     var s = rand(60, 65);
+     var l = rand(20, 70);
+     return 'hsl(' + h + ',' + s + '%,' + l + '%)';
+    */
     }
     return {
         setters:[
@@ -235,6 +257,8 @@ System.register(['angular2/core', 'd3'], function(exports_1) {
                     var _this = this;
                     this.renderer = renderer;
                     this.el = el;
+                    this.width = 400;
+                    this.height = 400;
                     this.createChart = function (chart) {
                         _this.radius = Math.min(_this.width, _this.height) / 2;
                         _this.translation = "translate(" + _this.width / 2 + "," + _this.height / 2 + ")";

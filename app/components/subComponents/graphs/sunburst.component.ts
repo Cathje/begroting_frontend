@@ -96,8 +96,8 @@ import {SimpleChange} from "../../../../node_modules/angular2/src/core/change_de
 
 export class SunburstComponent {
     @Input() data: any;
-    @Input() width: number;
-    @Input() height: number;
+    @Input() width: number = 400;
+    @Input() height: number = 400;
     @Input() onClick: string;
     radius: number;
     translation: string;
@@ -160,15 +160,8 @@ export class SunburstComponent {
 }
 
 function addHeadCategoryCodeToData(data: [Object]){
-    let categories = []
     for (var i = 0; i < data.length; i++) {
-        if(data[i].hasOwnProperty('naamCatx')){
-            data[i]['code'] = getMainCategoryCode(data[i]['naamCatx']);
-        } else if(data[i].hasOwnProperty('naamCaty')){
-            data[i]['code'] = getMainCategoryCode(data[i]['naamCaty']);
-        } else {
-            data[i]['code'] = getMainCategoryCode(data[i]['naamCatz']);
-        }
+      data[i]['code'] = getMainCategoryCode(data[i]['catA']);
     }
     return data;
 
@@ -186,7 +179,7 @@ function getMainCategoryCode(category: string){
         case 'Leren en onderwijs': return "08";
         case 'Zorg en opvang': return "09";
         case 'Algemene financiering': return "00";
-        default: return "10";
+        default: return "00";
     }
 }
 
@@ -210,8 +203,8 @@ function createVisualization(json: Object, callbackFunction: any, partition: any
         .attr("stroke", "white")
         .attr("stroke-width", 1)
         .style("opacity", 1)
-        //.on("mouseover", (d: any) => mouseover(d, totalSize, chart))
-        //.on("mousedown", (d: any) => mouseclick(d, callbackFunction));
+        .on("mouseover", (d: any) => mouseover(d, totalSize, chart))
+        .on("mousedown", (d: any) => mouseclick(d, callbackFunction));
     console.log('hey9');
 
     // Add the mouseleave handler to the bounding circle.
@@ -305,58 +298,115 @@ function getAncestors(node: any) {
 // root to leaf, separated by hyphens. The second column is a count of how
 // often that sequence occurred.
 function buildHierarchy(data: [Object], colors: Object) {
+    console.log('555 hier', data)
     var root = {"name": "root", "children": [Object]};
+
     for (var i = 0; i < data.length; i++) {
-        var size = + Math.abs(data[i]['totaal']);
-        if (isNaN(size)) { // e.g. if this is a header row
-            continue;
+        var currentNode : Object = root;
+
+        //TOP LEVEL CAT A
+        if(!data[i].hasOwnProperty('catB') && !data[i].hasOwnProperty('catC')){
+            var size = + Math.abs(data[i]['totaal']);
+            let nodeName : string = data[i]['catA'];
+
+            let catA : Object = {"name": nodeName, "id": data[i]['ID'],"code": data[i]['code'], "size": size, "children": []};
+            colors[nodeName] = get_random_color(data[i]['code']);
+
+            root["children"].push(catA);
         }
 
-        var currentNode : Object = root;
-        Object.keys(data[i]).map((value) => {
-            let children = currentNode["children"];
-            let nodeName : string;
-            let id: number;
-            let childNode: Object;
-            if(value === 'naamCatx' || value === 'naamCaty'){
-                nodeName = data[i][value];
-                id = data[i]['ID'];
-                // Not yet at the end of the sequence; move down the tree.
-                var foundChild = false;
-                for (var k = 0; k < children.length; k++) {
-                    if (children[k]["name"] == nodeName) {
-                        childNode = children[k];
-                        foundChild = true;
-                        break;
-                    }
-                }
-                // If we don't already have a child node for this branch, create it.
-                if (!foundChild) {
-                    childNode = {"name": nodeName, "id": id, "code": data[i]['code'], "children": []};
-                    children.push(childNode);
-                    colors[nodeName] = get_random_color(data[i]['code']);
-                }
-                currentNode = childNode;
-            } else if(value === 'naamCatz'){
-                nodeName = data[i][value];
-                id = data[i]['ID'];
-                // Reached the end of the sequence; create a leaf node.
-                childNode = {"name": nodeName, "id": id,"code": data[i]['code'], "size": size};
-                colors[nodeName] = get_random_color(data[i]['code']);
-                children.push(childNode);
+        // SECOND LEVEL CAT B
+        else if (!data[i].hasOwnProperty('catC')) {
+            let children = root["children"];
+            let id: number = data[i]['ID'];
+
+            // check if Cat A already exists
+            let catA : Object  = children.filter((obj) => {return obj["name"] == data[i]['catA']});
+
+            // If we don't already have a Cat A for this branch, create it.
+            if (Object.keys(catA).length === 0) {
+                let catANode = {"name": data[i]['catA'], "id": id, "code": data[i]['code'], "size": size, "children": []};
+                children.push(catANode);
+                colors[data[i]['catA']] = get_random_color(data[i]['code']);
             }
-        });
+
+            // move node down in hierarchy > to level A children
+            children = _moveNodeDown(children, data[i]['catA']);
+
+            // add catB to the catA children array
+            let catBNode = {"name": data[i]['catB'], "id": id, "code": data[i]['code'], "size": size, "children": []};
+            colors[data[i]['catB']] = get_random_color(data[i]['code']);
+            children.push(catBNode);
+
+        } else  {
+            let children = root["children"]; // root level children
+            let id: number = data[i]['ID'];
+
+            // check if Cat A already exists
+            let catA : Object  = children.filter((obj) => {return obj["name"] == data[i]['catA']});
+
+            // If we don't already have a Cat A for this branch, create it.
+            if (Object.keys(catA).length === 0) {
+                let catANode = {"name": data[i]['catA'], "id": id, "code": data[i]['code'], "size": size, "children": []};
+                children.push(catANode);
+                colors[data[i]['catA']] = get_random_color(data[i]['code']);
+
+            }
+
+            // move node down in hierarchy > to level A children
+            children = _moveNodeDown(children, data[i]['catA']);
+
+
+            // check if Cat B already exists
+            let catB : Object  = children.filter((obj) => {return obj["name"] == data[i]['catA']});
+
+            // If we don't already have a Cat B for this branch, create it.
+            if (Object.keys(catB).length === 0) {
+                let catBNode = {"name": data[i]['catB'], "id": id, "code": data[i]['code'], "size": size, "children": []};
+                children.push(catBNode);
+                colors[data[i]['catB']] = get_random_color(data[i]['code']);
+
+            }
+
+            // move node down in hierarchy > to level B children
+            children = _moveNodeDown(children, data[i]['catB']);
+
+            // add catC to the catB children array
+
+            let catCNode = {"name": data[i]['catC'], "id": id, "code": data[i]['code'], "size": size, "children": []};
+            children.push(catCNode);
+            colors[data[i]['catC']] = get_random_color(data[i]['code']);
+
+
+        }
     }
+
+    console.log('root', root);
     return root;
 };
+
+function _moveNodeDown(children: [Object] , categoryName: string) {
+    console.log(children, categoryName);
+    for (var k = 0; k < children.length; k++) {
+        if (children[k]["name"] == categoryName) {
+            return children[k]["children"];
+        }
+    }
+    return children;
+}
+
+
+function _createCategory() {
+
+}
+
 
 function rand(min: number, max: number) {
     return Math.random() * (max-min+1) + min;
 }
 
 function get_random_color(categoryCode: string) {
-
-    /*
+    //TODO: niet hard coded mappen, maar ahv category string
     switch(categoryCode) {
         case '00': return "#999999"; // grijs* financien
         case '01': return "#ffdf50"; // geel* financien
@@ -369,7 +419,7 @@ function get_random_color(categoryCode: string) {
         case '08': return "#efb3e9"; //purple* onderwijs
         case '09': return "#fa7fb8"; // pink* zorg
         default: return "#ffff99"; // lightgreen
-    }*/
+    }
 
 
     // als we kleurtjes willen met gradaties
@@ -395,11 +445,11 @@ function get_random_color(categoryCode: string) {
     */
 
     // als we enkel blauwtinten willen
-
+        /*
      var h = rand(180, 190);
      var s = rand(60, 65);
      var l = rand(20, 70);
      return 'hsl(' + h + ',' + s + '%,' + l + '%)';
-
+    */
 }
 

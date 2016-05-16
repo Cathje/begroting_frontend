@@ -187,16 +187,15 @@ export class ExpensesComponent {
     id:number;
     isEditor: boolean = false; //TODO: adapt value when signed in with special role
     categories: GemeenteCategorie [] = [];
+
     width: number = window.innerWidth < 768 ? window.innerWidth*0.8 : window.innerWidth/2.5;
 
     onCircleClick: any = (id: number) => {
-        alert('hey');
-        /*
         this.showActions = true;
         //TODO: replace hardcoded 15 with id
         this._begrotingService.getActies(24)
             .subscribe((acties : any) => this.acties = acties);
-            */
+
     };
 
     constructor(private _townService:TownService, private _begrotingService:BegrotingService, public http: Http, params: RouteParams, injector: Injector, private _router: Router)
@@ -215,6 +214,7 @@ export class ExpensesComponent {
             );
 
     }
+
 
     ngOnInit() {
         /* @TODO CATHERINE INDIEN BACKEND BIJ JOUW NIET WERKT DEZE CALL UIT COMMENTAAR ZETTEN

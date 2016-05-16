@@ -60,13 +60,10 @@ System.register(['angular2/core', './../../../services/townService.component.js'
                     this.categories = [];
                     this.width = window.innerWidth < 768 ? window.innerWidth * 0.8 : window.innerWidth / 2.5;
                     this.onCircleClick = function (id) {
-                        alert('hey');
-                        /*
-                        this.showActions = true;
+                        _this.showActions = true;
                         //TODO: replace hardcoded 15 with id
-                        this._begrotingService.getActies(24)
-                            .subscribe((acties : any) => this.acties = acties);
-                            */
+                        _this._begrotingService.getActies(24)
+                            .subscribe(function (acties) { return _this.acties = acties; });
                     };
                     this.onResize = function (event) {
                         if (window.innerWidth < 768) {
