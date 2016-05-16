@@ -15,8 +15,8 @@ System.register(['angular2/core', 'd3'], function(exports_1, context_1) {
     function addHeadCategoryCodeToData(data) {
         var categories = [];
         for (var i = 0; i < data.length; i++) {
-            if (data[i].hasOwnProperty('naamCatx')) {
-                data[i]['code'] = getMainCategoryCode(data[i]['naamCatx']);
+            if (data[i].hasOwnProperty('catA')) {
+                data[i]['code'] = getMainCategoryCode(data[i]['catA']);
             }
             else if (data[i].hasOwnProperty('naamCaty')) {
                 data[i]['code'] = getMainCategoryCode(data[i]['naamCaty']);
@@ -136,7 +136,7 @@ System.register(['angular2/core', 'd3'], function(exports_1, context_1) {
                 var nodeName;
                 var id;
                 var childNode;
-                if (value === 'naamCatx' || value === 'naamCaty') {
+                if (value === 'catA' || value === 'naamCaty') {
                     nodeName = data[i][value];
                     id = data[i]['ID'];
                     // Not yet at the end of the sequence; move down the tree.

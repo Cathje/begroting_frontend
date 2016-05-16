@@ -186,6 +186,7 @@ export class IncomeComponent {
     acties: Actie[];
     showActions = false;
     id:number;
+    errorMessage:any;
     isEditor: boolean = false; //TODO: adapt value when signed in with special role
     categories: GemeenteCategorie [] = [];
     width: number = window.innerWidth < 768 ? window.innerWidth*0.8 : window.innerWidth/2.5;
@@ -194,7 +195,8 @@ export class IncomeComponent {
         this.showActions = true;
         //TODO: replace hardcoded 15 with id
        this._begrotingService.getActies(24)
-           .subscribe((acties : any) => this.acties = acties);
+           .subscribe((acties : any) => this.acties = acties,
+               (err:any) => this.errorMessage = err);
     };
 
     constructor(private _townService:TownService, private _begrotingService:BegrotingService, public http: Http, params: RouteParams, injector: Injector, private _router: Router)
@@ -203,11 +205,13 @@ export class IncomeComponent {
             .subscribe(town => {
                 this.mainTown = town;
                 this.imglink = "/app/images/provincies/" + town.provincie.toLowerCase().split(' ').join('') +".png";
-                }
+                },
+                (err:any) => this.errorMessage = err
              );
 
         _begrotingService.getGemeenteCategorieen(2020,"Gent")
-           .subscribe((finan: any) => this.categories = finan
+           .subscribe((finan: any) => this.categories = finan,
+               (err:any) => this.errorMessage = err
             );
         
     }

@@ -1,11 +1,11 @@
-System.register(['angular2/core', './../../../services/townService.component.js', 'angular2/http', 'angular2/router', './../../subComponents/input/townSelector.component.js', './../../subComponents/input/editableField.component.js', "../../../models/mainTown.js", './../../subComponents/graphs/sunburst.component.js', "../../../services/begrotingService.js"], function(exports_1) {
+System.register(['angular2/core', './../../../services/townService.component.js', 'angular2/http', 'angular2/router', './../../subComponents/input/townSelector.component.js', './../../subComponents/input/editableField.component.js', "../../../models/mainTown.js", './../../subComponents/graphs/sunburst.component.js', "../../../services/begrotingService.js"], function(exports_1, context_1) {
+    "use strict";
+    var __moduleName = context_1 && context_1.id;
     var __decorate = (this && this.__decorate) || function (decorators, target, key, desc) {
-        if (typeof Reflect === "object" && typeof Reflect.decorate === "function") return Reflect.decorate(decorators, target, key, desc);
-        switch (arguments.length) {
-            case 2: return decorators.reduceRight(function(o, d) { return (d && d(o)) || o; }, target);
-            case 3: return decorators.reduceRight(function(o, d) { return (d && d(target, key)), void 0; }, void 0);
-            case 4: return decorators.reduceRight(function(o, d) { return (d && d(target, key, o)) || o; }, desc);
-        }
+        var c = arguments.length, r = c < 3 ? target : desc === null ? desc = Object.getOwnPropertyDescriptor(target, key) : desc, d;
+        if (typeof Reflect === "object" && typeof Reflect.decorate === "function") r = Reflect.decorate(decorators, target, key, desc);
+        else for (var i = decorators.length - 1; i >= 0; i--) if (d = decorators[i]) r = (c < 3 ? d(r) : c > 3 ? d(target, key, r) : d(target, key)) || r;
+        return c > 3 && r && Object.defineProperty(target, key, r), r;
     };
     var __metadata = (this && this.__metadata) || function (k, v) {
         if (typeof Reflect === "object" && typeof Reflect.metadata === "function") return Reflect.metadata(k, v);
@@ -63,7 +63,7 @@ System.register(['angular2/core', './../../../services/townService.component.js'
                         _this.showActions = true;
                         //TODO: replace hardcoded 15 with id
                         _this._begrotingService.getActies(24)
-                            .subscribe(function (acties) { return _this.acties = acties; });
+                            .subscribe(function (acties) { return _this.acties = acties; }, function (err) { return _this.errorMessage = err; });
                     };
                     this.onResize = function (event) {
                         if (window.innerWidth < 768) {
@@ -77,9 +77,9 @@ System.register(['angular2/core', './../../../services/townService.component.js'
                         .subscribe(function (town) {
                         _this.mainTown = town;
                         _this.imglink = "/app/images/provincies/" + town.provincie.toLowerCase().split(' ').join('') + ".png";
-                    });
+                    }, function (err) { return _this.errorMessage = err; });
                     _begrotingService.getGemeenteCategorieen(2020, "Gent")
-                        .subscribe(function (finan) { return _this.categories = finan; });
+                        .subscribe(function (finan) { return _this.categories = finan; }, function (err) { return _this.errorMessage = err; });
                 }
                 IncomeComponent.prototype.ngOnInit = function () {
                     /* @TODO CATHERINE INDIEN BACKEND BIJ JOUW NIET WERKT DEZE CALL UIT COMMENTAAR ZETTEN
@@ -103,7 +103,7 @@ System.register(['angular2/core', './../../../services/townService.component.js'
                 ], IncomeComponent);
                 return IncomeComponent;
                 var _a, _b;
-            })();
+            }());
             exports_1("IncomeComponent", IncomeComponent);
         }
     }

@@ -237,6 +237,7 @@ export class CoreDataComponent {
     showActions = false;
     types = PoliticusType;
     id:number;
+    errorMessage:any;
     isEditor: boolean = false; //TODO: adapt value when signed in with special role
     categories: GemeenteCategorie [] =
     [{ID:24,naamCatx:"Algemene financiering",naamCaty:"Algemene financiering",naamCatz:"Financiële aangelegenheden",totaal: 22781},
@@ -249,7 +250,9 @@ export class CoreDataComponent {
         this.showActions = true;
         //TODO: replace hardcoded 15 with id
        this._begrotingService.getActies(15)
-           .subscribe((acties : any) => this.acties = acties);
+           .subscribe(
+               (acties : any) => this.acties = acties,
+               (err:any) => this.errorMessage = err);
     };
 
     constructor(private _townService:TownService, private _begrotingService:BegrotingService, public http: Http, params: RouteParams, injector: Injector, private _router: Router)
@@ -258,11 +261,13 @@ export class CoreDataComponent {
             .subscribe(town => {
                 this.mainTown = town;
                 this.imglink = "/app/images/provincies/" + town.provincie.toLowerCase().split(' ').join('') +".png";
-                }
+                },
+                (err:any) => this.errorMessage = err
              );
 
         _begrotingService.getGemeenteCategorieen(2020,"Gent")
-           .subscribe((finan: any) => this.categories = finan
+           .subscribe((finan: any) => this.categories = finan,
+               (err:any) => this.errorMessage = err
             );
 
     }

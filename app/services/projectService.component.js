@@ -32,7 +32,7 @@ System.register(['angular2/core', 'angular2/http', 'rxjs/Rx'], function(exports_
                 }
                 ProjectService.prototype.getInspraakitems = function (jaar, naam) {
                     return this.http.get(this._url2 + "/itemsGET" + "?jaar=" + jaar + "&naam=" + naam)
-                        .map(function (res) { return res.json(); });
+                        .map(this.extractData);
                 };
                 ProjectService.prototype.putProject = function (p) {
                     var headers = new http_1.Headers();
@@ -42,11 +42,17 @@ System.register(['angular2/core', 'angular2/http', 'rxjs/Rx'], function(exports_
                 };
                 ProjectService.prototype.getProject = function (jaar, naam) {
                     return this.http.get(this._url2 + "/projectGET" + "?jaar=" + jaar + "&naam=" + naam)
-                        .map(function (res) { return res.json(); });
+                        .map(this.extractData);
                 };
                 ProjectService.prototype.getProjects = function (naam) {
                     return this.http.get(this._url2 + "?naam=" + naam)
-                        .map(function (res) { return res.json(); });
+                        .map(this.extractData);
+                };
+                ProjectService.prototype.extractData = function (res) {
+                    if (res.status < 200 || res.status >= 300) {
+                        throw new Error('Response status: ' + res.status);
+                    }
+                    return res.json();
                 };
                 ProjectService = __decorate([
                     core_1.Injectable(), 

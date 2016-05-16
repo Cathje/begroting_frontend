@@ -156,8 +156,8 @@ export class SunburstComponent {
 function addHeadCategoryCodeToData(data: [Object]){
     let categories = []
     for (var i = 0; i < data.length; i++) {
-        if(data[i].hasOwnProperty('naamCatx')){
-            data[i]['code'] = getMainCategoryCode(data[i]['naamCatx']);
+        if(data[i].hasOwnProperty('catA')){
+            data[i]['code'] = getMainCategoryCode(data[i]['catA']);
         } else if(data[i].hasOwnProperty('naamCaty')){
             data[i]['code'] = getMainCategoryCode(data[i]['naamCaty']);
         } else {
@@ -301,7 +301,7 @@ function buildHierarchy(data: [Object], colors: Object) {
             let nodeName : string;
             let id: number;
             let childNode: Object;
-            if(value === 'naamCatx' || value === 'naamCaty'){
+            if(value === 'catA' || value === 'naamCaty'){
                 nodeName = data[i][value];
                 id = data[i]['ID'];
                 // Not yet at the end of the sequence; move down the tree.

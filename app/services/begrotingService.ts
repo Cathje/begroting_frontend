@@ -22,21 +22,20 @@ export class BegrotingService {
 
     getGemeenteCategorieen(jaar:number, naam:string):Observable<GemeenteCategorie[]> {
         return this.http.get(this._url + "?jaar=" + jaar + "&naam=" + naam)
-            .map(res => res.json())
-            .catch(this.handleError);
+            .map(this.extractData);
     }
 
     getActies(id:number): Observable<Actie[]>
     {
         return this.http.get(this._url +  "?id=" + id)
-            .map(res => res.json())
-            .catch(this.handleError);
+            .map(this.extractData);
     }
 
-    private handleError(error: Response)
-    {
-        console.error(error);
-        return Observable.throw(error.json().error || 'server error');
+    private extractData(res: Response) {
+        if (res.status < 200 || res.status >= 300) {
+            throw new Error('Response status: ' + res.status);
+        }
+        return res.json();
     }
 
     getCategorieHC (jaar:number,naam:string): GemeenteCategorie[]{

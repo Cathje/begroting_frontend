@@ -10,7 +10,8 @@ import {KeysPipe} from "../../../pipes/keysPipe.js";
 @Component({ //invoke with metadata object
     selector: 'manage-data-container',
     template: `
-<section class="container">
+    <p *ngIf="errorMessage">Deze gemeente is niet gekend</p>
+<section class="container" *ngIf="!errorMessage">
     <h1>Beheer informatie</h1>
     <section class="col-xs-12 form-inline">
         <h3>Demografische gegevens</h3>
@@ -135,13 +136,16 @@ export class ManageDataComponent {
     mainTown = new MainTown("", "", 0, 0);
     types = PoliticusType;
     keys:boolean;
+    errorMessage: any;
     bestuur: Bestuur = new Bestuur("");
 
     constructor(private _routeParams:RouteParams, private _townService:TownService, private _router:Router, params:RouteParams, injector:Injector) {
+        
         _townService.getTown(injector.parent.parent.get(RouteParams).get('town'))
-            .subscribe((town:any) => this.mainTown = town
+            .subscribe(
+                (town:any) => this.mainTown = town,
+                (err:any) => this.errorMessage = err
             );
-        console.log(this.mainTown);
     }
 
     onSelect(event:any) {

@@ -1,4 +1,4 @@
-import {Component} from 'angular2/core';
+import {Component, Injector} from 'angular2/core';
 import {RouteParams, ROUTER_DIRECTIVES, Router} from 'angular2/router';
 import {KeysPipe} from "../../../pipes/keysPipe.js";
 import {ProjectService} from "../../../services/projectService.component.js";
@@ -13,14 +13,18 @@ import {GemeenteCategorie} from "../../../models/gemeenteCategorie.js";
 @Component({ //invoke with metadata object
     selector: 'manage-project-container',
     template: `
-<div class="container">
-    <h2>Beheer project</h2><h4>Titel:</h4>
-     
-     <input type="text" [(ngModel)]="project.titel"/>
+<p *ngIf="errorMessage">Oeps er is geen begroting voor dit jaar</p>
+
+<p>voor welk boekjaar wenst u een project op te zetten?</p>
      <h4>boekjaar:</h4>
      <input type="number" [(ngModel)]="project.boekjaar"/>
-     <h4>gemeente:</h4>
-     <input type="text" [(ngModel)]="project.gemeente"/>
+     <button (click)="getBegroting()">haal begroting op</button>
+
+ <div [hidden]="errorMessage" class="container">
+    
+    <h2>Beheer project - {{town}}</h2>
+     <h4>Titel:</h4>
+     <input type="text" [(ngModel)]="project.titel"/>
      <h4>vraag:</h4>
      <input type="text" [(ngModel)]="project.vraag"/>
      <h4>ProjectScenario:</h4>
@@ -37,8 +41,6 @@ import {GemeenteCategorie} from "../../../models/gemeenteCategorie.js";
     <h2>InspraakNiveaus vaststellen</h2>
              <div *ngFor="#cat of categorieen #i = index"> 
                 <h5>categorie: {{cat.naamCatz}}</h5>
-                <h5>ID: {{cat.ID}}</h5>
-                <h5>gemCatId: {{cat.gemcatID}}</h5>
                 <p>totaal: {{cat.totaal}}</p>
                 <p>InspraakNiveau: {{niveaus[cat.inspraakNiveau]}}</p>
                 
@@ -59,7 +61,7 @@ import {GemeenteCategorie} from "../../../models/gemeenteCategorie.js";
                                <br><br>
 
 </div>
-   <button (click)="submit()">opslaan</button>           
+   <button  [disabled]="submitProject" (click)="submit()">opslaan</button>           
 </div>
 `,
     directives: [ROUTER_DIRECTIVES, NavigationMenuComponent],
@@ -83,17 +85,32 @@ export class ManageProjectComponent {
     niveaus = InspraakNiveau;
     projectScene = ProjectScenario;
     project: Project = new Project("");
-    town:string = "Gent";
+    town:string;
+    id: number;
+    errorMessage:any;
+    submitProject:boolean=true;
     constructor(
-        private _routeParams: RouteParams, private _projectService:ProjectService, private _router: Router) {
+        private _routeParams: RouteParams, private _projectService:ProjectService, private _router: Router, injector:Injector) {
 
-        _projectService.getInspraakitems(2020,"Gent")
-            .subscribe((finan: any) => this.categorieen = finan
-            );
+        this.town = injector.parent.parent.get(RouteParams).get('town');
+
     }
 
     ngOnInit() {
         var number = this._routeParams.get('projectNumber');
+    }
+
+    getBegroting(){
+        this.errorMessage="";
+        this._projectService.getInspraakitems(this.project.boekjaar,this.town)
+            .subscribe((finan: any) => this.categorieen = finan,
+                (err:any) => this.errorMessage = err
+            );
+
+        if(!this.errorMessage)
+        {
+            this.submitProject = false;
+        }
     }
 
     onSelectCatNiveau(event: any, i:any)
@@ -192,8 +209,12 @@ export class ManageProjectComponent {
     submit()
     {
         this.project.categorieen = this.categorieen;
-        this._projectService.putProject(this.project).subscribe();
-        // this._router.navigate(['MainTown', { town: this.town}]);
+        this._projectService.putProject(this.project).subscribe(
+            (id: any) => this.id = id,
+            (err:any) => this.errorMessage = err
+        );
+
+         //   this._router.navigate(['MainTown', { town: this.town}]);
 
     }
 }

@@ -218,6 +218,7 @@ export class ComparisonComponent {
     acties: Actie[];
     showActions = false;
     id:number;
+    errorMessage:any;
     isEditor: boolean = false; //TODO: adapt value when signed in with special role
     categories: GemeenteCategorie [] =
     [{ID:"0990",naamCatx:"Algemene financiering",naamCaty:"Algemene financiering",naamCatz:"Financiële aangelegenheden",totaal: 22781},
@@ -241,14 +242,17 @@ export class ComparisonComponent {
     constructor(private _townService:TownService, private _begrotingService:BegrotingService, public http: Http, params: RouteParams, injector: Injector, private _router: Router)
     {
         _townService.getTown(injector.parent.parent.get(RouteParams).get('town'))
-            .subscribe(town => {
+            .subscribe((town:any) => {
                 this.mainTown = town;
                 this.imglink = "/app/images/provincies/" + town.provincie.toLowerCase().split(' ').join('') +".png";
-                }
+                },
+                (err:any) => this.errorMessage = err
              );
 
         _begrotingService.getGemeenteCategorieen(2020,"Gent")
-           .subscribe((finan: any) => this.categories = finan
+           .subscribe(
+               (finan: any) => this.categories = finan,
+               (err:any) => this.errorMessage = err
             );
         
     }

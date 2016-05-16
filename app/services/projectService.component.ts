@@ -22,7 +22,7 @@ export class ProjectService
 
     getInspraakitems(jaar:number, naam:string):Observable<GemeenteCategorie[]> {
         return this.http.get(this._url2 + "/itemsGET" +"?jaar=" + jaar + "&naam=" + naam)
-            .map(res => res.json());
+            .map(this.extractData);
     }
 
     putProject(p: Project)
@@ -37,13 +37,19 @@ export class ProjectService
 
     getProject(jaar:number, naam:string):Observable<Project> {
         return this.http.get(this._url2 + "/projectGET" +"?jaar=" + jaar + "&naam=" + naam)
-            .map(res => res.json());
+            .map(this.extractData);
     }
 
 
     getProjects(naam:string):Observable<Project[]> {
         return this.http.get(this._url2 +"?naam=" + naam)
-            .map(res => res.json());
+            .map(this.extractData);
     }
-    
+
+    private extractData(res: Response) {
+        if (res.status < 200 || res.status >= 300) {
+            throw new Error('Response status: ' + res.status);
+        }
+        return res.json();
+    }
 }

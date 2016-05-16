@@ -42,7 +42,7 @@ import {Project} from "../../../models/project.js";
              <div class="widget-content">
                 <h4> Openstaande projecten</h4>
                 <ul>
-                    <p [ngClass]="{hide: projects.length >= 0}" class='noData'> Er zijn geen openstaande projecten.</p>
+                    <p [ngClass]="{hide: projects  !=null}" class='noData'> Er zijn geen openstaande projecten.</p>
                    <li *ngFor="#project of projects"> <button type="button" class="btn btn-primary btn-sm" [routerLink]="['/','App', 'Participation', {town: townString}, 'Projects']">Meer info</button> 
                        {{project.boekjaar}} - {{project.titel}}
                     </li> 
@@ -158,7 +158,7 @@ export class OverviewComponent {
     information: string = "Extra informatie over project";
 
     // parameters for open projects widget
-    projects: Project[] = [];
+    projects: Project[] = null;
 
     // parameters for expenses widget
     expenses: GemeenteCategorie [] = [];
@@ -166,6 +166,10 @@ export class OverviewComponent {
 
     // parameters for income widget
     income: GemeenteCategorie [] = []; //TODO nadya: create a webapi that shows the income categories
+
+    //errors
+    errorMessage: any;
+    errorMessage2:any;
 
     constructor(private _projectService:ProjectService,
                 private _townService:TownService,
@@ -182,9 +186,8 @@ export class OverviewComponent {
         //@TODO nadya: een webapi opzetten om de openstaande projecten op te halen
         //@TODO catherine; Deze url haalt alle openstaande projecten op van een gemeente
         _projectService.getProjects(injector.parent.parent.get(RouteParams).get('town')).subscribe(
-            (projects:any) => {
-                this.projects = projects;
-            }
+            (projects:any) => {this.projects = projects; },
+            (err:any) => this.errorMessage = err
         );
 
         //TODO nadya: webapi aanpassen zodat het ook werkt voor andere jaren en steden --> Deze werkt met andere gemeenten en jaren. Je moet de hardcoded data wijzigen door variabelen
