@@ -3,12 +3,6 @@ System.register([], function(exports_1) {
     return {
         setters:[],
         execute: function() {
-            /**
-             * Created by nadya on 11/05/2016.
-             */
-            /**
-             * Created by kevin on 08/05/2016.
-             */
             IngelogdeGebruiker = (function () {
                 function IngelogdeGebruiker(Naam, Password, bevestigPaswoord, email, gemeente) {
                     this.Naam = Naam;

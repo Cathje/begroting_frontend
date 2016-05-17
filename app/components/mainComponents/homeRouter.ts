@@ -8,6 +8,7 @@ import {AdminRouter} from './admin/adminRouter.js';
 import {BudgetRouter} from './budget/budgetRouter.js';
 import {ParticipationRouter} from "./participation/participationRouter.js";
 import {SuperAdminRouter} from "./superadmin/superAdminRouter.js";
+import {ModeratorRouter} from "./moderator/moderatorRouter.js";
 
 import {RouteConfig, ROUTER_DIRECTIVES, Location} from 'angular2/router'; // for routing
 import {HTTP_PROVIDERS} from "angular2/http";
@@ -36,6 +37,7 @@ import {HTTP_PROVIDERS} from "angular2/http";
     { path: '/', name: 'Home', component:HomeComponent, useAsDefault:true },
     { path: '/:town/budget/...', name: 'Budget', component:BudgetRouter},
     { path: '/:town/admin/...', name: 'Admin', component:AdminRouter },
+    { path: '/:town/moderator/...', name: 'Moderator', component:ModeratorRouter },
     { path: '/:town/participation/...', name: 'Participation', component:ParticipationRouter },
     { path: '/:town/superadmin/...', name: 'SuperAdmin', component:SuperAdminRouter },
 

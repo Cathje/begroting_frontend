@@ -1,9 +1,4 @@
-/**
- * Created by nadya on 11/05/2016.
- */
-/**
- * Created by kevin on 08/05/2016.
- */
+
 export class IngelogdeGebruiker {
 
     Naam:string;

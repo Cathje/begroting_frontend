@@ -1,4 +1,4 @@
-System.register(['angular2/core', '/app/components/subComponents/input/townSelector.component.js', './../subComponents/nav/menu.component.js', './home.component.js', './admin/adminRouter.js', './budget/budgetRouter.js', "./participation/participationRouter.js", "./superadmin/superAdminRouter.js", 'angular2/router'], function(exports_1) {
+System.register(['angular2/core', '/app/components/subComponents/input/townSelector.component.js', './../subComponents/nav/menu.component.js', './home.component.js', './admin/adminRouter.js', './budget/budgetRouter.js', "./participation/participationRouter.js", "./superadmin/superAdminRouter.js", "./moderator/moderatorRouter.js", 'angular2/router'], function(exports_1) {
     var __decorate = (this && this.__decorate) || function (decorators, target, key, desc) {
         if (typeof Reflect === "object" && typeof Reflect.decorate === "function") return Reflect.decorate(decorators, target, key, desc);
         switch (arguments.length) {
@@ -10,7 +10,7 @@ System.register(['angular2/core', '/app/components/subComponents/input/townSelec
     var __metadata = (this && this.__metadata) || function (k, v) {
         if (typeof Reflect === "object" && typeof Reflect.metadata === "function") return Reflect.metadata(k, v);
     };
-    var core_1, townSelector_component_js_1, menu_component_js_1, home_component_js_1, adminRouter_js_1, budgetRouter_js_1, participationRouter_js_1, superAdminRouter_js_1, router_1;
+    var core_1, townSelector_component_js_1, menu_component_js_1, home_component_js_1, adminRouter_js_1, budgetRouter_js_1, participationRouter_js_1, superAdminRouter_js_1, moderatorRouter_js_1, router_1;
     var HomeRouter;
     return {
         setters:[
@@ -38,6 +38,9 @@ System.register(['angular2/core', '/app/components/subComponents/input/townSelec
             function (superAdminRouter_js_1_1) {
                 superAdminRouter_js_1 = superAdminRouter_js_1_1;
             },
+            function (moderatorRouter_js_1_1) {
+                moderatorRouter_js_1 = moderatorRouter_js_1_1;
+            },
             function (router_1_1) {
                 router_1 = router_1_1;
             }],
@@ -58,6 +61,7 @@ System.register(['angular2/core', '/app/components/subComponents/input/townSelec
                         { path: '/', name: 'Home', component: home_component_js_1.HomeComponent, useAsDefault: true },
                         { path: '/:town/budget/...', name: 'Budget', component: budgetRouter_js_1.BudgetRouter },
                         { path: '/:town/admin/...', name: 'Admin', component: adminRouter_js_1.AdminRouter },
+                        { path: '/:town/moderator/...', name: 'Moderator', component: moderatorRouter_js_1.ModeratorRouter },
                         { path: '/:town/participation/...', name: 'Participation', component: participationRouter_js_1.ParticipationRouter },
                         { path: '/:town/superadmin/...', name: 'SuperAdmin', component: superAdminRouter_js_1.SuperAdminRouter },
                     ]), 

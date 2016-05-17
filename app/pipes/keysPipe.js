@@ -18,9 +18,6 @@ System.register(["angular2/core"], function(exports_1) {
                 core_1 = core_1_1;
             }],
         execute: function() {
-            /**
-             * Created by nadya on 10/05/2016.
-             */
             KeysPipe = (function () {
                 function KeysPipe() {
                 }
