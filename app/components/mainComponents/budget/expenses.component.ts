@@ -1,4 +1,4 @@
-import {Component, Injector} from 'angular2/core';
+import {Component, Injector, ElementRef, Inject} from 'angular2/core';
 import {TownService} from './../../../services/townService.component.js';
 import {Http} from 'angular2/http';
 import {ROUTER_DIRECTIVES, Router, RouteParams, RouteConfig} from 'angular2/router';
@@ -9,6 +9,10 @@ import {SunburstComponent} from './../../subComponents/graphs/sunburst.component
 import {BegrotingService} from "../../../services/begrotingService.js";
 import {Actie} from "../../../models/actie.js";
 import {GemeenteCategorie} from "../../../models/gemeenteCategorie.js";
+import {Categorie} from "../../../models/categorie.js";
+import {categories} from "../../../mockData/mock-categories.js";
+import {BestuurType} from "../../../models/bestuurType.js";
+import {KeysPipe} from "../../../pipes/keysPipe.js";
 
 
 @Component({ //invoke with metadata object
@@ -18,29 +22,86 @@ import {GemeenteCategorie} from "../../../models/gemeenteCategorie.js";
         <section class="intro col-xs-12">
             <h1>De uitgaven van {{mainTown?.naam}}</h1>
             <p>Hier komt een paragraaf.Similiquecilis est et expedita distinctio. Nam libero tempore, cum soluta nobis est eligendi optio cumque nihil impedit quo minus id quod maxime placeat facere possimus, omnis voluptas assumenda est, omnis dolor repellendus. Temporibus autem quibusdam et</p>
-        <div class="clearfix">
+            <button *ngIf="windowWidth < 768" type="button" class="btn btn-primary pull-right" data-toggle="modal" data-target="#legend">
+			    Toon legende
+		    </button>
+        <div class="main-content">
         <div class="graph col-xs-12 col-sm-8" (window:resize)="onResize($event)">
            <sunburst [data]=categories [onClick]=onCircleClick [height]=width [width]=width></sunburst>
+           <div class="buttons">
            <button type="button" class="btn btn-primary comparebtn" [routerLink]="['Comparison']">Vergelijk 2 gemeentes</button>
            <button type="button" class="btn btn-primary proposebtn">Doe een voorstel</button>
            <button type="button" class="btn btn-primary salarybtn" [routerLink]="['Taxes']">Vergelijk met salaris</button>
            <button type="button" class="btn btn-primary propositionsbtn">Begrotingsvoorstellen</button>
+           </div>
         </div>
-        <div class="legend col-xs-12 col-sm-4 ">
-                <h3>Legende categorieën</h3>
+        <div *ngIf="windowWidth > 768" class="legend col-xs-12 col-sm-4 ">
                 <ul>
-                    <li *ngFor="#categorie of categories"></li>
+                    <li *ngFor="#category of headCategories">
+                        <span class="{{' colorblock glyphicon '+ category.icoon}}" style="background-color: {{category.kleur}};"></span>
+                        {{category.naam}}
+                        <!--<span class="{{'glyphicon '+ category.icoon}}" style="color: {{category.kleur}};"></span> -->
+                    </li>
+                    <li> <i>Beweeg over een categorie in de lijst om meer informatie te krijgen over de categorie </i></li>
                 </ul>
         </div>
 
-        <div class="pointer col-xs-12 ">
-                <h3>Acties</h3>
-                <ul>
-                    <p [ngClass]="{hide: showActions}" class='noData'> U heeft nog geen categorie geselecteerd. </p>
-                    <li *ngFor="#actie of acties">{{actie.actieLang}} - {{actie.bestuurtype}}</li>
-                </ul>
-            </div>
+
         </div>
+
+  <!-- Modal Actions-->
+
+  <div class="modal right fade" id="actions" tabindex="-1" role="dialog" aria-labelledby="myModalLabel2">
+		<div class="modal-dialog" role="document">
+			<div class="modal-content">
+
+				<div class="modal-header">
+					<button type="button" class="close" data-dismiss="modal" aria-label="Close"><span aria-hidden="true">&times;</span></button>
+					<h4 class="modal-title" id="myModalLabel2">Acties</h4>
+				</div>
+
+				<div class="modal-body">
+					 <table class="table table-striped">
+            <tbody>
+            <tr *ngFor="#actie of acties">
+                <td>{{actie.actieLang}}</td>
+                <td>
+                    <span class="glyphicon glyphicon-user"></span>
+                    <span>{{types[3]}}</span>
+                </td>
+            </tr>
+            </tbody>
+        </table>
+				</div>
+
+			</div><!-- modal-content -->
+		</div><!-- modal-dialog -->
+	</div><!-- modal -->
+
+    <!-- Modal legend -->
+    <div class="modal left fade" id="legend" tabindex="-1" role="dialog" aria-labelledby="myModalLabel">
+		<div class="modal-dialog" role="document">
+			<div class="modal-content">
+
+				<div class="modal-header">
+					<button type="button" class="close" data-dismiss="modal" aria-label="Close"><span aria-hidden="true">&times;</span></button>
+					<h4 class="modal-title" id="myModalLabel">Legende</h4>
+				</div>
+
+				<div class="modal-body">
+<ul>
+                    <li *ngFor="#category of headCategories">
+                        <span class="{{' colorblock glyphicon '+ category.icoon}}" style="background-color: {{category.kleur}};"></span>
+                        {{category.naam}}
+                        <!--<span class="{{'glyphicon '+ category.icoon}}" style="color: {{category.kleur}};"></span> -->
+                    </li>
+                    <li> <i>TODO: Beweeg over een categorie in de lijst om meer informatie te krijgen over de categorie </i></li>
+                </ul>
+				</div>
+
+			</div><!-- modal-content -->
+		</div><!-- modal-dialog -->
+	</div><!-- modal -->
 
         </section>
        </div>
@@ -49,136 +110,118 @@ import {GemeenteCategorie} from "../../../models/gemeenteCategorie.js";
     providers: [ BegrotingService,
         TownService,  //routing
     ],
+    pipes: [KeysPipe],
     styles: [`
 
-    .icon {
-    max-width: 200px;
-    margin: 10px;
+    .colorblock {
+        margin: 5px;
+        padding: 10px;
+        border-radius: 5px;
+    }
+
+    li {
+        list-style: none;
+        display: flex;
+        align-items: center;
+
+    }
+
+    li .glyphicon {
+        font-size: 1em;
+        color: white;
+    }
+
+    .buttons {
+        position: absolute;
+        top: 0;
+        left: 0;
+        display:flex;
+        flex-direction: column;
+    }
+    .buttons .btn {
+        margin-bottom: 5px;
+    }
+
+    .modal-header {
+        background-color: #2ac7d2;
+        color:white;
+    }
+    .legend {
+        border-left: 1px solid lightgray;
+        padding: 10px;
+    }
+
+    .main-content {
+        padding-top: 10px;
+        display: flex;
+        align-items: center;
     }
 
     .container {
-    max-width: 1200px;
+        max-width: 1200px;
     }
+.modal.left .modal-dialog,
+	.modal.right .modal-dialog {
+		position: fixed;
+		margin: auto;
+		width: 50%;
+		height: 100%;
+		-webkit-transform: translate3d(0%, 0, 0);
+		    -ms-transform: translate3d(0%, 0, 0);
+		     -o-transform: translate3d(0%, 0, 0);
+		        transform: translate3d(0%, 0, 0);
+	}
 
-    .noData {
-    font-size: 1.3em;
-    margin-top: 150px;
-    text-align: center;
-    }
+	.modal.left .modal-content,
+	.modal.right .modal-content {
+		height: 100%;
+		overflow-y: auto;
+	}
 
-    .comparebtn {
-    position: absolute;
-    top: 20px;
-    left: 0px;
-    }
+	.modal.left .modal-body,
+	.modal.right .modal-body {
+		padding: 15px 15px 80px;
+	}
 
-    .salarybtn {
-    position: absolute;
-    top: 100px;
-    left: 0px;
-    }
+/*Left*/
+	.modal.left.fade .modal-dialog{
+		left: -50%;
+		-webkit-transition: opacity 0.3s linear, left 0.3s ease-out;
+		   -moz-transition: opacity 0.3s linear, left 0.3s ease-out;
+		     -o-transition: opacity 0.3s linear, left 0.3s ease-out;
+		        transition: opacity 0.3s linear, left 0.3s ease-out;
+	}
 
-    .propositionsbtn {
-    position: absolute;
-    top: 60px;
-    left: 0px;
-    }
+	.modal.left.fade.in .modal-dialog{
+		left: 0;
+	}
 
-    .proposebtn {
-    position: absolute;
-    top: 140px;
-    left: 0;
-    }
+/*Right*/
+	.modal.right.fade .modal-dialog {
+		right: -50%;
+		-webkit-transition: opacity 0.3s linear, right 0.3s ease-out;
+		   -moz-transition: opacity 0.3s linear, right 0.3s ease-out;
+		     -o-transition: opacity 0.3s linear, right 0.3s ease-out;
+		        transition: opacity 0.3s linear, right 0.3s ease-out;
+	}
 
-    #info-town   {
-    padding: 1%;
-    flex-shrink: 2; 
-    -webkit-flex-shrink: 2;
-    }
+	.modal.right.fade.in .modal-dialog {
+		right: 0;
+	}
 
-    .intro {
-    padding: 20px;
-    }
+@media screen and (max-width: 480px) {
+   .modal.right.fade .modal-dialog {
+		right: -100%;
+		}
 
-    .clearfix:after {
-    content: " ";
-   display: block;
-   height: 0;
-   clear: both;
-    }
-
-    .provincie {
-    }
-    .graph {
-    padding: 40px 20px;
-    text-align: center;
-    margin: O auto;
-    position: relative;
-    }
-
-    .pointer p{
-     display: inline-block;
-    }
-
-    .pointer h3 {
-    color:black;
-    }
-
-    .pointer {
-    margin-top: 20px;
-    }
-
-    .pointer ul {
-    overflow: scroll;
-    height: 400px;
-    border: 1px dashed black;
-    padding:20px;
-    }
-
-    .pointer li {
-    padding: 5px;
-    }
-
-    .demographic{
-    text-align: center;
-    }
-
-    .geographic {
-    padding: 1%;
-    margin-left: 1%;
-    flex: 1;
-    -webkit-flex-grow: 1;
-    text-align: right;
-    }
-        
-    #actions   {
-    padding: 1%;
-    margin-left: 1%;
-    flex: 1; 
-    -webkit-flex-grow: 1;
-
-    }
-
-
-    label {
-    display:block;
-    }
-    
-    .showInfo{
-        float: right;
-        background: #3498db;
-         background-image: -webkit-linear-gradient(top, #3498db, #2980b9);
-         background-image: -moz-linear-gradient(top, #3498db, #2980b9);
-         background-image: -ms-linear-gradient(top, #3498db, #2980b9);
-         background-image: -o-linear-gradient(top, #3498db, #2980b9);
-         background-image: linear-gradient(to bottom, #3498db, #2980b9);
-         width: 55%;
-         color: #ffffff;
-         text-decoration: none;
-         font-size: 0.8em;
-    }
-
-    
+			.modal.left.fade .modal-dialog{
+		left: -100%;
+		}
+		.modal.left .modal-dialog,
+	.modal.right .modal-dialog {
+		width: 100%;
+        }
+}
 `]
 })
 
@@ -195,10 +238,14 @@ export class ExpensesComponent {
     errorMessage:any;
     isEditor: boolean = false; //TODO: adapt value when signed in with special role
     categories: GemeenteCategorie [] = [];
+    headCategories: Categorie [] = categories;
+    types = BestuurType;
+    windowWidth = window.innerWidth;
 
     width: number = window.innerWidth < 768 ? window.innerWidth*0.8 : window.innerWidth/2.5;
 
     onCircleClick: any = (id: number) => {
+
         this.showActions = true;
         //TODO: replace hardcoded 15 with id
 
@@ -206,10 +253,12 @@ export class ExpensesComponent {
            .subscribe((acties : any) => this.acties = acties,
                (err:any) => this.errorMessage = err);
 
+
     };
 
-    constructor(private _townService:TownService, private _begrotingService:BegrotingService, public http: Http, params: RouteParams, injector: Injector, private _router: Router)
+    constructor (private _townService:TownService, private _begrotingService:BegrotingService, public http: Http, params: RouteParams, injector: Injector, private _router: Router)
     {
+        console.log(BestuurType[1]);
         _townService.getTown(injector.parent.parent.get(RouteParams).get('town'))
             .subscribe((town:any) => {
                 this.mainTown = town;
@@ -248,6 +297,8 @@ export class ExpensesComponent {
             this.width = window.innerWidth/2.5;
 
         }
+        this.windowWidth = window.innerWidth;
+        console.log(this.windowWidth);
     }
 
 }

@@ -113,5 +113,8 @@ select {
     text-overflow: '';
 }
 
+.col-xs-12 {
+    padding: 0;
+}
 
 
