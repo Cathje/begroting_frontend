@@ -1,1 +1,1 @@
-{"version":3,"file":"bestuurType.js","sourceRoot":"","sources":["bestuurType.ts"],"names":["BestuurType"],"mappings":";;;;;YAAA;;eAEG;YACH,WAAY,WAAW;gBAEnBA,qDAAUA,CAAAA;gBACVA,6CAAMA,CAAAA;gBACNA,mFAAyBA,CAAAA;YAE7BA,CAACA,EANW,WAAW,KAAX,WAAW,QAMtB;kDAAA"}
+{"version":3,"file":"bestuurType.js","sourceRoot":"","sources":["bestuurType.ts"],"names":[],"mappings":";;;;;;;YAAA;;eAEG;YACH,WAAY,WAAW;gBAEnB,qDAAU,CAAA;gBACV,6CAAM,CAAA;gBACN,mFAAyB,CAAA;YAE7B,CAAC,EANW,WAAW,KAAX,WAAW,QAMtB;kDAAA"}

@@ -26,7 +26,14 @@ import {GemeenteCategorie} from "../../../models/gemeenteCategorie.js";
            <button type="button" class="btn btn-primary salarybtn" [routerLink]="['Taxes']">Vergelijk met salaris</button>
            <button type="button" class="btn btn-primary propositionsbtn">Begrotingsvoorstellen</button>
         </div>
-            <div class="pointer col-xs-12 col-sm-4">
+        <div class="legend col-xs-12 col-sm-4 ">
+                <h3>Legende categorieën</h3>
+                <ul>
+                    <li *ngFor="#categorie of categories"></li>
+                </ul>
+        </div>
+
+        <div class="pointer col-xs-12 ">
                 <h3>Acties</h3>
                 <ul>
                     <p [ngClass]="{hide: showActions}" class='noData'> U heeft nog geen categorie geselecteerd. </p>

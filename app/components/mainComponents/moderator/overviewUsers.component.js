@@ -1,11 +1,11 @@
-System.register(['angular2/core', 'angular2/router', "../../subComponents/input/townSelector.component.js", "../../../services/townService.component.js", "../../../models/mainTown.js", "../../../pipes/keysPipe.js"], function(exports_1) {
+System.register(['angular2/core', 'angular2/router', "../../subComponents/input/townSelector.component.js", "../../../services/townService.component.js", "../../../models/mainTown.js", "../../../pipes/keysPipe.js"], function(exports_1, context_1) {
+    "use strict";
+    var __moduleName = context_1 && context_1.id;
     var __decorate = (this && this.__decorate) || function (decorators, target, key, desc) {
-        if (typeof Reflect === "object" && typeof Reflect.decorate === "function") return Reflect.decorate(decorators, target, key, desc);
-        switch (arguments.length) {
-            case 2: return decorators.reduceRight(function(o, d) { return (d && d(o)) || o; }, target);
-            case 3: return decorators.reduceRight(function(o, d) { return (d && d(target, key)), void 0; }, void 0);
-            case 4: return decorators.reduceRight(function(o, d) { return (d && d(target, key, o)) || o; }, desc);
-        }
+        var c = arguments.length, r = c < 3 ? target : desc === null ? desc = Object.getOwnPropertyDescriptor(target, key) : desc, d;
+        if (typeof Reflect === "object" && typeof Reflect.decorate === "function") r = Reflect.decorate(decorators, target, key, desc);
+        else for (var i = decorators.length - 1; i >= 0; i--) if (d = decorators[i]) r = (c < 3 ? d(r) : c > 3 ? d(target, key, r) : d(target, key)) || r;
+        return c > 3 && r && Object.defineProperty(target, key, r), r;
     };
     var __metadata = (this && this.__metadata) || function (k, v) {
         if (typeof Reflect === "object" && typeof Reflect.metadata === "function") return Reflect.metadata(k, v);
@@ -59,7 +59,7 @@ System.register(['angular2/core', 'angular2/router', "../../subComponents/input/
                 OverviewUsersComponent = __decorate([
                     core_1.Component({
                         selector: 'overview-users-container',
-                        template: "\n    <p *ngIf=\"errorMessage\">Geen gebruikers gevonden voor deze gemeente</p>\n    <section class=\"container\" *ngIf=\"errorMessage\">\n    <h1>Overzicht gebruikers</h1>\n    <section class=\"col-xs-12\">\n        <div class=\"section-content\">\n        <p *ngIf=\"!gebruikers\"><i>Er zijn geen gebruikers gevonden</i></p>\n\n        <table class=\"table table-striped\">\n            <thead>\n            <tr>\n                <th>Naam</th>\n                <th>E-mail</th>\n                <th>Rol</th>\n                <th>Actief?</th>\n            </tr>\n            </thead>\n            <tbody>\n            <tr *ngFor=\"#gebruiker of gebruikers\">\n                <td>{{gebruiker.naam}}</td>\n                <td>{{gebruiker.email}}</td>\n                <td>\n                <select class=\"form-control\" [ngModel]=gebruiker.rol >\n                    <option>admin</option>\n                    <option>moderator</option>\n                </select>\n                </td>\n                <td>\n                <input type=\"checkbox\" [ngModel]=gebruiker.actief>\n                </td>\n                <td>\n                    <button class=\"btn btn-primary\" (click)=\"verwijder(gebruiker.email, gebruiker)\"><span class=\"glyphicon glyphicon-trash\"></span></button>\n                </td>\n            </tr>\n            </tbody>\n        </table>\n        </div>\n    </section>\n\n        <button class=\"btn btn-primary pull-right\" (click)=\"submit()\">opslaan</button>\n</section>\n",
+                        template: "\n    <p *ngIf=\"errorMessage\">Geen gebruikers gevonden voor deze gemeente</p>\n    <section class=\"container\" *ngIf=\"!errorMessage\">\n    <h1>Overzicht gebruikers</h1>\n    <section class=\"col-xs-12\">\n        <div class=\"section-content\">\n        <p *ngIf=\"!gebruikers\"><i>Er zijn geen gebruikers gevonden</i></p>\n\n        <table class=\"table table-striped\">\n            <thead>\n            <tr>\n                <th>Naam</th>\n                <th>E-mail</th>\n                <th>Rol</th>\n                <th>Actief?</th>\n            </tr>\n            </thead>\n            <tbody>\n            <tr *ngFor=\"#gebruiker of gebruikers\">\n                <td>{{gebruiker.naam}}</td>\n                <td>{{gebruiker.email}}</td>\n                <td>\n                <select class=\"form-control\" [ngModel]=gebruiker.rol >\n                    <option>admin</option>\n                    <option>moderator</option>\n                </select>\n                </td>\n                <td>\n                <input type=\"checkbox\" [ngModel]=gebruiker.actief>\n                </td>\n                <td>\n                    <button class=\"btn btn-primary\" (click)=\"verwijder(gebruiker.email, gebruiker)\"><span class=\"glyphicon glyphicon-trash\"></span></button>\n</td>\n            </tr>\n            </tbody>\n        </table>\n\n\n        </div>\n    </section>\n\n        <button class=\"btn btn-primary pull-right\" (click)=\"submit()\">opslaan</button>\n</section>\n",
                         providers: [townService_component_js_1.TownService],
                         pipes: [keysPipe_js_1.KeysPipe],
                         directives: [router_1.ROUTER_DIRECTIVES, townSelector_component_js_1.TownSelectorComponent],
@@ -69,7 +69,7 @@ System.register(['angular2/core', 'angular2/router', "../../subComponents/input/
                 ], OverviewUsersComponent);
                 return OverviewUsersComponent;
                 var _a;
-            })();
+            }());
             exports_1("OverviewUsersComponent", OverviewUsersComponent);
         }
     }

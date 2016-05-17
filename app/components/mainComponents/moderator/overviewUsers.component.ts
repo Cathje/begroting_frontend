@@ -12,7 +12,7 @@ import {KeysPipe} from "../../../pipes/keysPipe.js";
     selector: 'overview-users-container',
     template: `
     <p *ngIf="errorMessage">Geen gebruikers gevonden voor deze gemeente</p>
-    <section class="container" *ngIf="errorMessage">
+    <section class="container" *ngIf="!errorMessage">
     <h1>Overzicht gebruikers</h1>
     <section class="col-xs-12">
         <div class="section-content">
@@ -42,10 +42,12 @@ import {KeysPipe} from "../../../pipes/keysPipe.js";
                 </td>
                 <td>
                     <button class="btn btn-primary" (click)="verwijder(gebruiker.email, gebruiker)"><span class="glyphicon glyphicon-trash"></span></button>
-                </td>
+</td>
             </tr>
             </tbody>
         </table>
+
+
         </div>
     </section>
 

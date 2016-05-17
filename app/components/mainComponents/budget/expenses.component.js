@@ -1,11 +1,11 @@
-System.register(['angular2/core', './../../../services/townService.component.js', 'angular2/http', 'angular2/router', './../../subComponents/input/townSelector.component.js', './../../subComponents/input/editableField.component.js', "../../../models/mainTown.js", './../../subComponents/graphs/sunburst.component.js', "../../../services/begrotingService.js"], function(exports_1) {
+System.register(['angular2/core', './../../../services/townService.component.js', 'angular2/http', 'angular2/router', './../../subComponents/input/townSelector.component.js', './../../subComponents/input/editableField.component.js', "../../../models/mainTown.js", './../../subComponents/graphs/sunburst.component.js', "../../../services/begrotingService.js"], function(exports_1, context_1) {
+    "use strict";
+    var __moduleName = context_1 && context_1.id;
     var __decorate = (this && this.__decorate) || function (decorators, target, key, desc) {
-        if (typeof Reflect === "object" && typeof Reflect.decorate === "function") return Reflect.decorate(decorators, target, key, desc);
-        switch (arguments.length) {
-            case 2: return decorators.reduceRight(function(o, d) { return (d && d(o)) || o; }, target);
-            case 3: return decorators.reduceRight(function(o, d) { return (d && d(target, key)), void 0; }, void 0);
-            case 4: return decorators.reduceRight(function(o, d) { return (d && d(target, key, o)) || o; }, desc);
-        }
+        var c = arguments.length, r = c < 3 ? target : desc === null ? desc = Object.getOwnPropertyDescriptor(target, key) : desc, d;
+        if (typeof Reflect === "object" && typeof Reflect.decorate === "function") r = Reflect.decorate(decorators, target, key, desc);
+        else for (var i = decorators.length - 1; i >= 0; i--) if (d = decorators[i]) r = (c < 3 ? d(r) : c > 3 ? d(target, key, r) : d(target, key)) || r;
+        return c > 3 && r && Object.defineProperty(target, key, r), r;
     };
     var __metadata = (this && this.__metadata) || function (k, v) {
         if (typeof Reflect === "object" && typeof Reflect.metadata === "function") return Reflect.metadata(k, v);
@@ -92,7 +92,7 @@ System.register(['angular2/core', './../../../services/townService.component.js'
                 ExpensesComponent = __decorate([
                     core_1.Component({
                         selector: 'expenses-container',
-                        template: "\n        <div class=\"container\">\n        <section class=\"intro col-xs-12\">\n            <h1>De uitgaven van {{mainTown?.naam}}</h1>\n            <p>Hier komt een paragraaf.Similiquecilis est et expedita distinctio. Nam libero tempore, cum soluta nobis est eligendi optio cumque nihil impedit quo minus id quod maxime placeat facere possimus, omnis voluptas assumenda est, omnis dolor repellendus. Temporibus autem quibusdam et</p>\n        <div class=\"clearfix\">\n        <div class=\"graph col-xs-12 col-sm-8\" (window:resize)=\"onResize($event)\">\n           <sunburst [data]=categories [onClick]=onCircleClick [height]=width [width]=width></sunburst>\n           <button type=\"button\" class=\"btn btn-primary comparebtn\" [routerLink]=\"['Comparison']\">Vergelijk 2 gemeentes</button>\n           <button type=\"button\" class=\"btn btn-primary proposebtn\">Doe een voorstel</button>\n           <button type=\"button\" class=\"btn btn-primary salarybtn\" [routerLink]=\"['Taxes']\">Vergelijk met salaris</button>\n           <button type=\"button\" class=\"btn btn-primary propositionsbtn\">Begrotingsvoorstellen</button>\n        </div>\n            <div class=\"pointer col-xs-12 col-sm-4\">\n                <h3>Acties</h3>\n                <ul>\n                    <p [ngClass]=\"{hide: showActions}\" class='noData'> U heeft nog geen categorie geselecteerd. </p>\n                    <li *ngFor=\"#actie of acties\">{{actie.actieLang}} - {{actie.bestuurtype}}</li>\n                </ul>\n            </div>\n        </div>\n\n        </section>\n       </div>\n",
+                        template: "\n        <div class=\"container\">\n        <section class=\"intro col-xs-12\">\n            <h1>De uitgaven van {{mainTown?.naam}}</h1>\n            <p>Hier komt een paragraaf.Similiquecilis est et expedita distinctio. Nam libero tempore, cum soluta nobis est eligendi optio cumque nihil impedit quo minus id quod maxime placeat facere possimus, omnis voluptas assumenda est, omnis dolor repellendus. Temporibus autem quibusdam et</p>\n        <div class=\"clearfix\">\n        <div class=\"graph col-xs-12 col-sm-8\" (window:resize)=\"onResize($event)\">\n           <sunburst [data]=categories [onClick]=onCircleClick [height]=width [width]=width></sunburst>\n           <button type=\"button\" class=\"btn btn-primary comparebtn\" [routerLink]=\"['Comparison']\">Vergelijk 2 gemeentes</button>\n           <button type=\"button\" class=\"btn btn-primary proposebtn\">Doe een voorstel</button>\n           <button type=\"button\" class=\"btn btn-primary salarybtn\" [routerLink]=\"['Taxes']\">Vergelijk met salaris</button>\n           <button type=\"button\" class=\"btn btn-primary propositionsbtn\">Begrotingsvoorstellen</button>\n        </div>\n        <div class=\"legend col-xs-12 col-sm-4 \">\n                <h3>Legende categorie\u00EBn</h3>\n                <ul>\n                    <li *ngFor=\"#categorie of categories\"></li>\n                </ul>\n        </div>\n\n        <div class=\"pointer col-xs-12 \">\n                <h3>Acties</h3>\n                <ul>\n                    <p [ngClass]=\"{hide: showActions}\" class='noData'> U heeft nog geen categorie geselecteerd. </p>\n                    <li *ngFor=\"#actie of acties\">{{actie.actieLang}} - {{actie.bestuurtype}}</li>\n                </ul>\n            </div>\n        </div>\n\n        </section>\n       </div>\n",
                         directives: [townSelector_component_js_1.TownSelectorComponent, editableField_component_js_1.EditableFieldComponent, sunburst_component_js_1.SunburstComponent, router_1.ROUTER_DIRECTIVES],
                         providers: [begrotingService_js_1.BegrotingService,
                             townService_component_js_1.TownService,
@@ -103,7 +103,7 @@ System.register(['angular2/core', './../../../services/townService.component.js'
                 ], ExpensesComponent);
                 return ExpensesComponent;
                 var _a, _b;
-            })();
+            }());
             exports_1("ExpensesComponent", ExpensesComponent);
         }
     }
