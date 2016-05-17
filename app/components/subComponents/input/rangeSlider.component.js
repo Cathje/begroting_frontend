@@ -1,11 +1,11 @@
-System.register(['angular2/core'], function(exports_1, context_1) {
-    "use strict";
-    var __moduleName = context_1 && context_1.id;
+System.register(['angular2/core'], function(exports_1) {
     var __decorate = (this && this.__decorate) || function (decorators, target, key, desc) {
-        var c = arguments.length, r = c < 3 ? target : desc === null ? desc = Object.getOwnPropertyDescriptor(target, key) : desc, d;
-        if (typeof Reflect === "object" && typeof Reflect.decorate === "function") r = Reflect.decorate(decorators, target, key, desc);
-        else for (var i = decorators.length - 1; i >= 0; i--) if (d = decorators[i]) r = (c < 3 ? d(r) : c > 3 ? d(target, key, r) : d(target, key)) || r;
-        return c > 3 && r && Object.defineProperty(target, key, r), r;
+        if (typeof Reflect === "object" && typeof Reflect.decorate === "function") return Reflect.decorate(decorators, target, key, desc);
+        switch (arguments.length) {
+            case 2: return decorators.reduceRight(function(o, d) { return (d && d(o)) || o; }, target);
+            case 3: return decorators.reduceRight(function(o, d) { return (d && d(target, key)), void 0; }, void 0);
+            case 4: return decorators.reduceRight(function(o, d) { return (d && d(target, key, o)) || o; }, desc);
+        }
     };
     var __metadata = (this && this.__metadata) || function (k, v) {
         if (typeof Reflect === "object" && typeof Reflect.metadata === "function") return Reflect.metadata(k, v);
@@ -33,39 +33,39 @@ System.register(['angular2/core'], function(exports_1, context_1) {
                 __decorate([
                     core_1.Input(), 
                     __metadata('design:type', String)
-                ], rangeSlider.prototype, "name", void 0);
+                ], rangeSlider.prototype, "name");
                 __decorate([
                     core_1.Input(), 
                     __metadata('design:type', String)
-                ], rangeSlider.prototype, "id", void 0);
+                ], rangeSlider.prototype, "id");
                 __decorate([
                     core_1.Input(), 
                     __metadata('design:type', Number)
-                ], rangeSlider.prototype, "data", void 0);
+                ], rangeSlider.prototype, "data");
                 __decorate([
                     core_1.Input(), 
                     __metadata('design:type', Number)
-                ], rangeSlider.prototype, "min", void 0);
+                ], rangeSlider.prototype, "min");
                 __decorate([
                     core_1.Input(), 
                     __metadata('design:type', Number)
-                ], rangeSlider.prototype, "max", void 0);
+                ], rangeSlider.prototype, "max");
                 __decorate([
                     core_1.Input(), 
                     __metadata('design:type', Number)
-                ], rangeSlider.prototype, "value", void 0);
+                ], rangeSlider.prototype, "value");
                 __decorate([
                     core_1.Input(), 
                     __metadata('design:type', Number)
-                ], rangeSlider.prototype, "step", void 0);
+                ], rangeSlider.prototype, "step");
                 __decorate([
                     core_1.Output(), 
                     __metadata('design:type', Object)
-                ], rangeSlider.prototype, "dataChange", void 0);
+                ], rangeSlider.prototype, "dataChange");
                 __decorate([
                     core_1.Output(), 
                     __metadata('design:type', Object)
-                ], rangeSlider.prototype, "changes", void 0);
+                ], rangeSlider.prototype, "changes");
                 rangeSlider = __decorate([
                     core_1.Component({
                         selector: 'slider',
@@ -75,7 +75,7 @@ System.register(['angular2/core'], function(exports_1, context_1) {
                     __metadata('design:paramtypes', [])
                 ], rangeSlider);
                 return rangeSlider;
-            }());
+            })();
             exports_1("rangeSlider", rangeSlider);
         }
     }
