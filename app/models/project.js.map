@@ -1,1 +1,1 @@
-{"version":3,"file":"project.js","sourceRoot":"","sources":["project.ts"],"names":["Project","Project.constructor"],"mappings":";;;;;YAEA;gBAeIA,iBAAYA,KAAYA;oBAEpBC,IAAIA,CAACA,KAAKA,GAAGA,KAAKA,CAACA;gBACvBA,CAACA;gBAELD,cAACA;YAADA,CAACA,AApBD,IAoBC;YApBD,6BAoBC,CAAA"}
+{"version":3,"file":"project.js","sourceRoot":"","sources":["project.ts"],"names":[],"mappings":";;;;;;;YAEA;gBAeI,iBAAY,KAAY;oBAEpB,IAAI,CAAC,KAAK,GAAG,KAAK,CAAC;gBACvB,CAAC;gBAEL,cAAC;YAAD,CAAC,AApBD,IAoBC;YApBD,6BAoBC,CAAA"}
