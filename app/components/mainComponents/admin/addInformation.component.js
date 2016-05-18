@@ -25,13 +25,22 @@ System.register(['angular2/core', 'angular2/router'], function(exports_1) {
                 function AddInformationComponent(_routeParams) {
                     this._routeParams = _routeParams;
                 }
+                AddInformationComponent.prototype.onChange = function (event) {
+                    console.log(event.target.files[0]);
+                    var reader = new FileReader();
+                    reader.readAsDataURL(event.target.files[0]);
+                    reader.onload = function () {
+                        this.base64 = reader.result;
+                        console.log(this.base64);
+                    };
+                };
                 AddInformationComponent.prototype.ngOnInit = function () {
                     var number = this._routeParams.get('projectNumber');
                 };
                 AddInformationComponent = __decorate([
                     core_1.Component({
                         selector: 'add-information-container',
-                        template: "\n    <div class=\"container\">\n    <h2>Voeg informatie toe</h2>\n    </div>\n    "
+                        template: "\n    <div class=\"container\">\n    <h2>Voeg informatie toe</h2>\n    <input id=\"file\" type=\"file\" (change)=\"onChange($event)\"/>\n    <img [src]=\"base64\" />\n    </div>\n    "
                     }), 
                     __metadata('design:paramtypes', [router_1.RouteParams])
                 ], AddInformationComponent);
