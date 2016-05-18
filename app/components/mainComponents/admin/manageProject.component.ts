@@ -12,9 +12,9 @@ import {GemeenteCategorie} from "../../../models/gemeenteCategorie";
 @Component({ //invoke with metadata object
     selector: 'manage-project-container',
     template: `
-<p *ngIf="errorMessage">Oeps er is geen begroting voor dit jaar</p>
+        <p *ngIf="errorMessage">Oeps er is geen begroting voor dit jaar</p>
 
-<p>voor welk boekjaar wenst u een project op te zetten?</p>
+    <p>voor welk boekjaar wenst u een project op te zetten?</p>
      <h4>boekjaar:</h4>
      <input type="number" [(ngModel)]="project.boekjaar"/>
      <button (click)="getBegroting()">haal begroting op</button>
@@ -62,6 +62,8 @@ import {GemeenteCategorie} from "../../../models/gemeenteCategorie";
 </div>
    <button  [disabled]="submitProject" (click)="submit()">opslaan</button>           
 </div>
+
+
 `,
     directives: [ROUTER_DIRECTIVES, NavigationMenuComponent],
     providers: [ ProjectService//routing

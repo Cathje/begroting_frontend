@@ -1,4 +1,6 @@
-System.register([], function(exports_1) {
+System.register([], function(exports_1, context_1) {
+    "use strict";
+    var __moduleName = context_1 && context_1.id;
     var Categorie;
     return {
         setters:[],
@@ -10,7 +12,7 @@ System.register([], function(exports_1) {
                     this.icoon = icoon;
                 }
                 return Categorie;
-            })();
+            }());
             exports_1("Categorie", Categorie);
         }
     }
