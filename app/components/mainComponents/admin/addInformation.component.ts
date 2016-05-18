@@ -7,13 +7,14 @@ import {RouteParams} from 'angular2/router';
     <div class="container">
     <h2>Voeg informatie toe</h2>
     <input id="file" type="file" (change)="onChange($event)"/>
-    <img [src]="base64" />
+    <img src="{{base64}}" />
+    <p>{{base64}}</p>
     </div>
     `
 })
 
 export class AddInformationComponent {
-    base64;
+    base64:string;
     constructor(
         private _routeParams: RouteParams) {
     }
@@ -26,7 +27,7 @@ export class AddInformationComponent {
             this.base64 = reader.result;
             console.log(this.base64);
         }
-
+        //TODO: weet niet waarom, maar de base64 variabele wordt niet getoond in de component en blijft undefined, terwijl de console log wel werkt
     }
     ngOnInit() {
         var number = this._routeParams.get('projectNumber');
