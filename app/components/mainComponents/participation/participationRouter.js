@@ -1,4 +1,4 @@
-System.register(['angular2/core', 'angular2/router', './projects.component.js', './propositions.component.js', "./addProposition.component.js"], function(exports_1) {
+System.register(['angular2/core', 'angular2/router', './projects.component', './propositions.component', "./addProposition.component"], function(exports_1) {
     var __decorate = (this && this.__decorate) || function (decorators, target, key, desc) {
         if (typeof Reflect === "object" && typeof Reflect.decorate === "function") return Reflect.decorate(decorators, target, key, desc);
         switch (arguments.length) {
@@ -10,7 +10,7 @@ System.register(['angular2/core', 'angular2/router', './projects.component.js', 
     var __metadata = (this && this.__metadata) || function (k, v) {
         if (typeof Reflect === "object" && typeof Reflect.metadata === "function") return Reflect.metadata(k, v);
     };
-    var core_1, router_1, projects_component_js_1, propositions_component_js_1, addProposition_component_js_1;
+    var core_1, router_1, projects_component_1, propositions_component_1, addProposition_component_1;
     var ParticipationRouter;
     return {
         setters:[
@@ -20,14 +20,14 @@ System.register(['angular2/core', 'angular2/router', './projects.component.js', 
             function (router_1_1) {
                 router_1 = router_1_1;
             },
-            function (projects_component_js_1_1) {
-                projects_component_js_1 = projects_component_js_1_1;
+            function (projects_component_1_1) {
+                projects_component_1 = projects_component_1_1;
             },
-            function (propositions_component_js_1_1) {
-                propositions_component_js_1 = propositions_component_js_1_1;
+            function (propositions_component_1_1) {
+                propositions_component_1 = propositions_component_1_1;
             },
-            function (addProposition_component_js_1_1) {
-                addProposition_component_js_1 = addProposition_component_js_1_1;
+            function (addProposition_component_1_1) {
+                addProposition_component_1 = addProposition_component_1_1;
             }],
         execute: function() {
             ParticipationRouter = (function () {
@@ -40,9 +40,9 @@ System.register(['angular2/core', 'angular2/router', './projects.component.js', 
                         directives: [router_1.ROUTER_DIRECTIVES]
                     }),
                     router_1.RouteConfig([
-                        { path: '/projects', name: 'Projects', component: projects_component_js_1.ProjectsComponent, useAsDefault: true },
-                        { path: '/propositions', name: 'Propositions', component: propositions_component_js_1.PropositionsComponent },
-                        { path: '/addProposition', name: 'AddPropositions', component: addProposition_component_js_1.AddPropositionComponent }
+                        { path: '/projects', name: 'Projects', component: projects_component_1.ProjectsComponent, useAsDefault: true },
+                        { path: '/propositions', name: 'Propositions', component: propositions_component_1.PropositionsComponent },
+                        { path: '/addProposition', name: 'AddPropositions', component: addProposition_component_1.AddPropositionComponent }
                     ]), 
                     __metadata('design:paramtypes', [])
                 ], ParticipationRouter);

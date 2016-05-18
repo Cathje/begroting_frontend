@@ -1,6 +1,6 @@
 import {Component} from 'angular2/core';
 import {Router} from 'angular2/router';
-import {ProjectService} from './../../../services/projectService.component.js';
+import {ProjectService} from './../../../services/projectService.component';
 
 
 @Component({ //invoke with metadata object

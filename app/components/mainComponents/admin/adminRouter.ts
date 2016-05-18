@@ -1,10 +1,10 @@
 import {Component} from 'angular2/core';
 import {RouteConfig, ROUTER_DIRECTIVES} from 'angular2/router'; // for routing
 import {HTTP_PROVIDERS} from "angular2/http";
-import {ManageDataComponent} from './manageData.component.js';
-import {ManageProjectComponent} from './manageProject.component.js';
-import {ManageTownComponent} from './manageTown.component.js';
-import {AddInformationComponent} from "./addInformation.component.js";
+import {ManageDataComponent} from './manageData.component';
+import {ManageProjectComponent} from './manageProject.component';
+import {ManageTownComponent} from './manageTown.component';
+import {AddInformationComponent} from "./addInformation.component";
 
 @Component({
     selector: 'admin-router',

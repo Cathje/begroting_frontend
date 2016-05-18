@@ -2,9 +2,9 @@ import {Injectable} from 'angular2/core';
 import {Http, Response, Headers}  from 'angular2/http';
 import {Observable} from 'rxjs/observable';
 import 'rxjs/Rx';
-import {PROJECTS} from "../mockData/mock-projects.js";
-import {Project} from "../models/project.js";
-import {GemeenteCategorie} from "../models/gemeenteCategorie.js";
+import {PROJECTS} from "../mockData/mock-projects";
+import {Project} from "../models/project";
+import {GemeenteCategorie} from "../models/gemeenteCategorie";
 
 
 

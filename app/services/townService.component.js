@@ -1,4 +1,4 @@
-System.register(['angular2/core', 'angular2/http', 'rxjs/Rx', "../mockData/mock-towns.js", "../mockData/mock-catDTO.js"], function(exports_1) {
+System.register(['angular2/core', 'angular2/http', 'rxjs/Rx', "../mockData/mock-towns", "../mockData/mock-catDTO"], function(exports_1) {
     var __decorate = (this && this.__decorate) || function (decorators, target, key, desc) {
         if (typeof Reflect === "object" && typeof Reflect.decorate === "function") return Reflect.decorate(decorators, target, key, desc);
         switch (arguments.length) {
@@ -10,7 +10,7 @@ System.register(['angular2/core', 'angular2/http', 'rxjs/Rx', "../mockData/mock-
     var __metadata = (this && this.__metadata) || function (k, v) {
         if (typeof Reflect === "object" && typeof Reflect.metadata === "function") return Reflect.metadata(k, v);
     };
-    var core_1, http_1, mock_towns_js_1, mock_catDTO_js_1;
+    var core_1, http_1, mock_towns_1, mock_catDTO_1;
     var TownService;
     return {
         setters:[
@@ -21,11 +21,11 @@ System.register(['angular2/core', 'angular2/http', 'rxjs/Rx', "../mockData/mock-
                 http_1 = http_1_1;
             },
             function (_1) {},
-            function (mock_towns_js_1_1) {
-                mock_towns_js_1 = mock_towns_js_1_1;
+            function (mock_towns_1_1) {
+                mock_towns_1 = mock_towns_1_1;
             },
-            function (mock_catDTO_js_1_1) {
-                mock_catDTO_js_1 = mock_catDTO_js_1_1;
+            function (mock_catDTO_1_1) {
+                mock_catDTO_1 = mock_catDTO_1_1;
             }],
         execute: function() {
             TownService = (function () {
@@ -59,17 +59,17 @@ System.register(['angular2/core', 'angular2/http', 'rxjs/Rx', "../mockData/mock-
                     return res.json();
                 };
                 TownService.prototype.getTownsHC = function () {
-                    return mock_towns_js_1.TOWNS;
+                    return mock_towns_1.TOWNS;
                 };
                 TownService.prototype.getTownHC = function (name) {
-                    for (var i = 0; i < mock_towns_js_1.TOWNS.length; i++) {
-                        if (mock_towns_js_1.TOWNS[i].naam == name) {
-                            return mock_towns_js_1.TOWNS[i];
+                    for (var i = 0; i < mock_towns_1.TOWNS.length; i++) {
+                        if (mock_towns_1.TOWNS[i].naam == name) {
+                            return mock_towns_1.TOWNS[i];
                         }
                     }
                 };
                 TownService.prototype.getCatDataHC = function () {
-                    return mock_catDTO_js_1.CATS;
+                    return mock_catDTO_1.CATS;
                 };
                 TownService = __decorate([
                     core_1.Injectable(), 

@@ -6,9 +6,9 @@ import {Injectable} from 'angular2/core';
 import {Http,Response}  from 'angular2/http';
 import {Observable} from 'rxjs/observable';
 import 'rxjs/Rx';
-import {GemeenteCategorie} from "../models/gemeenteCategorie.js";
-import {CATS} from './../mockData/mock-gemeenteCat.js';
-import {Actie} from "../models/actie.js";
+import {GemeenteCategorie} from "../models/gemeenteCategorie";
+import {CATS} from './../mockData/mock-gemeenteCat';
+import {Actie} from "../models/actie";
 
 @Injectable()
 export class BegrotingService {

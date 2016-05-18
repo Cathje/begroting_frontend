@@ -1,6 +1,6 @@
 import {Component} from 'angular2/core';
 import {RouteParams} from 'angular2/router';
-import {Project} from "../../../models/project.js";
+import {Project} from "../../../models/project";
 
 @Component({ //invoke with metadata object
     selector: 'overview-propositions-container',

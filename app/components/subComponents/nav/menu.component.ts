@@ -1,7 +1,7 @@
 import {Component, Input, OnInit} from 'angular2/core';
 import { RouteParams } from 'angular2/router';
 import { ROUTER_DIRECTIVES } from 'angular2/router'; // for routing
-import {TownSelectorComponent} from '../input/townSelector.component.js';
+import {TownSelectorComponent} from '../input/townSelector.component';
 
 @Component({ //invoke with metadata object
     selector: 'navigation-menu',

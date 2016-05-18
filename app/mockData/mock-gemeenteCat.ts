@@ -1,4 +1,4 @@
-import {GemeenteCategorie} from '../models/dto/catDTO.js';
+import {GemeenteCategorie} from '../models/dto/catDTO';
 
 export var CATS: GemeenteCategorie[] =
     [{"naamCaty":"Algemene financiering","naamCatz":"Financiële aangelegenheden","totaal":0.0,"ID":246},

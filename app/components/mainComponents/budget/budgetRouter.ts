@@ -1,12 +1,12 @@
 import {Component} from 'angular2/core';
 import {RouteConfig, ROUTER_DIRECTIVES, RouteParams} from 'angular2/router'; // for routing
 import {HTTP_PROVIDERS} from "angular2/http";
-import {OverviewComponent} from './overview.component.js';
-import {ExpensesComponent} from './expenses.component.js';
-import {IncomeComponent} from './income.component.js';
-import {TaxesComponent} from './taxes.component.js';
-import {ComparisonComponent} from "./comparison.component.js";
-import {CoreDataComponent} from "./coreData.component.js";
+import {OverviewComponent} from './overview.component';
+import {ExpensesComponent} from './expenses.component';
+import {IncomeComponent} from './income.component';
+import {TaxesComponent} from './taxes.component';
+import {ComparisonComponent} from "./comparison.component";
+import {CoreDataComponent} from "./coreData.component";
 
 @Component({
     selector: 'budget-router',

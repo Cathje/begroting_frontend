@@ -1,4 +1,4 @@
-System.register(['angular2/core', 'angular2/router', './overviewUsers.component.js', "./overviewPropositions.component.js"], function(exports_1) {
+System.register(['angular2/core', 'angular2/router', './overviewUsers.component', "./overviewPropositions.component"], function(exports_1) {
     var __decorate = (this && this.__decorate) || function (decorators, target, key, desc) {
         if (typeof Reflect === "object" && typeof Reflect.decorate === "function") return Reflect.decorate(decorators, target, key, desc);
         switch (arguments.length) {
@@ -10,7 +10,7 @@ System.register(['angular2/core', 'angular2/router', './overviewUsers.component.
     var __metadata = (this && this.__metadata) || function (k, v) {
         if (typeof Reflect === "object" && typeof Reflect.metadata === "function") return Reflect.metadata(k, v);
     };
-    var core_1, router_1, overviewUsers_component_js_1, overviewPropositions_component_js_1;
+    var core_1, router_1, overviewUsers_component_1, overviewPropositions_component_1;
     var ModeratorRouter;
     return {
         setters:[
@@ -20,11 +20,11 @@ System.register(['angular2/core', 'angular2/router', './overviewUsers.component.
             function (router_1_1) {
                 router_1 = router_1_1;
             },
-            function (overviewUsers_component_js_1_1) {
-                overviewUsers_component_js_1 = overviewUsers_component_js_1_1;
+            function (overviewUsers_component_1_1) {
+                overviewUsers_component_1 = overviewUsers_component_1_1;
             },
-            function (overviewPropositions_component_js_1_1) {
-                overviewPropositions_component_js_1 = overviewPropositions_component_js_1_1;
+            function (overviewPropositions_component_1_1) {
+                overviewPropositions_component_1 = overviewPropositions_component_1_1;
             }],
         execute: function() {
             ModeratorRouter = (function () {
@@ -37,8 +37,8 @@ System.register(['angular2/core', 'angular2/router', './overviewUsers.component.
                         directives: [router_1.ROUTER_DIRECTIVES]
                     }),
                     router_1.RouteConfig([
-                        { path: '/overviewUsers', name: 'OverviewUsers', component: overviewUsers_component_js_1.OverviewUsersComponent },
-                        { path: '/overviewPropositions', name: 'OverviewPropositions', component: overviewPropositions_component_js_1.OverviewPropositionsComponent }
+                        { path: '/overviewUsers', name: 'OverviewUsers', component: overviewUsers_component_1.OverviewUsersComponent },
+                        { path: '/overviewPropositions', name: 'OverviewPropositions', component: overviewPropositions_component_1.OverviewPropositionsComponent }
                     ]), 
                     __metadata('design:paramtypes', [])
                 ], ModeratorRouter);

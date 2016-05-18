@@ -1,4 +1,4 @@
-System.register(['angular2/core', 'angular2/router', "../../subComponents/input/townSelector.component.js", "../../../services/townService.component.js", "../../../models/politicusType.js", "../../../models/mainTown.js", "../../../models/bestuur.js", "../../../pipes/keysPipe.js"], function(exports_1) {
+System.register(['angular2/core', 'angular2/router', "../../subComponents/input/townSelector.component", "../../../services/townService.component", "../../../models/politicusType", "../../../models/mainTown", "../../../models/bestuur", "../../../pipes/keysPipe"], function(exports_1) {
     var __decorate = (this && this.__decorate) || function (decorators, target, key, desc) {
         if (typeof Reflect === "object" && typeof Reflect.decorate === "function") return Reflect.decorate(decorators, target, key, desc);
         switch (arguments.length) {
@@ -10,7 +10,7 @@ System.register(['angular2/core', 'angular2/router', "../../subComponents/input/
     var __metadata = (this && this.__metadata) || function (k, v) {
         if (typeof Reflect === "object" && typeof Reflect.metadata === "function") return Reflect.metadata(k, v);
     };
-    var core_1, router_1, townSelector_component_js_1, townService_component_js_1, politicusType_js_1, mainTown_js_1, bestuur_js_1, keysPipe_js_1;
+    var core_1, router_1, townSelector_component_1, townService_component_1, politicusType_1, mainTown_1, bestuur_1, keysPipe_1;
     var ManageDataComponent;
     return {
         setters:[
@@ -20,23 +20,23 @@ System.register(['angular2/core', 'angular2/router', "../../subComponents/input/
             function (router_1_1) {
                 router_1 = router_1_1;
             },
-            function (townSelector_component_js_1_1) {
-                townSelector_component_js_1 = townSelector_component_js_1_1;
+            function (townSelector_component_1_1) {
+                townSelector_component_1 = townSelector_component_1_1;
             },
-            function (townService_component_js_1_1) {
-                townService_component_js_1 = townService_component_js_1_1;
+            function (townService_component_1_1) {
+                townService_component_1 = townService_component_1_1;
             },
-            function (politicusType_js_1_1) {
-                politicusType_js_1 = politicusType_js_1_1;
+            function (politicusType_1_1) {
+                politicusType_1 = politicusType_1_1;
             },
-            function (mainTown_js_1_1) {
-                mainTown_js_1 = mainTown_js_1_1;
+            function (mainTown_1_1) {
+                mainTown_1 = mainTown_1_1;
             },
-            function (bestuur_js_1_1) {
-                bestuur_js_1 = bestuur_js_1_1;
+            function (bestuur_1_1) {
+                bestuur_1 = bestuur_1_1;
             },
-            function (keysPipe_js_1_1) {
-                keysPipe_js_1 = keysPipe_js_1_1;
+            function (keysPipe_1_1) {
+                keysPipe_1 = keysPipe_1_1;
             }],
         execute: function() {
             ManageDataComponent = (function () {
@@ -45,9 +45,9 @@ System.register(['angular2/core', 'angular2/router', "../../subComponents/input/
                     this._routeParams = _routeParams;
                     this._townService = _townService;
                     this._router = _router;
-                    this.mainTown = new mainTown_js_1.MainTown("", "", 0, 0);
-                    this.types = politicusType_js_1.PoliticusType;
-                    this.bestuur = new bestuur_js_1.Bestuur("");
+                    this.mainTown = new mainTown_1.MainTown("", "", 0, 0);
+                    this.types = politicusType_1.PoliticusType;
+                    this.bestuur = new bestuur_1.Bestuur("", null);
                     _townService.getTown(injector.parent.parent.get(router_1.RouteParams).get('town'))
                         .subscribe(function (town) { return _this.mainTown = town; }, function (err) { return _this.errorMessage = err; });
                 }
@@ -71,15 +71,14 @@ System.register(['angular2/core', 'angular2/router', "../../subComponents/input/
                     core_1.Component({
                         selector: 'manage-data-container',
                         template: "\n    <p *ngIf=\"errorMessage\">Deze gemeente is niet gekend</p>\n<section class=\"container\" *ngIf=\"!errorMessage\">\n    <h1>Beheer informatie</h1>\n    <section class=\"col-xs-12 form-inline\">\n        <h3>Demografische gegevens</h3>\n        <div class=\"section-content\">\n        <div class=\"col-xs-12 col-sm-6 form-group\">\n            <label >Aantal bewoners</label>\n             <input class=\"form-control\" type=\"number\" [(ngModel)]=\"mainTown.aantalBewoners\"/>\n        </div>\n        <div class=\"col-xs-12 col-sm-6  form-group\">\n           <label >Aantal vrouwen</label>\n           <input  class=\"form-control\" type=\"number\" [(ngModel)]=\"mainTown.isVrouw\"/>\n        </div>\n        <div class=\"col-xs-12 col-sm-6 form-group\">\n                        <label >Aantal mannen</label>\n                       <input class=\"form-control\" type=\"number\" [(ngModel)]=\"mainTown.isMan\"/>\n        </div>\n        <div class=\"col-xs-12 col-sm-6 form-group\">\n                        <label >Aantal kinderen</label>\n                        <input class=\"form-control\" type=\"number\" [(ngModel)]=\"mainTown.isKind\"/>\n        </div>\n        </div>\n    </section>\n\n    <section class=\"col-xs-12 form-inline\">\n        <h3>Geografische gegevens</h3>\n        <div class=\"section-content\">\n        <div class=\"col-xs-12 col-sm-11 form-group\">\n                     <label>Provincie:</label>\n                     <span>{{mainTown.provincie}}</span>\n        </div>\n        <div class=\"col-xs-12 col-sm-6 form-group\">\n                     <label>Oppervlakte:</label>\n                     <input  class=\"form-control\" type=\"number\" [(ngModel)]=\"mainTown.oppervlakte\"/>\n        </div>\n        <div class=\"col-xs-12 col-sm-6 form-group\">\n                     <label >Oppervlaktemaat:</label>\n                     <input class=\"form-control\" type=\"text\" [(ngModel)]=\"mainTown.oppervlakteMaat\"/>\n        </div>\n        <div class=\"col-xs-12 form-group\">\n                    <label>Deelgemeenten: </label>\n                        <ul *ngIf=\"mainTown?.deelGemeenten\" >\n                            <li *ngFor=\"#town of mainTown.deelGemeenten\"><span>{{town.naam}} - {{town.postCode}}</span></li>\n                        </ul>\n                        <p *ngIf=\"!mainTown.deelGemeenten\"><i>Er zijn geen deelgemeentes</i></p>\n\n        </div>\n        </div>\n    </section>\n    <section class=\"col-xs-12\">\n        <h3>Bestuur</h3>\n        <div class=\"section-content\">\n        <div class=\"form-inline\">\n        <ul *ngIf=\"mainTown?.bestuur\" >\n           <li *ngFor=\"#b of mainTown.bestuur\" >\n           <button class=\"btn btn-primary\"(click)=\"verwijder(b.PoliticusId, b)\" ><span class=\"glyphicon glyphicon-trash\"></span></button>\n           <span>{{b.naam}} - {{types[b.type]}}  </span>\n            </li>\n        </ul>\n        <p *ngIf=\"!mainTown.bestuur\"><i>Er zijn geen gegevens over het bestuur</i></p>\n        </div>\n\n        <div class=\"form-inline\">\n         <button class=\"btn btn-primary\" (click)=\"voegToe()\"><span class=\"glyphicon glyphicon-plus\"></span></button>\n         <div class=\"form-group\">\n            <label >Naam:</label>\n            <input class=\"form-control\" type=\"text\" [(ngModel)]=\"bestuur.naam\"/>\n        </div>\n         <div class=\"form-group\">\n            <label for=\"exampleInputEmail2\">Functie</label>\n            <select class=\"form-control\" (change)=\"onSelect($event)\">\n                <option>Geen functie</option>\n                <option *ngFor=\"#t of types | keys\" [value]=\"t.key\">{{t.value}}</option>\n            </select>\n         </div>\n        </div>\n        </div>\n    </section>\n    <section class=\"col-xs-12 form-inline\">\n        <h3> Extra informatie over projecten </h3>\n        <div class=\"section-content\">\n        <h4> Voeg hieronder extra informatie toe over toekomstige projecten en/of projecten uit het verleden </h4>\n                <div class=\"col-xs-12 col-md-6 form-group\">\n                     <label>Jaar:</label>\n                     <input  class=\"form-control\" type=\"number\" [(ngModel)]=\"year\"/>\n               </div>\n\n                <div class=\"col-xs-12 form-group\">\n                    <label>Informatie:</label>\n                    <textarea class=\"form-control\" rows=\"2\" [(ngModel)]=\"information\"></textarea>\n                </div>\n        </div>\n    </section>\n        <button class=\"btn btn-primary pull-right\" (click)=\"submit()\">opslaan</button>\n</section>\n",
-                        providers: [townService_component_js_1.TownService],
-                        pipes: [keysPipe_js_1.KeysPipe],
-                        directives: [router_1.ROUTER_DIRECTIVES, townSelector_component_js_1.TownSelectorComponent],
+                        providers: [townService_component_1.TownService],
+                        pipes: [keysPipe_1.KeysPipe],
+                        directives: [router_1.ROUTER_DIRECTIVES, townSelector_component_1.TownSelectorComponent],
                         styles: ["\n\n    label{\n        text-align: left;\n        width: 120px;\n        background-color:white;\n    }\n    section div {\n        padding: 5px;\n        box-sizing: border-box;\n    }\n\n    .input-group {\n        float: left;\n        box-sizing: border-box;\n    }\n\n    li {\n        list-style: none;\n        margin-bottom: 10px;\n    }\n\n    .form-inline:nth-child(2) {\n        border-top: 1px dashed lightgray;\n    }\n\n    section .section-content {\n        border: 1px solid lightgray;\n        margin-bottom: 20px;\n        padding: 20px;\n        overflow: auto;\n    }\n\n    textarea {\n        width: 100% !important;\n    }\n\n    "]
                     }), 
-                    __metadata('design:paramtypes', [router_1.RouteParams, (typeof (_a = typeof townService_component_js_1.TownService !== 'undefined' && townService_component_js_1.TownService) === 'function' && _a) || Object, router_1.Router, router_1.RouteParams, core_1.Injector])
+                    __metadata('design:paramtypes', [router_1.RouteParams, townService_component_1.TownService, router_1.Router, router_1.RouteParams, core_1.Injector])
                 ], ManageDataComponent);
                 return ManageDataComponent;
-                var _a;
             })();
             exports_1("ManageDataComponent", ManageDataComponent);
         }

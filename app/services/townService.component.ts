@@ -1,10 +1,10 @@
 import {Injectable} from 'angular2/core';
 import {Http, Response, Headers}  from 'angular2/http';
-import {Observable} from 'rxjs/observable.js';
+import {Observable} from 'rxjs/observable';
 import 'rxjs/Rx';
-import {MainTown} from "../models/mainTown.js";
-import {TOWNS} from "../mockData/mock-towns.js";
-import {CATS} from "../mockData/mock-catDTO.js";
+import {MainTown} from "../models/mainTown";
+import {TOWNS} from "../mockData/mock-towns";
+import {CATS} from "../mockData/mock-catDTO";
 
 
 @Injectable()

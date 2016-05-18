@@ -1,4 +1,4 @@
-import {Actie} from "./actie.js";
+import {Actie} from "./actie";
 /**
  * Created by nadya on 9/05/2016.
  */

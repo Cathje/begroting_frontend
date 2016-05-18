@@ -1,5 +1,5 @@
-import {ProjectScenario} from "./projectScenario.js";
-import {GemeenteCategorie} from "./gemeenteCategorie.js";
+import {ProjectScenario} from "./projectScenario";
+import {GemeenteCategorie} from "./gemeenteCategorie";
 export class Project {
 
     projectScenario: number;

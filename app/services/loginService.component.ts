@@ -4,7 +4,7 @@
 import {Injectable} from 'angular2/core';
 import {Http,Response}  from 'angular2/http';
 import 'rxjs/Rx';
-import {IngelogdeGebruiker} from "../models/IngelogdeGebruiker.js";
+import {IngelogdeGebruiker} from "../models/IngelogdeGebruiker";
 import {Headers} from "angular2/http";
 
 

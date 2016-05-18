@@ -1,15 +1,15 @@
 import {Component, ChangeDetectorRef} from 'angular2/core';
-import {TownService} from './../../../services/townService.component.js';
-import {BegrotingService} from './../../../services/begrotingService.js';
+import {TownService} from './../../../services/townService.component';
+import {BegrotingService} from './../../../services/begrotingService';
 import { RouteParams } from 'angular2/router';
 import { ROUTER_DIRECTIVES } from 'angular2/router'; // for routing
-import {SunburstComponent} from './../../subComponents/graphs/sunburst.component.js'
-import {SunburstCompare} from './../../subComponents/graphs/sunburstCompare.component.js'//SunburstCompare
-import {MainTown} from "./../../../models/mainTown.js";
+import {SunburstComponent} from './../../subComponents/graphs/sunburst.component'
+import {SunburstCompare} from './../../subComponents/graphs/sunburstCompare.component'//SunburstCompare
+import {MainTown} from "./../../../models/mainTown";
 import {totalmem} from "os";
 import {Observable} from 'rxjs/observable';
-import {GemeenteCategorie} from "./../../../models/gemeenteCategorie.js";
-import {rangeSlider} from './../../subComponents/input/rangeSlider.component.js';
+import {GemeenteCategorie} from "./../../../models/gemeenteCategorie";
+import {rangeSlider} from './../../subComponents/input/rangeSlider.component';
 
 
 @Component({ //invoke with metadata object

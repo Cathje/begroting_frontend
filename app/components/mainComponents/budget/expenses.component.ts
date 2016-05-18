@@ -1,18 +1,18 @@
 import {Component, Injector, ElementRef, Inject} from 'angular2/core';
-import {TownService} from './../../../services/townService.component.js';
+import {TownService} from './../../../services/townService.component';
 import {Http} from 'angular2/http';
 import {ROUTER_DIRECTIVES, Router, RouteParams, RouteConfig} from 'angular2/router';
-import {TownSelectorComponent} from './../../subComponents/input/townSelector.component.js';
-import {EditableFieldComponent} from './../../subComponents/input/editableField.component.js';
-import {MainTown} from "../../../models/mainTown.js";
-import {SunburstComponent} from './../../subComponents/graphs/sunburst.component.js';
-import {BegrotingService} from "../../../services/begrotingService.js";
-import {Actie} from "../../../models/actie.js";
-import {GemeenteCategorie} from "../../../models/gemeenteCategorie.js";
-import {Categorie} from "../../../models/categorie.js";
-import {categories} from "../../../mockData/mock-categories.js";
-import {BestuurType} from "../../../models/bestuurType.js";
-import {KeysPipe} from "../../../pipes/keysPipe.js";
+import {TownSelectorComponent} from './../../subComponents/input/townSelector.component';
+import {EditableFieldComponent} from './../../subComponents/input/editableField.component';
+import {MainTown} from "../../../models/mainTown";
+import {SunburstComponent} from './../../subComponents/graphs/sunburst.component';
+import {BegrotingService} from "../../../services/begrotingService";
+import {Actie} from "../../../models/actie";
+import {GemeenteCategorie} from "../../../models/gemeenteCategorie";
+import {Categorie} from "../../../models/categorie";
+import {categories} from "../../../mockData/mock-categories";
+import {BestuurType} from "../../../models/bestuurType";
+import {KeysPipe} from "../../../pipes/keysPipe";
 
 
 @Component({ //invoke with metadata object

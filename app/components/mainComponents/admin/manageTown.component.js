@@ -1,4 +1,4 @@
-System.register(['angular2/core', 'angular2/router', "../../../services/townService.component.js", "../../../models/mainTown.js", "../../../models/politicusType.js", "../../subComponents/input/townSelector.component.js"], function(exports_1) {
+System.register(['angular2/core', 'angular2/router', "../../../services/townService.component", "../../../models/mainTown", "../../../models/politicusType", "../../subComponents/input/townSelector.component"], function(exports_1) {
     var __decorate = (this && this.__decorate) || function (decorators, target, key, desc) {
         if (typeof Reflect === "object" && typeof Reflect.decorate === "function") return Reflect.decorate(decorators, target, key, desc);
         switch (arguments.length) {
@@ -10,7 +10,7 @@ System.register(['angular2/core', 'angular2/router', "../../../services/townServ
     var __metadata = (this && this.__metadata) || function (k, v) {
         if (typeof Reflect === "object" && typeof Reflect.metadata === "function") return Reflect.metadata(k, v);
     };
-    var core_1, router_1, townService_component_js_1, mainTown_js_1, politicusType_js_1, townSelector_component_js_1;
+    var core_1, router_1, townService_component_1, mainTown_1, politicusType_1, townSelector_component_1;
     var ManageTownComponent;
     return {
         setters:[
@@ -20,17 +20,17 @@ System.register(['angular2/core', 'angular2/router', "../../../services/townServ
             function (router_1_1) {
                 router_1 = router_1_1;
             },
-            function (townService_component_js_1_1) {
-                townService_component_js_1 = townService_component_js_1_1;
+            function (townService_component_1_1) {
+                townService_component_1 = townService_component_1_1;
             },
-            function (mainTown_js_1_1) {
-                mainTown_js_1 = mainTown_js_1_1;
+            function (mainTown_1_1) {
+                mainTown_1 = mainTown_1_1;
             },
-            function (politicusType_js_1_1) {
-                politicusType_js_1 = politicusType_js_1_1;
+            function (politicusType_1_1) {
+                politicusType_1 = politicusType_1_1;
             },
-            function (townSelector_component_js_1_1) {
-                townSelector_component_js_1 = townSelector_component_js_1_1;
+            function (townSelector_component_1_1) {
+                townSelector_component_1 = townSelector_component_1_1;
             }],
         execute: function() {
             ManageTownComponent = (function () {
@@ -38,10 +38,10 @@ System.register(['angular2/core', 'angular2/router', "../../../services/townServ
                     var _this = this;
                     this._routeParams = _routeParams;
                     this._router = _router;
-                    this.mainTown = new mainTown_js_1.MainTown("", "", 0, 0);
+                    this.mainTown = new mainTown_1.MainTown("", "", 0, 0);
                     // newBestuur:Bestuur = new Bestuur(""); // this gives an error
-                    this.types = politicusType_js_1.PoliticusType;
-                    this.selectedType = politicusType_js_1.PoliticusType.Schepen;
+                    this.types = politicusType_1.PoliticusType;
+                    this.selectedType = politicusType_1.PoliticusType.Schepen;
                     _townService.getTown(_routeParams.get('town'))
                         .subscribe(function (town) { return _this.mainTown = town; });
                     this._townService = _townService;
@@ -58,13 +58,12 @@ System.register(['angular2/core', 'angular2/router', "../../../services/townServ
                     core_1.Component({
                         selector: 'manage-town-container',
                         template: "\n    <div class=\"container\">\n<h2>Isntellingen gemeente</h2>\n\n\n</div>\n",
-                        providers: [townService_component_js_1.TownService],
-                        directives: [router_1.ROUTER_DIRECTIVES, townSelector_component_js_1.TownSelectorComponent]
+                        providers: [townService_component_1.TownService],
+                        directives: [router_1.ROUTER_DIRECTIVES, townSelector_component_1.TownSelectorComponent]
                     }), 
-                    __metadata('design:paramtypes', [router_1.RouteParams, (typeof (_a = typeof townService_component_js_1.TownService !== 'undefined' && townService_component_js_1.TownService) === 'function' && _a) || Object, router_1.Router])
+                    __metadata('design:paramtypes', [router_1.RouteParams, townService_component_1.TownService, router_1.Router])
                 ], ManageTownComponent);
                 return ManageTownComponent;
-                var _a;
             })();
             exports_1("ManageTownComponent", ManageTownComponent);
         }

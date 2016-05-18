@@ -1,15 +1,15 @@
 import {Component, Injector} from 'angular2/core';
-import {TownService} from './../../../services/townService.component.js';
+import {TownService} from './../../../services/townService.component';
 import {Http} from 'angular2/http';
 import {ROUTER_DIRECTIVES, Router, RouteParams, RouteConfig} from 'angular2/router';
-import {TownSelectorComponent} from './../../subComponents/input/townSelector.component.js';
-import {EditableFieldComponent} from './../../subComponents/input/editableField.component.js';
-import {MainTown} from "../../../models/mainTown.js";
-import {SunburstComponent} from './../../subComponents/graphs/sunburst.component.js';
-import {BegrotingService} from "../../../services/begrotingService.js";
-import {Actie} from "../../../models/actie.js";
-import {GemeenteCategorie} from "../../../models/gemeenteCategorie.js";
-import {PoliticusType} from "../../../models/politicusType.js";
+import {TownSelectorComponent} from './../../subComponents/input/townSelector.component';
+import {EditableFieldComponent} from './../../subComponents/input/editableField.component';
+import {MainTown} from "../../../models/mainTown";
+import {SunburstComponent} from './../../subComponents/graphs/sunburst.component';
+import {BegrotingService} from "../../../services/begrotingService";
+import {Actie} from "../../../models/actie";
+import {GemeenteCategorie} from "../../../models/gemeenteCategorie";
+import {PoliticusType} from "../../../models/politicusType";
 
 
 @Component({ //invoke with metadata object

@@ -1,4 +1,4 @@
-System.register(['angular2/core', 'angular2/router', "../../../services/townService.component.js", "../../../models/mainTown.js"], function(exports_1) {
+System.register(['angular2/core', 'angular2/router', "../../../services/townService.component", "../../../models/mainTown"], function(exports_1) {
     var __decorate = (this && this.__decorate) || function (decorators, target, key, desc) {
         if (typeof Reflect === "object" && typeof Reflect.decorate === "function") return Reflect.decorate(decorators, target, key, desc);
         switch (arguments.length) {
@@ -10,7 +10,7 @@ System.register(['angular2/core', 'angular2/router', "../../../services/townServ
     var __metadata = (this && this.__metadata) || function (k, v) {
         if (typeof Reflect === "object" && typeof Reflect.metadata === "function") return Reflect.metadata(k, v);
     };
-    var core_1, router_1, townService_component_js_1, mainTown_js_1;
+    var core_1, router_1, townService_component_1, mainTown_1;
     var TownSelectorComponent;
     return {
         setters:[
@@ -20,11 +20,11 @@ System.register(['angular2/core', 'angular2/router', "../../../services/townServ
             function (router_1_1) {
                 router_1 = router_1_1;
             },
-            function (townService_component_js_1_1) {
-                townService_component_js_1 = townService_component_js_1_1;
+            function (townService_component_1_1) {
+                townService_component_1 = townService_component_1_1;
             },
-            function (mainTown_js_1_1) {
-                mainTown_js_1 = mainTown_js_1_1;
+            function (mainTown_1_1) {
+                mainTown_1 = mainTown_1_1;
             }],
         execute: function() {
             TownSelectorComponent = (function () {
@@ -33,7 +33,7 @@ System.register(['angular2/core', 'angular2/router', "../../../services/townServ
                     var _this = this;
                     this._router = _router;
                     this._townService = _townService;
-                    this.selectedTown = new mainTown_js_1.MainTown("Berchem", "2600", 0, 0);
+                    this.selectedTown = new mainTown_1.MainTown("Berchem", "2600", 0, 0);
                     _townService.getTowns()
                         .subscribe(function (towns) { return _this.towns = towns; });
                 }
@@ -45,13 +45,12 @@ System.register(['angular2/core', 'angular2/router', "../../../services/townServ
                     core_1.Component({
                         selector: 'town-selector',
                         template: "\n                 <div class=\" styled-select slate right-align\">\n                    <select class=\"\" (change)=\"gotoHome($event)\">\n                        <option>Selecteer een gemeente</option>\n                        <option *ngFor=\"#town of towns\" [value]=\"town.naam\">{{town.naam}} </option>\n                    </select>\n                </div>\n    ",
-                        providers: [townService_component_js_1.TownService],
+                        providers: [townService_component_1.TownService],
                         styles: ["\n\n      ",]
                     }), 
-                    __metadata('design:paramtypes', [router_1.Router, (typeof (_a = typeof townService_component_js_1.TownService !== 'undefined' && townService_component_js_1.TownService) === 'function' && _a) || Object])
+                    __metadata('design:paramtypes', [router_1.Router, townService_component_1.TownService])
                 ], TownSelectorComponent);
                 return TownSelectorComponent;
-                var _a;
             })();
             exports_1("TownSelectorComponent", TownSelectorComponent);
         }

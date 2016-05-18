@@ -1,14 +1,14 @@
 import {Component} from 'angular2/core';
 
-import {TownSelectorComponent} from '/app/components/subComponents/input/townSelector.component.js'
-import {NavigationMenuComponent} from './../subComponents/nav/menu.component.js';
+import {TownSelectorComponent} from '/app/components/subComponents/input/townSelector.component'
+import {NavigationMenuComponent} from './../subComponents/nav/menu.component';
 
-import {HomeComponent} from './home.component.js';
-import {AdminRouter} from './admin/adminRouter.js';
-import {BudgetRouter} from './budget/budgetRouter.js';
-import {ParticipationRouter} from "./participation/participationRouter.js";
-import {SuperAdminRouter} from "./superadmin/superAdminRouter.js";
-import {ModeratorRouter} from "./moderator/moderatorRouter.js";
+import {HomeComponent} from './home.component';
+import {AdminRouter} from './admin/adminRouter';
+import {BudgetRouter} from './budget/budgetRouter';
+import {ParticipationRouter} from "./participation/participationRouter";
+import {SuperAdminRouter} from "./superadmin/superAdminRouter";
+import {ModeratorRouter} from "./moderator/moderatorRouter";
 
 import {RouteConfig, ROUTER_DIRECTIVES, Location} from 'angular2/router'; // for routing
 import {HTTP_PROVIDERS} from "angular2/http";

@@ -3,11 +3,11 @@
  */
 import {Component} from 'angular2/core';
 import {RouteParams, ROUTER_DIRECTIVES, Router} from 'angular2/router';
-import {TownService} from "../../../services/townService.component.js";
-import {MainTown} from "../../../models/mainTown.js";
-import {Bestuur} from "../../../models/bestuur.js";
-import {PoliticusType} from "../../../models/politicusType.js";
-import {TownSelectorComponent} from "../../subComponents/input/townSelector.component.js";
+import {TownService} from "../../../services/townService.component";
+import {MainTown} from "../../../models/mainTown";
+import {Bestuur} from "../../../models/bestuur";
+import {PoliticusType} from "../../../models/politicusType";
+import {TownSelectorComponent} from "../../subComponents/input/townSelector.component";
 
 @Component({ //invoke with metadata object
     selector: 'manage-town-container',

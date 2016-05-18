@@ -14,7 +14,7 @@
     <script src="/node_modules/angular2/es6/dev/src/testing/shims_for_IE.js"></script>
     <script src="/node_modules/angular2/bundles/angular2-polyfills.js"></script>
 
-    <script src="/node_modules/systemjs/dist/system.src.js"></script>
+    <script src="/node_modules/systemjs/dist/system.js"></script>
     <script src="/node_modules/rxjs/bundles/Rx.js"></script>
     <script src="/node_modules/angular2/bundles/angular2.dev.js"></script>
     <script src="/node_modules/angular2/bundles/router.dev.js"></script>
@@ -34,12 +34,11 @@
                 rxjs: '/node_modules/rxjs' // mappen json
             },
             packages: {
-                app: {
-                    format: 'register',
-                    defaultExtension: 'js'
-                },
                 "rxjs": {
                     defaultExtension: 'js' //added this
+                },
+                "/app": {
+                    "defaultJSExtensions": true,
                 }
             },
             paths: {
@@ -49,7 +48,7 @@
             }
 
         });
-        System.import('/app/main.js')
+        System.import('/app/main')
                 .then(null, console.error.bind(console));
     </script>
 </head>

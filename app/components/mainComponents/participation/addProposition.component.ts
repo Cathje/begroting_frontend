@@ -1,14 +1,14 @@
 import {Component} from 'angular2/core';
 import {RouteParams} from 'angular2/router';
-import {ProjectService} from "../../../services/projectService.component.js";
-import {GemeenteCategorie} from "./../../../models/gemeenteCategorie.js";
-import {rangeSlider} from './../../subComponents/input/rangeSlider.component.js';
-import {SunburstComponent} from './../../subComponents/graphs/sunburst.component.js'
+import {ProjectService} from "../../../services/projectService.component";
+import {GemeenteCategorie} from "./../../../models/gemeenteCategorie";
+import {rangeSlider} from './../../subComponents/input/rangeSlider.component';
+import {SunburstComponent} from './../../subComponents/graphs/sunburst.component'
 import { ROUTER_DIRECTIVES } from 'angular2/router'; // for routing
-import {MainTown} from "./../../../models/mainTown.js";
-import {TownService} from "../../../services/townService.component.js";
-import {InspraakCategorie} from "./../../../models/dto/inspraakCategorieDTO.js";
-import {Project} from "./../../../models/project.js";
+import {MainTown} from "./../../../models/mainTown";
+import {TownService} from "../../../services/townService.component";
+import {InspraakCategorie} from "./../../../models/dto/inspraakCategorieDTO";
+import {Project} from "./../../../models/project";
 
 @Component({ //invoke with metadata object
     selector: 'add-proposition-container',

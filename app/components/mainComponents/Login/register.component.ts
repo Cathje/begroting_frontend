@@ -7,11 +7,10 @@
 import {Component, ChangeDetectorRef} from 'angular2/core';
 import {ROUTER_DIRECTIVES, Router} from 'angular2/router'; // for routing
 import {Observable} from 'rxjs/observable';
-import {SignInService} from "../../services/SignInService.js";
-import {LoginService} from "../../../services/loginService.component.js";
-import {IngelogdeGebruiker} from "../../../models/ingelogdeGebruiker.js";
-import {MainTown} from "../../../models/mainTown.js";
-import {TownService} from "../../../services/townService.component.js";
+import {LoginService} from "../../../services/loginService.component";
+import {IngelogdeGebruiker} from "../../../models/ingelogdeGebruiker";
+import {MainTown} from "../../../models/mainTown";
+import {TownService} from "../../../services/townService.component";
 
 
 @Component({ //invoke with metadata object

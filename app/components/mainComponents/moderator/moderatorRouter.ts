@@ -1,8 +1,8 @@
 import {Component} from 'angular2/core';
 import {RouteConfig, ROUTER_DIRECTIVES} from 'angular2/router'; // for routing
 import {HTTP_PROVIDERS} from "angular2/http";
-import {OverviewUsersComponent} from './overviewUsers.component.js';
-import {OverviewPropositionsComponent} from "./overviewPropositions.component.js";
+import {OverviewUsersComponent} from './overviewUsers.component';
+import {OverviewPropositionsComponent} from "./overviewPropositions.component";
 
 @Component({
     selector: 'moderator-router',

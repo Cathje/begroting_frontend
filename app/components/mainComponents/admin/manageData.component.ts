@@ -1,11 +1,11 @@
 import {Component, Injector} from 'angular2/core';
 import {RouteParams, ROUTER_DIRECTIVES, Router} from 'angular2/router';
-import {TownSelectorComponent} from "../../subComponents/input/townSelector.component.js";
-import {TownService} from "../../../services/townService.component.js";
-import {PoliticusType} from "../../../models/politicusType.js";
-import {MainTown} from "../../../models/mainTown.js";
-import {Bestuur} from "../../../models/bestuur.js";
-import {KeysPipe} from "../../../pipes/keysPipe.js";
+import {TownSelectorComponent} from "../../subComponents/input/townSelector.component";
+import {TownService} from "../../../services/townService.component";
+import {PoliticusType} from "../../../models/politicusType";
+import {MainTown} from "../../../models/mainTown";
+import {Bestuur} from "../../../models/bestuur";
+import {KeysPipe} from "../../../pipes/keysPipe";
 
 @Component({ //invoke with metadata object
     selector: 'manage-data-container',
@@ -157,7 +157,7 @@ export class ManageDataComponent {
     types = PoliticusType;
     keys:boolean;
     errorMessage: any;
-    bestuur: Bestuur = new Bestuur("");
+    bestuur: Bestuur = new Bestuur("", null);
 
     constructor(private _routeParams:RouteParams, private _townService:TownService, private _router:Router, params:RouteParams, injector:Injector) {
         

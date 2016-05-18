@@ -1,9 +1,9 @@
 import {Component} from 'angular2/core';
-import {HomeRouter} from './components/mainComponents/homeRouter.js';
+import {HomeRouter} from './components/mainComponents/homeRouter';
 import { RouteConfig, ROUTER_DIRECTIVES, ROUTER_PROVIDERS } from 'angular2/router'; // for routing
 import {HTTP_PROVIDERS} from "angular2/http";
-import {LoginComponent} from "./components/mainComponents/Login/login.component.js";
-import {RegisterComponent} from "./components/mainComponents/Login/register.component.js";
+import {LoginComponent} from "./components/mainComponents/Login/login.component";
+import {RegisterComponent} from "./components/mainComponents/Login/register.component";
 
 @Component({ //invoke with metadata object
     selector: 'begroting-app',

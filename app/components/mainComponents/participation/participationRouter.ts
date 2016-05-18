@@ -1,9 +1,9 @@
 import {Component} from 'angular2/core';
 import {RouteConfig, ROUTER_DIRECTIVES} from 'angular2/router'; // for routing
 import {HTTP_PROVIDERS} from "angular2/http";
-import {ProjectsComponent} from './projects.component.js';
-import {PropositionsComponent} from './propositions.component.js';
-import {AddPropositionComponent} from "./addProposition.component.js";
+import {ProjectsComponent} from './projects.component';
+import {PropositionsComponent} from './propositions.component';
+import {AddPropositionComponent} from "./addProposition.component";
 
 @Component({
     selector: 'participation-router',

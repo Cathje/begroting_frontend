@@ -1,13 +1,12 @@
 import {Component, Injector} from 'angular2/core';
 import {RouteParams, ROUTER_DIRECTIVES, Router} from 'angular2/router';
-import {KeysPipe} from "../../../pipes/keysPipe.js";
-import {ProjectService} from "../../../services/projectService.component.js";
-import {NavigationMenuComponent} from "../../subComponents/nav/menu.component.js";
-import {InspraakCategorie} from "../../../models/dto/inspraakCategorieDTO.js";
-import {InspraakNiveau} from "../../../models/inspraakNiveau.js";
-import {Project} from "../../../models/project.js";
-import {ProjectScenario} from "../../../models/projectScenario.js";
-import {GemeenteCategorie} from "../../../models/gemeenteCategorie.js";
+import {KeysPipe} from "../../../pipes/keysPipe";
+import {ProjectService} from "../../../services/projectService.component";
+import {NavigationMenuComponent} from "../../subComponents/nav/menu.component";
+import {InspraakNiveau} from "../../../models/inspraakNiveau";
+import {Project} from "../../../models/project";
+import {ProjectScenario} from "../../../models/projectScenario";
+import {GemeenteCategorie} from "../../../models/gemeenteCategorie";
 
 
 @Component({ //invoke with metadata object

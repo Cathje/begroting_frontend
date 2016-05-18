@@ -1,4 +1,4 @@
-import {Project} from "../models/project.js";
+import {Project} from "../models/project";
 export var PROJECTS: Project[] = [
     new Project( "Geld inzameling Nepal"),
     new Project( "Nieuwe voorzitter"),

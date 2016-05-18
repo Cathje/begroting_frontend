@@ -1,15 +1,13 @@
 import {Component, Injector} from 'angular2/core';
 import {ROUTER_DIRECTIVES, Router, RouteParams} from 'angular2/router';
 
-import {SunburstComponent} from './../../subComponents/graphs/sunburst.component.js';
-
-import {MainTown} from "../../../models/mainTown.js";
-import {GemeenteCategorie} from "../../../models/gemeenteCategorie.js";
-
-import {TownService} from './../../../services/townService.component.js';
-import {BegrotingService} from "../../../services/begrotingService.js";
-import {ProjectService} from "../../../services/projectService.component.js";
-import {Project} from "../../../models/project.js";
+import {SunburstComponent} from './../../subComponents/graphs/sunburst.component';
+import {MainTown} from "../../../models/mainTown";
+import {GemeenteCategorie} from "../../../models/gemeenteCategorie";
+import {TownService} from './../../../services/townService.component';
+import {BegrotingService} from "../../../services/begrotingService";
+import {ProjectService} from "../../../services/projectService.component";
+import {Project} from "../../../models/project";
 
 
 @Component({ //invoke with metadata object

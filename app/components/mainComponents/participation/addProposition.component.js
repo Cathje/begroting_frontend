@@ -1,4 +1,4 @@
-System.register(['angular2/core', 'angular2/router', "../../../services/projectService.component.js", './../../subComponents/input/rangeSlider.component.js', './../../subComponents/graphs/sunburst.component.js', "../../../services/townService.component.js", "./../../../models/project.js"], function(exports_1) {
+System.register(['angular2/core', 'angular2/router', "../../../services/projectService.component", './../../subComponents/input/rangeSlider.component', './../../subComponents/graphs/sunburst.component', "../../../services/townService.component", "./../../../models/project"], function(exports_1) {
     var __decorate = (this && this.__decorate) || function (decorators, target, key, desc) {
         if (typeof Reflect === "object" && typeof Reflect.decorate === "function") return Reflect.decorate(decorators, target, key, desc);
         switch (arguments.length) {
@@ -10,7 +10,7 @@ System.register(['angular2/core', 'angular2/router', "../../../services/projectS
     var __metadata = (this && this.__metadata) || function (k, v) {
         if (typeof Reflect === "object" && typeof Reflect.metadata === "function") return Reflect.metadata(k, v);
     };
-    var core_1, router_1, projectService_component_js_1, rangeSlider_component_js_1, sunburst_component_js_1, router_2, townService_component_js_1, project_js_1;
+    var core_1, router_1, projectService_component_1, rangeSlider_component_1, sunburst_component_1, router_2, townService_component_1, project_1;
     var AddPropositionComponent;
     return {
         setters:[
@@ -21,20 +21,20 @@ System.register(['angular2/core', 'angular2/router', "../../../services/projectS
                 router_1 = router_1_1;
                 router_2 = router_1_1;
             },
-            function (projectService_component_js_1_1) {
-                projectService_component_js_1 = projectService_component_js_1_1;
+            function (projectService_component_1_1) {
+                projectService_component_1 = projectService_component_1_1;
             },
-            function (rangeSlider_component_js_1_1) {
-                rangeSlider_component_js_1 = rangeSlider_component_js_1_1;
+            function (rangeSlider_component_1_1) {
+                rangeSlider_component_1 = rangeSlider_component_1_1;
             },
-            function (sunburst_component_js_1_1) {
-                sunburst_component_js_1 = sunburst_component_js_1_1;
+            function (sunburst_component_1_1) {
+                sunburst_component_1 = sunburst_component_1_1;
             },
-            function (townService_component_js_1_1) {
-                townService_component_js_1 = townService_component_js_1_1;
+            function (townService_component_1_1) {
+                townService_component_1 = townService_component_1_1;
             },
-            function (project_js_1_1) {
-                project_js_1 = project_js_1_1;
+            function (project_1_1) {
+                project_1 = project_1_1;
             }],
         execute: function() {
             AddPropositionComponent = (function () {
@@ -46,7 +46,7 @@ System.register(['angular2/core', 'angular2/router', "../../../services/projectS
                     this._townService = _townService;
                     this.categories = [];
                     this.year = 2020; //TODO: default is current year?
-                    this.project = new project_js_1.Project("");
+                    this.project = new project_1.Project("");
                     /* this._projectService.getInspraakitems(this.year, "Gent")
                          .subscribe((finan: any) => this.categories = finan,
                              (err:any) => this.errorMessage = err
@@ -75,16 +75,15 @@ System.register(['angular2/core', 'angular2/router', "../../../services/projectS
                     core_1.Component({
                         selector: 'add-proposition-container',
                         template: "\n    <div class=\"container\">\n    <h2>Voorstel indienen</h2>\n        <div class =\"row\">\n            <div class =\"col-lg-6 col-md-6 col-sm-12 col-xs-12\">\n                <p>hier komt de sunburst</p>\n                \n            </div>\n            <div class =\"col-lg-6 col-md-6 col-sm-12 col-xs-12\">\n                <div class =\"row\">\n                    <p>hier komen de acties</p>\n                </div>\n                <div class =\"row\">\n                    <p>hier komt het totaal</p>\n                </div>\n            </div>\n        </div>\n        <div class =\"row\">\n            <p>hier komt de accordeon</p>\n            <div class=\"panel-group\" id=\"accordion\">\n                <div class=\"panel panel-default\">\n                  <div class=\"panel-heading\">\n                    <h4 class=\"panel-title\">\n                      <a data-toggle=\"collapse\" data-parent=\"#accordion\" href=\"#collapse1\">Collapsible Group 1</a>\n                    </h4>\n                  </div>\n                  <div id=\"collapse1\" class=\"panel-collapse collapse in\">\n                    <div class=\"panel-body\">Lorem ipsum dolor sit amet, consectetur adipisicing elit,\n                    sed do eiusmod tempor incididunt ut labore et dolore magna aliqua. Ut enim ad minim veniam,\n                    quis nostrud exercitation ullamco laboris nisi ut aliquip ex ea commodo consequat.</div>\n                  </div>\n                </div>\n                <div class=\"panel panel-default\">\n                  <div class=\"panel-heading\">\n                    <h4 class=\"panel-title\">\n                      <a data-toggle=\"collapse\" data-parent=\"#accordion\" href=\"#collapse2\">Collapsible Group 2</a>\n                    </h4>\n                  </div>\n                  <div id=\"collapse2\" class=\"panel-collapse collapse\">\n                    <div class=\"panel-body\">Lorem ipsum dolor sit amet, consectetur adipisicing elit,\n                    sed do eiusmod tempor incididunt ut labore et dolore magna aliqua. Ut enim ad minim veniam,\n                    quis nostrud exercitation ullamco laboris nisi ut aliquip ex ea commodo consequat.</div>\n                  </div>\n                </div>\n                <div class=\"panel panel-default\">\n                  <div class=\"panel-heading\">\n                    <h4 class=\"panel-title\">\n                      <a data-toggle=\"collapse\" data-parent=\"#accordion\" href=\"#collapse3\">Collapsible Group 3</a>\n                    </h4>\n                  </div>\n                  <div id=\"collapse3\" class=\"panel-collapse collapse\">\n                    <div class=\"panel-body\">Lorem ipsum dolor sit amet, consectetur adipisicing elit,\n                    sed do eiusmod tempor incididunt ut labore et dolore magna aliqua. Ut enim ad minim veniam,\n                    quis nostrud exercitation ullamco laboris nisi ut aliquip ex ea commodo consequat.</div>\n                  </div>\n                </div>\n              </div>\n        </div>\n    </div>\n    \n\n\n\n\n\n        ",
-                        directives: [sunburst_component_js_1.SunburstComponent, router_2.ROUTER_DIRECTIVES, rangeSlider_component_js_1.rangeSlider],
+                        directives: [sunburst_component_1.SunburstComponent, router_2.ROUTER_DIRECTIVES, rangeSlider_component_1.rangeSlider],
                         providers: [
-                            projectService_component_js_1.ProjectService, townService_component_js_1.TownService
+                            projectService_component_1.ProjectService, townService_component_1.TownService
                         ],
                         styles: ["\n\n\n\n        "]
                     }), 
-                    __metadata('design:paramtypes', [router_1.RouteParams, (typeof (_a = typeof projectService_component_js_1.ProjectService !== 'undefined' && projectService_component_js_1.ProjectService) === 'function' && _a) || Object, (typeof (_b = typeof townService_component_js_1.TownService !== 'undefined' && townService_component_js_1.TownService) === 'function' && _b) || Object])
+                    __metadata('design:paramtypes', [router_1.RouteParams, projectService_component_1.ProjectService, townService_component_1.TownService])
                 ], AddPropositionComponent);
                 return AddPropositionComponent;
-                var _a, _b;
             })();
             exports_1("AddPropositionComponent", AddPropositionComponent);
         }

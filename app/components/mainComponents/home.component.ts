@@ -1,8 +1,8 @@
 import {Component} from 'angular2/core';
 import {RouteConfig, ROUTER_DIRECTIVES} from 'angular2/router'; // for routing
 import {HTTP_PROVIDERS} from "angular2/http";
-import {TownSelectorComponent} from "../subComponents/input/townSelector.component.js";
-import {ProjectOverviewComponent} from "../subComponents/information/projectOverview.component.js";
+import {TownSelectorComponent} from "../subComponents/input/townSelector.component";
+import {ProjectOverviewComponent} from "../subComponents/information/projectOverview.component";
 
 @Component({ //invoke with metadata object
     selector: 'home-container',
