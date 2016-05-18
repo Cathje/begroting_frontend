@@ -1,16 +1,16 @@
-System.register(['angular2/core', 'angular2/router', "../../../services/loginService.component", "../../../models/ingelogdeGebruiker", "../../../models/mainTown", "../../../services/townService.component"], function(exports_1, context_1) {
-    "use strict";
-    var __moduleName = context_1 && context_1.id;
+System.register(['angular2/core', 'angular2/router', "../../../services/loginService.component", "../../../models/mainTown", "../../../services/townService.component", "../../../models/inTeLoggenGebruiker"], function(exports_1) {
     var __decorate = (this && this.__decorate) || function (decorators, target, key, desc) {
-        var c = arguments.length, r = c < 3 ? target : desc === null ? desc = Object.getOwnPropertyDescriptor(target, key) : desc, d;
-        if (typeof Reflect === "object" && typeof Reflect.decorate === "function") r = Reflect.decorate(decorators, target, key, desc);
-        else for (var i = decorators.length - 1; i >= 0; i--) if (d = decorators[i]) r = (c < 3 ? d(r) : c > 3 ? d(target, key, r) : d(target, key)) || r;
-        return c > 3 && r && Object.defineProperty(target, key, r), r;
+        if (typeof Reflect === "object" && typeof Reflect.decorate === "function") return Reflect.decorate(decorators, target, key, desc);
+        switch (arguments.length) {
+            case 2: return decorators.reduceRight(function(o, d) { return (d && d(o)) || o; }, target);
+            case 3: return decorators.reduceRight(function(o, d) { return (d && d(target, key)), void 0; }, void 0);
+            case 4: return decorators.reduceRight(function(o, d) { return (d && d(target, key, o)) || o; }, desc);
+        }
     };
     var __metadata = (this && this.__metadata) || function (k, v) {
         if (typeof Reflect === "object" && typeof Reflect.metadata === "function") return Reflect.metadata(k, v);
     };
-    var core_1, router_1, loginService_component_1, ingelogdeGebruiker_1, mainTown_1, townService_component_1;
+    var core_1, router_1, loginService_component_1, mainTown_1, townService_component_1, inTeLoggenGebruiker_1;
     var RegisterComponent;
     return {
         setters:[
@@ -23,14 +23,14 @@ System.register(['angular2/core', 'angular2/router', "../../../services/loginSer
             function (loginService_component_1_1) {
                 loginService_component_1 = loginService_component_1_1;
             },
-            function (ingelogdeGebruiker_1_1) {
-                ingelogdeGebruiker_1 = ingelogdeGebruiker_1_1;
-            },
             function (mainTown_1_1) {
                 mainTown_1 = mainTown_1_1;
             },
             function (townService_component_1_1) {
                 townService_component_1 = townService_component_1_1;
+            },
+            function (inTeLoggenGebruiker_1_1) {
+                inTeLoggenGebruiker_1 = inTeLoggenGebruiker_1_1;
             }],
         execute: function() {
             RegisterComponent = (function () {
@@ -40,7 +40,7 @@ System.register(['angular2/core', 'angular2/router', "../../../services/loginSer
                     this._townService = _townService;
                     this._router = _router;
                     this.title = 'Register';
-                    this.gebruiker = new ingelogdeGebruiker_1.IngelogdeGebruiker("Test", "", "", "", "");
+                    this.gebruiker = new inTeLoggenGebruiker_1.InTeLoggenGebruiker("", "", "", "", "");
                     this.selectedTown = new mainTown_1.MainTown("Berchem", "2600", 0, 0);
                     this.token = "test";
                     _townService.getTowns()
@@ -66,7 +66,7 @@ System.register(['angular2/core', 'angular2/router', "../../../services/loginSer
                     __metadata('design:paramtypes', [loginService_component_1.LoginService, townService_component_1.TownService, router_1.Router])
                 ], RegisterComponent);
                 return RegisterComponent;
-            }());
+            })();
             exports_1("RegisterComponent", RegisterComponent);
         }
     }

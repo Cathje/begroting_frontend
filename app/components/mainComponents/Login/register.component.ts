@@ -1,9 +1,4 @@
-/**
- * Created by nadya on 11/05/2016.
- */
-/**
- * Created by nadya on 11/05/2016.
- */
+
 import {Component, ChangeDetectorRef} from 'angular2/core';
 import {ROUTER_DIRECTIVES, Router} from 'angular2/router'; // for routing
 import {Observable} from 'rxjs/observable';
@@ -11,6 +6,9 @@ import {LoginService} from "../../../services/loginService.component";
 import {IngelogdeGebruiker} from "../../../models/ingelogdeGebruiker";
 import {MainTown} from "../../../models/mainTown";
 import {TownService} from "../../../services/townService.component";
+import {SignInService} from "../../services/SignInService";
+import {InTeLoggenGebruiker} from "../../../models/inTeLoggenGebruiker";
+
 
 
 @Component({ //invoke with metadata object
@@ -55,7 +53,7 @@ import {TownService} from "../../../services/townService.component";
 })
 export class RegisterComponent {
     title = 'Register';
-    gebruiker = new IngelogdeGebruiker("Test","","","","");
+    gebruiker = new InTeLoggenGebruiker("","","","","");
     towns: MainTown [];
     selectedTown = new MainTown("Berchem","2600", 0,0);
     token:string="test";

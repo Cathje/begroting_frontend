@@ -12,6 +12,8 @@ export class Project {
     gemeente:string;
     boekjaar: number;
     categorieen: GemeenteCategorie[];
+    afbeeldingen: string [];
+    isActief : boolean;
 
     constructor(titel:string)
     {

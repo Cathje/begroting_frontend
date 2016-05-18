@@ -1,11 +1,11 @@
-System.register(['angular2/core', 'angular2/http', 'rxjs/Rx'], function(exports_1, context_1) {
-    "use strict";
-    var __moduleName = context_1 && context_1.id;
+System.register(['angular2/core', 'angular2/http', 'rxjs/Rx'], function(exports_1) {
     var __decorate = (this && this.__decorate) || function (decorators, target, key, desc) {
-        var c = arguments.length, r = c < 3 ? target : desc === null ? desc = Object.getOwnPropertyDescriptor(target, key) : desc, d;
-        if (typeof Reflect === "object" && typeof Reflect.decorate === "function") r = Reflect.decorate(decorators, target, key, desc);
-        else for (var i = decorators.length - 1; i >= 0; i--) if (d = decorators[i]) r = (c < 3 ? d(r) : c > 3 ? d(target, key, r) : d(target, key)) || r;
-        return c > 3 && r && Object.defineProperty(target, key, r), r;
+        if (typeof Reflect === "object" && typeof Reflect.decorate === "function") return Reflect.decorate(decorators, target, key, desc);
+        switch (arguments.length) {
+            case 2: return decorators.reduceRight(function(o, d) { return (d && d(o)) || o; }, target);
+            case 3: return decorators.reduceRight(function(o, d) { return (d && d(target, key)), void 0; }, void 0);
+            case 4: return decorators.reduceRight(function(o, d) { return (d && d(target, key, o)) || o; }, desc);
+        }
     };
     var __metadata = (this && this.__metadata) || function (k, v) {
         if (typeof Reflect === "object" && typeof Reflect.metadata === "function") return Reflect.metadata(k, v);
@@ -25,11 +25,11 @@ System.register(['angular2/core', 'angular2/http', 'rxjs/Rx'], function(exports_
             ProjectService = (function () {
                 function ProjectService(http) {
                     this.http = http;
-                    this._url = 'http://begroting-webapi.azurewebsites.net/api/Begroting';
-                    this._url2 = 'http://begroting-webapi.azurewebsites.net/api/Project';
+                    // private _url = 'http://begroting-webapi.azurewebsites.net/api/Begroting';
+                    // private _url2 = 'http://begroting-webapi.azurewebsites.net/api/Project';
+                    this._url = 'http://localhost:52597/api/Begroting';
+                    this._url2 = 'http://localhost:52597/api/Project';
                 }
-                //private _url = 'http://localhost:52597/api/Begroting';
-                //private _url2 = 'http://localhost:52597/api/Project';
                 ProjectService.prototype.getInspraakitems = function (jaar, naam) {
                     return this.http.get(this._url2 + "/itemsGET" + "?jaar=" + jaar + "&naam=" + naam)
                         .map(this.extractData);
@@ -37,8 +37,9 @@ System.register(['angular2/core', 'angular2/http', 'rxjs/Rx'], function(exports_
                 ProjectService.prototype.putProject = function (p) {
                     var headers = new http_1.Headers();
                     headers.append('Content-Type', 'application/json');
-                    return this.http.post(this._url2, JSON.stringify({ projectScenario: p.projectScenario, vraag: p.vraag,
-                        titel: p.titel, extraInfo: p.extraInfo, bedrag: p.bedrag, minBedrag: p.minBedrag, maxBedrag: p.maxBedrag, cats: p.categorieen, boekjaar: p.boekjaar, gemeente: p.gemeente }), { headers: headers }).map(function (res) { return res.json(); });
+                    return this.http.post(this._url2 + "/postProject", JSON.stringify({ projectScenario: p.projectScenario, vraag: p.vraag,
+                        titel: p.titel, extraInfo: p.extraInfo, bedrag: p.bedrag, minBedrag: p.minBedrag, maxBedrag: p.maxBedrag, cats: p.categorieen, boekjaar: p.boekjaar, gemeente: p.gemeente,
+                        isActief: p.isActief, afbeeldingen: p.afbeeldingen }), { headers: headers }).map(this.extractData);
                 };
                 ProjectService.prototype.getProject = function (jaar, naam) {
                     return this.http.get(this._url2 + "/projectGET" + "?jaar=" + jaar + "&naam=" + naam)
@@ -59,7 +60,7 @@ System.register(['angular2/core', 'angular2/http', 'rxjs/Rx'], function(exports_
                     __metadata('design:paramtypes', [http_1.Http])
                 ], ProjectService);
                 return ProjectService;
-            }());
+            })();
             exports_1("ProjectService", ProjectService);
         }
     }
