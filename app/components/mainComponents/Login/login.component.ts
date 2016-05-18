@@ -5,13 +5,15 @@
  * Created by nadya on 11/05/2016.
  */
 import {Component, ChangeDetectorRef} from 'angular2/core';
-import { ROUTER_DIRECTIVES } from 'angular2/router'; // for routing
+import {ROUTER_DIRECTIVES, Router} from 'angular2/router'; // for routing
 import {Observable} from 'rxjs/observable';
 import {TownService} from "../../../services/townService.component.js";
 import {LoginService} from "../../../services/loginService.component.js";
 import {IngelogdeGebruiker} from "../../../models/ingelogdeGebruiker.js";
 import {MainTown} from "../../../models/mainTown.js";
-import {InTeLoggenGebruiker} from "../../../models/inTeLoggenGebruiker";
+import {InTeLoggenGebruiker} from "../../../models/inTeLoggenGebruiker.js";
+import {Token} from "../../../models/Token.js";
+
 
 
 @Component({ //invoke with metadata object
@@ -20,8 +22,6 @@ import {InTeLoggenGebruiker} from "../../../models/inTeLoggenGebruiker";
         <townMenu></townMenu>
         <div class="col-md-6" align="center">
             <h2 class="form-login-heading">Login</h2>
-            
-
             <input type="email" [(ngModel)]="inTeLoggenGebruiker.email" class="form-control" placeholder="Email" required autofocus><br>
             <input type="text" [(ngModel)]="inTeLoggenGebruiker.Password" class="form-control" placeholder="Wachtwoord" required><br>
 
@@ -30,11 +30,11 @@ import {InTeLoggenGebruiker} from "../../../models/inTeLoggenGebruiker";
             <button (click)="onSubmit()" class="btn btn-md btn-info btn-block">login</button>
 
 
-            <div class="alert alert-danger">
-                {{data}}
+            <div *ngIf="err" class="alert alert-danger">
+                oeps login is niet gelukt. Controleer email en paswoord
             </div>
 
-
+           
         </div>
 
         <div class="col-md-6" align="center">
@@ -157,10 +157,12 @@ export class LoginComponent {
     inTeLoggenGebruiker = new InTeLoggenGebruiker("","","","","");
     towns: MainTown [];
     selectedTown = new MainTown("Berchem","2600", 0,0);
-    token:string="test";
+    token:string="";
     data:any;
+    err:any;
+    t:Token;
 
-    constructor(private _loginService: LoginService, private _townService: TownService)
+    constructor(private _loginService: LoginService, private _townService: TownService, private _router:Router)
     {
         _townService.getTowns()
             .subscribe((towns:any) => this.towns = towns);
@@ -168,8 +170,25 @@ export class LoginComponent {
     }
     onSubmit( )
     {
-        this._loginService.login(this.inTeLoggenGebruiker.email, this.inTeLoggenGebruiker.Password).subscribe((response:any) => this.data = response);
+        this.err="";
+        this._loginService.login(this.inTeLoggenGebruiker.email, this.inTeLoggenGebruiker.Password).subscribe(
+            (data:any) => this.goToHome(data),
+            (err:any) => this.err = err);
 
+    }
+
+    goToHome(data:any)
+    {
+        if(data != null)
+        {
+
+            this.t = JSON.parse(data);
+            sessionStorage.setItem('access_token', this.t.access_token);
+            sessionStorage.setItem('gemeente', this.t.gemeente);
+            sessionStorage.setItem('role', this.t.role);
+            sessionStorage.setItem('token', data);
+            this._router.navigate(['/', 'App','Budget', { town: this.t.gemeente}]);
+        }
     }
 
 

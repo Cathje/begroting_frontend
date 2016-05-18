@@ -6,16 +6,18 @@ import {Http,Response,Headers}  from 'angular2/http';
 import 'rxjs/Rx';
 import {IngelogdeGebruiker} from "../models/IngelogdeGebruiker.js";
 import {InTeLoggenGebruiker} from "../models/InTeLoggenGebruiker.js";
+import {Token} from "../models/Token";
 //import localStorage from 'localStorage';
 
 
 @Injectable()
 export class LoginService {
 
-    token:string;
+
     resp:string;
+    token:any;
     constructor(private http:Http) {
-        this.token = localStorage.getItem('token');
+
     }
 
     //private _url = 'http://begroting-webapi.azurewebsites.net/api/Account/Register';
@@ -30,10 +32,8 @@ export class LoginService {
                     'Content-Type': 'application/x-www-form-urlencoded'
                 })
             })
-            .map((res:any) => res.text())
-            .map((res:any) => localStorage.setItem('auth_token',JSON.stringify(res))
-            )
-            ;
+            .map(this.extractData);
+
     }
 
 
@@ -41,5 +41,14 @@ export class LoginService {
         var header = new Headers();
         header.append("Content-Type","application/json");
         return this.http.post(this._url, JSON.stringify(gebruiker),{headers:header}).map(res=> res.json());
+    }
+
+    private extractData(res: Response) {
+        if (res.status < 200 || res.status >= 300) {
+            throw new Error('Response status: ' + res.status);
+        }
+        
+        let data = res.text();
+        return data;
     }
 }
