@@ -11,6 +11,7 @@ import {TownService} from "../../../services/townService.component.js";
 import {LoginService} from "../../../services/loginService.component.js";
 import {IngelogdeGebruiker} from "../../../models/ingelogdeGebruiker.js";
 import {MainTown} from "../../../models/mainTown.js";
+import {InTeLoggenGebruiker} from "../../../models/inTeLoggenGebruiker";
 
 
 @Component({ //invoke with metadata object
@@ -21,25 +22,23 @@ import {MainTown} from "../../../models/mainTown.js";
             <h2 class="form-login-heading">Login</h2>
             
 
-            <input type="email" [(ngModel)]="gebruiker.email" class="form-control" placeholder="Email" required autofocus><br>
-            <input type="text" [(ngModel)]="gebruiker.Password" class="form-control" placeholder="Wachtwoord" required><br>
+            <input type="email" [(ngModel)]="inTeLoggenGebruiker.email" class="form-control" placeholder="Email" required autofocus><br>
+            <input type="text" [(ngModel)]="inTeLoggenGebruiker.Password" class="form-control" placeholder="Wachtwoord" required><br>
 
             <br>
 
             <button (click)="onSubmit()" class="btn btn-md btn-info btn-block">login</button>
 
-            <!--
+
             <div class="alert alert-danger">
                 {{data}}
             </div>
-            -->
+
 
         </div>
 
         <div class="col-md-6" align="center">
             <h2 class="form-login-heading">Social Logins</h2>
-            <p>Or you can login using one of the social logins below</p>
-
             <button class="btn btn-large btn-facebook btn-block" type="button" (click)="authExternalProvider('Facebook')"><i class="fa fa-facebook"></i> | Connect with Facebook</button>
             <button class="btn btn-large btn-google-plus btn-block" type="button" (click)="authExternalProvider('Google')"><i class="fa fa-google-plus"></i> | Connect with Google+</button>
 
@@ -155,7 +154,7 @@ import {MainTown} from "../../../models/mainTown.js";
 })
 export class LoginComponent {
     title = 'Login';
-    gebruiker = new IngelogdeGebruiker("Test","","","","");
+    inTeLoggenGebruiker = new InTeLoggenGebruiker("","","","","");
     towns: MainTown [];
     selectedTown = new MainTown("Berchem","2600", 0,0);
     token:string="test";
@@ -169,13 +168,13 @@ export class LoginComponent {
     }
     onSubmit( )
     {
-        this._loginService.login(this.gebruiker.email, this.gebruiker.Password).subscribe();
+        this._loginService.login(this.inTeLoggenGebruiker.email, this.inTeLoggenGebruiker.Password).subscribe((response:any) => this.data = response);
 
     }
 
 
     onSelect(event: any) {
         // alert(event.target.value)
-        this.gebruiker.gemeente = event.target.value;
+        this.inTeLoggenGebruiker.gemeente = event.target.value;
     }
 }

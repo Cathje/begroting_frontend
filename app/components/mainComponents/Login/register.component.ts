@@ -9,7 +9,7 @@ import {ROUTER_DIRECTIVES, Router} from 'angular2/router'; // for routing
 import {Observable} from 'rxjs/observable';
 import {SignInService} from "../../services/SignInService.js";
 import {LoginService} from "../../../services/loginService.component.js";
-import {IngelogdeGebruiker} from "../../../models/ingelogdeGebruiker.js";
+import {InTeLoggenGebruiker} from "../../../models/inTeLoggenGebruiker.js";
 import {MainTown} from "../../../models/mainTown.js";
 import {TownService} from "../../../services/townService.component.js";
 
@@ -56,7 +56,7 @@ import {TownService} from "../../../services/townService.component.js";
 })
 export class RegisterComponent {
     title = 'Register';
-    gebruiker = new IngelogdeGebruiker("Test","","","","");
+    gebruiker = new InTeLoggenGebruiker("","","","","");
     towns: MainTown [];
     selectedTown = new MainTown("Berchem","2600", 0,0);
     token:string="test";

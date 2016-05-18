@@ -1,24 +1,23 @@
 /**
  * Created by nadya on 11/05/2016.
  */
+import {rolType} from "./rolType";
 /**
  * Created by kevin on 08/05/2016.
  */
 export class IngelogdeGebruiker {
 
-    Naam:string;
-    Password:string;
-    bevestigPaswoord:string;
-    email:string;
+    userId:string;
+    naam:string;
     gemeente:string;
+    rolType:rolType;
 
-    constructor( Naam:string, Password:string, bevestigPaswoord:string, email:string, gemeente:string)
+    constructor( userId:string, naam:string, gemeente:string, rolType:rolType)
     {
-        this.Naam = Naam;
-        this.Password = Password;
-        this.bevestigPaswoord = bevestigPaswoord;
-        this.email = email;
+        this.userId = userId;
+        this.naam = naam;
         this.gemeente = gemeente;
+        this.rolType = rolType;
     }
 
 }

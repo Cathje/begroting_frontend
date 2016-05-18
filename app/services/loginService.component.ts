@@ -2,28 +2,26 @@
  * Created by nadya on 11/05/2016.
  */
 import {Injectable} from 'angular2/core';
-import {Http,Response}  from 'angular2/http';
+import {Http,Response,Headers}  from 'angular2/http';
 import 'rxjs/Rx';
 import {IngelogdeGebruiker} from "../models/IngelogdeGebruiker.js";
-import {Headers} from "angular2/http";
+import {InTeLoggenGebruiker} from "../models/InTeLoggenGebruiker.js";
+//import localStorage from 'localStorage';
 
 
 @Injectable()
 export class LoginService {
 
     token:string;
+    resp:string;
     constructor(private http:Http) {
         this.token = localStorage.getItem('token');
-
     }
 
-    private _url = 'http://begroting-webapi.azurewebsites.net/api/Account/Register';
-    //private _url = 'http://localhost:52597/api/Account/Register';
-    private _url2 = 'http://begroting-webapi.azurewebsites.net/token';
-    //private _url2 = 'http://localhost:52597/token';
-
-    //@TODO test nog te verwijderen
-    // private _url = 'http://ngauthenticationapi.azurewebsites.net/token';
+    //private _url = 'http://begroting-webapi.azurewebsites.net/api/Account/Register';
+    private _url = 'http://localhost:52597/api/Account/Register';
+    //private _url2 = 'http://begroting-webapi.azurewebsites.net/token';
+    private _url2 = 'http://localhost:52597/token';
 
     login(email: string, password: string) {
 
@@ -32,15 +30,14 @@ export class LoginService {
                     'Content-Type': 'application/x-www-form-urlencoded'
                 })
             })
-            .map((res:any) => {
-                let data = res.text;
-                this.token = data.access_token;
-                localStorage.setItem('token', this.token);
-            });
+            .map((res:any) => res.text())
+            .map((res:any) => localStorage.setItem('auth_token',JSON.stringify(res))
+            )
+            ;
     }
 
 
-    register(gebruiker: IngelogdeGebruiker) {
+    register(gebruiker: InTeLoggenGebruiker) {
         var header = new Headers();
         header.append("Content-Type","application/json");
         return this.http.post(this._url, JSON.stringify(gebruiker),{headers:header}).map(res=> res.json());
