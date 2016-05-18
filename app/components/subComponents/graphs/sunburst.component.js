@@ -1,11 +1,9 @@
 System.register(['angular2/core', 'd3'], function(exports_1) {
     var __decorate = (this && this.__decorate) || function (decorators, target, key, desc) {
-        if (typeof Reflect === "object" && typeof Reflect.decorate === "function") return Reflect.decorate(decorators, target, key, desc);
-        switch (arguments.length) {
-            case 2: return decorators.reduceRight(function(o, d) { return (d && d(o)) || o; }, target);
-            case 3: return decorators.reduceRight(function(o, d) { return (d && d(target, key)), void 0; }, void 0);
-            case 4: return decorators.reduceRight(function(o, d) { return (d && d(target, key, o)) || o; }, desc);
-        }
+        var c = arguments.length, r = c < 3 ? target : desc === null ? desc = Object.getOwnPropertyDescriptor(target, key) : desc, d;
+        if (typeof Reflect === "object" && typeof Reflect.decorate === "function") r = Reflect.decorate(decorators, target, key, desc);
+        else for (var i = decorators.length - 1; i >= 0; i--) if (d = decorators[i]) r = (c < 3 ? d(r) : c > 3 ? d(target, key, r) : d(target, key)) || r;
+        return c > 3 && r && Object.defineProperty(target, key, r), r;
     };
     var __metadata = (this && this.__metadata) || function (k, v) {
         if (typeof Reflect === "object" && typeof Reflect.metadata === "function") return Reflect.metadata(k, v);
@@ -40,7 +38,6 @@ System.register(['angular2/core', 'd3'], function(exports_1) {
             .filter(function (d) {
             return (d.dx > 0.005); // 0.005 radians = 0.29 degrees
         });
-        console.log('hey');
         var path = chart.select("#container").data([json]).selectAll("path")
             .data(nodes)
             .enter().append("svg:path")
@@ -50,19 +47,18 @@ System.register(['angular2/core', 'd3'], function(exports_1) {
             .style("fill", function (d) { return colors[d.name]; })
             .attr("stroke", "white")
             .attr("stroke-width", 1)
+            .attr("data-toggle", "modal")
+            .attr("data-target", "#actions")
             .style("opacity", 1)
             .on("mouseover", function (d) { return mouseover(d, totalSize, chart); })
             .on("mousedown", function (d) { return mouseclick(d, callbackFunction); });
-        console.log('hey9');
         // Add the mouseleave handler to the bounding circle.
         chart.select("#container").on("mouseleave", function (d) { return mouseleave(d, chart); });
         // Get total size of the tree = value of root node from partition.
         totalSize = path.node().__data__.value;
-        console.log('hey3');
     }
     // Fade all but the current sequence
     function mouseover(d, totalSize, chart) {
-        console.log('hey0');
         var percentage = (100 * d.value / totalSize).toPrecision(3);
         var percentageString = percentage + "%";
         if (parseFloat(percentage) < 0.1) {
@@ -70,18 +66,15 @@ System.register(['angular2/core', 'd3'], function(exports_1) {
         }
         chart.select("#percentage")
             .text(percentageString);
-        console.log('hey6');
         chart.select("#explanation")
             .style("visibility", "");
         chart.select("#explanation2")
             .style("visibility", "hidden");
-        console.log('hey4');
         chart.select("#category").text(d.name);
         chart.select("#centerimg")
             .attr("src", "/app/images/categories/" + d.code + ".jpg");
         var sequenceArray = getAncestors(d);
-        console.log('hey5');
-        console.log('hey');
+        ;
         // Fade all the segments.
         chart.selectAll("path")
             .style("opacity", 0.3);
@@ -123,7 +116,6 @@ System.register(['angular2/core', 'd3'], function(exports_1) {
     // root to leaf, separated by hyphens. The second column is a count of how
     // often that sequence occurred.
     function buildHierarchy(data, colors) {
-        console.log('555 hier', data);
         var root = { "name": "root", "children": [Object] };
         for (var i = 0; i < data.length; i++) {
             var currentNode = root;
@@ -182,11 +174,9 @@ System.register(['angular2/core', 'd3'], function(exports_1) {
                 colors[data[i]['catC']] = get_random_color(data[i]['code']);
             }
         }
-        console.log('root', root);
         return root;
     }
     function _moveNodeDown(children, categoryName) {
-        console.log(children, categoryName);
         for (var k = 0; k < children.length; k++) {
             if (children[k]["name"] == categoryName) {
                 return children[k]["children"];
@@ -286,15 +276,12 @@ System.register(['angular2/core', 'd3'], function(exports_1) {
                         var formattedData = addHeadCategoryCodeToData(_this.data);
                         var json = buildHierarchy(formattedData, colors);
                         createVisualization(json, _this.onClick, partition, arc, colors, totalSize, chart);
-                        console.log('hey2');
                     };
-                    console.log('333', this.data);
                 }
                 SunburstComponent.prototype.ngOnInit = function () {
                 };
                 ;
                 SunburstComponent.prototype.ngOnChanges = function (changes) {
-                    console.log('555', this.data);
                     var chart = d3.select(this.el.nativeElement).select("#chart");
                     chart.select('#chartsvg').remove();
                     this.createChart(chart);
@@ -302,25 +289,25 @@ System.register(['angular2/core', 'd3'], function(exports_1) {
                 __decorate([
                     core_1.Input(), 
                     __metadata('design:type', Object)
-                ], SunburstComponent.prototype, "data");
+                ], SunburstComponent.prototype, "data", void 0);
                 __decorate([
                     core_1.Input(), 
                     __metadata('design:type', Number)
-                ], SunburstComponent.prototype, "width");
+                ], SunburstComponent.prototype, "width", void 0);
                 __decorate([
                     core_1.Input(), 
                     __metadata('design:type', Number)
-                ], SunburstComponent.prototype, "height");
+                ], SunburstComponent.prototype, "height", void 0);
                 __decorate([
                     core_1.Input(), 
                     __metadata('design:type', String)
-                ], SunburstComponent.prototype, "onClick");
+                ], SunburstComponent.prototype, "onClick", void 0);
                 SunburstComponent = __decorate([
                     core_1.Component({
                         selector: 'sunburst',
-                        template: "\n      <div id=\"chart\" [ngClass]=\"{hide: data.length < 1}\" [style]=\"'width:' + width + 'px'\">\n        <h5 id=\"explanation\" style=\"visibility: hidden;\">\n          <img id=\"centerimg\" src=\"/app/images/categories/01.jpg\"/>\n          <span id=\"percentage\"></span><br/>\n          <span id=\"category\"></span>\n        </h5>\n        <h5 id=\"explanation2\">\n          <img  src=\"/app/images/icons/clickPointer.png\">\n           <p > Klik op een categorie om de acties van deze categorie te bekijken.</p>\n        </h5>\n      </div>\n      <div [style]=\"'height:' + height + 'px'\" class=\"noData\" [ngClass]=\"{hide: data.length > 0}\">\n        <p>Geen grafiekgegevens beschikbaar.</p>\n      </div>\n\n    ",
+                        template: "\n      <div id=\"chart\" [ngClass]=\"{hide: data.length < 1}\" [style]=\"'width:' + width + 'px'\">\n        <h5 id=\"explanation\" style=\"visibility: hidden;\">\n          <img id=\"centerimg\" src=\"/app/images/categories/01.jpg\"/>\n          <span id=\"percentage\"></span><br/>\n          <span id=\"category\"></span>\n        </h5>\n        <h5 id=\"explanation2\">\n          <img  src=\"/app/images/icons/clickPointer.png\">\n           <p > Klik op een categorie om de acties van deze categorie te bekijken.</p>\n        </h5>\n      </div>\n\n      <div [style]=\"'height:' + height + 'px'\" class=\"noData\" [ngClass]=\"{hide: data.length > 0}\">\n        <p>Geen grafiekgegevens beschikbaar.</p>\n      </div>\n\n    ",
                         providers: [],
-                        styles: ["\n\n    .noData p{\n        padding-top: 40%;\n        text-align: center;\n    }\n\n    #chart {\n        position: relative;\n        text-align: center;\n        margin: 0 auto;\n    }\n\n    #explanation {\n        position: absolute;\n        margin: auto;\n        position: absolute;\n        top: 0; left: 0; bottom: 0; right: 0;\n        width: 50%;\n        height: 50%;\n        border-radius: 50%;\n        color: black;\n        display: flex;\n        justify-content:center;\n        align-content:center;\n        flex-direction:column; /* column | row */\n        z-index: 1;\n    }\n\n    #explanation2 {\n        position: absolute;\n        margin: auto;\n        position: absolute;\n        top: 0; left: 0; bottom: 0; right: 0;\n        width: 35%;\n        height: 180px;\n        color: #666;\n        display: flex;\n        justify-content:center;\n        align-content:center;\n        flex-direction:column; /* column | row */\n    }\n\n    #explanation2 img{\n     width: 50px;\n     margin: 0 auto;\n     display: inline-block;\n    }\n\n    #centerimg {\n        position: absolute;\n        border-radius: 50%;\n        width: 100%;\n        height: 100%;\n        top: 0;\n        left: 0;\n        z-index: 0;\n        opacity: 0.5;\n    }\n\n    #percentage{\n          font-size: 2.5em;\n          z-index: 1;\n    }\n\n    #category {\n        z-index: 1\n    }\n ",]
+                        styles: ["\n\n    .noData p{\n        padding-top: 40%;\n        text-align: center;\n    }\n\n    #chart {\n        position: relative;\n        text-align: center;\n        margin: 0 auto;\n    }\n\n    #explanation {\n        position: absolute;\n        margin: auto;\n        position: absolute;\n        top: 0; left: 0; bottom: 0; right: 0;\n        width: 50%;\n        height: 50%;\n        border-radius: 50%;\n        color: black;\n        display: flex;\n        justify-content:center;\n        align-content:center;\n        flex-direction:column; /* column | row */\n        z-index: 1;\n    }\n\n    #explanation2 {\n        position: absolute;\n        margin: auto;\n        position: absolute;\n        top: 0; left: 0; bottom: 0; right: 0;\n        width: 35%;\n        height: 180px;\n        color: #666;\n        display: flex;\n        justify-content:center;\n        align-content:center;\n        flex-direction:column; /* column | row */\n    }\n\n    #explanation2 img{\n     width: 50px;\n     margin: 0 auto;\n     display: inline-block;\n    }\n\n    #centerimg {\n        position: absolute;\n        border-radius: 50%;\n        width: 90%;\n        height: 90%;\n        top: 5%;\n        left: 5%;\n        z-index: 0;\n        opacity: 0.5;\n    }\n\n    #percentage{\n          font-size: 2.5em;\n          z-index: 1;\n    }\n\n    #category {\n        z-index: 1\n    }\n ",]
                     }), 
                     __metadata('design:paramtypes', [core_1.Renderer, core_1.ElementRef])
                 ], SunburstComponent);

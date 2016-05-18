@@ -17,6 +17,7 @@ import {SimpleChange} from "../../../../node_modules/angular2/src/core/change_de
            <p > Klik op een categorie om de acties van deze categorie te bekijken.</p>
         </h5>
       </div>
+
       <div [style]="'height:' + height + 'px'" class="noData" [ngClass]="{hide: data.length > 0}">
         <p>Geen grafiekgegevens beschikbaar.</p>
       </div>
@@ -75,10 +76,10 @@ import {SimpleChange} from "../../../../node_modules/angular2/src/core/change_de
     #centerimg {
         position: absolute;
         border-radius: 50%;
-        width: 100%;
-        height: 100%;
-        top: 0;
-        left: 0;
+        width: 90%;
+        height: 90%;
+        top: 5%;
+        left: 5%;
         z-index: 0;
         opacity: 0.5;
     }
@@ -103,7 +104,6 @@ export class SunburstComponent {
     translation: string;
 
     constructor(public renderer: Renderer, public el: ElementRef){
-        console.log('333', this.data);
     }
 
     ngOnInit() {
@@ -111,7 +111,6 @@ export class SunburstComponent {
     };
 
     ngOnChanges(changes: {[propertyName: string]: SimpleChange}) {
-        console.log('555', this.data)
 
         var chart = d3.select(this.el.nativeElement).select("#chart");
         chart.select('#chartsvg').remove();
@@ -154,7 +153,6 @@ export class SunburstComponent {
 
 
         createVisualization(json, this.onClick, partition, arc, colors, totalSize, chart);
-        console.log('hey2');
 
     }
 }
@@ -191,7 +189,6 @@ function createVisualization(json: Object, callbackFunction: any, partition: any
         .filter(function(d : any) {
             return (d.dx > 0.005); // 0.005 radians = 0.29 degrees
         });
-    console.log('hey');
 
     let path = chart.select("#container").data([json]).selectAll("path")
         .data(nodes)
@@ -202,23 +199,22 @@ function createVisualization(json: Object, callbackFunction: any, partition: any
         .style("fill", function(d : any) { return colors[d.name]; })
         .attr("stroke", "white")
         .attr("stroke-width", 1)
+        .attr("data-toggle", "modal")
+        .attr("data-target", "#actions")
         .style("opacity", 1)
         .on("mouseover", (d: any) => mouseover(d, totalSize, chart))
         .on("mousedown", (d: any) => mouseclick(d, callbackFunction));
-    console.log('hey9');
 
     // Add the mouseleave handler to the bounding circle.
     chart.select("#container").on("mouseleave", (d: any) => mouseleave( d, chart));
 
     // Get total size of the tree = value of root node from partition.
     totalSize = path.node().__data__.value;
-    console.log('hey3');
 
 };
 
 // Fade all but the current sequence
 function mouseover(d: any, totalSize: any, chart:any) {
-    console.log('hey0');
 
     let percentage = (100 * d.value / totalSize).toPrecision(3);
     let percentageString = percentage + "%";
@@ -227,14 +223,12 @@ function mouseover(d: any, totalSize: any, chart:any) {
     }
     chart.select("#percentage")
         .text(percentageString);
-    console.log('hey6');
 
     chart.select("#explanation")
         .style("visibility", "");
 
     chart.select("#explanation2")
         .style("visibility", "hidden");
-    console.log('hey4');
 
     chart.select("#category").text(d.name);
 
@@ -242,9 +236,7 @@ function mouseover(d: any, totalSize: any, chart:any) {
             .attr("src","/app/images/categories/"+d.code+".jpg" );
 
     var sequenceArray = getAncestors(d);
-    console.log('hey5');
-
-    console.log('hey');
+;
 
     // Fade all the segments.
     chart.selectAll("path")
@@ -298,7 +290,6 @@ function getAncestors(node: any) {
 // root to leaf, separated by hyphens. The second column is a count of how
 // often that sequence occurred.
 function buildHierarchy(data: [Object], colors: Object) {
-    console.log('555 hier', data)
     var root = {"name": "root", "children": [Object]};
 
     for (var i = 0; i < data.length; i++) {
@@ -381,12 +372,10 @@ function buildHierarchy(data: [Object], colors: Object) {
         }
     }
 
-    console.log('root', root);
     return root;
 };
 
 function _moveNodeDown(children: [Object] , categoryName: string) {
-    console.log(children, categoryName);
     for (var k = 0; k < children.length; k++) {
         if (children[k]["name"] == categoryName) {
             return children[k]["children"];

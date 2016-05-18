@@ -1,6 +1,4 @@
-System.register([], function(exports_1, context_1) {
-    "use strict";
-    var __moduleName = context_1 && context_1.id;
+System.register([], function(exports_1) {
     var BestuurType;
     return {
         setters:[],
@@ -11,7 +9,7 @@ System.register([], function(exports_1, context_1) {
             (function (BestuurType) {
                 BestuurType[BestuurType["Gemeente"] = 1] = "Gemeente";
                 BestuurType[BestuurType["OCMW"] = 2] = "OCMW";
-                BestuurType[BestuurType["AutonoomGemeenteBedrijf"] = 3] = "AutonoomGemeenteBedrijf";
+                BestuurType[BestuurType["Autonoom Gemeente Bedrijf"] = 3] = "Autonoom Gemeente Bedrijf";
             })(BestuurType || (BestuurType = {}));
             exports_1("BestuurType", BestuurType);
         }

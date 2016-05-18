@@ -52,6 +52,14 @@ import {TownSelectorComponent} from '../input/townSelector.component.js';
           </ul>
         </li>
         <li class="dropdown">
+          <a href="#" class="dropdown-toggle" data-toggle="dropdown" role="button" aria-haspopup="true" aria-expanded="false">Moderator<span class="caret"></span></a>
+          <ul class="dropdown-menu">
+            <li><a [routerLink]="['Moderator', {town: townString}, 'OverviewUsers']">Overzicht gebruikers</a></li>
+            <li><a [routerLink]="['Moderator', {town: townString}, 'OverviewPropositions']">Overzicht voorstellen</a></li>
+
+          </ul>
+        </li>
+        <li class="dropdown">
           <a href="#" class="dropdown-toggle" data-toggle="dropdown" role="button" aria-haspopup="true" aria-expanded="false">SuperAdmin<span class="caret"></span></a>
           <ul class="dropdown-menu">
             <li><a [routerLink]="['SuperAdmin', {town: townString}, 'GeneralSettings']">Algemene instellingen</a></li>

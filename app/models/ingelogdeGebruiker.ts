@@ -1,10 +1,5 @@
-/**
- * Created by nadya on 11/05/2016.
- */
 import {rolType} from "./rolType";
-/**
- * Created by kevin on 08/05/2016.
- */
+
 export class IngelogdeGebruiker {
 
     userId:string;

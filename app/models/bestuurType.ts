@@ -5,6 +5,6 @@ export enum BestuurType {
 
     Gemeente=1,
     OCMW=2,
-    AutonoomGemeenteBedrijf=3
+    "Autonoom Gemeente Bedrijf"=3
 
 }
