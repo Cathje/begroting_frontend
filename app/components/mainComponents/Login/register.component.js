@@ -51,7 +51,7 @@ System.register(['angular2/core', 'angular2/router', "../../../services/loginSer
                 };
                 RegisterComponent.prototype.goToLogin = function (data) {
                     if (data != null) {
-                        sessionStorage.setItem("newUser", "yes");
+                        //sessionStorage.setItem("newUser","yes");
                         this._router.navigate(['/', 'App', 'Login']);
                     }
                 };
