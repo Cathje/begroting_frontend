@@ -1,1 +1,1 @@
-{"version":3,"file":"projectScenario.js","sourceRoot":"","sources":["projectScenario.ts"],"names":[],"mappings":"AAAA;;GAEG;;;;;;;;YAEH,WAAY,eAAe;gBACvB,+DAAS,CAAA;gBACT,qEAAY,CAAA;gBACZ,iEAAU,CAAA;YACd,CAAC,EAJW,eAAe,KAAf,eAAe,QAI1B;0DAAA"}
+{"version":3,"file":"projectScenario.js","sourceRoot":"","sources":["projectScenario.ts"],"names":["ProjectScenario"],"mappings":"AAAA;;GAEG;;;;;;YAEH,WAAY,eAAe;gBACvBA,+DAASA,CAAAA;gBACTA,qEAAYA,CAAAA;gBACZA,iEAAUA,CAAAA;YACdA,CAACA,EAJW,eAAe,KAAf,eAAe,QAI1B;0DAAA"}
