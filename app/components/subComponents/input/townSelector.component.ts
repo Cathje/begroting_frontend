@@ -10,7 +10,7 @@ import {MainTown} from "../../../models/mainTown";
                  <div class=" styled-select slate">
                     <select class="" (change)="gotoHome($event)">
                         <option>Selecteer een gemeente</option>
-                        <option *ngFor="#town of towns">{{town.naam}} - {{town.postCode}}</option>
+                        <option *ngFor="#town of towns" [value]="town.naam">{{town.naam}} - {{town.postCode}}</option>
                     </select>
                 </div>
     `,

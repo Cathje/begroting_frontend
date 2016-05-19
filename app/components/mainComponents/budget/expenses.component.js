@@ -67,7 +67,7 @@ System.register(['angular2/core', './../../../services/townService.component', '
                     this.showActions = false;
                     this.isEditor = false; //TODO: adapt value when signed in with special role
                     this.categories = [];
-                    this.headCategories = mock_categories_1.categories;
+                    this.headCategories = mock_categories_1.CATEGORIES;
                     this.types = bestuurType_1.BestuurType;
                     this.windowWidth = window.innerWidth;
                     this.width = window.innerWidth < 768 ? window.innerWidth * 0.8 : window.innerWidth / 2.5;

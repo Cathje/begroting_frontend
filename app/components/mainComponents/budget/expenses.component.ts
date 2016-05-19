@@ -10,7 +10,7 @@ import {BegrotingService} from "../../../services/begrotingService";
 import {Actie} from "../../../models/actie";
 import {GemeenteCategorie} from "../../../models/gemeenteCategorie";
 import {Categorie} from "../../../models/categorie";
-import {categories} from "../../../mockData/mock-categories";
+import {CATEGORIES} from "../../../mockData/mock-categories";
 import {BestuurType} from "../../../models/bestuurType";
 import {KeysPipe} from "../../../pipes/keysPipe";
 
@@ -238,7 +238,7 @@ export class ExpensesComponent {
     errorMessage:any;
     isEditor: boolean = false; //TODO: adapt value when signed in with special role
     categories: GemeenteCategorie [] = [];
-    headCategories: Categorie [] = categories;
+    headCategories: Categorie [] = CATEGORIES;
     types = BestuurType;
     windowWidth = window.innerWidth;
 
