@@ -39,7 +39,7 @@ import {GemeenteCategorie} from "../../../models/gemeenteCategorie";
     
     <h2>InspraakNiveaus vaststellen</h2>
              <div *ngFor="#cat of categorieen #i = index"> 
-                <h5>categorie: {{cat.naamCatz}}</h5>
+                <h5>categorie: {{cat.naamCat}}</h5>
                 <p>totaal: {{cat.totaal}}</p>
                 <p>InspraakNiveau: {{niveaus[cat.inspraakNiveau]}}</p>
                 
