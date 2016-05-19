@@ -181,12 +181,18 @@ export class ManageDataComponent {
 
     voegToe()
     {
-        this.mainTown.bestuur.push(this.bestuur);
+
+        this.mainTown.bestuur.push(new Bestuur(this.bestuur.naam, this.bestuur.type));
         console.log(this.mainTown.bestuur);
     }
     verwijder(id: number, b: Bestuur)
     {
+        //@TODO geeft in code een error maar werkt --> ??
         this.mainTown.bestuur.pop(b);
-        this._townService.deleteBestuurslid(id).subscribe();
+        if(id != 0)
+        {
+            this._townService.deleteBestuurslid(id).subscribe();
+        }
+
     }
 }

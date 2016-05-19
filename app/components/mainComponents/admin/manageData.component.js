@@ -60,12 +60,15 @@ System.register(['angular2/core', 'angular2/router', "../../subComponents/input/
                     this._router.navigate(['/', 'App', 'Budget', { town: this.mainTown.naam }]);
                 };
                 ManageDataComponent.prototype.voegToe = function () {
-                    this.mainTown.bestuur.push(this.bestuur);
+                    this.mainTown.bestuur.push(new bestuur_1.Bestuur(this.bestuur.naam, this.bestuur.type));
                     console.log(this.mainTown.bestuur);
                 };
                 ManageDataComponent.prototype.verwijder = function (id, b) {
+                    //@TODO geeft in code een error maar werkt --> ??
                     this.mainTown.bestuur.pop(b);
-                    this._townService.deleteBestuurslid(id).subscribe();
+                    if (id != 0) {
+                        this._townService.deleteBestuurslid(id).subscribe();
+                    }
                 };
                 ManageDataComponent = __decorate([
                     core_1.Component({
