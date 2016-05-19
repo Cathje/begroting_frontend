@@ -17,7 +17,7 @@ export class BegrotingService {
 
 
     }
-   private _url = 'http://begroting-webapi.azurewebsites.net/api/Begroting';
+  private _url = 'http://begroting-webapi.azurewebsites.net/api/Begroting';
   //private _url = 'http://localhost:52597/api/Begroting';
 
     getGemeenteCategorieen(jaar:number, naam:string):Observable<GemeenteCategorie[]> {

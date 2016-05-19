@@ -16,7 +16,7 @@ import {TownSelectorComponent} from '../input/townSelector.component';
         <span class="icon-bar"></span>
         <span class="icon-bar"></span>
       </button>
-      <a class="navbar-brand" [routerLink]="['Home']">Home</a>
+      <a class="navbar-brand" [routerLink]="['Home']"><span class="glyphicon glyphicon-home"></span></a>
     </div>
 
     <!-- Collect the nav links, forms, and other content for toggling -->
@@ -78,6 +78,7 @@ import {TownSelectorComponent} from '../input/townSelector.component';
     styles:[`
     .navbar {
         margin-bottom: 0;
+        border: none;
     }
 
     .navbar-default {
@@ -87,6 +88,10 @@ import {TownSelectorComponent} from '../input/townSelector.component';
 
     .navbar-right {
     padding: 10px 0;
+    }
+
+    .navbar-default .navbar-toggle .icon-bar{
+    background-color:white;
     }
 
     .dropdown-menu {

@@ -10,7 +10,7 @@ import {BegrotingService} from "../../../services/begrotingService";
 import {Actie} from "../../../models/actie";
 import {GemeenteCategorie} from "../../../models/gemeenteCategorie";
 import {Categorie} from "../../../models/categorie";
-import {categories} from "../../../mockData/mock-categories";
+import {CATEGORIES} from "../../../mockData/mock-categories";
 import {BestuurType} from "../../../models/bestuurType";
 import {KeysPipe} from "../../../pipes/keysPipe";
 
@@ -160,12 +160,23 @@ import {KeysPipe} from "../../../pipes/keysPipe";
     .container {
         max-width: 1200px;
     }
-.modal.left .modal-dialog,
-	.modal.right .modal-dialog {
+.modal.left .modal-dialog {
 		position: fixed;
 		margin: auto;
 		width: 50%;
-		height: 100%;
+		margin-top:125px;
+		height: 80%;
+		-webkit-transform: translate3d(0%, 0, 0);
+		    -ms-transform: translate3d(0%, 0, 0);
+		     -o-transform: translate3d(0%, 0, 0);
+		        transform: translate3d(0%, 0, 0);
+	}
+
+	.modal.right .modal-dialog {
+		position: fixed;
+		margin: auto;
+		width: 100%;
+		height: 87%;
 		-webkit-transform: translate3d(0%, 0, 0);
 		    -ms-transform: translate3d(0%, 0, 0);
 		     -o-transform: translate3d(0%, 0, 0);
@@ -198,15 +209,15 @@ import {KeysPipe} from "../../../pipes/keysPipe";
 
 /*Right*/
 	.modal.right.fade .modal-dialog {
-		right: -50%;
-		-webkit-transition: opacity 0.3s linear, right 0.3s ease-out;
-		   -moz-transition: opacity 0.3s linear, right 0.3s ease-out;
-		     -o-transition: opacity 0.3s linear, right 0.3s ease-out;
-		        transition: opacity 0.3s linear, right 0.3s ease-out;
+		bottom: -50%;
+		-webkit-transition: opacity 0.3s linear, bottom 0.3s ease-out;
+		   -moz-transition: opacity 0.3s linear, bottom 0.3s ease-out;
+		     -o-transition: opacity 0.3s linear, bottom 0.3s ease-out;
+		        transition: opacity 0.3s linear, bottom 0.3s ease-out;
 	}
 
 	.modal.right.fade.in .modal-dialog {
-		right: 0;
+		bottom: 0;
 	}
 
 @media screen and (max-width: 480px) {
@@ -238,7 +249,7 @@ export class ExpensesComponent {
     errorMessage:any;
     isEditor: boolean = false; //TODO: adapt value when signed in with special role
     categories: GemeenteCategorie [] = [];
-    headCategories: Categorie [] = categories;
+    headCategories: Categorie [] = CATEGORIES;
     types = BestuurType;
     windowWidth = window.innerWidth;
 

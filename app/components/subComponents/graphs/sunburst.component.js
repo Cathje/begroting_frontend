@@ -1,4 +1,4 @@
-System.register(['angular2/core', 'd3'], function(exports_1, context_1) {
+System.register(['angular2/core', 'd3', "../../../mockData/mock-categories"], function(exports_1, context_1) {
     "use strict";
     var __moduleName = context_1 && context_1.id;
     var __decorate = (this && this.__decorate) || function (decorators, target, key, desc) {
@@ -10,29 +10,8 @@ System.register(['angular2/core', 'd3'], function(exports_1, context_1) {
     var __metadata = (this && this.__metadata) || function (k, v) {
         if (typeof Reflect === "object" && typeof Reflect.metadata === "function") return Reflect.metadata(k, v);
     };
-    var core_1, d3;
+    var core_1, d3, mock_categories_1;
     var SunburstComponent;
-    function addHeadCategoryCodeToData(data) {
-        for (var i = 0; i < data.length; i++) {
-            data[i]['code'] = getMainCategoryCode(data[i]['catA']);
-        }
-        return data;
-    }
-    function getMainCategoryCode(category) {
-        switch (category) {
-            case 'Algemeen bestuur': return "01";
-            case 'Zich verplaatsen en mobiliteit': return "02";
-            case 'Natuur en milieubeheer': return "03";
-            case 'Veiligheidszorg': return "04";
-            case 'Ondernemen en werken': return "05";
-            case 'Wonen en ruimtelijke ordening': return "06";
-            case 'Cultuur en vrije tijd': return "07";
-            case 'Leren en onderwijs': return "08";
-            case 'Zorg en opvang': return "09";
-            case 'Algemene financiering': return "00";
-            default: return "00";
-        }
-    }
     // Main function to draw and set up the visualization, once we have the data.
     function createVisualization(json, callbackFunction, partition, arc, colors, totalSize, chart) {
         // For efficiency, filter nodes to keep only those large enough to see.
@@ -74,7 +53,7 @@ System.register(['angular2/core', 'd3'], function(exports_1, context_1) {
             .style("visibility", "hidden");
         chart.select("#category").text(d.name);
         chart.select("#centerimg")
-            .attr("src", "/app/images/categories/" + d.code + ".jpg");
+            .attr("src", "/app/images/categories/" + d.code.replace(new RegExp(' ', 'g'), '').toLowerCase() + ".jpg");
         var sequenceArray = getAncestors(d);
         ;
         // Fade all the segments.
@@ -117,7 +96,7 @@ System.register(['angular2/core', 'd3'], function(exports_1, context_1) {
     // for a partition layout. The first column is a sequence of step names, from
     // root to leaf, separated by hyphens. The second column is a count of how
     // often that sequence occurred.
-    function buildHierarchy(data, colors) {
+    function buildHierarchy(data, colors, categories) {
         var root = { "name": "root", "children": [Object] };
         for (var i = 0; i < data.length; i++) {
             var currentNode = root;
@@ -125,8 +104,8 @@ System.register(['angular2/core', 'd3'], function(exports_1, context_1) {
             if (!data[i].hasOwnProperty('catB') && !data[i].hasOwnProperty('catC')) {
                 var size = +Math.abs(data[i]['totaal']);
                 var nodeName = data[i]['catA'];
-                var catA = { "name": nodeName, "id": data[i]['ID'], "code": data[i]['code'], "size": size, "children": [] };
-                colors[nodeName] = get_random_color(data[i]['code']);
+                var catA = { "name": nodeName, "id": data[i]['ID'], "code": data[i]['catA'], "size": size, "children": [] };
+                colors[nodeName] = categories.filter(function (categorie) { return categorie.naam === data[i]['catA']; })[0]['kleur'];
                 root["children"].push(catA);
             }
             else if (!data[i].hasOwnProperty('catC')) {
@@ -136,15 +115,15 @@ System.register(['angular2/core', 'd3'], function(exports_1, context_1) {
                 var catA = children.filter(function (obj) { return obj["name"] == data[i]['catA']; });
                 // If we don't already have a Cat A for this branch, create it.
                 if (Object.keys(catA).length === 0) {
-                    var catANode = { "name": data[i]['catA'], "id": id, "code": data[i]['code'], "size": size, "children": [] };
+                    var catANode = { "name": data[i]['catA'], "id": id, "code": data[i]['catA'], "size": size, "children": [] };
                     children.push(catANode);
-                    colors[data[i]['catA']] = get_random_color(data[i]['code']);
+                    colors[data[i]['catA']] = categories.filter(function (categorie) { return categorie.naam === data[i]['catA']; })[0]['kleur'];
                 }
                 // move node down in hierarchy > to level A children
                 children = _moveNodeDown(children, data[i]['catA']);
                 // add catB to the catA children array
-                var catBNode = { "name": data[i]['catB'], "id": id, "code": data[i]['code'], "size": size, "children": [] };
-                colors[data[i]['catB']] = get_random_color(data[i]['code']);
+                var catBNode = { "name": data[i]['catB'], "id": id, "code": data[i]['catA'], "size": size, "children": [] };
+                colors[data[i]['catB']] = categories.filter(function (categorie) { return categorie.naam === data[i]['catA']; })[0]['kleur'];
                 children.push(catBNode);
             }
             else {
@@ -154,9 +133,9 @@ System.register(['angular2/core', 'd3'], function(exports_1, context_1) {
                 var catA = children.filter(function (obj) { return obj["name"] == data[i]['catA']; });
                 // If we don't already have a Cat A for this branch, create it.
                 if (Object.keys(catA).length === 0) {
-                    var catANode = { "name": data[i]['catA'], "id": id, "code": data[i]['code'], "size": size, "children": [] };
+                    var catANode = { "name": data[i]['catA'], "id": id, "code": data[i]['catA'], "size": size, "children": [] };
                     children.push(catANode);
-                    colors[data[i]['catA']] = get_random_color(data[i]['code']);
+                    colors[data[i]['catA']] = categories.filter(function (categorie) { return categorie.naam === data[i]['catA']; })[0]['kleur'];
                 }
                 // move node down in hierarchy > to level A children
                 children = _moveNodeDown(children, data[i]['catA']);
@@ -164,16 +143,16 @@ System.register(['angular2/core', 'd3'], function(exports_1, context_1) {
                 var catB = children.filter(function (obj) { return obj["name"] == data[i]['catA']; });
                 // If we don't already have a Cat B for this branch, create it.
                 if (Object.keys(catB).length === 0) {
-                    var catBNode = { "name": data[i]['catB'], "id": id, "code": data[i]['code'], "size": size, "children": [] };
+                    var catBNode = { "name": data[i]['catB'], "id": id, "code": data[i]['catA'], "size": size, "children": [] };
                     children.push(catBNode);
-                    colors[data[i]['catB']] = get_random_color(data[i]['code']);
+                    colors[data[i]['catB']] = categories.filter(function (categorie) { return categorie.naam === data[i]['catA']; })[0]['kleur'];
                 }
                 // move node down in hierarchy > to level B children
                 children = _moveNodeDown(children, data[i]['catB']);
                 // add catC to the catB children array
-                var catCNode = { "name": data[i]['catC'], "id": id, "code": data[i]['code'], "size": size, "children": [] };
+                var catCNode = { "name": data[i]['catC'], "id": id, "code": data[i]['catA'], "size": size, "children": [] };
                 children.push(catCNode);
-                colors[data[i]['catC']] = get_random_color(data[i]['code']);
+                colors[data[i]['catC']] = categories.filter(function (categorie) { return categorie.naam === data[i]['catA']; })[0]['kleur'];
             }
         }
         return root;
@@ -186,55 +165,6 @@ System.register(['angular2/core', 'd3'], function(exports_1, context_1) {
         }
         return children;
     }
-    function _createCategory() {
-    }
-    function rand(min, max) {
-        return Math.random() * (max - min + 1) + min;
-    }
-    function get_random_color(categoryCode) {
-        //TODO: niet hard coded mappen, maar ahv category string
-        switch (categoryCode) {
-            case '00': return "#999999"; // grijs* financien
-            case '01': return "#ffdf50"; // geel* financien
-            case '02': return "#f7bdc7"; //pink
-            case '03': return "#d0d257"; //green* natuur
-            case 'O4': return "#ff8e6c"; //orange* veiligheid
-            case '05': return "#00cad2"; //darkblue* ondernemen
-            case '06': return "#80d9be"; //darkgreen* milieu
-            case '07': return "#ff0000"; // red* sport
-            case '08': return "#efb3e9"; //purple* onderwijs
-            case '09': return "#fa7fb8"; // pink* zorg
-            default: return "#ffff99"; // lightgreen
-        }
-        // als we kleurtjes willen met gradaties
-        /*
-        var h;
-        var s;
-        var l;
-    
-        switch(categoryCode) {
-            case '00': h = 0;s = 1 ;l =rand(30, 80);break; // grijs* financien
-            case '01': h =rand(20, 60);s = 100 ;l =rand(30, 80);break; // geel* financien
-            case '02': h = 300;s = 50 ;l =rand(50, 100);break; //pink
-            case '03': h = 80;s = 75 ;l =rand(70, 100);break; //lightgreen* natuur
-            case 'O4': h = 20;s = 75 ;l =rand(70, 100);break; //orange* veiligheid
-            case '05': h = 200;s = 75 ;l =rand(50, 100);break; //darkblue* ondernemen
-            case '06': h = 160;s = 75 ;l =rand(40, 80);break; //darkgreen* milieu
-            case '07': h = 0;s = 80 ;l =rand(70, 100);break; // red* sport
-            case '08': h = 270;s = 75 ;l =rand(40, 100);break; //purple* onderwijs
-            case '09': h = 300;s = 80 ;l =rand(70, 90);break; // pink* zorg
-            default: h = 258;s = 100 ;l =rand(80, 100);break; // darkblue
-        }
-        return 'hsl(' + h + ',' + s + '%,' + l + '%)';
-        */
-        // als we enkel blauwtinten willen
-        /*
-     var h = rand(180, 190);
-     var s = rand(60, 65);
-     var l = rand(20, 70);
-     return 'hsl(' + h + ',' + s + '%,' + l + '%)';
-    */
-    }
     return {
         setters:[
             function (core_1_1) {
@@ -242,6 +172,9 @@ System.register(['angular2/core', 'd3'], function(exports_1, context_1) {
             },
             function (d3_1) {
                 d3 = d3_1;
+            },
+            function (mock_categories_1_1) {
+                mock_categories_1 = mock_categories_1_1;
             }],
         execute: function() {
             SunburstComponent = (function () {
@@ -275,8 +208,7 @@ System.register(['angular2/core', 'd3'], function(exports_1, context_1) {
                             .endAngle(function (d) { return d.x + d.dx; })
                             .innerRadius(function (d) { return Math.sqrt(d.y); })
                             .outerRadius(function (d) { return Math.sqrt(d.y + d.dy); });
-                        var formattedData = addHeadCategoryCodeToData(_this.data);
-                        var json = buildHierarchy(formattedData, colors);
+                        var json = buildHierarchy(_this.data, colors, mock_categories_1.CATEGORIES);
                         createVisualization(json, _this.onClick, partition, arc, colors, totalSize, chart);
                     };
                 }
@@ -307,7 +239,7 @@ System.register(['angular2/core', 'd3'], function(exports_1, context_1) {
                 SunburstComponent = __decorate([
                     core_1.Component({
                         selector: 'sunburst',
-                        template: "\n      <div id=\"chart\" [ngClass]=\"{hide: data.length < 1}\" [style]=\"'width:' + width + 'px'\">\n        <h5 id=\"explanation\" style=\"visibility: hidden;\">\n          <img id=\"centerimg\" src=\"/app/images/categories/01.jpg\"/>\n          <span id=\"percentage\"></span><br/>\n          <span id=\"category\"></span>\n        </h5>\n        <h5 id=\"explanation2\">\n          <img  src=\"/app/images/icons/clickPointer.png\">\n           <p > Klik op een categorie om de acties van deze categorie te bekijken.</p>\n        </h5>\n      </div>\n\n      <div [style]=\"'height:' + height + 'px'\" class=\"noData\" [ngClass]=\"{hide: data.length > 0}\">\n        <p>Geen grafiekgegevens beschikbaar.</p>\n      </div>\n\n    ",
+                        template: "\n      <div id=\"chart\" [ngClass]=\"{hide: data.length < 1}\" [style]=\"'width:' + width + 'px'\">\n        <h5 id=\"explanation\" style=\"visibility: hidden;\">\n          <img id=\"centerimg\" src=\"\"/>\n          <span id=\"percentage\"></span><br/>\n          <span id=\"category\"></span>\n        </h5>\n        <h5 id=\"explanation2\">\n          <img  src=\"/app/images/icons/clickPointer.png\">\n           <p > Klik op een categorie om de acties van deze categorie te bekijken.</p>\n        </h5>\n      </div>\n\n      <div [style]=\"'height:' + height + 'px'\" class=\"noData\" [ngClass]=\"{hide: data.length > 0}\">\n        <p>Geen grafiekgegevens beschikbaar.</p>\n      </div>\n\n    ",
                         providers: [],
                         styles: ["\n\n    .noData p{\n        padding-top: 40%;\n        text-align: center;\n    }\n\n    #chart {\n        position: relative;\n        text-align: center;\n        margin: 0 auto;\n    }\n\n    #explanation {\n        position: absolute;\n        margin: auto;\n        position: absolute;\n        top: 0; left: 0; bottom: 0; right: 0;\n        width: 50%;\n        height: 50%;\n        border-radius: 50%;\n        color: black;\n        display: flex;\n        justify-content:center;\n        align-content:center;\n        flex-direction:column; /* column | row */\n        z-index: 1;\n    }\n\n    #explanation2 {\n        position: absolute;\n        margin: auto;\n        position: absolute;\n        top: 0; left: 0; bottom: 0; right: 0;\n        width: 35%;\n        height: 180px;\n        color: #666;\n        display: flex;\n        justify-content:center;\n        align-content:center;\n        flex-direction:column; /* column | row */\n    }\n\n    #explanation2 img{\n     width: 50px;\n     margin: 0 auto;\n     display: inline-block;\n    }\n\n    #centerimg {\n        position: absolute;\n        border-radius: 50%;\n        width: 90%;\n        height: 90%;\n        top: 5%;\n        left: 5%;\n        z-index: 0;\n        opacity: 0.5;\n    }\n\n    #percentage{\n          font-size: 2.5em;\n          z-index: 1;\n    }\n\n    #category {\n        z-index: 1\n    }\n ",]
                     }), 

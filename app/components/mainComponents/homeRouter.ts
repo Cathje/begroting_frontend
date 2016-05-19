@@ -1,6 +1,5 @@
 import {Component} from 'angular2/core';
 
-import {TownSelectorComponent} from '/app/components/subComponents/input/townSelector.component'
 import {NavigationMenuComponent} from './../subComponents/nav/menu.component';
 
 import {HomeComponent} from './home.component';
@@ -10,27 +9,17 @@ import {ParticipationRouter} from "./participation/participationRouter";
 import {SuperAdminRouter} from "./superadmin/superAdminRouter";
 import {ModeratorRouter} from "./moderator/moderatorRouter";
 
-import {RouteConfig, ROUTER_DIRECTIVES, Location} from 'angular2/router'; // for routing
+import {RouteConfig, ROUTER_DIRECTIVES, Location} from 'angular2/router';
 import {HTTP_PROVIDERS} from "angular2/http";
 
 
-@Component({ //invoke with metadata object
+@Component({
     selector: 'home-router',
     template: `
-    <navigation-menu [ngClass]="{hide: _location.path() === ''}"></navigation-menu>
-    <router-outlet></router-outlet>
-    `
+    <navigation-menu *ngIf="_location.path() !== ''"></navigation-menu>
+    <router-outlet></router-outlet>    `
     ,
-    directives: [ROUTER_DIRECTIVES, NavigationMenuComponent, TownSelectorComponent],
-    styles: [`    .home-menu {
-    padding: 5px;
-    background-color: #2ac7d2;
-    display: flex;
-    flex-direction: row;
-    justify-content: space-between;
-    align-items: center;
-    sel
-    }`]
+    directives: [ROUTER_DIRECTIVES, NavigationMenuComponent],
 })
 
 @RouteConfig([
@@ -44,8 +33,5 @@ import {HTTP_PROVIDERS} from "angular2/http";
 ])
 
 export class HomeRouter {
-    title = 'Home';
-    constructor( private _location:Location )
-    {
-    }
+    constructor( private _location:Location ) {}
 }

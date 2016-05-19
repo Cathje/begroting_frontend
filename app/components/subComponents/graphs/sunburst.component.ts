@@ -2,13 +2,14 @@ import {Component, Directive, ViewChild, ElementRef, Renderer, Input} from 'angu
 /// <reference path="../../../../typings/browser/definitions/d3/index.d.ts" />
 import * as d3 from 'd3';
 import {SimpleChange} from "../../../../node_modules/angular2/src/core/change_detection/change_detection_util";
+import {CATEGORIES} from "../../../mockData/mock-categories";
 
 @Component({ //invoke with metadata object
     selector: 'sunburst',
     template: `
       <div id="chart" [ngClass]="{hide: data.length < 1}" [style]="'width:' + width + 'px'">
         <h5 id="explanation" style="visibility: hidden;">
-          <img id="centerimg" src="/app/images/categories/01.jpg"/>
+          <img id="centerimg" src=""/>
           <span id="percentage"></span><br/>
           <span id="category"></span>
         </h5>
@@ -147,39 +148,13 @@ export class SunburstComponent {
             .innerRadius(function(d: any) { return Math.sqrt(d.y); })
             .outerRadius(function(d: any) { return Math.sqrt(d.y + d.dy); });
 
-        let formattedData = addHeadCategoryCodeToData(this.data);
-
-        let json: Object = buildHierarchy(formattedData, colors);
-
+        let json: Object = buildHierarchy(this.data, colors, CATEGORIES);
 
         createVisualization(json, this.onClick, partition, arc, colors, totalSize, chart);
 
     }
 }
 
-function addHeadCategoryCodeToData(data: [Object]){
-    for (var i = 0; i < data.length; i++) {
-      data[i]['code'] = getMainCategoryCode(data[i]['catA']);
-    }
-    return data;
-
-}
-
-function getMainCategoryCode(category: string){
-    switch(category) {
-        case 'Algemeen bestuur': return "01";
-        case 'Zich verplaatsen en mobiliteit': return "02";
-        case 'Natuur en milieubeheer': return "03";
-        case 'Veiligheidszorg': return "04";
-        case 'Ondernemen en werken': return "05";
-        case 'Wonen en ruimtelijke ordening': return "06";
-        case 'Cultuur en vrije tijd': return "07";
-        case 'Leren en onderwijs': return "08";
-        case 'Zorg en opvang': return "09";
-        case 'Algemene financiering': return "00";
-        default: return "00";
-    }
-}
 
 // Main function to draw and set up the visualization, once we have the data.
 function createVisualization(json: Object, callbackFunction: any, partition: any, arc: any, colors: Object, totalSize: any, chart: any) {
@@ -233,7 +208,7 @@ function mouseover(d: any, totalSize: any, chart:any) {
     chart.select("#category").text(d.name);
 
     chart.select("#centerimg")
-            .attr("src","/app/images/categories/"+d.code+".jpg" );
+            .attr("src","/app/images/categories/"+d.code.replace(new RegExp(' ', 'g'), '').toLowerCase()+".jpg" );
 
     var sequenceArray = getAncestors(d);
 ;
@@ -289,7 +264,7 @@ function getAncestors(node: any) {
 // for a partition layout. The first column is a sequence of step names, from
 // root to leaf, separated by hyphens. The second column is a count of how
 // often that sequence occurred.
-function buildHierarchy(data: [Object], colors: Object) {
+function buildHierarchy(data: [Object], colors: Object, categories) {
     var root = {"name": "root", "children": [Object]};
 
     for (var i = 0; i < data.length; i++) {
@@ -300,8 +275,8 @@ function buildHierarchy(data: [Object], colors: Object) {
             var size = + Math.abs(data[i]['totaal']);
             let nodeName : string = data[i]['catA'];
 
-            let catA : Object = {"name": nodeName, "id": data[i]['ID'],"code": data[i]['code'], "size": size, "children": []};
-            colors[nodeName] = get_random_color(data[i]['code']);
+            let catA : Object = {"name": nodeName, "id": data[i]['ID'],"code": data[i]['catA'], "size": size, "children": []};
+            colors[nodeName] = categories.filter((categorie) => categorie.naam === data[i]['catA'])[0]['kleur'];
 
             root["children"].push(catA);
         }
@@ -316,17 +291,17 @@ function buildHierarchy(data: [Object], colors: Object) {
 
             // If we don't already have a Cat A for this branch, create it.
             if (Object.keys(catA).length === 0) {
-                let catANode = {"name": data[i]['catA'], "id": id, "code": data[i]['code'], "size": size, "children": []};
+                let catANode = {"name": data[i]['catA'], "id": id, "code": data[i]['catA'], "size": size, "children": []};
                 children.push(catANode);
-                colors[data[i]['catA']] = get_random_color(data[i]['code']);
+                colors[data[i]['catA']] = categories.filter((categorie) => categorie.naam === data[i]['catA'])[0]['kleur'];
             }
 
             // move node down in hierarchy > to level A children
             children = _moveNodeDown(children, data[i]['catA']);
 
             // add catB to the catA children array
-            let catBNode = {"name": data[i]['catB'], "id": id, "code": data[i]['code'], "size": size, "children": []};
-            colors[data[i]['catB']] = get_random_color(data[i]['code']);
+            let catBNode = {"name": data[i]['catB'], "id": id, "code": data[i]['catA'], "size": size, "children": []};
+            colors[data[i]['catB']] = categories.filter((categorie) => categorie.naam === data[i]['catA'])[0]['kleur'];
             children.push(catBNode);
 
         } else  {
@@ -338,9 +313,9 @@ function buildHierarchy(data: [Object], colors: Object) {
 
             // If we don't already have a Cat A for this branch, create it.
             if (Object.keys(catA).length === 0) {
-                let catANode = {"name": data[i]['catA'], "id": id, "code": data[i]['code'], "size": size, "children": []};
+                let catANode = {"name": data[i]['catA'], "id": id, "code": data[i]['catA'], "size": size, "children": []};
                 children.push(catANode);
-                colors[data[i]['catA']] = get_random_color(data[i]['code']);
+                colors[data[i]['catA']] = categories.filter((categorie) => categorie.naam === data[i]['catA'])[0]['kleur'];
 
             }
 
@@ -353,9 +328,9 @@ function buildHierarchy(data: [Object], colors: Object) {
 
             // If we don't already have a Cat B for this branch, create it.
             if (Object.keys(catB).length === 0) {
-                let catBNode = {"name": data[i]['catB'], "id": id, "code": data[i]['code'], "size": size, "children": []};
+                let catBNode = {"name": data[i]['catB'], "id": id, "code": data[i]['catA'], "size": size, "children": []};
                 children.push(catBNode);
-                colors[data[i]['catB']] = get_random_color(data[i]['code']);
+                colors[data[i]['catB']] = categories.filter((categorie) => categorie.naam === data[i]['catA'])[0]['kleur'];
 
             }
 
@@ -364,9 +339,9 @@ function buildHierarchy(data: [Object], colors: Object) {
 
             // add catC to the catB children array
 
-            let catCNode = {"name": data[i]['catC'], "id": id, "code": data[i]['code'], "size": size, "children": []};
+            let catCNode = {"name": data[i]['catC'], "id": id, "code": data[i]['catA'], "size": size, "children": []};
             children.push(catCNode);
-            colors[data[i]['catC']] = get_random_color(data[i]['code']);
+            colors[data[i]['catC']] = categories.filter((categorie) => categorie.naam === data[i]['catA'])[0]['kleur'];
 
 
         }
@@ -385,60 +360,4 @@ function _moveNodeDown(children: [Object] , categoryName: string) {
 }
 
 
-function _createCategory() {
-
-}
-
-
-function rand(min: number, max: number) {
-    return Math.random() * (max-min+1) + min;
-}
-
-function get_random_color(categoryCode: string) {
-    //TODO: niet hard coded mappen, maar ahv category string
-    switch(categoryCode) {
-        case '00': return "#999999"; // grijs* financien
-        case '01': return "#ffdf50"; // geel* financien
-        case '02': return "#f7bdc7"; //pink
-        case '03': return "#d0d257"; //green* natuur
-        case 'O4': return "#ff8e6c"; //orange* veiligheid
-        case '05': return "#00cad2"; //darkblue* ondernemen
-        case '06': return "#80d9be"; //darkgreen* milieu
-        case '07': return "#ff0000"; // red* sport
-        case '08': return "#efb3e9"; //purple* onderwijs
-        case '09': return "#fa7fb8"; // pink* zorg
-        default: return "#ffff99"; // lightgreen
-    }
-
-
-    // als we kleurtjes willen met gradaties
-    /*
-    var h;
-    var s;
-    var l;
-
-    switch(categoryCode) {
-        case '00': h = 0;s = 1 ;l =rand(30, 80);break; // grijs* financien
-        case '01': h =rand(20, 60);s = 100 ;l =rand(30, 80);break; // geel* financien
-        case '02': h = 300;s = 50 ;l =rand(50, 100);break; //pink
-        case '03': h = 80;s = 75 ;l =rand(70, 100);break; //lightgreen* natuur
-        case 'O4': h = 20;s = 75 ;l =rand(70, 100);break; //orange* veiligheid
-        case '05': h = 200;s = 75 ;l =rand(50, 100);break; //darkblue* ondernemen
-        case '06': h = 160;s = 75 ;l =rand(40, 80);break; //darkgreen* milieu
-        case '07': h = 0;s = 80 ;l =rand(70, 100);break; // red* sport
-        case '08': h = 270;s = 75 ;l =rand(40, 100);break; //purple* onderwijs
-        case '09': h = 300;s = 80 ;l =rand(70, 90);break; // pink* zorg
-        default: h = 258;s = 100 ;l =rand(80, 100);break; // darkblue
-    }
-    return 'hsl(' + h + ',' + s + '%,' + l + '%)';
-    */
-
-    // als we enkel blauwtinten willen
-        /*
-     var h = rand(180, 190);
-     var s = rand(60, 65);
-     var l = rand(20, 70);
-     return 'hsl(' + h + ',' + s + '%,' + l + '%)';
-    */
-}
 

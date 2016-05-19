@@ -1,4 +1,4 @@
-System.register(['angular2/core', 'angular2/router', "../../../services/townService.component", "../../../models/mainTown"], function(exports_1, context_1) {
+System.register(['angular2/core', 'angular2/router', "../../../services/townService.component"], function(exports_1, context_1) {
     "use strict";
     var __moduleName = context_1 && context_1.id;
     var __decorate = (this && this.__decorate) || function (decorators, target, key, desc) {
@@ -10,7 +10,7 @@ System.register(['angular2/core', 'angular2/router', "../../../services/townServ
     var __metadata = (this && this.__metadata) || function (k, v) {
         if (typeof Reflect === "object" && typeof Reflect.metadata === "function") return Reflect.metadata(k, v);
     };
-    var core_1, router_1, townService_component_1, mainTown_1;
+    var core_1, router_1, townService_component_1;
     var TownSelectorComponent;
     return {
         setters:[
@@ -22,31 +22,31 @@ System.register(['angular2/core', 'angular2/router', "../../../services/townServ
             },
             function (townService_component_1_1) {
                 townService_component_1 = townService_component_1_1;
-            },
-            function (mainTown_1_1) {
-                mainTown_1 = mainTown_1_1;
             }],
         execute: function() {
             TownSelectorComponent = (function () {
                 function TownSelectorComponent(_router, _townService) {
-                    //this.towns = _townService.getTownsHC();
                     var _this = this;
                     this._router = _router;
                     this._townService = _townService;
-                    this.selectedTown = new mainTown_1.MainTown("Berchem", "2600", 0, 0);
                     _townService.getTowns()
-                        .subscribe(function (towns) { return _this.towns = towns; });
+                        .subscribe(function (towns) { return _this.towns = towns.sort(function (a, b) {
+                        var nameA = a.naam.toLowerCase(), nameB = b.naam.toLowerCase();
+                        if (nameA < nameB)
+                            return -1;
+                        if (nameA > nameB)
+                            return 1;
+                        return 0;
+                    }); });
                 }
                 TownSelectorComponent.prototype.gotoHome = function (event) {
-                    // alert(event.target.value)
                     this._router.navigate(['/', 'App', 'Budget', { town: event.target.value }]);
                 };
                 TownSelectorComponent = __decorate([
                     core_1.Component({
                         selector: 'town-selector',
-                        template: "\n                 <div class=\" styled-select slate right-align\">\n                    <select class=\"\" (change)=\"gotoHome($event)\">\n                        <option>Selecteer een gemeente</option>\n                        <option *ngFor=\"#town of towns\" [value]=\"town.naam\">{{town.naam}} </option>\n                    </select>\n                </div>\n    ",
-                        providers: [townService_component_1.TownService],
-                        styles: ["\n\n      ",]
+                        template: "\n                 <div class=\" styled-select slate\">\n                    <select class=\"\" (change)=\"gotoHome($event)\">\n                        <option>Selecteer een gemeente</option>\n                        <option *ngFor=\"#town of towns\" [value]=\"town.naam\">{{town.naam}} - {{town.postCode}}</option>\n                    </select>\n                </div>\n    ",
+                        providers: [townService_component_1.TownService]
                     }), 
                     __metadata('design:paramtypes', [router_1.Router, townService_component_1.TownService])
                 ], TownSelectorComponent);

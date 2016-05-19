@@ -11,7 +11,9 @@ import {
 } from "angular2/router";
 
 bootstrap(AppComponent,
-[ROUTER_PROVIDERS,ROUTER_DIRECTIVES,
-           provide(ROUTER_PRIMARY_COMPONENT, {useValue: AppComponent}),
-            provide(APP_BASE_HREF,            {useValue: "/"}),
+        [
+            ROUTER_PROVIDERS,
+            ROUTER_DIRECTIVES,
+            provide(ROUTER_PRIMARY_COMPONENT, {useValue: AppComponent}),
+            provide(APP_BASE_HREF, {useValue: "/"}),
         ]);
