@@ -30,7 +30,7 @@ import {GemeenteCategorie} from "../../../models/gemeenteCategorie";
 
      </section>
 
-    <section *ngIf="categorieen.length > 1" class="col-xs-12 form-inline">
+    <section class="col-xs-12 form-inline">
                         <h3>Project</h3>
 
             <div class="section-content">
@@ -63,7 +63,7 @@ import {GemeenteCategorie} from "../../../models/gemeenteCategorie";
             </div>
     </section>
 
-    <section *ngIf="categorieen.length > 1" class="col-xs-12 form-inline">
+    <section class="col-xs-12 form-inline">
                     <h3>InspraakNiveaus vaststellen</h3>
             <div class="section-content">
              <div *ngFor="#cat of categorieen #i = index">
@@ -87,7 +87,7 @@ import {GemeenteCategorie} from "../../../models/gemeenteCategorie";
               </div>
     </section>
 
-   <button  *ngIf="categorieen.length > 1" [disabled]="submitProject" (click)="submit()"class="btn btn-primary pull-right">opslaan</button>
+   <button [disabled]="submitProject" (click)="submit()"class="btn btn-primary pull-right">opslaan</button>
            <p *ngIf="errorMessage2">Oeps er is al een project voor deze begroting opgezet</p>
 
 </section>
@@ -269,7 +269,7 @@ export class ManageProjectComponent {
     submit()
     {
         this.errorMessage2="";
-        this.project.categorieen = this.categorieen;
+        this.project.cats = this.categorieen;
 
         this.project.isActief=true;
         this.project.gemeente = this.town;

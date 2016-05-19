@@ -19,14 +19,14 @@ import {GemeenteCategorie} from "../../../models/gemeenteCategorie";
             <p>Hier komt een paragraaf.Similiquecilis est et expedita distinctio. Nam libero tempore, cum soluta nobis est eligendi optio cumque nihil impedit quo minus id quod maxime placeat facere possimus, omnis voluptas assumenda est, omnis dolor repellendus. Temporibus autem quibusdam et</p>
         <div class="comparison-content">
             <div (window:resize)="onResize($event)">
-                <town-selector></town-selector>
+                <selector defaultOption="Kies een gemeente" [options]="towns" (change)="onSelectTown($event, '2')"></selector>
                 <sunburst [data]=categories [onClick]=onCircleClick [height]=width [width]=width></sunburst>
             </div>
             <div class="vs">
                 VS
             </div>
             <div >
-                <selector defaultOption="Kies een gemeente" [options]="towns" [callbackFunction]="onSelectTown"></selector>
+                <selector defaultOption="Kies een gemeente" [options]="towns" (change)="onSelectTown($event, '2')"></selector>
                 <sunburst [data]=categories2 [onClick]=onCircleClick [height]=width [width]=width></sunburst>
             </div>
         </div>
@@ -46,6 +46,17 @@ import {GemeenteCategorie} from "../../../models/gemeenteCategorie";
             padding: 20px;
         }
 
+        select {
+            border: 1px solid lightgray;
+            margin: 20px;
+        }
+
+        @media screen and (max-width: 768px) {
+        .comparison-content {
+            flex-direction: column;
+        }
+        }
+
 `]
 })
 
@@ -62,16 +73,8 @@ export class ComparisonComponent {
     id:number;
     errorMessage:any;
     isEditor: boolean = false; //TODO: adapt value when signed in with special role
-    categories: GemeenteCategorie [] =
-    [{ID:"0990",naamCatx:"Algemene financiering",naamCaty:"Algemene financiering",naamCatz:"Financiële aangelegenheden",totaal: 22781},
-{ID:"0991", naamCatx:"Algemene financiering", naamCaty:"Algemene financiering",naamCatz:"Patrimonium zonder maatschappelijk doel",totaal:281},
-{ID:"099",naamCaty:"Zorg en opvang", naamCatz:"Gezin en kinderen", totaal:3311},
-{ID:"098",naamCaty:"Cultuur en vrije tijd",naamCatz:"Sport",totaal:906}];
-    categories2: GemeenteCategorie [] =
-        [{ID:"0990",naamCatx:"Algemene financiering",naamCaty:"Algemene financiering",naamCatz:"Financiële aangelegenheden",totaal: 22781},
-            {ID:"0991", naamCatx:"Algemene financiering", naamCaty:"Algemene financiering",naamCatz:"Patrimonium zonder maatschappelijk doel",totaal:281},
-            {ID:"099",naamCaty:"Zorg en opvang", naamCatz:"Gezin en kinderen", totaal:3311},
-            {ID:"098",naamCaty:"Cultuur en vrije tijd",naamCatz:"Sport",totaal:906}];
+    categories: GemeenteCategorie [] = [];
+    categories2: GemeenteCategorie [] = [];
     width: number = window.innerWidth < 768 ? window.innerWidth*0.8 : window.innerWidth/3.5;
 
     onCircleClick: any = (id: number) => {
@@ -111,12 +114,19 @@ export class ComparisonComponent {
         this.isVisable = !this.isVisable;
     }
 
-    onSelectTown = (event) => {
+    onSelectTown = (event, graphNumber) => {
         console.log(event.target.value);
-        _begrotingService.getGemeenteCategorieen(2020,"Gent")
+        this._begrotingService.getGemeenteCategorieen(2020,"Gent")
             .subscribe(
-                (finan: any) => this.categories = finan,
+                (finan: any) => {
+                    if(graphNumber === "1"){
+                        this.categories = finan;
+                    }else {
+                        this.categories2 = finan;
+                    }
+                },
                 (err:any) => this.errorMessage = err
+
             );
     }
 

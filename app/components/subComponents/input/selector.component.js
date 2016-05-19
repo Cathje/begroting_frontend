@@ -1,11 +1,11 @@
-System.register(['angular2/core'], function(exports_1, context_1) {
-    "use strict";
-    var __moduleName = context_1 && context_1.id;
+System.register(['angular2/core'], function(exports_1) {
     var __decorate = (this && this.__decorate) || function (decorators, target, key, desc) {
-        var c = arguments.length, r = c < 3 ? target : desc === null ? desc = Object.getOwnPropertyDescriptor(target, key) : desc, d;
-        if (typeof Reflect === "object" && typeof Reflect.decorate === "function") r = Reflect.decorate(decorators, target, key, desc);
-        else for (var i = decorators.length - 1; i >= 0; i--) if (d = decorators[i]) r = (c < 3 ? d(r) : c > 3 ? d(target, key, r) : d(target, key)) || r;
-        return c > 3 && r && Object.defineProperty(target, key, r), r;
+        if (typeof Reflect === "object" && typeof Reflect.decorate === "function") return Reflect.decorate(decorators, target, key, desc);
+        switch (arguments.length) {
+            case 2: return decorators.reduceRight(function(o, d) { return (d && d(o)) || o; }, target);
+            case 3: return decorators.reduceRight(function(o, d) { return (d && d(target, key)), void 0; }, void 0);
+            case 4: return decorators.reduceRight(function(o, d) { return (d && d(target, key, o)) || o; }, desc);
+        }
     };
     var __metadata = (this && this.__metadata) || function (k, v) {
         if (typeof Reflect === "object" && typeof Reflect.metadata === "function") return Reflect.metadata(k, v);
@@ -20,29 +20,38 @@ System.register(['angular2/core'], function(exports_1, context_1) {
         execute: function() {
             SelectorComponent = (function () {
                 function SelectorComponent() {
+                    this.changeRequest = new core_1.EventEmitter();
                 }
+                SelectorComponent.prototype.onChange = function (event) {
+                    console.log('here', event);
+                    this.changeRequest.emit("hello");
+                };
                 __decorate([
                     core_1.Input(), 
                     __metadata('design:type', Array)
-                ], SelectorComponent.prototype, "options", void 0);
+                ], SelectorComponent.prototype, "options");
                 __decorate([
                     core_1.Input(), 
                     __metadata('design:type', Object)
-                ], SelectorComponent.prototype, "callbackFunction", void 0);
+                ], SelectorComponent.prototype, "callbackFunction");
                 __decorate([
                     core_1.Input(), 
                     __metadata('design:type', String)
-                ], SelectorComponent.prototype, "defaultOption", void 0);
+                ], SelectorComponent.prototype, "defaultOption");
+                __decorate([
+                    core_1.Output, 
+                    __metadata('design:type', Object)
+                ], SelectorComponent.prototype, "changeRequest");
                 SelectorComponent = __decorate([
                     core_1.Component({
                         selector: 'selector',
-                        template: "\n                 <div class=\" styled-select slate right-align\">\n                    <select class=\"\" (change)=\"callbackFunction($event)\">\n                        <option>{{defaultOption}}</option>\n                        <option *ngFor=\"#option of options\" [value]=\"option\">{{option}} </option>\n                    </select>\n                </div>\n    ",
+                        template: "\n                 <div class=\" styled-select slate right-align\">\n                    <select class=\"\" (change)=\"onChange($event)\">\n                        <option>{{defaultOption}}</option>\n                        <option *ngFor=\"#option of options\" [value]=\"option\">{{option}} </option>\n                    </select>\n                </div>\n    ",
                         styles: ["\n\n      ",]
                     }), 
                     __metadata('design:paramtypes', [])
                 ], SelectorComponent);
                 return SelectorComponent;
-            }());
+            })();
             exports_1("SelectorComponent", SelectorComponent);
         }
     }

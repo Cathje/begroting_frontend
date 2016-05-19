@@ -1,11 +1,11 @@
-System.register(['angular2/core', './../../../services/townService.component', 'angular2/http', 'angular2/router', './../../subComponents/input/townSelector.component', './../../subComponents/input/selector.component', "../../../models/mainTown", './../../subComponents/graphs/sunburst.component', "../../../services/begrotingService"], function(exports_1, context_1) {
-    "use strict";
-    var __moduleName = context_1 && context_1.id;
+System.register(['angular2/core', './../../../services/townService.component', 'angular2/http', 'angular2/router', './../../subComponents/input/townSelector.component', './../../subComponents/input/selector.component', "../../../models/mainTown", './../../subComponents/graphs/sunburst.component', "../../../services/begrotingService"], function(exports_1) {
     var __decorate = (this && this.__decorate) || function (decorators, target, key, desc) {
-        var c = arguments.length, r = c < 3 ? target : desc === null ? desc = Object.getOwnPropertyDescriptor(target, key) : desc, d;
-        if (typeof Reflect === "object" && typeof Reflect.decorate === "function") r = Reflect.decorate(decorators, target, key, desc);
-        else for (var i = decorators.length - 1; i >= 0; i--) if (d = decorators[i]) r = (c < 3 ? d(r) : c > 3 ? d(target, key, r) : d(target, key)) || r;
-        return c > 3 && r && Object.defineProperty(target, key, r), r;
+        if (typeof Reflect === "object" && typeof Reflect.decorate === "function") return Reflect.decorate(decorators, target, key, desc);
+        switch (arguments.length) {
+            case 2: return decorators.reduceRight(function(o, d) { return (d && d(o)) || o; }, target);
+            case 3: return decorators.reduceRight(function(o, d) { return (d && d(target, key)), void 0; }, void 0);
+            case 4: return decorators.reduceRight(function(o, d) { return (d && d(target, key, o)) || o; }, desc);
+        }
     };
     var __metadata = (this && this.__metadata) || function (k, v) {
         if (typeof Reflect === "object" && typeof Reflect.metadata === "function") return Reflect.metadata(k, v);
@@ -58,14 +58,8 @@ System.register(['angular2/core', './../../../services/townService.component', '
                     this.contentbutton = "meer info";
                     this.showActions = false;
                     this.isEditor = false; //TODO: adapt value when signed in with special role
-                    this.categories = [{ ID: "0990", naamCatx: "Algemene financiering", naamCaty: "Algemene financiering", naamCatz: "Financiële aangelegenheden", totaal: 22781 },
-                        { ID: "0991", naamCatx: "Algemene financiering", naamCaty: "Algemene financiering", naamCatz: "Patrimonium zonder maatschappelijk doel", totaal: 281 },
-                        { ID: "099", naamCaty: "Zorg en opvang", naamCatz: "Gezin en kinderen", totaal: 3311 },
-                        { ID: "098", naamCaty: "Cultuur en vrije tijd", naamCatz: "Sport", totaal: 906 }];
-                    this.categories2 = [{ ID: "0990", naamCatx: "Algemene financiering", naamCaty: "Algemene financiering", naamCatz: "Financiële aangelegenheden", totaal: 22781 },
-                        { ID: "0991", naamCatx: "Algemene financiering", naamCaty: "Algemene financiering", naamCatz: "Patrimonium zonder maatschappelijk doel", totaal: 281 },
-                        { ID: "099", naamCaty: "Zorg en opvang", naamCatz: "Gezin en kinderen", totaal: 3311 },
-                        { ID: "098", naamCaty: "Cultuur en vrije tijd", naamCatz: "Sport", totaal: 906 }];
+                    this.categories = [];
+                    this.categories2 = [];
                     this.width = window.innerWidth < 768 ? window.innerWidth * 0.8 : window.innerWidth / 3.5;
                     this.onCircleClick = function (id) {
                         _this.showActions = true;
@@ -73,10 +67,17 @@ System.register(['angular2/core', './../../../services/townService.component', '
                         _this._begrotingService.getActies(24)
                             .subscribe(function (acties) { return _this.acties = acties; });
                     };
-                    this.onSelectTown = function (event) {
+                    this.onSelectTown = function (event, graphNumber) {
                         console.log(event.target.value);
-                        _begrotingService.getGemeenteCategorieen(2020, "Gent")
-                            .subscribe(function (finan) { return _this.categories = finan; }, function (err) { return _this.errorMessage = err; });
+                        _this._begrotingService.getGemeenteCategorieen(2020, "Gent")
+                            .subscribe(function (finan) {
+                            if (graphNumber === "1") {
+                                _this.categories = finan;
+                            }
+                            else {
+                                _this.categories2 = finan;
+                            }
+                        }, function (err) { return _this.errorMessage = err; });
                     };
                     this.onResize = function (event) {
                         if (window.innerWidth < 768) {
@@ -105,15 +106,15 @@ System.register(['angular2/core', './../../../services/townService.component', '
                 ComparisonComponent = __decorate([
                     core_1.Component({
                         selector: 'comparison-container',
-                        template: "\n        <div class=\"container\">\n            <h1>Vergelijk 2 gemeentes</h1>\n            <p>Hier komt een paragraaf.Similiquecilis est et expedita distinctio. Nam libero tempore, cum soluta nobis est eligendi optio cumque nihil impedit quo minus id quod maxime placeat facere possimus, omnis voluptas assumenda est, omnis dolor repellendus. Temporibus autem quibusdam et</p>\n        <div class=\"comparison-content\">\n            <div (window:resize)=\"onResize($event)\">\n                <town-selector></town-selector>\n                <sunburst [data]=categories [onClick]=onCircleClick [height]=width [width]=width></sunburst>\n            </div>\n            <div class=\"vs\">\n                VS\n            </div>\n            <div >\n                <selector defaultOption=\"Kies een gemeente\" [options]=\"towns\" [callbackFunction]=\"onSelectTown\"></selector>\n                <sunburst [data]=categories2 [onClick]=onCircleClick [height]=width [width]=width></sunburst>\n            </div>\n        </div>\n\n       </div>\n",
+                        template: "\n        <div class=\"container\">\n            <h1>Vergelijk 2 gemeentes</h1>\n            <p>Hier komt een paragraaf.Similiquecilis est et expedita distinctio. Nam libero tempore, cum soluta nobis est eligendi optio cumque nihil impedit quo minus id quod maxime placeat facere possimus, omnis voluptas assumenda est, omnis dolor repellendus. Temporibus autem quibusdam et</p>\n        <div class=\"comparison-content\">\n            <div (window:resize)=\"onResize($event)\">\n                <selector defaultOption=\"Kies een gemeente\" [options]=\"towns\" (change)=\"onSelectTown($event, '2')\"></selector>\n                <sunburst [data]=categories [onClick]=onCircleClick [height]=width [width]=width></sunburst>\n            </div>\n            <div class=\"vs\">\n                VS\n            </div>\n            <div >\n                <selector defaultOption=\"Kies een gemeente\" [options]=\"towns\" (change)=\"onSelectTown($event, '2')\"></selector>\n                <sunburst [data]=categories2 [onClick]=onCircleClick [height]=width [width]=width></sunburst>\n            </div>\n        </div>\n\n       </div>\n",
                         directives: [selector_component_1.SelectorComponent, townSelector_component_1.TownSelectorComponent, sunburst_component_1.SunburstComponent, router_1.ROUTER_DIRECTIVES],
                         providers: [begrotingService_1.BegrotingService, townService_component_1.TownService],
-                        styles: ["\n        .comparison-content {\n            display:flex;\n            align-items: center;\n            justify-content: center;\n        }\n\n        .vs {\n            padding: 20px;\n        }\n\n"]
+                        styles: ["\n        .comparison-content {\n            display:flex;\n            align-items: center;\n            justify-content: center;\n        }\n\n        .vs {\n            padding: 20px;\n        }\n\n        select {\n            border: 1px solid lightgray;\n            margin: 20px;\n        }\n\n        @media screen and (max-width: 768px) {\n        .comparison-content {\n            flex-direction: column;\n        }\n        }\n\n"]
                     }), 
                     __metadata('design:paramtypes', [townService_component_1.TownService, begrotingService_1.BegrotingService, http_1.Http, router_1.RouteParams, core_1.Injector, router_1.Router])
                 ], ComparisonComponent);
                 return ComparisonComponent;
-            }());
+            })();
             exports_1("ComparisonComponent", ComparisonComponent);
         }
     }
