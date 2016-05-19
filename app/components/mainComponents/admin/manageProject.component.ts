@@ -213,7 +213,7 @@ export class ManageProjectComponent {
     submit()
     {
         this.errorMessage2="";
-        this.project.categorieen = this.categorieen;
+        this.project.cats = this.categorieen;
 
         this.project.isActief=true;
         this.project.gemeente = this.town;
