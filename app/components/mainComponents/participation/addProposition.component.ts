@@ -1,4 +1,4 @@
-import {Component} from 'angular2/core';
+import {Component, Injector} from 'angular2/core';
 import {RouteParams} from 'angular2/router';
 import {ProjectService} from "../../../services/projectService.component";
 import {GemeenteCategorie} from "./../../../models/gemeenteCategorie";
@@ -9,6 +9,8 @@ import {MainTown} from "./../../../models/mainTown";
 import {TownService} from "../../../services/townService.component";
 import {InspraakCategorie} from "./../../../models/dto/inspraakCategorieDTO";
 import {Project} from "./../../../models/project";
+import {Actie} from "./../../../models/actie";
+
 
 @Component({ //invoke with metadata object
     selector: 'add-proposition-container',
@@ -17,8 +19,9 @@ import {Project} from "./../../../models/project";
     <h2>Voorstel indienen</h2>
         <div class ="row">
             <div class ="col-lg-6 col-md-6 col-sm-12 col-xs-12">
-                <p>hier komt de sunburst</p>
-                
+                <p>hier komt de sunburst voor project {{project.titel}}</p>
+                <!--<p *ngIf ="!errorMessage">{{project.cats[0].totaal}}</p>-->
+                <!--<sunburst [data]=project.cats [onClick]=onCircleClick [height]=width [width]=width></sunburst>-->
             </div>
             <div class ="col-lg-6 col-md-6 col-sm-12 col-xs-12">
                 <div class ="row">
@@ -94,13 +97,14 @@ export class AddPropositionComponent {
     private myTown: MainTown;
     private year: number = 2020;//TODO: default is current year?
     private errorMessage:any;
-    private project: Project = new Project("");
+    project: Project = new Project("");
+    width: number = window.innerWidth < 768 ? window.innerWidth*0.7 : window.innerWidth/4;
+    
 
+    
     constructor(private _routeParams: RouteParams, private _projectService:ProjectService, private _townService : TownService) {
 
-        //this.myTown = _townService.getTownHC("Antwerpen");//TODO: delete
-
-       /* this._projectService.getInspraakitems(this.year, "Gent")
+        /* this._projectService.getInspraakitems(this.year, "Gent")
             .subscribe((finan: any) => this.categories = finan,
                 (err:any) => this.errorMessage = err
             );
@@ -119,7 +123,9 @@ export class AddPropositionComponent {
 
         if(!this.errorMessage)
         {
-            console.log("project: " + this.project);
+            console.log("ok: "+this.width);
+
+
         }
 
 
@@ -129,14 +135,18 @@ export class AddPropositionComponent {
 
     ngOnInit() {
         var number = this._routeParams.get('projectNumber');
-
-
-
-    }
+        
+     }
 
     //load accordion for selected year
     loadAccordion(event: any){
 
 
     }
+
+
+    onCircleClick: any = (id: number) => {
+        alert('test');
+        
+    };
 }
