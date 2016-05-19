@@ -1,6 +1,4 @@
-System.register(['angular2/core', 'angular2/router', "../../../services/townService.component", "../../../services/loginService.component", "../../../models/mainTown", "../../../models/inTeLoggenGebruiker"], function(exports_1, context_1) {
-    "use strict";
-    var __moduleName = context_1 && context_1.id;
+System.register(['angular2/core', 'angular2/router', "../../../services/townService.component", "../../../services/loginService.component", "../../../models/mainTown", "../../../models/inTeLoggenGebruiker"], function(exports_1) {
     var __decorate = (this && this.__decorate) || function (decorators, target, key, desc) {
         var c = arguments.length, r = c < 3 ? target : desc === null ? desc = Object.getOwnPropertyDescriptor(target, key) : desc, d;
         if (typeof Reflect === "object" && typeof Reflect.decorate === "function") r = Reflect.decorate(decorators, target, key, desc);
@@ -45,10 +43,15 @@ System.register(['angular2/core', 'angular2/router', "../../../services/townServ
                     this.token = "";
                     _townService.getTowns()
                         .subscribe(function (towns) { return _this.towns = towns; });
+                    this.newUser = sessionStorage.getItem("newUser");
+                    if (this.newUser) {
+                        sessionStorage.removeItem("newUser");
+                    }
                 }
                 LoginComponent.prototype.onSubmit = function () {
                     var _this = this;
                     this.err = "";
+                    this.newUser = "";
                     this._loginService.login(this.inTeLoggenGebruiker.email, this.inTeLoggenGebruiker.Password).subscribe(function (data) { return _this.goToHome(data); }, function (err) { return _this.err = err; });
                 };
                 LoginComponent.prototype.goToHome = function (data) {
@@ -68,7 +71,7 @@ System.register(['angular2/core', 'angular2/router', "../../../services/townServ
                 LoginComponent = __decorate([
                     core_1.Component({
                         selector: 'main-container',
-                        template: "\n        <townMenu></townMenu>\n        <div class=\"col-md-6\" align=\"center\">\n            <h2 class=\"form-login-heading\">Login</h2>\n            <input type=\"email\" [(ngModel)]=\"inTeLoggenGebruiker.email\" class=\"form-control\" placeholder=\"Email\" required autofocus><br>\n            <input type=\"text\" [(ngModel)]=\"inTeLoggenGebruiker.Password\" class=\"form-control\" placeholder=\"Wachtwoord\" required><br>\n\n            <br>\n\n            <button (click)=\"onSubmit()\" class=\"btn btn-md btn-info btn-block\">login</button>\n\n\n            <div *ngIf=\"err\" class=\"alert alert-danger\">\n                oeps login is niet gelukt. Controleer email en paswoord\n            </div>\n\n           \n        </div>\n\n        <div class=\"col-md-6\" align=\"center\">\n            <h2 class=\"form-login-heading\">Social Logins</h2>\n            <button class=\"btn btn-large btn-facebook btn-block\" type=\"button\" (click)=\"authExternalProvider('Facebook')\"><i class=\"fa fa-facebook\"></i> | Connect with Facebook</button>\n            <button class=\"btn btn-large btn-google-plus btn-block\" type=\"button\" (click)=\"authExternalProvider('Google')\"><i class=\"fa fa-google-plus\"></i> | Connect with Google+</button>\n\n        </div>\n\n\n",
+                        template: "\n        <townMenu></townMenu>\n\n            <div *ngIf=\"newUser\" class=\"alert alert-info\" style=\"text-align: center; padding: 2em\">\n                 U heeft zich correct geregistreerd. U kan nu aanmelden met uw emailadres en uw wachtwoord.\n            </div>\n        <div class=\"col-md-6\" align=\"center\">\n            <h2 class=\"form-login-heading\">Login</h2>\n            <input type=\"email\" [(ngModel)]=\"inTeLoggenGebruiker.email\" class=\"form-control\" placeholder=\"Email\" required autofocus><br>\n            <input type=\"password\" [(ngModel)]=\"inTeLoggenGebruiker.Password\" class=\"form-control\" placeholder=\"Wachtwoord\" required><br>\n\n            <br>\n\n            <button (click)=\"onSubmit()\" class=\"btn btn-md btn-info btn-block\">login</button>\n\n\n            <div *ngIf=\"err\" class=\"alert alert-danger\">\n                oeps login is niet gelukt. Controleer email en paswoord\n            </div>\n\n\n\n           \n        </div>\n\n        <div class=\"col-md-6\" align=\"center\">\n            <h2 class=\"form-login-heading\">Social Logins</h2>\n            <button class=\"btn btn-large btn-facebook btn-block\" type=\"button\" (click)=\"authExternalProvider('Facebook')\"><i class=\"fa fa-facebook\"></i> | Connect with Facebook</button>\n            <button class=\"btn btn-large btn-google-plus btn-block\" type=\"button\" (click)=\"authExternalProvider('Google')\"><i class=\"fa fa-google-plus\"></i> | Connect with Google+</button>\n\n        </div>\n\n\n",
                         directives: [router_1.ROUTER_DIRECTIVES],
                         providers: [loginService_component_1.LoginService, townService_component_1.TownService
                         ],
@@ -77,7 +80,7 @@ System.register(['angular2/core', 'angular2/router', "../../../services/townServ
                     __metadata('design:paramtypes', [loginService_component_1.LoginService, townService_component_1.TownService, router_1.Router])
                 ], LoginComponent);
                 return LoginComponent;
-            }());
+            })();
             exports_1("LoginComponent", LoginComponent);
         }
     }

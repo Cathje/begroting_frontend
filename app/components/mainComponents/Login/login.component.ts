@@ -7,7 +7,6 @@
 import {Component, ChangeDetectorRef} from 'angular2/core';
 import {ROUTER_DIRECTIVES, Router} from 'angular2/router'; // for routing
 import {Observable} from 'rxjs/observable';
-<<<<<<< HEAD
 import {TownService} from "../../../services/townService.component";
 import {LoginService} from "../../../services/loginService.component";
 import {IngelogdeGebruiker} from "../../../models/ingelogdeGebruiker";
@@ -23,10 +22,14 @@ import {Token} from "../../../models/Token";
     selector: 'main-container',
     template: `
         <townMenu></townMenu>
+
+            <div *ngIf="newUser" class="alert alert-info" style="text-align: center; padding: 2em">
+                 U heeft zich correct geregistreerd. U kan nu aanmelden met uw emailadres en uw wachtwoord.
+            </div>
         <div class="col-md-6" align="center">
             <h2 class="form-login-heading">Login</h2>
             <input type="email" [(ngModel)]="inTeLoggenGebruiker.email" class="form-control" placeholder="Email" required autofocus><br>
-            <input type="text" [(ngModel)]="inTeLoggenGebruiker.Password" class="form-control" placeholder="Wachtwoord" required><br>
+            <input type="password" [(ngModel)]="inTeLoggenGebruiker.Password" class="form-control" placeholder="Wachtwoord" required><br>
 
             <br>
 
@@ -36,6 +39,8 @@ import {Token} from "../../../models/Token";
             <div *ngIf="err" class="alert alert-danger">
                 oeps login is niet gelukt. Controleer email en paswoord
             </div>
+
+
 
            
         </div>
@@ -164,16 +169,22 @@ export class LoginComponent {
     data:any;
     err:any;
     t:Token;
+    newUser:any;
 
     constructor(private _loginService: LoginService, private _townService: TownService, private _router:Router)
     {
         _townService.getTowns()
             .subscribe((towns:any) => this.towns = towns);
-
+        this.newUser = sessionStorage.getItem("newUser");
+        if(this.newUser)
+        {
+            sessionStorage.removeItem("newUser");
+        }
     }
     onSubmit( )
     {
         this.err="";
+        this.newUser="";
         this._loginService.login(this.inTeLoggenGebruiker.email, this.inTeLoggenGebruiker.Password).subscribe(
             (data:any) => this.goToHome(data),
             (err:any) => this.err = err);

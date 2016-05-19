@@ -6,7 +6,6 @@ import {LoginService} from "../../../services/loginService.component";
 import {IngelogdeGebruiker} from "../../../models/ingelogdeGebruiker";
 import {MainTown} from "../../../models/mainTown";
 import {TownService} from "../../../services/townService.component";
-import {SignInService} from "../../services/SignInService";
 import {InTeLoggenGebruiker} from "../../../models/inTeLoggenGebruiker";
 
 
@@ -22,9 +21,9 @@ import {InTeLoggenGebruiker} from "../../../models/inTeLoggenGebruiker";
             <p>Naam: </p>
             <input type="text" [(ngModel)]="gebruiker.Naam"><br>
             <p>Paswoord: </p>
-            <input type="text" [(ngModel)]="gebruiker.Password"><br>
+            <input type="password" [(ngModel)]="gebruiker.Password"><br>
              <p>Bevestig Paswoord: </p>
-            <input type="text" [(ngModel)]="gebruiker.bevestigPaswoord"><br>
+            <input type="password" [(ngModel)]="gebruiker.bevestigPaswoord"><br>
             <p>Email: </p>
             <input type="email" [(ngModel)]="gebruiker.email"><br>
              <div class=" styled-select slate right-align">
@@ -37,6 +36,10 @@ import {InTeLoggenGebruiker} from "../../../models/inTeLoggenGebruiker";
             <br>
 
             <button (click)="onSubmit()">Register</button>
+
+            <div *ngIf="err" class="alert alert-danger">
+                Registreren is niet gelukt!
+            </div>
 
 
         </div> 
@@ -58,6 +61,7 @@ export class RegisterComponent {
     selectedTown = new MainTown("Berchem","2600", 0,0);
     token:string="test";
     data:any;
+    err:any;
 
     constructor(private _loginService: LoginService, private _townService: TownService, private _router:Router)
     {
@@ -67,9 +71,19 @@ export class RegisterComponent {
     }
     onSubmit( )
     {
-        this._loginService.register(this.gebruiker).subscribe();
-        this._router.navigate(['/', 'App','Budget', { town: this.gebruiker.gemeente}]);
+        this.err="";
+        this._loginService.register(this.gebruiker).subscribe((data:any) => this.goToLogin(data),
+            (err:any) => this.err = err);
 
+    }
+
+    goToLogin(data:any)
+    {
+        if(data != null)
+        {
+            //sessionStorage.setItem("newUser","yes");
+            this._router.navigate(['/', 'App','Login']);
+        }
     }
 
 

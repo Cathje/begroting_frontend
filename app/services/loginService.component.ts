@@ -41,7 +41,7 @@ export class LoginService {
     register(gebruiker: InTeLoggenGebruiker) {
         var header = new Headers();
         header.append("Content-Type","application/json");
-        return this.http.post(this._url, JSON.stringify(gebruiker),{headers:header}).map(res=> res.json());
+        return this.http.post(this._url, JSON.stringify(gebruiker),{headers:header}).map(this.extractData);
     }
 
     private extractData(res: Response) {
@@ -52,4 +52,6 @@ export class LoginService {
         let data = res.text();
         return data;
     }
+
+
 }

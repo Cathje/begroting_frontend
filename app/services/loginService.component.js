@@ -1,6 +1,4 @@
-System.register(['angular2/core', 'angular2/http', 'rxjs/Rx'], function(exports_1, context_1) {
-    "use strict";
-    var __moduleName = context_1 && context_1.id;
+System.register(['angular2/core', 'angular2/http', 'rxjs/Rx'], function(exports_1) {
     var __decorate = (this && this.__decorate) || function (decorators, target, key, desc) {
         var c = arguments.length, r = c < 3 ? target : desc === null ? desc = Object.getOwnPropertyDescriptor(target, key) : desc, d;
         if (typeof Reflect === "object" && typeof Reflect.decorate === "function") r = Reflect.decorate(decorators, target, key, desc);
@@ -41,7 +39,7 @@ System.register(['angular2/core', 'angular2/http', 'rxjs/Rx'], function(exports_
                 LoginService.prototype.register = function (gebruiker) {
                     var header = new http_1.Headers();
                     header.append("Content-Type", "application/json");
-                    return this.http.post(this._url, JSON.stringify(gebruiker), { headers: header }).map(function (res) { return res.json(); });
+                    return this.http.post(this._url, JSON.stringify(gebruiker), { headers: header }).map(this.extractData);
                 };
                 LoginService.prototype.extractData = function (res) {
                     if (res.status < 200 || res.status >= 300) {
@@ -55,7 +53,7 @@ System.register(['angular2/core', 'angular2/http', 'rxjs/Rx'], function(exports_
                     __metadata('design:paramtypes', [http_1.Http])
                 ], LoginService);
                 return LoginService;
-            }());
+            })();
             exports_1("LoginService", LoginService);
         }
     }
