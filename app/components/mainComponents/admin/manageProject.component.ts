@@ -12,33 +12,61 @@ import {GemeenteCategorie} from "../../../models/gemeenteCategorie";
 @Component({ //invoke with metadata object
     selector: 'manage-project-container',
     template: `
-        <p *ngIf="errorMessage">Oeps er is geen begroting voor dit jaar</p>
+    <p *ngIf="errorMessage">Oeps er is geen begroting voor dit jaar</p>
+<section class="container" *ngIf="!errorMessage">
 
-    <p>voor welk boekjaar wenst u een project op te zetten?</p>
-     <h4>boekjaar:</h4>
-     <input type="number" [(ngModel)]="project.boekjaar"/>
-     <button (click)="getBegroting()">haal begroting op</button>
 
- <div [hidden]="errorMessage" class="container">
-    
-    <h2>Beheer project - {{town}}</h2>
-     <h4>Titel:</h4>
-     <input type="text" [(ngModel)]="project.titel"/>
-     <h4>vraag:</h4>
-     <input type="text" [(ngModel)]="project.vraag"/>
-     <h4>ProjectScenario:</h4>
-     <p>{{project.projectScenario}}</p>
-                <select (change)="onSelectScenario($event)">
+
+    <h1>Beheer project - {{town}}</h1>
+
+    <section class="col-xs-12 form-inline">
+        <h3>Voor welk boekjaar wenst u een project op te zetten?</h3>
+    <div class="section-content">
+     <label>boekjaar:</label>
+     <input type="number" class="form-control" [(ngModel)]="project.boekjaar"/>
+               <button class="btn btn-primary form-control" (click)="getBegroting()">haal begroting op</button>
+
+     </div>
+
+     </section>
+
+    <section *ngIf="categorieen.length > 1" class="col-xs-12 form-inline">
+                        <h3>Project</h3>
+
+            <div class="section-content">
+
+            <div class="col-xs-12 col-sm-6 form-group">
+                <label>Titel:</label>
+                <input type="text" class="form-control" [(ngModel)]="project.titel"/>
+            </div>
+
+            <div class="col-xs-12 col-sm-6 form-group">
+                <label>vraag:</label>
+                <input type="text" class="form-control" [(ngModel)]="project.vraag"/>
+            </div>
+
+            <div class="col-xs-12 col-sm-6 form-group">
+                <label>ProjectScenario:</label>
+                <p>{{project.projectScenario}}</p>
+                <select class="form-control" (change)="onSelectScenario($event)">
                         <option *ngFor="#t of projectScene | keys" [value]="t.key">{{t.value}}</option>
                  </select>
-     <h4>extraInfo:</h4>
-     <input type="text" [(ngModel)]="project.extraInfo"/>  <!--@TODO wijzigen naar textarea -->
-     <h4>Bedrag:</h4>
-     <input type="number" [(ngModel)]="project.bedrag"/>
-    
-    
-    <h2>InspraakNiveaus vaststellen</h2>
-             <div *ngFor="#cat of categorieen #i = index"> 
+            </div>
+            <div class="col-xs-12 col-sm-6 form-group">
+                <label>extraInfo:</label>
+                <input type="text" class="form-control" [(ngModel)]="project.extraInfo"/>  <!--@TODO wijzigen naar textarea -->
+            </div>
+            <div class="col-xs-12 col-sm-6 form-group">
+                 <label>Bedrag:</label>
+                <input type="number" class="form-control" [(ngModel)]="project.bedrag"/>
+            </div>
+            </div>
+    </section>
+
+    <section *ngIf="categorieen.length > 1" class="col-xs-12 form-inline">
+                    <h3>InspraakNiveaus vaststellen</h3>
+            <div class="section-content">
+             <div *ngFor="#cat of categorieen #i = index">
                 <h5>categorie: {{cat.naamCatz}}</h5>
                 <p>totaal: {{cat.totaal}}</p>
                 <p>InspraakNiveau: {{niveaus[cat.inspraakNiveau]}}</p>
@@ -54,17 +82,15 @@ import {GemeenteCategorie} from "../../../models/gemeenteCategorie";
                             <select (change)="onSelectActieNiveau($event,i,j)">
                                 <option *ngFor="#t of niveaus | keys" [value]="t.key">{{t.value}}</option>
                             </select>
-                         <div>
-                    </div> 
-            </div> 
-                               <br><br>
+                         </div>
+            </div>
+              </div>
+    </section>
 
-</div>
-   <button  [disabled]="submitProject" (click)="submit()">opslaan</button>   
+   <button  *ngIf="categorieen.length > 1" [disabled]="submitProject" (click)="submit()"class="btn btn-primary pull-right">opslaan</button>
            <p *ngIf="errorMessage2">Oeps er is al een project voor deze begroting opgezet</p>
-</div>
 
-
+</section>
 `,
     directives: [ROUTER_DIRECTIVES, NavigationMenuComponent],
     providers: [ ProjectService//routing
@@ -72,10 +98,40 @@ import {GemeenteCategorie} from "../../../models/gemeenteCategorie";
     pipes: [KeysPipe]
     ,
     styles: [`
- .acties{
- 
-    padding-left: 4em; 
- }
+        label{
+        text-align: left;
+        width: 120px;
+        background-color:white;
+    }
+    section div {
+        padding: 5px;
+        box-sizing: border-box;
+    }
+
+    .input-group {
+        float: left;
+        box-sizing: border-box;
+    }
+
+    li {
+        list-style: none;
+        margin-bottom: 10px;
+    }
+
+    .form-inline:nth-child(2) {
+        border-top: 1px dashed lightgray;
+    }
+
+    section .section-content {
+        border: 1px solid lightgray;
+        margin-bottom: 20px;
+        padding: 20px;
+        overflow: auto;
+    }
+
+    textarea {
+        width: 100% !important;
+    }
  
  `]
 })

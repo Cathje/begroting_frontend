@@ -11,36 +11,40 @@ System.register(['angular2/core'], function(exports_1) {
         if (typeof Reflect === "object" && typeof Reflect.metadata === "function") return Reflect.metadata(k, v);
     };
     var core_1;
-    var EditableFieldComponent;
+    var SelectorComponent;
     return {
         setters:[
             function (core_1_1) {
                 core_1 = core_1_1;
             }],
         execute: function() {
-            EditableFieldComponent = (function () {
-                function EditableFieldComponent() {
+            SelectorComponent = (function () {
+                function SelectorComponent() {
                 }
                 __decorate([
                     core_1.Input(), 
-                    __metadata('design:type', Boolean)
-                ], EditableFieldComponent.prototype, "isEditable");
+                    __metadata('design:type', Array)
+                ], SelectorComponent.prototype, "options");
+                __decorate([
+                    core_1.Input(), 
+                    __metadata('design:type', Object)
+                ], SelectorComponent.prototype, "callbackFunction");
                 __decorate([
                     core_1.Input(), 
                     __metadata('design:type', String)
-                ], EditableFieldComponent.prototype, "data");
-                EditableFieldComponent = __decorate([
+                ], SelectorComponent.prototype, "defaultOption");
+                SelectorComponent = __decorate([
                     core_1.Component({
-                        selector: 'editable-field',
-                        template: "\n                <div class=\"field\" [ngClass]=\"{active: !isEditable}\">\n                   {{data}}\n                </div>\n                <div class=\"field\" [ngClass]=\"{active: isEditable}\">\n                   <input type=\"number\"  [(ngModel)]=\"data\" step=\"any\" />\n                </div>\n    ",
-                        styles: ["\n\n    .field {\n        font-size: 3em;\n        display:none;\n        text-align: center;\n        width: 100%;\n        color: lightgray;\n    }\n\n    .active {\n        display:block;\n    }\n\n      ",]
+                        selector: 'selector',
+                        template: "\n                 <div class=\" styled-select slate right-align\">\n                    <select class=\"\" (change)=\"callbackFunction($event)\">\n                        <option>{{defaultOption}}</option>\n                        <option *ngFor=\"#option of options\" [value]=\"option\">{{option}} </option>\n                    </select>\n                </div>\n    ",
+                        styles: ["\n\n      ",]
                     }), 
                     __metadata('design:paramtypes', [])
-                ], EditableFieldComponent);
-                return EditableFieldComponent;
+                ], SelectorComponent);
+                return SelectorComponent;
             })();
-            exports_1("EditableFieldComponent", EditableFieldComponent);
+            exports_1("SelectorComponent", SelectorComponent);
         }
     }
 });
-//# sourceMappingURL=editableField.component.js.map
+//# sourceMappingURL=selector.component.js.map

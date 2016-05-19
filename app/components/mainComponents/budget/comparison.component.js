@@ -1,16 +1,16 @@
-System.register(['angular2/core', './../../../services/townService.component', 'angular2/http', 'angular2/router', './../../subComponents/input/townSelector.component', "../../../models/mainTown", './../../subComponents/graphs/sunburst.component', "../../../services/begrotingService"], function(exports_1, context_1) {
-    "use strict";
-    var __moduleName = context_1 && context_1.id;
+System.register(['angular2/core', './../../../services/townService.component', 'angular2/http', 'angular2/router', './../../subComponents/input/townSelector.component', './../../subComponents/input/selector.component', "../../../models/mainTown", './../../subComponents/graphs/sunburst.component', "../../../services/begrotingService"], function(exports_1) {
     var __decorate = (this && this.__decorate) || function (decorators, target, key, desc) {
-        var c = arguments.length, r = c < 3 ? target : desc === null ? desc = Object.getOwnPropertyDescriptor(target, key) : desc, d;
-        if (typeof Reflect === "object" && typeof Reflect.decorate === "function") r = Reflect.decorate(decorators, target, key, desc);
-        else for (var i = decorators.length - 1; i >= 0; i--) if (d = decorators[i]) r = (c < 3 ? d(r) : c > 3 ? d(target, key, r) : d(target, key)) || r;
-        return c > 3 && r && Object.defineProperty(target, key, r), r;
+        if (typeof Reflect === "object" && typeof Reflect.decorate === "function") return Reflect.decorate(decorators, target, key, desc);
+        switch (arguments.length) {
+            case 2: return decorators.reduceRight(function(o, d) { return (d && d(o)) || o; }, target);
+            case 3: return decorators.reduceRight(function(o, d) { return (d && d(target, key)), void 0; }, void 0);
+            case 4: return decorators.reduceRight(function(o, d) { return (d && d(target, key, o)) || o; }, desc);
+        }
     };
     var __metadata = (this && this.__metadata) || function (k, v) {
         if (typeof Reflect === "object" && typeof Reflect.metadata === "function") return Reflect.metadata(k, v);
     };
-    var core_1, townService_component_1, http_1, router_1, townSelector_component_1, mainTown_1, sunburst_component_1, begrotingService_1;
+    var core_1, townService_component_1, http_1, router_1, townSelector_component_1, selector_component_1, mainTown_1, sunburst_component_1, begrotingService_1;
     var ComparisonComponent;
     return {
         setters:[
@@ -28,6 +28,9 @@ System.register(['angular2/core', './../../../services/townService.component', '
             },
             function (townSelector_component_1_1) {
                 townSelector_component_1 = townSelector_component_1_1;
+            },
+            function (selector_component_1_1) {
+                selector_component_1 = selector_component_1_1;
             },
             function (mainTown_1_1) {
                 mainTown_1 = mainTown_1_1;
@@ -47,6 +50,7 @@ System.register(['angular2/core', './../../../services/townService.component', '
                     this.http = http;
                     this._router = _router;
                     this.title = 'Gemeente - home';
+                    this.towns = ["Berchem", "Gent", "Brussel"];
                     this.imglink = "";
                     this.name = "";
                     this.mainTown = new mainTown_1.MainTown("", "", 0, 0); //opm: moet geïnitialiseerd zijn, anders werkt ngModel niet
@@ -68,6 +72,11 @@ System.register(['angular2/core', './../../../services/townService.component', '
                         //TODO: replace hardcoded 15 with id
                         _this._begrotingService.getActies(24)
                             .subscribe(function (acties) { return _this.acties = acties; });
+                    };
+                    this.onSelectTown = function (event) {
+                        console.log(event.target.value);
+                        _begrotingService.getGemeenteCategorieen(2020, "Gent")
+                            .subscribe(function (finan) { return _this.categories = finan; }, function (err) { return _this.errorMessage = err; });
                     };
                     this.onResize = function (event) {
                         if (window.innerWidth < 768) {
@@ -96,17 +105,15 @@ System.register(['angular2/core', './../../../services/townService.component', '
                 ComparisonComponent = __decorate([
                     core_1.Component({
                         selector: 'comparison-container',
-                        template: "\n        <div class=\"container\">\n        <section class=\"intro col-xs-12\">\n            <h1>Vergelijk 2 gemeentes</h1>\n            <p>Hier komt een paragraaf.Similiquecilis est et expedita distinctio. Nam libero tempore, cum soluta nobis est eligendi optio cumque nihil impedit quo minus id quod maxime placeat facere possimus, omnis voluptas assumenda est, omnis dolor repellendus. Temporibus autem quibusdam et</p>\n        <div class=\"clearfix\">\n            <div class=\"graph col-xs-12 col-sm-5\" (window:resize)=\"onResize($event)\">\n                <town-selector></town-selector>\n                <sunburst [data]=categories [onClick]=onCircleClick [height]=width [width]=width></sunburst>\n\n            </div>\n            <div class=\"versus col-xs-12 col-sm-2\">\n                VS\n            </div>\n            <div class=\"graph col-xs-12 col-sm-5\">\n                <town-selector></town-selector>\n                <sunburst [data]=categories2 [onClick]=onCircleClick [height]=width [width]=width></sunburst>\n            </div>\n        </div>\n\n        </section>\n\n\n       </div>\n",
-                        directives: [townSelector_component_1.TownSelectorComponent, sunburst_component_1.SunburstComponent, router_1.ROUTER_DIRECTIVES],
-                        providers: [begrotingService_1.BegrotingService,
-                            townService_component_1.TownService,
-                        ],
-                        styles: ["\n\n    .icon {\n    max-width: 200px;\n    margin: 10px;\n    }\n\n    h2 {\n    text-align: left;\n    margin: 20px 0;\n    }\n\n    h3 {\n    margin: 0;\n    padding-bottom: 1%;\n    font-size: 3rem;\n    color: white;\n    }\n\n\n    h4{\n    margin-bottom: 0;\n    }\n\n    .container {\n    max-width: 1200px;\n    }\n\n    .versus {\n    text-align: center;\n    }\n    .noData {\n    font-size: 1.3em;\n    margin-top: 150px;\n    text-align: center;\n    }\n    .comparebtn {\n    position: absolute;\n    top: 20px;\n    left: 0px;\n    }\n\n    .salarybtn {\n    position: absolute;\n    top: 100px;\n    left: 0px;\n    }\n\n    .propositionsbtn {\n    position: absolute;\n    top: 60px;\n    left: 0px;\n    }\n\n    .proposebtn {\n    position: absolute;\n    top: 140px;\n    left: 0;\n    }\n\n    #info-town   {\n    padding: 1%;\n    flex-shrink: 2; \n    -webkit-flex-shrink: 2;\n    }\n\n    .intro {\n    padding: 20px;\n    }\n\n    .clearfix:after {\n    content: \" \";\n   display: block;\n   height: 0;\n   clear: both;\n    }\n\n    .clearfix {\n    display:flex;\n    align-items: center;\n    justify-content: center;\n    }\n\n    .provincie {\n    }\n    .graph {\n    padding: 40px 20px;\n    text-align: left;\n    margin: O auto;\n    position: relative;\n    }\n\n    .graph town-selector {\n    position: absolute;\nborder: 1px solid black;\nleft: 0px;\nz-index: 500;\n}\n\n    .pointer p{\n     display: inline-block;\n    }\n\n    .pointer h3 {\n    color:black;\n    }\n\n    .pointer {\n    margin-top: 20px;\n    }\n\n    .pointer ul {\n    overflow: scroll;\n    height: 400px;\n    border: 1px dashed black;\n    padding:20px;\n    }\n\n    .pointer li {\n    padding: 5px;\n    }\n\n    .demographic{\n    text-align: center;\n    }\n\n    .geographic {\n    padding: 1%;\n    margin-left: 1%;\n    flex: 1;\n    -webkit-flex-grow: 1;\n    text-align: right;\n    }\n        \n    #actions   {\n    padding: 1%;\n    margin-left: 1%;\n    flex: 1; \n    -webkit-flex-grow: 1;\n\n    }\n\n\n    label {\n    display:block;\n    }\n    \n    .showInfo{\n        float: right;\n        background: #3498db;\n         background-image: -webkit-linear-gradient(top, #3498db, #2980b9);\n         background-image: -moz-linear-gradient(top, #3498db, #2980b9);\n         background-image: -ms-linear-gradient(top, #3498db, #2980b9);\n         background-image: -o-linear-gradient(top, #3498db, #2980b9);\n         background-image: linear-gradient(to bottom, #3498db, #2980b9);\n         width: 55%;\n         color: #ffffff;\n         text-decoration: none;\n         font-size: 0.8em;\n    }\n\n    \n"]
+                        template: "\n        <div class=\"container\">\n            <h1>Vergelijk 2 gemeentes</h1>\n            <p>Hier komt een paragraaf.Similiquecilis est et expedita distinctio. Nam libero tempore, cum soluta nobis est eligendi optio cumque nihil impedit quo minus id quod maxime placeat facere possimus, omnis voluptas assumenda est, omnis dolor repellendus. Temporibus autem quibusdam et</p>\n        <div class=\"comparison-content\">\n            <div (window:resize)=\"onResize($event)\">\n                <town-selector></town-selector>\n                <sunburst [data]=categories [onClick]=onCircleClick [height]=width [width]=width></sunburst>\n            </div>\n            <div class=\"vs\">\n                VS\n            </div>\n            <div >\n                <selector defaultOption=\"Kies een gemeente\" [options]=\"towns\" [callbackFunction]=\"onSelectTown\"></selector>\n                <sunburst [data]=categories2 [onClick]=onCircleClick [height]=width [width]=width></sunburst>\n            </div>\n        </div>\n\n       </div>\n",
+                        directives: [selector_component_1.SelectorComponent, townSelector_component_1.TownSelectorComponent, sunburst_component_1.SunburstComponent, router_1.ROUTER_DIRECTIVES],
+                        providers: [begrotingService_1.BegrotingService, townService_component_1.TownService],
+                        styles: ["\n        .comparison-content {\n            display:flex;\n            align-items: center;\n            justify-content: center;\n        }\n\n        .vs {\n            padding: 20px;\n        }\n\n"]
                     }), 
                     __metadata('design:paramtypes', [townService_component_1.TownService, begrotingService_1.BegrotingService, http_1.Http, router_1.RouteParams, core_1.Injector, router_1.Router])
                 ], ComparisonComponent);
                 return ComparisonComponent;
-            }());
+            })();
             exports_1("ComparisonComponent", ComparisonComponent);
         }
     }
