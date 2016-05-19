@@ -81,7 +81,7 @@ export class RegisterComponent {
     {
         if(data != null)
         {
-            //sessionStorage.setItem("newUser","yes");
+            sessionStorage.setItem("newUser","yes");
             this._router.navigate(['/', 'App','Login']);
         }
     }
