@@ -7,7 +7,6 @@
 import {Component, ChangeDetectorRef} from 'angular2/core';
 import {ROUTER_DIRECTIVES, Router} from 'angular2/router'; // for routing
 import {Observable} from 'rxjs/observable';
-<<<<<<< HEAD
 import {TownService} from "../../../services/townService.component";
 import {LoginService} from "../../../services/loginService.component";
 import {IngelogdeGebruiker} from "../../../models/ingelogdeGebruiker";
