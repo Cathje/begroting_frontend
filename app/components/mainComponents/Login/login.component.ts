@@ -1,23 +1,13 @@
-/**
- * Created by nadya on 11/05/2016.
- */
-/**
- * Created by nadya on 11/05/2016.
- */
+
 import {Component, ChangeDetectorRef} from 'angular2/core';
 import {ROUTER_DIRECTIVES, Router} from 'angular2/router'; // for routing
 import {Observable} from 'rxjs/observable';
-<<<<<<< HEAD
 import {TownService} from "../../../services/townService.component";
 import {LoginService} from "../../../services/loginService.component";
 import {IngelogdeGebruiker} from "../../../models/ingelogdeGebruiker";
 import {MainTown} from "../../../models/mainTown";
-import {TownService} from "../../../services/townService.component";
-import {MainTown} from "../../../models/mainTown";
 import {InTeLoggenGebruiker} from "../../../models/inTeLoggenGebruiker";
 import {Token} from "../../../models/Token";
-
-
 
 @Component({ //invoke with metadata object
     selector: 'main-container',

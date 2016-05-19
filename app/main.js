@@ -1,4 +1,6 @@
-System.register(['angular2/core', 'angular2/platform/browser', './app.component', "angular2/router"], function(exports_1) {
+System.register(['angular2/core', 'angular2/platform/browser', './app.component', "angular2/router"], function(exports_1, context_1) {
+    "use strict";
+    var __moduleName = context_1 && context_1.id;
     var core_1, browser_1, app_component_1, router_1;
     return {
         setters:[
@@ -15,7 +17,9 @@ System.register(['angular2/core', 'angular2/platform/browser', './app.component'
                 router_1 = router_1_1;
             }],
         execute: function() {
-            browser_1.bootstrap(app_component_1.AppComponent, [router_1.ROUTER_PROVIDERS, router_1.ROUTER_DIRECTIVES,
+            browser_1.bootstrap(app_component_1.AppComponent, [
+                router_1.ROUTER_PROVIDERS,
+                router_1.ROUTER_DIRECTIVES,
                 core_1.provide(router_1.ROUTER_PRIMARY_COMPONENT, { useValue: app_component_1.AppComponent }),
                 core_1.provide(router_1.APP_BASE_HREF, { useValue: "/" }),
             ]);

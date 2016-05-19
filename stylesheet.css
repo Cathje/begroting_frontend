@@ -32,6 +32,7 @@ h5{
     font-size: 0.7em;
 }
 
+
 ul {
     list-style-position: inside;
     padding-left: 0px;
@@ -43,6 +44,10 @@ img {
 
 a{
     color:white !important;
+}
+
+a:hover {
+    text-decoration: none;
 }
 
 .right-align {
@@ -81,15 +86,14 @@ textarea {
     width: 100%;
 }
 
-.slate{
-    text-align: center;
-    color:black;
-}
 
+/*SELECT*/
 .styled-select {
     overflow: hidden;
-    width: 240px;
+    width: 250px;
     margin: 0 auto;
+    text-align: center;
+    color:black;
 }
 
 .styled-select select {
@@ -99,7 +103,7 @@ textarea {
     font-size: 14px;
     height: 29px;
     padding: 5px; /* If you add too much padding here, the options won't show in IE */
-    width: 240px;
+    width: 250px;
 }
 
 select::-ms-expand {
@@ -111,6 +115,11 @@ select {
     -moz-appearance: none;
     text-indent: 1px;
     text-overflow: '';
+}
+
+option {
+    font-size: 0.8em;
+    max-width: 250px;
 }
 
 .col-xs-12 {

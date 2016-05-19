@@ -1,4 +1,4 @@
-System.register(['angular2/core'], function(exports_1, context_1) {
+System.register(['@angular/core'], function(exports_1, context_1) {
     "use strict";
     var __moduleName = context_1 && context_1.id;
     var __decorate = (this && this.__decorate) || function (decorators, target, key, desc) {
@@ -11,27 +11,27 @@ System.register(['angular2/core'], function(exports_1, context_1) {
         if (typeof Reflect === "object" && typeof Reflect.metadata === "function") return Reflect.metadata(k, v);
     };
     var core_1;
-    var GeneralSettingsComponent;
+    var SortPipe;
     return {
         setters:[
             function (core_1_1) {
                 core_1 = core_1_1;
             }],
         execute: function() {
-            GeneralSettingsComponent = (function () {
-                function GeneralSettingsComponent() {
+            SortPipe = (function () {
+                function SortPipe() {
                 }
-                GeneralSettingsComponent = __decorate([
-                    core_1.Component({
-                        selector: 'general-settings-container',
-                        template: "\n    <div class=\"container\">\n    <h2>Algemene instellingen</h2>\n    </div>\n    "
-                    }), 
+                SortPipe.prototype.transform = function (items) {
+                    return items.sort();
+                };
+                SortPipe = __decorate([
+                    core_1.Pipe({ name: 'sort' }), 
                     __metadata('design:paramtypes', [])
-                ], GeneralSettingsComponent);
-                return GeneralSettingsComponent;
+                ], SortPipe);
+                return SortPipe;
             }());
-            exports_1("GeneralSettingsComponent", GeneralSettingsComponent);
+            exports_1("SortPipe", SortPipe);
         }
     }
 });
-//# sourceMappingURL=generalSettings.component.js.map
+//# sourceMappingURL=sortPipe.js.map

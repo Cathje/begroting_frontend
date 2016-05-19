@@ -1,43 +1,40 @@
 import {Component} from 'angular2/core';
 import {Router} from 'angular2/router';
+
 import {TownService} from "../../../services/townService.component";
 import {MainTown} from "../../../models/mainTown";
 
-
-
-@Component({ //invoke with metadata object
+@Component({
     selector: 'town-selector',
     template: `
-                 <div class=" styled-select slate right-align">
+                 <div class=" styled-select slate">
                     <select class="" (change)="gotoHome($event)">
                         <option>Selecteer een gemeente</option>
-                        <option *ngFor="#town of towns" [value]="town.naam">{{town.naam}} </option>
+                        <option *ngFor="#town of towns">{{town.naam}} - {{town.postCode}}</option>
                     </select>
                 </div>
     `,
-    providers: [TownService],
-    styles:[`
-
-      `,]
+    providers: [TownService]
 })
 
 export class TownSelectorComponent {
-    towns: MainTown [];
-    selectedTown = new MainTown("Berchem","2600", 0,0);
+    towns: MainTown[];
 
     constructor( private _router: Router, private _townService: TownService)
     {
-       //this.towns = _townService.getTownsHC();
-
         _townService.getTowns()
-           .subscribe((towns:any) => this.towns = towns);
-
-
-
+           .subscribe((towns:MainTown[]) => this.towns = towns.sort(function(a, b){
+               const nameA=a.naam.toLowerCase(),
+                     nameB=b.naam.toLowerCase();
+               if (nameA < nameB)
+                   return -1;
+               if (nameA > nameB)
+                   return 1;
+               return 0;
+           }))
     }
 
     gotoHome(event: any) {
-       // alert(event.target.value)
       this._router.navigate(['/', 'App','Budget', { town: event.target.value}]);
     }
 }
