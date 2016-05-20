@@ -39,7 +39,6 @@ System.register(['angular2/core', 'angular2/router', "../../../services/projectS
         execute: function() {
             AddPropositionComponent = (function () {
                 function AddPropositionComponent(_routeParams, _projectService, _townService) {
-                    //this.myTown = _townService.getTownHC("Antwerpen");//TODO: delete
                     var _this = this;
                     this._routeParams = _routeParams;
                     this._projectService = _projectService;
@@ -47,22 +46,25 @@ System.register(['angular2/core', 'angular2/router', "../../../services/projectS
                     this.categories = [];
                     this.year = 2020; //TODO: default is current year?
                     this.project = new project_1.Project("");
+                    this.width = window.innerWidth < 768 ? window.innerWidth * 0.7 : window.innerWidth / 4;
+                    this.onCircleClick = function (id) {
+                        alert('test');
+                    };
                     /* this._projectService.getInspraakitems(this.year, "Gent")
-                         .subscribe((finan: any) => this.categories = finan,
-                             (err:any) => this.errorMessage = err
-                         );
-             
-                     if(!this.errorMessage)
-                     {
-                         for (let i of this.categories) {
-                             console.log("categories: " + i); // "4", "5", "6"
-                         }
-                         
-                     }*/
+                        .subscribe((finan: any) => this.categories = finan,
+                            (err:any) => this.errorMessage = err
+                        );
+            
+                    if(!this.errorMessage)
+                    {
+                        for (let i of this.categories) {
+                            console.log("categories: " + i); // "4", "5", "6"
+                        }
+                        
+                    }*/
                     this._projectService.getProject(this.year, "Gent")
                         .subscribe(function (project) { return _this.project = project; }, function (err) { return _this.errorMessage = err; });
                     if (!this.errorMessage) {
-                        console.log("project: " + this.project);
                     }
                 }
                 AddPropositionComponent.prototype.ngOnInit = function () {
@@ -71,10 +73,17 @@ System.register(['angular2/core', 'angular2/router', "../../../services/projectS
                 //load accordion for selected year
                 AddPropositionComponent.prototype.loadAccordion = function (event) {
                 };
+                AddPropositionComponent.prototype.click = function () {
+                    alert(this.project.cats[1].naamCat);
+                    var counter = 0;
+                    for (var i = 0; i < this.project.cats.length; i++) {
+                        console.log("id: " + this.project.cats[i].ID);
+                    }
+                };
                 AddPropositionComponent = __decorate([
                     core_1.Component({
                         selector: 'add-proposition-container',
-                        template: "\n    <div class=\"container\">\n    <h2>Voorstel indienen</h2>\n        <div class =\"row\">\n            <div class =\"col-lg-6 col-md-6 col-sm-12 col-xs-12\">\n                <p>hier komt de sunburst</p>\n                \n            </div>\n            <div class =\"col-lg-6 col-md-6 col-sm-12 col-xs-12\">\n                <div class =\"row\">\n                    <p>hier komen de acties</p>\n                </div>\n                <div class =\"row\">\n                    <p>hier komt het totaal</p>\n                </div>\n            </div>\n        </div>\n        <div class =\"row\">\n            <p>hier komt de accordeon</p>\n            <div class=\"panel-group\" id=\"accordion\">\n                <div class=\"panel panel-default\">\n                  <div class=\"panel-heading\">\n                    <h4 class=\"panel-title\">\n                      <a data-toggle=\"collapse\" data-parent=\"#accordion\" href=\"#collapse1\">Collapsible Group 1</a>\n                    </h4>\n                  </div>\n                  <div id=\"collapse1\" class=\"panel-collapse collapse in\">\n                    <div class=\"panel-body\">Lorem ipsum dolor sit amet, consectetur adipisicing elit,\n                    sed do eiusmod tempor incididunt ut labore et dolore magna aliqua. Ut enim ad minim veniam,\n                    quis nostrud exercitation ullamco laboris nisi ut aliquip ex ea commodo consequat.</div>\n                  </div>\n                </div>\n                <div class=\"panel panel-default\">\n                  <div class=\"panel-heading\">\n                    <h4 class=\"panel-title\">\n                      <a data-toggle=\"collapse\" data-parent=\"#accordion\" href=\"#collapse2\">Collapsible Group 2</a>\n                    </h4>\n                  </div>\n                  <div id=\"collapse2\" class=\"panel-collapse collapse\">\n                    <div class=\"panel-body\">Lorem ipsum dolor sit amet, consectetur adipisicing elit,\n                    sed do eiusmod tempor incididunt ut labore et dolore magna aliqua. Ut enim ad minim veniam,\n                    quis nostrud exercitation ullamco laboris nisi ut aliquip ex ea commodo consequat.</div>\n                  </div>\n                </div>\n                <div class=\"panel panel-default\">\n                  <div class=\"panel-heading\">\n                    <h4 class=\"panel-title\">\n                      <a data-toggle=\"collapse\" data-parent=\"#accordion\" href=\"#collapse3\">Collapsible Group 3</a>\n                    </h4>\n                  </div>\n                  <div id=\"collapse3\" class=\"panel-collapse collapse\">\n                    <div class=\"panel-body\">Lorem ipsum dolor sit amet, consectetur adipisicing elit,\n                    sed do eiusmod tempor incididunt ut labore et dolore magna aliqua. Ut enim ad minim veniam,\n                    quis nostrud exercitation ullamco laboris nisi ut aliquip ex ea commodo consequat.</div>\n                  </div>\n                </div>\n              </div>\n        </div>\n    </div>\n    \n\n\n\n\n\n        ",
+                        template: "\n    <div class=\"container\">\n    <h2>Voorstel indienen</h2>\n        <div class =\"row\">\n            <div class =\"col-lg-6 col-md-6 col-sm-12 col-xs-12\">\n                <p>hier komt de sunburst voor project {{project.titel}}</p>\n                <sunburst [data]=project.cats [onClick]=onCircleClick [height]=width [width]=width></sunburst>\n            </div>\n            <div class =\"col-lg-6 col-md-6 col-sm-12 col-xs-12\">\n                <div class =\"row\">\n                    <p>hier komen de acties</p>\n                </div>\n                <div class =\"row\">\n                    <p>hier komt het totaal</p>\n                </div>\n            </div>\n        </div>\n        <div class =\"row\">\n            <p>hier komt de accordeon</p>\n            <div class=\"panel-group\" id=\"accordion1\">\n          <div class=\"panel panel-default\">\n            <div class=\"panel-heading\">\n              <h4 class=\"panel-title\"><a data-toggle=\"collapse\" data-parent=\"#accordion1\" href=\"#collapseOne\">\n              Collapsible Group #1\n              </a></h4>\n            </div>\n            <div id=\"collapseOne\" class=\"panel-collapse collapse in\">\n              <div class=\"panel-body\">\n                This is a simple accordion inner content...\n              </div>\n            </div>\n          </div>\n          <div class=\"panel panel-default\">\n            <div class=\"panel-heading\">\n              <h4 class=\"panel-title\"><a data-toggle=\"collapse\" data-parent=\"#accordion1\" href=\"#collapseTwo\">\n                Collapsible Group #2 (With nested accordion inside)\n              </a></h4>\n            </div>\n            <div id=\"collapseTwo\" class=\"panel-collapse collapse\">\n              <div class=\"panel-body\">\n\n                <!-- Here we insert another nested accordion -->\n\n                <div class=\"panel-group\" id=\"accordion2\">\n                  <div class=\"panel panel-default\">\n                    <div class=\"panel-heading\">\n                      <h4 class=\"panel-title\"><a data-toggle=\"collapse\" data-parent=\"#accordion2\" href=\"#collapseInnerOne\">\n                        Collapsible Inner Group Item #1\n                      </a></h4>\n                    </div>\n                    <div id=\"collapseInnerOne\" class=\"panel-collapse collapse in\">\n                      <div class=\"panel-body\">\n                        Anim pariatur cliche...\n                      </div>\n                    </div>\n                  </div>\n                  <div class=\"panel panel-default\">\n                    <div class=\"panel-heading\">\n                      <h4 class=\"panel-title\"><a data-toggle=\"collapse\" data-parent=\"#accordion2\" href=\"#collapseInnerTwo\">\n                        Collapsible Inner Group Item #2\n                      </a></h4>\n                    </div>\n                    <div id=\"collapseInnerTwo\" class=\"panel-collapse collapse\">\n                      <div class=\"panel-body\">\n                        Anim pariatur cliche...\n                      </div>\n                    </div>\n                  </div>\n                </div>\n\n                <!-- Inner accordion ends here -->\n\n              </div>\n            </div>\n          </div>\n        </div>\n        </div>\n    </div>\n    <button (click)=\"click()\">test</button>\n    \n\n\n\n\n\n        ",
                         directives: [sunburst_component_1.SunburstComponent, router_2.ROUTER_DIRECTIVES, rangeSlider_component_1.rangeSlider],
                         providers: [
                             projectService_component_1.ProjectService, townService_component_1.TownService
