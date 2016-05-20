@@ -20,8 +20,7 @@ import {Actie} from "./../../../models/actie";
         <div class ="row">
             <div class ="col-lg-6 col-md-6 col-sm-12 col-xs-12">
                 <p>hier komt de sunburst voor project {{project.titel}}</p>
-                <!--<p *ngIf ="!errorMessage">{{project.cats[0].totaal}}</p>-->
-                <!--<sunburst [data]=project.cats [onClick]=onCircleClick [height]=width [width]=width></sunburst>-->
+                <sunburst [data]=project.cats [onClick]=onCircleClick [height]=width [width]=width></sunburst>
             </div>
             <div class ="col-lg-6 col-md-6 col-sm-12 col-xs-12">
                 <div class ="row">
@@ -34,46 +33,66 @@ import {Actie} from "./../../../models/actie";
         </div>
         <div class ="row">
             <p>hier komt de accordeon</p>
-            <div class="panel-group" id="accordion">
-                <div class="panel panel-default">
-                  <div class="panel-heading">
-                    <h4 class="panel-title">
-                      <a data-toggle="collapse" data-parent="#accordion" href="#collapse1">Collapsible Group 1</a>
-                    </h4>
-                  </div>
-                  <div id="collapse1" class="panel-collapse collapse in">
-                    <div class="panel-body">Lorem ipsum dolor sit amet, consectetur adipisicing elit,
-                    sed do eiusmod tempor incididunt ut labore et dolore magna aliqua. Ut enim ad minim veniam,
-                    quis nostrud exercitation ullamco laboris nisi ut aliquip ex ea commodo consequat.</div>
-                  </div>
-                </div>
-                <div class="panel panel-default">
-                  <div class="panel-heading">
-                    <h4 class="panel-title">
-                      <a data-toggle="collapse" data-parent="#accordion" href="#collapse2">Collapsible Group 2</a>
-                    </h4>
-                  </div>
-                  <div id="collapse2" class="panel-collapse collapse">
-                    <div class="panel-body">Lorem ipsum dolor sit amet, consectetur adipisicing elit,
-                    sed do eiusmod tempor incididunt ut labore et dolore magna aliqua. Ut enim ad minim veniam,
-                    quis nostrud exercitation ullamco laboris nisi ut aliquip ex ea commodo consequat.</div>
-                  </div>
-                </div>
-                <div class="panel panel-default">
-                  <div class="panel-heading">
-                    <h4 class="panel-title">
-                      <a data-toggle="collapse" data-parent="#accordion" href="#collapse3">Collapsible Group 3</a>
-                    </h4>
-                  </div>
-                  <div id="collapse3" class="panel-collapse collapse">
-                    <div class="panel-body">Lorem ipsum dolor sit amet, consectetur adipisicing elit,
-                    sed do eiusmod tempor incididunt ut labore et dolore magna aliqua. Ut enim ad minim veniam,
-                    quis nostrud exercitation ullamco laboris nisi ut aliquip ex ea commodo consequat.</div>
-                  </div>
-                </div>
+            <div class="panel-group" id="accordion1">
+          <div class="panel panel-default">
+            <div class="panel-heading">
+              <h4 class="panel-title"><a data-toggle="collapse" data-parent="#accordion1" href="#collapseOne">
+              Collapsible Group #1
+              </a></h4>
+            </div>
+            <div id="collapseOne" class="panel-collapse collapse in">
+              <div class="panel-body">
+                This is a simple accordion inner content...
               </div>
+            </div>
+          </div>
+          <div class="panel panel-default">
+            <div class="panel-heading">
+              <h4 class="panel-title"><a data-toggle="collapse" data-parent="#accordion1" href="#collapseTwo">
+                Collapsible Group #2 (With nested accordion inside)
+              </a></h4>
+            </div>
+            <div id="collapseTwo" class="panel-collapse collapse">
+              <div class="panel-body">
+
+                <!-- Here we insert another nested accordion -->
+
+                <div class="panel-group" id="accordion2">
+                  <div class="panel panel-default">
+                    <div class="panel-heading">
+                      <h4 class="panel-title"><a data-toggle="collapse" data-parent="#accordion2" href="#collapseInnerOne">
+                        Collapsible Inner Group Item #1
+                      </a></h4>
+                    </div>
+                    <div id="collapseInnerOne" class="panel-collapse collapse in">
+                      <div class="panel-body">
+                        Anim pariatur cliche...
+                      </div>
+                    </div>
+                  </div>
+                  <div class="panel panel-default">
+                    <div class="panel-heading">
+                      <h4 class="panel-title"><a data-toggle="collapse" data-parent="#accordion2" href="#collapseInnerTwo">
+                        Collapsible Inner Group Item #2
+                      </a></h4>
+                    </div>
+                    <div id="collapseInnerTwo" class="panel-collapse collapse">
+                      <div class="panel-body">
+                        Anim pariatur cliche...
+                      </div>
+                    </div>
+                  </div>
+                </div>
+
+                <!-- Inner accordion ends here -->
+
+              </div>
+            </div>
+          </div>
+        </div>
         </div>
     </div>
+    <button (click)="click()">test</button>
     
 
 
@@ -123,7 +142,7 @@ export class AddPropositionComponent {
 
         if(!this.errorMessage)
         {
-            console.log("ok: "+this.width);
+
 
 
         }
@@ -142,6 +161,18 @@ export class AddPropositionComponent {
     loadAccordion(event: any){
 
 
+    }
+
+    click(){
+        alert(this.project.cats[1].naamCat);
+        let counter = 0;
+        for (var i = 0; i < this.project.cats.length; i++) {
+            console.log("id: " + this.project.cats[i].ID);
+
+        }
+        
+        
+        
     }
 
 

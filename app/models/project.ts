@@ -11,8 +11,8 @@ export class Project {
     maxBedrag: number;
     gemeente:string;
     boekjaar: number;
-    cats: GemeenteCategorie[];
-    afbeeldingen: string [];
+    cats: GemeenteCategorie[] = [];
+    afbeeldingen: string [] = [];
     isActief : boolean;
 
     constructor(titel:string)
