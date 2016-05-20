@@ -15,13 +15,11 @@ export class BegrotingsVoorstel {
     samenvatting: string;
     beschrijving: string;
     budgetWijzigingen: BudgetWijziging [] = [];
-  //  stemmen: Stem [] = [];
     verificatieStatus: number;
     verificatorEmail: string;
     auteurEmail: string;
     
     constructor()
     {
-        
     }
 }

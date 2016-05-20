@@ -64,6 +64,14 @@ export class ProjectService
             .map(this.extractData);
     }
 
+    putReactieEnStem(voorstelId:number, email:string)
+    {
+        var headers = new Headers();
+        headers.append('Content-Type', 'application/json');
+        return this.http.put(this._url2 + "/putReactieEnStem/" + voorstelId,JSON.stringify(email)
+            ,{headers:headers}).map(this.extractData);
+    }
+
     private extractData(res: Response) {
         if (res.status < 200 || res.status >= 300) {
             throw new Error('Response status: ' + res.status);
