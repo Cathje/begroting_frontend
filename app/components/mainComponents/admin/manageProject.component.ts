@@ -51,17 +51,6 @@ import {GemeenteCategorie} from "../../../models/gemeenteCategorie";
                 <select class="form-control" (change)="onSelectScenario($event)">
                         <option *ngFor="#t of projectScene | keys" [value]="t.key">{{t.value}}</option>
                  </select>
-<<<<<<< HEAD
-     <h4>extraInfo:</h4>
-     <input type="text" [(ngModel)]="project.extraInfo"/>  <!--@TODO wijzigen naar textarea -->
-     <h4>Bedrag:</h4>
-     <input type="number" [(ngModel)]="project.bedrag"/>
-    
-    
-    <h2>InspraakNiveaus vaststellen</h2>
-             <div *ngFor="#cat of categorieen #i = index"> 
-                <h5>categorie: {{cat.naamCat}}</h5>
-=======
             </div>
             <div class="col-xs-12 col-sm-6 form-group">
                 <label>extraInfo:</label>
@@ -78,8 +67,7 @@ import {GemeenteCategorie} from "../../../models/gemeenteCategorie";
                     <h3>InspraakNiveaus vaststellen</h3>
             <div class="section-content">
              <div *ngFor="#cat of categorieen #i = index">
-                <h5>categorie: {{cat.naamCatz}}</h5>
->>>>>>> widgets
+                <h5>categorie: {{cat.naamCat}}</h5>
                 <p>totaal: {{cat.totaal}}</p>
                 <p>InspraakNiveau: {{niveaus[cat.inspraakNiveau]}}</p>
                 

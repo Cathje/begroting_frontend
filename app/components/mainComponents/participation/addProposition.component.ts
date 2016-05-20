@@ -7,9 +7,10 @@ import {SunburstComponent} from './../../subComponents/graphs/sunburst.component
 import { ROUTER_DIRECTIVES } from 'angular2/router'; // for routing
 import {MainTown} from "./../../../models/mainTown";
 import {TownService} from "../../../services/townService.component";
-import {InspraakCategorie} from "./../../../models/dto/inspraakCategorieDTO";
 import {Project} from "./../../../models/project";
 import {Actie} from "./../../../models/actie";
+import {BudgetWijziging} from "../../../models/bugdetWijziging";
+import {BegrotingsVoorstel} from "../../../models/begrotingsVoorstel";
 
 
 @Component({ //invoke with metadata object
@@ -20,7 +21,7 @@ import {Actie} from "./../../../models/actie";
         <div class ="row">
             <div class ="col-lg-6 col-md-6 col-sm-12 col-xs-12">
                 <p>hier komt de sunburst voor project {{project.titel}}</p>
-                <sunburst [data]=project.cats [onClick]=onCircleClick [height]=width [width]=width></sunburst>
+             <!--   <sunburst [data]=project.cats [onClick]=onCircleClick [height]=width [width]=width></sunburst> -->
             </div>
             <div class ="col-lg-6 col-md-6 col-sm-12 col-xs-12">
                 <div class ="row">
@@ -94,7 +95,15 @@ import {Actie} from "./../../../models/actie";
     </div>
     <button (click)="click()">test</button>
     
-
+               <!--@TODO verwijderen van deze test voor webapi en service -->
+          <p>Dit is een test voor de service {{project.titel}}</p>
+                 <div *ngFor="#cat of project.cats #i = index">
+                <h5>categorie: {{cat.naamCat}}</h5>
+                <p>totaal: {{cat.totaal}}</p>
+                <div *ngIf="createBudgetWijziging(cat.ID, cat.inspraakNiveau)">              
+                </div>
+            </div>
+            <button (click)="submit()" >opslaan</button>
 
 
 
@@ -118,7 +127,8 @@ export class AddPropositionComponent {
     private errorMessage:any;
     project: Project = new Project("");
     width: number = window.innerWidth < 768 ? window.innerWidth*0.7 : window.innerWidth/4;
-    
+    private budgetwijzigingen: BudgetWijziging [] =  [];
+    private BegrotingsVoorstel: BegrotingsVoorstel = new BegrotingsVoorstel();
 
     
     constructor(private _routeParams: RouteParams, private _projectService:ProjectService, private _townService : TownService) {
@@ -180,4 +190,39 @@ export class AddPropositionComponent {
         alert('test');
         
     };
+
+    //@TODO test voor webapi en service  --> te verwijderen
+    submit()
+    {
+        var today = new Date().toLocaleDateString();
+        this.BegrotingsVoorstel.indiening = today;
+        this.BegrotingsVoorstel.beschrijving = "kjQGQBjqshgbcjhqbckjb<clgbcqjbck:xjhb";
+        // alert(this.BegrotingsVoorstel.budgetWijzigingen.length);
+        this._projectService.postBegrotingsVoorstel(this.project.id, this.BegrotingsVoorstel).subscribe();
+
+    }
+
+
+
+    //@TODO test voor webapi en service --> te verwijderen
+    createBudgetWijziging(id: number, inspraak:number)
+    {
+        if(inspraak != 2)
+        {
+            this.budgetwijzigingen  = this.BegrotingsVoorstel.budgetWijzigingen.filter(
+                (b:any) => b.inspraakItemId === id);
+            if(this.budgetwijzigingen.length == 0)
+            {
+                this.BegrotingsVoorstel.budgetWijzigingen.push(new BudgetWijziging(id, "test", 1000));
+                return true;
+            }
+            else {
+                //totaal wijzigen ofzo...
+                return true;
+            }
+        }
+        else {
+            return false;
+        }
+    }
 }

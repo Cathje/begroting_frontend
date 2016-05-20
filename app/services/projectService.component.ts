@@ -5,6 +5,7 @@ import 'rxjs/Rx';
 import {PROJECTS} from "../mockData/mock-projects";
 import {Project} from "../models/project";
 import {GemeenteCategorie} from "../models/gemeenteCategorie";
+import {BegrotingsVoorstel} from "../models/begrotingsVoorstel";
 
 
 
@@ -34,6 +35,14 @@ export class ProjectService
                 isActief:p.isActief, afbeeldingen:p.afbeeldingen})
             ,{headers:headers}).map(this.extractData);
 
+    }
+    
+    postBegrotingsVoorstel(projectId:number, voorstel: BegrotingsVoorstel)
+    {
+        var headers = new Headers();
+        headers.append('Content-Type', 'application/json');
+        return this.http.post(this._url2 + "/postVoorstel/" + projectId,JSON.stringify(voorstel)
+            ,{headers:headers}).map(this.extractData);
     }
 
     getProject(jaar:number, naam:string):Observable<Project> {

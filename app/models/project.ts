@@ -2,6 +2,7 @@ import {ProjectScenario} from "./projectScenario";
 import {GemeenteCategorie} from "./gemeenteCategorie";
 export class Project {
 
+    id:number;
     projectScenario: number;
     titel: string;
     vraag: string;
