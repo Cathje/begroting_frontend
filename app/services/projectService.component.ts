@@ -50,6 +50,14 @@ export class ProjectService
             .map(this.extractData);
     }
 
+    putVoorstel(voorstelId:number, status: number)
+    {
+        var headers = new Headers();
+        headers.append('Content-Type', 'application/json');
+        return this.http.put(this._url2 + "/putVoorstel/" + voorstelId,JSON.stringify(status)
+            ,{headers:headers}).map(this.extractData);
+    }
+
 
     getProjects(naam:string):Observable<Project[]> {
         return this.http.get(this._url2 +"?naam=" + naam)

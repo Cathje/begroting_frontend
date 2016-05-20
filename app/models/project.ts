@@ -1,5 +1,7 @@
 import {ProjectScenario} from "./projectScenario";
 import {GemeenteCategorie} from "./gemeenteCategorie";
+import {BudgetWijziging} from "./bugdetWijziging";
+import {BegrotingsVoorstel} from "./begrotingsVoorstel";
 export class Project {
 
     id:number;
@@ -15,6 +17,7 @@ export class Project {
     cats: GemeenteCategorie[] = [];
     afbeeldingen: string [] = [];
     isActief : boolean;
+    voorstellen: BegrotingsVoorstel []
 
     constructor(titel:string)
     {

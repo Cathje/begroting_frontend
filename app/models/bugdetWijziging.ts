@@ -7,6 +7,7 @@ export class BudgetWijziging {
     bedrag: number;
     beschrijving: string;
     inspraakItemId: number;
+    inspraakItem: string;
     
     constructor(id:number, beschrijving: string , bedrag: number)
     {
