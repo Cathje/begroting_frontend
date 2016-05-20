@@ -9,6 +9,7 @@ import {Stem} from "./stem";
 
 export class BegrotingsVoorstel {
 
+    Id:number;
     aantalStemmen: number;
     totaal: number;
     samenvatting: string;
