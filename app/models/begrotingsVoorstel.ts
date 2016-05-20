@@ -10,14 +10,12 @@ import {Stem} from "./stem";
 export class BegrotingsVoorstel {
 
     aantalStemmen: number;
-    indiening:string;
     totaal: number;
     samenvatting: string;
     beschrijving: string;
     budgetWijzigingen: BudgetWijziging [] = [];
   //  stemmen: Stem [] = [];
     verificatieStatus: number;
-    verificatieDatum:string;
     verificatorEmail: string;
     auteurEmail: string;
     

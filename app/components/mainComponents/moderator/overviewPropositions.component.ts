@@ -1,6 +1,7 @@
 import {Component} from 'angular2/core';
 import {RouteParams} from 'angular2/router';
 import {Project} from "../../../models/project";
+import {ProjectService} from "../../../services/projectService.component";
 
 @Component({ //invoke with metadata object
     selector: 'overview-propositions-container',
@@ -14,14 +15,14 @@ import {Project} from "../../../models/project";
                 <div *ngFor="#project of projects" class="panel panel-default">
                       <div class="panel-heading">
                         <h4 class="panel-title">
-                          <a data-toggle="collapse" data-parent="#accordion" href="{{'#'+project.naam}}">{{project.naam}}</a>
+                          <a data-toggle="collapse" data-parent="#accordion" href="{{'#'+project.titel}}">{{project.titel}}</a>
                         </h4>
                       </div>
-                  <div [id]=project.naam class="panel-collapse collapse in">
+                  <div [id]=project.titel class="panel-collapse collapse in">
             <table class="table table-striped">
             <tbody>
-            <tr *ngFor="#antwoord of project.antwoorden">
-                <td><textarea> {{antwoord.naam}}</textarea></td>
+            <tr *ngFor="#voorstel of project.voorstellen">
+                <td><textarea> {{voorstel.beschrijving}}</textarea></td>
                 <td>
                 <button class="btn btn-primary approve" (click)="approve(gebruiker.email, gebruiker)"><span class="glyphicon glyphicon-thumbs-up"></span></button>
                 <button class="btn btn-primary disapprove" (click)="disapprove(gebruiker.email, gebruiker)"><span class="glyphicon glyphicon-thumbs-down"></span></button>
@@ -37,6 +38,9 @@ import {Project} from "../../../models/project";
 
     </div>
     `,
+    providers: [
+        ProjectService
+    ],
     styles : [`
         .panel-heading {
             background-color: #2ac7d2;
@@ -71,13 +75,13 @@ import {Project} from "../../../models/project";
 
 export class OverviewPropositionsComponent {
 
-    projects: Project[]= [{naam: "Project1", antwoorden: [{naam: "Antwoord1", status:"afgekeurd"}, {naam: "Antwoord1", status:"goedgekeurd"}]}, {naam: "Project2"}];
+    projects: Project[]= [];
 
     constructor(
-    private _routeParams: RouteParams) {
+    private _routeParams: RouteParams, private _projectService: ProjectService)
+    {
+        this._projectService.getProjects("Gent").subscribe((pr:any) => this.projects = pr);
     }
 
-    ngOnInit() {
-        var number = this._routeParams.get('projectNumber');
-    }
+
 }

@@ -194,8 +194,6 @@ export class AddPropositionComponent {
     //@TODO test voor webapi en service  --> te verwijderen
     submit()
     {
-        var today = new Date().toLocaleDateString();
-        this.BegrotingsVoorstel.indiening = today;
         this.BegrotingsVoorstel.beschrijving = "kjQGQBjqshgbcjhqbckjb<clgbcqjbck:xjhb";
         // alert(this.BegrotingsVoorstel.budgetWijzigingen.length);
         this._projectService.postBegrotingsVoorstel(this.project.id, this.BegrotingsVoorstel).subscribe();
