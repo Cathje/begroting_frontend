@@ -1,6 +1,7 @@
 import {Component, Injector} from 'angular2/core';
 import {RouteParams} from 'angular2/router';
 import {ProjectService} from "../../../services/projectService.component";
+import {BegrotingService} from "../../../services/begrotingService";
 import {GemeenteCategorie} from "./../../../models/gemeenteCategorie";
 import {rangeSlider} from './../../subComponents/input/rangeSlider.component';
 import {SunburstComponent} from './../../subComponents/graphs/sunburst.component'
@@ -13,6 +14,7 @@ import {BudgetWijziging} from "../../../models/bugdetWijziging";
 import {BegrotingsVoorstel} from "../../../models/begrotingsVoorstel";
 
 
+
 @Component({ //invoke with metadata object
     selector: 'add-proposition-container',
     template: `
@@ -21,7 +23,7 @@ import {BegrotingsVoorstel} from "../../../models/begrotingsVoorstel";
         <div class ="row">
             <div class ="col-lg-6 col-md-6 col-sm-12 col-xs-12">
                 <p>hier komt de sunburst voor project {{project.titel}}</p>
-             <!--   <sunburst [data]=project.cats [onClick]=onCircleClick [height]=width [width]=width></sunburst> -->
+                <sunburst [data]=categories [onClick]=onCircleClick [height]=width [width]=width></sunburst> 
             </div>
             <div class ="col-lg-6 col-md-6 col-sm-12 col-xs-12">
                 <div class ="row">
@@ -34,63 +36,84 @@ import {BegrotingsVoorstel} from "../../../models/begrotingsVoorstel";
         </div>
         <div class ="row">
             <p>hier komt de accordeon</p>
-            <div class="panel-group" id="accordion1">
-          <div class="panel panel-default">
-            <div class="panel-heading">
-              <h4 class="panel-title"><a data-toggle="collapse" data-parent="#accordion1" href="#collapseOne">
-              Collapsible Group #1
-              </a></h4>
-            </div>
-            <div id="collapseOne" class="panel-collapse collapse in">
-              <div class="panel-body">
-                This is a simple accordion inner content...
-              </div>
-            </div>
-          </div>
-          <div class="panel panel-default">
-            <div class="panel-heading">
-              <h4 class="panel-title"><a data-toggle="collapse" data-parent="#accordion1" href="#collapseTwo">
-                Collapsible Group #2 (With nested accordion inside)
-              </a></h4>
-            </div>
-            <div id="collapseTwo" class="panel-collapse collapse">
-              <div class="panel-body">
-
-                <!-- Here we insert another nested accordion -->
-
-                <div class="panel-group" id="accordion2">
-                  <div class="panel panel-default">
-                    <div class="panel-heading">
-                      <h4 class="panel-title"><a data-toggle="collapse" data-parent="#accordion2" href="#collapseInnerOne">
-                        Collapsible Inner Group Item #1
-                      </a></h4>
-                    </div>
-                    <div id="collapseInnerOne" class="panel-collapse collapse in">
-                      <div class="panel-body">
-                        Anim pariatur cliche...
+                    <!--outer accordion-->
+                    <div class="panel-group" id="levelA">
+                        <div class="panel panel-default">
+                        <div class="panel-heading">
+                          <h4 class="panel-title"><a data-toggle="collapse" data-parent="#levelA" href="#collapseInnerA">
+                            Collapsible Inner Group Level A
+                          </a></h4>
+                        </div>
+                        <div id="collapseInnerA" class="panel-collapse collapse"><!---->
+                          <div class="panel-body">
+                            <slider name="slide" id="speedSlider" [min]=0 [max]=5000000 [value]=2000 [step]=1000 (changes)="updateBudget()"></slider>
+                            <!-- Level B accordion -->
+                            <div class="panel-group" id="levelB">
+                              <div class="panel panel-default">
+                                <div class="panel-heading">
+                                  <h4 class="panel-title"><a data-toggle="collapse" data-parent="#levelB" href="#collapseInnerB">
+                                    Collapsible Inner Group Level B
+                                  </a></h4>
+                                </div>
+                                <div id="collapseInnerB" class="panel-collapse collapse in">
+                                  <div class="panel-body">
+                                  <!--Level C accordion-->
+                                    <div class="panel-group" id="levelC">
+                                      <div class="panel panel-default">
+                                        <div class="panel-heading">
+                                          <h4 class="panel-title"><a data-toggle="collapse" data-parent="#levelC" href="#collapseInnerC">
+                                            Collapsible Inner Group Level C
+                                          </a></h4>
+                                        </div>
+                                        <div id="collapseInnerC" class="panel-collapse collapse in">
+                                          <div class="panel-body">
+                                          <!--Level D accordion: actions-->
+                                            <div class="panel-group" id="levelD">
+                                              <div class="panel panel-default">
+                                                <div class="panel-heading">
+                                                  <h4 class="panel-title"><a data-toggle="collapse" data-parent="#levelD" href="#collapseInnerD">
+                                                    Collapsible Inner Group Level D
+                                                  </a></h4>
+                                                </div>
+                                                <div id="collapseInnerD" class="panel-collapse collapse in">
+                                                  <div class="panel-body">
+                                                  <!--Level 4 accordion: actions-->
+                                                    Hier komen acties...
+                                                  </div>
+                                                </div>
+                                              </div>
+                                            </div>  
+                                          </div>
+                                        </div>
+                                      </div>
+                                    </div>
+                                  </div>
+                                </div>
+                              </div>
+                              <!--<div class="panel panel-default">
+                                <div class="panel-heading">
+                                  <h4 class="panel-title"><a data-toggle="collapse" data-parent="#levelA" href="#collapseInnerTwo">
+                                    Collapsible Inner Group Item #2
+                                  </a></h4>
+                                </div>
+                                <div id="collapseInnerTwo" class="panel-collapse collapse">
+                                  <div class="panel-body">
+                                    Anim pariatur cliche...
+                                  </div>
+                                </div>
+                              </div>-->
+                            </div>
+                          </div>
+                        </div>
                       </div>
                     </div>
-                  </div>
-                  <div class="panel panel-default">
-                    <div class="panel-heading">
-                      <h4 class="panel-title"><a data-toggle="collapse" data-parent="#accordion2" href="#collapseInnerTwo">
-                        Collapsible Inner Group Item #2
-                      </a></h4>
-                    </div>
-                    <div id="collapseInnerTwo" class="panel-collapse collapse">
-                      <div class="panel-body">
-                        Anim pariatur cliche...
-                      </div>
-                    </div>
-                  </div>
-                </div>
-
-                <!-- Inner accordion ends here -->
-
-              </div>
-            </div>
-          </div>
-        </div>
+                    
+                    
+                    
+                    
+                    
+                    
+                    
         </div>
     </div>
     <button (click)="click()">test</button>
@@ -111,11 +134,17 @@ import {BegrotingsVoorstel} from "../../../models/begrotingsVoorstel";
         `,
     directives: [SunburstComponent, ROUTER_DIRECTIVES, rangeSlider],
     providers: [
-        ProjectService, TownService
+        ProjectService, TownService, BegrotingService
     ],
     styles: [`
 
-
+        h4.panel-title{
+        color: black;
+        }
+        /*be very specific to change colors*/
+        .panel-default >.panel-heading {
+            background-color: #2ac7d2;
+        }
 
         `]
 })
@@ -131,7 +160,7 @@ export class AddPropositionComponent {
     private BegrotingsVoorstel: BegrotingsVoorstel = new BegrotingsVoorstel();
 
     
-    constructor(private _routeParams: RouteParams, private _projectService:ProjectService, private _townService : TownService) {
+    constructor(private _routeParams: RouteParams, private _projectService:ProjectService, private _townService : TownService, private _begrotingService:BegrotingService) {
 
         /* this._projectService.getInspraakitems(this.year, "Gent")
             .subscribe((finan: any) => this.categories = finan,
@@ -140,11 +169,14 @@ export class AddPropositionComponent {
 
         if(!this.errorMessage)
         {
-            for (let i of this.categories) {
-                console.log("categories: " + i); // "4", "5", "6"
-            }
+            console.log("call ok?");
+
             
         }*/
+        _begrotingService.getGemeenteCategorieen(2020,"Gent")
+            .subscribe((cats: any) => this.categories = cats
+            );
+
         this._projectService.getProject(this.year, "Gent")
             .subscribe((project: any) => this.project = project,
                 (err:any) => this.errorMessage = err
@@ -172,14 +204,17 @@ export class AddPropositionComponent {
 
 
     }
+    updateBudget(){
+        alert('budget update');
+    }
 
     click(){
-        alert(this.project.cats[1].naamCat);
-        let counter = 0;
+        alert(this.categories[1].naamCat);
+        /*let counter = 0;
         for (var i = 0; i < this.project.cats.length; i++) {
             console.log("id: " + this.project.cats[i].ID);
 
-        }
+        }*/
         
         
         
