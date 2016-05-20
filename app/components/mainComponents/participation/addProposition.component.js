@@ -99,8 +99,6 @@ System.register(['angular2/core', 'angular2/router', "../../../services/projectS
                 };
                 //@TODO test voor webapi en service  --> te verwijderen
                 AddPropositionComponent.prototype.submit = function () {
-                    var today = new Date().toLocaleDateString();
-                    this.BegrotingsVoorstel.indiening = today;
                     this.BegrotingsVoorstel.beschrijving = "kjQGQBjqshgbcjhqbckjb<clgbcqjbck:xjhb";
                     // alert(this.BegrotingsVoorstel.budgetWijzigingen.length);
                     this._projectService.postBegrotingsVoorstel(this.project.id, this.BegrotingsVoorstel).subscribe();
