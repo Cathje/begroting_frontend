@@ -4,7 +4,6 @@ import {Http} from 'angular2/http';
 import {ROUTER_DIRECTIVES, Router, RouteParams, RouteConfig} from 'angular2/router';
 import {TownSelectorComponent} from './../../subComponents/input/townSelector.component';
 import {SelectorComponent} from './../../subComponents/input/selector.component';
-import {EditableFieldComponent} from './../../subComponents/input/editableField.component';
 import {MainTown} from "../../../models/mainTown";
 import {SunburstComponent} from './../../subComponents/graphs/sunburst.component';
 import {BegrotingService} from "../../../services/begrotingService";

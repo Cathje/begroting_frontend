@@ -23,8 +23,7 @@ export class SelectorComponent {
     @Input() defaultOption: string;
     @Output changeRequest = new EventEmitter();
 
-    onChange(event){
-        console.log('here', event);
-        this.changeRequest.emit("hello");
+    onChange(event: any){
+        this.changeRequest.emit("");
     }
 }

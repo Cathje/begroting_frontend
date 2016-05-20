@@ -23,8 +23,7 @@ System.register(['angular2/core'], function(exports_1, context_1) {
                     this.changeRequest = new core_1.EventEmitter();
                 }
                 SelectorComponent.prototype.onChange = function (event) {
-                    console.log('here', event);
-                    this.changeRequest.emit("hello");
+                    this.changeRequest.emit("");
                 };
                 __decorate([
                     core_1.Input(), 
