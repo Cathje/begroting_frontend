@@ -4,11 +4,12 @@ System.register([], function(exports_1) {
         setters:[],
         execute: function() {
             IngelogdeGebruiker = (function () {
-                function IngelogdeGebruiker(userId, naam, gemeente, rolType) {
+                function IngelogdeGebruiker(userId, naam, gemeente, rolType, isActief) {
                     this.userId = userId;
                     this.naam = naam;
                     this.gemeente = gemeente;
                     this.rolType = rolType;
+                    this.isActief = isActief;
                 }
                 return IngelogdeGebruiker;
             })();
@@ -16,4 +17,4 @@ System.register([], function(exports_1) {
         }
     }
 });
-//# sourceMappingURL=ingelogdeGebruiker.js.map
+//# sourceMappingURL=IngelogdeGebruiker.js.map

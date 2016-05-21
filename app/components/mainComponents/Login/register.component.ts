@@ -14,20 +14,16 @@ import {InTeLoggenGebruiker} from "../../../models/inTeLoggenGebruiker";
     selector: 'main-container',
     template: `
         <townMenu></townMenu>
-        <h1>Register Pagina</h1>
 
-        <div align="center">
-            
-            <p>Naam: </p>
-            <input type="text" [(ngModel)]="gebruiker.Naam"><br>
-            <p>Paswoord: </p>
-            <input type="password" [(ngModel)]="gebruiker.Password"><br>
-             <p>Bevestig Paswoord: </p>
-            <input type="password" [(ngModel)]="gebruiker.bevestigPaswoord"><br>
-            <p>Email: </p>
-            <input type="email" [(ngModel)]="gebruiker.email"><br>
+        <div style="width:450px; margin:0 auto;">
+
+            <h2 class="form-login-heading">Registreer</h2>
+            <input type="text" [(ngModel)]="gebruiker.Naam" placeholder="Naam" class="form-control"><br>
+            <input type="password" [(ngModel)]="gebruiker.Password" placeholder="Wachtwoord" class="form-control"><br>
+            <input type="password" [(ngModel)]="gebruiker.bevestigPaswoord"  placeholder="Bevestig Wachtwoord" class="form-control"><br>
+            <input type="email" [(ngModel)]="gebruiker.email"  placeholder="Email" class="form-control"><br>
              <div class=" styled-select slate right-align">
-                    <select class="" (change)="onSelect($event)">
+                    <select class="" (change)="onSelect($event)" class="form-control">
                         <option>Selecteer een gemeente</option>
                         <option *ngFor="#town of towns" [value]="town.naam">{{town.naam}} </option>
                     </select>
@@ -35,7 +31,7 @@ import {InTeLoggenGebruiker} from "../../../models/inTeLoggenGebruiker";
 
             <br>
 
-            <button (click)="onSubmit()">Register</button>
+            <button (click)="onSubmit()" class="btn btn-md btn-info btn-bloc">Registreer</button>
 
             <div *ngIf="err" class="alert alert-danger">
                 Registreren is niet gelukt!
@@ -82,7 +78,10 @@ export class RegisterComponent {
         if(data != null)
         {
             sessionStorage.setItem("newUser","yes");
-            this._router.navigate(['/', 'App','Login']);
+            this._router.navigate(['/', 'Login']);
+        }
+        else {
+            sessionStorage.removeItem("newUser");
         }
     }
 

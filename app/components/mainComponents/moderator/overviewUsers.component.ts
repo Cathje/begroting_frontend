@@ -2,6 +2,7 @@ import {Component, Injector} from 'angular2/core';
 import {RouteParams, ROUTER_DIRECTIVES, Router} from 'angular2/router';
 import {TownSelectorComponent} from "../../subComponents/input/townSelector.component";
 import {TownService} from "../../../services/townService.component";
+import {LoginService} from "../../../services/loginService.component";
 import {PoliticusType} from "../../../models/politicusType";
 import {MainTown} from "../../../models/mainTown";
 import {IngelogdeGebruiker} from "../../../models/ingelogdeGebruiker";
@@ -32,13 +33,14 @@ import {KeysPipe} from "../../../pipes/keysPipe";
                 <td>{{gebruiker.naam}}</td>
                 <td>{{gebruiker.email}}</td>
                 <td>
-                <select class="form-control" [ngModel]=gebruiker.rol >
-                    <option>admin</option>
+                <select class="form-control" [ngModel]=gebruiker.rolType>
+                    <option selected disabled >{{gebruiker.rolType}}</option>
+                    <option>standaard</option>
                     <option>moderator</option>
                 </select>
                 </td>
                 <td>
-                <input type="checkbox" [ngModel]=gebruiker.actief>
+                <input type="checkbox" [ngModel]=gebruiker.isActief checked={{gebruiker.isActief}}>
                 </td>
                 <td>
                     <button class="btn btn-primary" (click)="verwijder(gebruiker.email, gebruiker)"><span class="glyphicon glyphicon-trash"></span></button>
@@ -54,7 +56,7 @@ import {KeysPipe} from "../../../pipes/keysPipe";
         <button class="btn btn-primary pull-right" (click)="submit()">opslaan</button>
 </section>
 `,
-    providers: [TownService],
+    providers: [TownService, LoginService],
     pipes: [KeysPipe],
     directives: [ROUTER_DIRECTIVES, TownSelectorComponent],
     styles: [`
@@ -102,17 +104,23 @@ export class OverviewUsersComponent {
 
     mainTown = new MainTown("", "", 0, 0);
     errorMessage: any;
+    roles: string[] = ['standaard','moderator'];
     gebruikers: IngelogdeGebruiker[] = [
-        {naam: 'Catherine', email: 'catherine.beaucourt@gmail.com', rol: 'admin', actief: true},
-        {naam: 'Nadya', email: 'nadyat@gmail.com', rol: 'moderator', actief: false }];
+        {naam: 'Catherine', email: 'catherine.beaucourt@gmail.com', rol: 'admin', isActief: true},
+        {naam: 'Nadya', email: 'nadyat@gmail.com', rol: 'moderator', isActief: false }];
 
-    constructor(private _routeParams:RouteParams, private _townService:TownService, private _router:Router, params:RouteParams, injector:Injector) {
+    constructor(private _routeParams:RouteParams, private _townService:TownService, private _loginService:LoginService, private _router:Router, params:RouteParams, injector:Injector) {
         
         _townService.getTown(injector.parent.parent.get(RouteParams).get('town'))
             .subscribe(
                 (town:any) => this.mainTown = town,
                 (err:any) => this.errorMessage = err
             );
+
+        _loginService.getGebruikers().subscribe(
+            (gebrs:any) => this.gebruikers = gebrs,
+            (err:any) => this.errorMessage = err
+        );
     }
 
 
@@ -125,7 +133,7 @@ export class OverviewUsersComponent {
 
     delete(email: string, gebruiker: IngelogdeGebruiker)
     {
-        this.gebruikers.pop(gebruiker);
+        //this.gebruikers.pop(gebruiker);
         //TODO : create service for deleting user
         //this._townService.deleteGebruiker(email).subscribe();
     }

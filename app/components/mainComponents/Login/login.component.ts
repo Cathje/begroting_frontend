@@ -23,9 +23,9 @@ import {Token} from "../../../models/Token";
     template: `
         <townMenu></townMenu>
 
-            <div *ngIf="newUser" class="alert alert-info" style="text-align: center; padding: 2em">
-                 U heeft zich correct geregistreerd. U kan nu aanmelden met uw emailadres en uw wachtwoord.
-            </div>
+        <div *ngIf="newUser" class="alert alert-info" style="text-align: center; margin: 5em">
+             U heeft zich correct geregistreerd. U kan nu aanmelden met uw emailadres en uw wachtwoord.
+        </div>
         <div class="col-md-6" align="center">
             <h2 class="form-login-heading">Login</h2>
             <input type="email" [(ngModel)]="inTeLoggenGebruiker.email" class="form-control" placeholder="Email" required autofocus><br>
