@@ -1,6 +1,4 @@
-System.register(['angular2/core', 'angular2/http', 'rxjs/Rx'], function(exports_1, context_1) {
-    "use strict";
-    var __moduleName = context_1 && context_1.id;
+System.register(['angular2/core', 'angular2/http', 'rxjs/Rx'], function(exports_1) {
     var __decorate = (this && this.__decorate) || function (decorators, target, key, desc) {
         var c = arguments.length, r = c < 3 ? target : desc === null ? desc = Object.getOwnPropertyDescriptor(target, key) : desc, d;
         if (typeof Reflect === "object" && typeof Reflect.decorate === "function") r = Reflect.decorate(decorators, target, key, desc);
@@ -25,11 +23,11 @@ System.register(['angular2/core', 'angular2/http', 'rxjs/Rx'], function(exports_
             LoginService = (function () {
                 function LoginService(http) {
                     this.http = http;
-                    //private _url = 'http://begroting-webapi.azurewebsites.net/api/Account/Register';
-                    this._url = 'http://localhost:52597/api/Account/Register';
-                    //private _url2 = 'http://begroting-webapi.azurewebsites.net/token';
-                    this._url2 = 'http://localhost:52597/token';
+                    this._url = 'http://begroting-webapi.azurewebsites.net/api/Account';
+                    //private _url = 'http://localhost:52597/api/Account';
+                    this._url2 = 'http://begroting-webapi.azurewebsites.net/token';
                 }
+                //private _url2 = 'http://localhost:52597/token';
                 LoginService.prototype.login = function (email, password) {
                     return this.http.post(this._url2, "grant_type=password&username=" + email + "&password=" + password, {
                         headers: new http_1.Headers({
@@ -41,7 +39,7 @@ System.register(['angular2/core', 'angular2/http', 'rxjs/Rx'], function(exports_
                 LoginService.prototype.register = function (gebruiker) {
                     var header = new http_1.Headers();
                     header.append("Content-Type", "application/json");
-                    return this.http.post(this._url, JSON.stringify(gebruiker), { headers: header }).map(function (res) { return res.json(); });
+                    return this.http.post(this._url + "/Register", JSON.stringify(gebruiker), { headers: header }).map(this.extractData);
                 };
                 LoginService.prototype.extractData = function (res) {
                     if (res.status < 200 || res.status >= 300) {
@@ -50,12 +48,23 @@ System.register(['angular2/core', 'angular2/http', 'rxjs/Rx'], function(exports_
                     var data = res.text();
                     return data;
                 };
+                LoginService.prototype.extractDataAsJson = function (res) {
+                    if (res.status < 200 || res.status >= 300) {
+                        throw new Error('Response status: ' + res.status);
+                    }
+                    var data = res.json();
+                    return data;
+                };
+                LoginService.prototype.getGebruikers = function () {
+                    return this.http.get(this._url)
+                        .map(this.extractDataAsJson);
+                };
                 LoginService = __decorate([
                     core_1.Injectable(), 
                     __metadata('design:paramtypes', [http_1.Http])
                 ], LoginService);
                 return LoginService;
-            }());
+            })();
             exports_1("LoginService", LoginService);
         }
     }

@@ -6,7 +6,6 @@ import {LoginService} from "../../../services/loginService.component";
 import {IngelogdeGebruiker} from "../../../models/ingelogdeGebruiker";
 import {MainTown} from "../../../models/mainTown";
 import {TownService} from "../../../services/townService.component";
-import {SignInService} from "../../services/SignInService";
 import {InTeLoggenGebruiker} from "../../../models/inTeLoggenGebruiker";
 
 
@@ -15,20 +14,16 @@ import {InTeLoggenGebruiker} from "../../../models/inTeLoggenGebruiker";
     selector: 'main-container',
     template: `
         <townMenu></townMenu>
-        <h1>Register Pagina</h1>
 
-        <div align="center">
-            
-            <p>Naam: </p>
-            <input type="text" [(ngModel)]="gebruiker.Naam"><br>
-            <p>Paswoord: </p>
-            <input type="text" [(ngModel)]="gebruiker.Password"><br>
-             <p>Bevestig Paswoord: </p>
-            <input type="text" [(ngModel)]="gebruiker.bevestigPaswoord"><br>
-            <p>Email: </p>
-            <input type="email" [(ngModel)]="gebruiker.email"><br>
+        <div style="width:450px; margin:0 auto;">
+
+            <h2 class="form-login-heading">Registreer</h2>
+            <input type="text" [(ngModel)]="gebruiker.Naam" placeholder="Naam" class="form-control"><br>
+            <input type="password" [(ngModel)]="gebruiker.Password" placeholder="Wachtwoord" class="form-control"><br>
+            <input type="password" [(ngModel)]="gebruiker.bevestigPaswoord"  placeholder="Bevestig Wachtwoord" class="form-control"><br>
+            <input type="email" [(ngModel)]="gebruiker.email"  placeholder="Email" class="form-control"><br>
              <div class=" styled-select slate right-align">
-                    <select class="" (change)="onSelect($event)">
+                    <select class="" (change)="onSelect($event)" class="form-control">
                         <option>Selecteer een gemeente</option>
                         <option *ngFor="#town of towns" [value]="town.naam">{{town.naam}} </option>
                     </select>
@@ -36,7 +31,11 @@ import {InTeLoggenGebruiker} from "../../../models/inTeLoggenGebruiker";
 
             <br>
 
-            <button (click)="onSubmit()">Register</button>
+            <button (click)="onSubmit()" class="btn btn-md btn-info btn-bloc">Registreer</button>
+
+            <div *ngIf="err" class="alert alert-danger">
+                Registreren is niet gelukt!
+            </div>
 
 
         </div> 
@@ -58,6 +57,7 @@ export class RegisterComponent {
     selectedTown = new MainTown("Berchem","2600", 0,0);
     token:string="test";
     data:any;
+    err:any;
 
     constructor(private _loginService: LoginService, private _townService: TownService, private _router:Router)
     {
@@ -67,9 +67,22 @@ export class RegisterComponent {
     }
     onSubmit( )
     {
-        this._loginService.register(this.gebruiker).subscribe();
-        this._router.navigate(['/', 'App','Budget', { town: this.gebruiker.gemeente}]);
+        this.err="";
+        this._loginService.register(this.gebruiker).subscribe((data:any) => this.goToLogin(data),
+            (err:any) => this.err = err);
 
+    }
+
+    goToLogin(data:any)
+    {
+        if(data != null)
+        {
+            sessionStorage.setItem("newUser","yes");
+            this._router.navigate(['/', 'Login']);
+        }
+        else {
+            sessionStorage.removeItem("newUser");
+        }
     }
 
 

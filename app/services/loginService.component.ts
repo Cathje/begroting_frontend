@@ -8,6 +8,7 @@ import {IngelogdeGebruiker} from "../models/IngelogdeGebruiker";
 import {Headers} from "angular2/http";
 import {InTeLoggenGebruiker} from "../models/InTeLoggenGebruiker";
 import {Token} from "../models/Token";
+import {Observable} from "rxjs/Observable";
 
 
 
@@ -21,10 +22,10 @@ export class LoginService {
 
     }
 
-    //private _url = 'http://begroting-webapi.azurewebsites.net/api/Account/Register';
-    private _url = 'http://localhost:52597/api/Account/Register';
-    //private _url2 = 'http://begroting-webapi.azurewebsites.net/token';
-    private _url2 = 'http://localhost:52597/token';
+    private _url = 'http://begroting-webapi.azurewebsites.net/api/Account';
+    //private _url = 'http://localhost:52597/api/Account';
+    private _url2 = 'http://begroting-webapi.azurewebsites.net/token';
+    //private _url2 = 'http://localhost:52597/token';
 
     login(email: string, password: string) {
 
@@ -41,7 +42,7 @@ export class LoginService {
     register(gebruiker: InTeLoggenGebruiker) {
         var header = new Headers();
         header.append("Content-Type","application/json");
-        return this.http.post(this._url, JSON.stringify(gebruiker),{headers:header}).map(res=> res.json());
+        return this.http.post(this._url + "/Register", JSON.stringify(gebruiker),{headers:header}).map(this.extractData);
     }
 
     private extractData(res: Response) {
@@ -52,4 +53,20 @@ export class LoginService {
         let data = res.text();
         return data;
     }
+    private extractDataAsJson(res: Response) {
+        if (res.status < 200 || res.status >= 300) {
+            throw new Error('Response status: ' + res.status);
+        }
+
+        let data = res.json();
+        return data;
+    }
+
+
+    getGebruikers():Observable<IngelogdeGebruiker[]> {
+        return this.http.get(this._url)
+            .map(this.extractDataAsJson);
+    }
+
+
 }

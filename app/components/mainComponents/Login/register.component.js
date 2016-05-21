@@ -1,6 +1,4 @@
-System.register(['angular2/core', 'angular2/router', "../../../services/loginService.component", "../../../models/mainTown", "../../../services/townService.component", "../../../models/inTeLoggenGebruiker"], function(exports_1, context_1) {
-    "use strict";
-    var __moduleName = context_1 && context_1.id;
+System.register(['angular2/core', 'angular2/router', "../../../services/loginService.component", "../../../models/mainTown", "../../../services/townService.component", "../../../models/inTeLoggenGebruiker"], function(exports_1) {
     var __decorate = (this && this.__decorate) || function (decorators, target, key, desc) {
         var c = arguments.length, r = c < 3 ? target : desc === null ? desc = Object.getOwnPropertyDescriptor(target, key) : desc, d;
         if (typeof Reflect === "object" && typeof Reflect.decorate === "function") r = Reflect.decorate(decorators, target, key, desc);
@@ -47,8 +45,18 @@ System.register(['angular2/core', 'angular2/router', "../../../services/loginSer
                         .subscribe(function (towns) { return _this.towns = towns; });
                 }
                 RegisterComponent.prototype.onSubmit = function () {
-                    this._loginService.register(this.gebruiker).subscribe();
-                    this._router.navigate(['/', 'App', 'Budget', { town: this.gebruiker.gemeente }]);
+                    var _this = this;
+                    this.err = "";
+                    this._loginService.register(this.gebruiker).subscribe(function (data) { return _this.goToLogin(data); }, function (err) { return _this.err = err; });
+                };
+                RegisterComponent.prototype.goToLogin = function (data) {
+                    if (data != null) {
+                        sessionStorage.setItem("newUser", "yes");
+                        this._router.navigate(['/', 'Login']);
+                    }
+                    else {
+                        sessionStorage.removeItem("newUser");
+                    }
                 };
                 RegisterComponent.prototype.onSelect = function (event) {
                     // alert(event.target.value)
@@ -57,7 +65,7 @@ System.register(['angular2/core', 'angular2/router', "../../../services/loginSer
                 RegisterComponent = __decorate([
                     core_1.Component({
                         selector: 'main-container',
-                        template: "\n        <townMenu></townMenu>\n        <h1>Register Pagina</h1>\n\n        <div align=\"center\">\n            \n            <p>Naam: </p>\n            <input type=\"text\" [(ngModel)]=\"gebruiker.Naam\"><br>\n            <p>Paswoord: </p>\n            <input type=\"text\" [(ngModel)]=\"gebruiker.Password\"><br>\n             <p>Bevestig Paswoord: </p>\n            <input type=\"text\" [(ngModel)]=\"gebruiker.bevestigPaswoord\"><br>\n            <p>Email: </p>\n            <input type=\"email\" [(ngModel)]=\"gebruiker.email\"><br>\n             <div class=\" styled-select slate right-align\">\n                    <select class=\"\" (change)=\"onSelect($event)\">\n                        <option>Selecteer een gemeente</option>\n                        <option *ngFor=\"#town of towns\" [value]=\"town.naam\">{{town.naam}} </option>\n                    </select>\n                </div>\n\n            <br>\n\n            <button (click)=\"onSubmit()\">Register</button>\n\n\n        </div> \n    <br><br><br>\n\n",
+                        template: "\n        <townMenu></townMenu>\n\n        <div style=\"width:450px; margin:0 auto;\">\n\n            <h2 class=\"form-login-heading\">Registreer</h2>\n            <input type=\"text\" [(ngModel)]=\"gebruiker.Naam\" placeholder=\"Naam\" class=\"form-control\"><br>\n            <input type=\"password\" [(ngModel)]=\"gebruiker.Password\" placeholder=\"Wachtwoord\" class=\"form-control\"><br>\n            <input type=\"password\" [(ngModel)]=\"gebruiker.bevestigPaswoord\"  placeholder=\"Bevestig Wachtwoord\" class=\"form-control\"><br>\n            <input type=\"email\" [(ngModel)]=\"gebruiker.email\"  placeholder=\"Email\" class=\"form-control\"><br>\n             <div class=\" styled-select slate right-align\">\n                    <select class=\"\" (change)=\"onSelect($event)\" class=\"form-control\">\n                        <option>Selecteer een gemeente</option>\n                        <option *ngFor=\"#town of towns\" [value]=\"town.naam\">{{town.naam}} </option>\n                    </select>\n                </div>\n\n            <br>\n\n            <button (click)=\"onSubmit()\" class=\"btn btn-md btn-info btn-bloc\">Registreer</button>\n\n            <div *ngIf=\"err\" class=\"alert alert-danger\">\n                Registreren is niet gelukt!\n            </div>\n\n\n        </div> \n    <br><br><br>\n\n",
                         directives: [router_1.ROUTER_DIRECTIVES],
                         providers: [loginService_component_1.LoginService, townService_component_1.TownService
                         ],
@@ -66,7 +74,7 @@ System.register(['angular2/core', 'angular2/router', "../../../services/loginSer
                     __metadata('design:paramtypes', [loginService_component_1.LoginService, townService_component_1.TownService, router_1.Router])
                 ], RegisterComponent);
                 return RegisterComponent;
-            }());
+            })();
             exports_1("RegisterComponent", RegisterComponent);
         }
     }
