@@ -19,56 +19,143 @@ import {BegrotingsVoorstel} from "../../../models/begrotingsVoorstel";
     selector: 'add-proposition-container',
     template: `
     <div class="container">
-    <h2>Voorstel indienen</h2>
+    <div class ="row">
+    <h2>{{project.titel}}</h2>
+    <h3>{{project.vraag}}</h3>
+    <p>Hier komt een paragraaf met wat uitleg.Similiquecilis est et expedita distinctio. Nam libero tempore, cum soluta nobis est eligendi optio cumque nihil impedit quo minus id quod maxime placeat facere possimus, omnis voluptas assumenda est, omnis dolor repellendus. Temporibus autem quibusdam et</p>
+    <!--<p>{{project.extraInfo}}</p>--><!--todo: vervang bovenstaande paragraaf door deze-->
+    <!--TODO: hoe voorzien om nieuw jaar te selecteren. Huidig jaar is default?-->
+     </div>
         <div class ="row">
             <div class ="col-lg-6 col-md-6 col-sm-12 col-xs-12">
-                <p>hier komt de sunburst voor project {{project.titel}}</p>
                 <sunburst [data]=categories [onClick]=onCircleClick [height]=width [width]=width></sunburst> 
             </div>
             <div class ="col-lg-6 col-md-6 col-sm-12 col-xs-12">
+               <!-- <div class ="row">
+                    <p>Hier komt project info</p>
+                </div>-->
                 <div class ="row">
-                    <p>hier komen de acties</p>
+                    <h2>Gewijzigde categorieën en acties</h2>
+                    <div class="section-content">
+                    <!--acties toevoegen aan de box-->
+                    </div>
                 </div>
                 <div class ="row">
-                    <p>hier komt het totaal</p>
+                    <h2 *ngIf="scenario===1">Te besparen bedrag: €{{project.bedrag}}</h2><!--todo: gebruik project.projectScenario!!!-->
+                    <h2 *ngIf="scenario===2">Te herschikken bedrag: €{{project.bedrag}}</h2>
+                    <h2 *ngIf="scenario===3">Te bestemmen bedrag: €{{project.bedrag}}</h2>
+                    <!--<h2>Totaal: €{{project.bedrag}}</h2>-->
                 </div>
             </div>
         </div>
         <div class ="row">
-            <p>hier komt de accordeon</p>
+            <!--<p>hier komt de accordeon</p>-->
                     <!--outer accordion-->
-                    <div class="panel-group" id="levelA">
+                    <div *ngFor="#cat of project.cats #i = index" class="panel-group" #elem1 [attr.id]="'levelA_' + cat.ID"><!--id="levelA+cat.id""-->
                         <div class="panel panel-default">
                         <div class="panel-heading">
-                          <h4 class="panel-title"><a data-toggle="collapse" data-parent="#levelA" href="#collapseInnerA">
-                            Collapsible Inner Group Level A
+                          <h4 class="panel-title"><a data-toggle="collapse" data-parent="#elem1.id" href="#collA_{{cat.ID}}"> <!--data parent aanpassen?-->
+                            {{cat.naamCat}} <!--{{elem1.id}}--> 
                           </a></h4>
                         </div>
-                        <div id="collapseInnerA" class="panel-collapse collapse"><!---->
+                        <div [attr.id]="'collA_' + cat.ID" class="panel-collapse collapse"><!--id="collapseInnerA"-->
                           <div class="panel-body">
-                            <slider name="slide" id="speedSlider" [min]=0 [max]=5000000 [value]=2000 [step]=1000 (changes)="updateBudget()"></slider>
+                            <!--a form for capturing budget shifts on cat level-->
+                            <form class="form-inline">
+                                <div class="form-group sliderContainer">
+                                    <slider name="slide" id="speedSlider" [min]=0 [max]=5000000 [value]=2000 [step]=1000 (changes)="updateBudget()"></slider>
+                                </div>
+                                <div class="form-group">
+                                    <input type="number" class="form-control" id="taxInput" [(ngModel)]="myTaxes" readonly>
+                                </div>
+                            </form>
+                            <!--a form for capturing budget shifts on action level-->
+                            <h3>Acties</h3>
+                            <p *ngIf="cat.acties==null">Er zijn geen acties gedefinieerd op dit niveau</p>
+                            <div *ngIf="cat.acties!=null">
+                                <form *ngFor="#acA of cat.acties #l = index" class="form-inline">
+                                    <div class="form-group">
+                                        <label class="actionLabel" for="slide">{{acA.actieKort}}</label>
+                                        <input type="number" class="form-control" id="taxInput" [(ngModel)]="acA.uitgaven" readonly>
+                                        <!--<slider name="slide" id="speedSlider" [min]=0 [max]=5000000 [value]=2000 [step]=1000 (changes)="updateBudget()"></slider>-->
+                                    </div>
+                                    <div class="form-group actionSliderContainer">
+                                        <slider name="slide" id="speedSlider" [min]=0 [max]=5000000 [value]=2000 [step]=1000 (changes)="updateBudget()"></slider>
+                                    </div>
+                                </form>
+                            </div>
                             <!-- Level B accordion -->
-                            <div class="panel-group" id="levelB">
+                            <div *ngFor="#levB of cat.childCats #j = index" class="panel-group" #elem2 [attr.id]="'levelB_' + levB.ID"><!--id="levelA+cat.id""-->
                               <div class="panel panel-default">
                                 <div class="panel-heading">
-                                  <h4 class="panel-title"><a data-toggle="collapse" data-parent="#levelB" href="#collapseInnerB">
-                                    Collapsible Inner Group Level B
+                                  <h4 class="panel-title"><a data-toggle="collapse" data-parent="#elem2.id" href="#collB_{{levB.ID}}">
+                                    {{levB.naamCat}}
                                   </a></h4>
                                 </div>
-                                <div id="collapseInnerB" class="panel-collapse collapse in">
+                                <div [attr.id]="'collB_' + levB.ID" class="panel-collapse collapse in">
                                   <div class="panel-body">
+                                    <!--a form for capturing budget shifts-->
+                                    <form class="form-inline">
+                                        <div class="form-group sliderContainer">
+                                            <slider name="slide" id="speedSlider" [min]=0 [max]=5000000 [value]=2000 [step]=1000 (changes)="updateBudget()"></slider>
+                                        </div>
+                                        <div class="form-group">
+                                            <input type="number" class="form-control" id="taxInput" [(ngModel)]="myTaxes" readonly>
+                                        </div>
+                                    </form>
+                                    <!--a form for capturing budget shifts on action level-->
+                                    <h3>Acties</h3>
+                                    <p *ngIf="levB.acties==null">Er zijn geen acties gedefinieerd op dit niveau</p>
+                                    <div *ngIf="levB.acties!=null">
+                                        <form *ngFor="#acB of levB.acties #k = index" class="form-inline">
+                                            <div class="form-group">
+                                                <label class="actionLabel" for="slide">{{acB.actieKort}}</label>
+                                                <input type="number" class="form-control" id="taxInput" [(ngModel)]="acB.uitgaven" readonly>
+                                                <!--<slider name="slide" id="speedSlider" [min]=0 [max]=5000000 [value]=2000 [step]=1000 (changes)="updateBudget()"></slider>-->
+                                            </div>
+                                            <div class="form-group actionSliderContainer">
+                                                <!--<input type="number" class="form-control" id="taxInput" [(ngModel)]="myTaxes" readonly>-->
+                                                <slider name="slide" id="speedSlider" [min]=0 [max]=5000000 [value]=2000 [step]=1000 (changes)="updateBudget()"></slider>
+                                            </div>
+                                        </form>
+                                    </div>
                                   <!--Level C accordion-->
-                                    <div class="panel-group" id="levelC">
+                                    <div *ngFor="#levC of levB.childCats #j = index" class="panel-group" #elem3 [attr.id]="'levelC_' + levC.ID"><!--id="levelA+cat.id""-->
                                       <div class="panel panel-default">
                                         <div class="panel-heading">
-                                          <h4 class="panel-title"><a data-toggle="collapse" data-parent="#levelC" href="#collapseInnerC">
-                                            Collapsible Inner Group Level C
+                                          <h4 class="panel-title"><a data-toggle="collapse" data-parent="#elem3.id" href="#collC_{{levC.ID}}">
+                                            {{levC.naamCat}}
                                           </a></h4>
                                         </div>
-                                        <div id="collapseInnerC" class="panel-collapse collapse in">
+                                        <div [attr.id]="'collC_' + levC.ID" class="panel-collapse collapse in">
                                           <div class="panel-body">
+                                          <!--a form for capturing budget shifts-->
+                                            <form class="form-inline">
+                                                <div class="form-group sliderContainer">
+                                                    <slider name="slide" id="speedSlider" [min]=0 [max]=5000000 [value]=2000 [step]=1000 (changes)="updateBudget()"></slider>
+                                                </div>
+                                                <div class="form-group">
+                                                    <input type="number" class="form-control" id="taxInput" [(ngModel)]="myTaxes" readonly>
+                                                </div>
+                                            </form>
+                                            <!--a form for capturing budget shifts on action level-->
+                                            <h3>Acties</h3>
+                                            <p *ngIf="levC.acties===null">Er zijn geen acties gedefinieerd</p>
+                                            <div *ngIf="levC.acties!=null"> 
+                                                <form *ngFor="#ac of levC.acties #k = index" class="form-inline">
+                                                    <div class="form-group">
+                                                        <label class="actionLabel" for="slide">{{ac.actieKort}}</label>
+                                                        <input type="number" class="form-control" id="taxInput" [(ngModel)]="ac.uitgaven" readonly>
+                                                        <!--<slider name="slide" id="speedSlider" [min]=0 [max]=5000000 [value]=2000 [step]=1000 (changes)="updateBudget()"></slider>-->
+                                                    </div>
+                                                    <div class="form-group actionSliderContainer">
+                                                        <!--<input type="number" class="form-control" id="taxInput" [(ngModel)]="myTaxes" readonly>-->
+                                                        <slider name="slide" id="speedSlider" [min]=0 [max]=5000000 [value]=2000 [step]=1000 (changes)="updateBudget()"></slider>
+                                                    </div>
+                                                </form>
+                                            </div>
                                           <!--Level D accordion: actions-->
-                                            <div class="panel-group" id="levelD">
+                                           <!-- <div class="panel-group" id="levelD">
                                               <div class="panel panel-default">
                                                 <div class="panel-heading">
                                                   <h4 class="panel-title"><a data-toggle="collapse" data-parent="#levelD" href="#collapseInnerD">
@@ -77,12 +164,24 @@ import {BegrotingsVoorstel} from "../../../models/begrotingsVoorstel";
                                                 </div>
                                                 <div id="collapseInnerD" class="panel-collapse collapse in">
                                                   <div class="panel-body">
-                                                  <!--Level 4 accordion: actions-->
-                                                    Hier komen acties...
+                                                  &lt;!&ndash;Level 4 accordion: actions&ndash;&gt;
+                                                    <h3>Acties</h3>
+                                                    <p *ngIf="scenario===1"></p>
+                                                    <form class="form-inline">
+                                                        <div class="form-group">
+                                                            <label class="actionLabel" for="slide">Dit is een actie </label>
+                                                            <input type="number" class="form-control" id="taxInput" [(ngModel)]="myTaxes" readonly>
+                                                            &lt;!&ndash;<slider name="slide" id="speedSlider" [min]=0 [max]=5000000 [value]=2000 [step]=1000 (changes)="updateBudget()"></slider>&ndash;&gt;
+                                                        </div>
+                                                        <div class="form-group actionSliderContainer">
+                                                            &lt;!&ndash;<input type="number" class="form-control" id="taxInput" [(ngModel)]="myTaxes" readonly>&ndash;&gt;
+                                                            <slider name="slide" id="speedSlider" [min]=0 [max]=5000000 [value]=2000 [step]=1000 (changes)="updateBudget()"></slider>
+                                                        </div>
+                                                    </form>
                                                   </div>
                                                 </div>
                                               </div>
-                                            </div>  
+                                            </div>-->  
                                           </div>
                                         </div>
                                       </div>
@@ -90,18 +189,6 @@ import {BegrotingsVoorstel} from "../../../models/begrotingsVoorstel";
                                   </div>
                                 </div>
                               </div>
-                              <!--<div class="panel panel-default">
-                                <div class="panel-heading">
-                                  <h4 class="panel-title"><a data-toggle="collapse" data-parent="#levelA" href="#collapseInnerTwo">
-                                    Collapsible Inner Group Item #2
-                                  </a></h4>
-                                </div>
-                                <div id="collapseInnerTwo" class="panel-collapse collapse">
-                                  <div class="panel-body">
-                                    Anim pariatur cliche...
-                                  </div>
-                                </div>
-                              </div>-->
                             </div>
                           </div>
                         </div>
@@ -138,13 +225,36 @@ import {BegrotingsVoorstel} from "../../../models/begrotingsVoorstel";
     ],
     styles: [`
 
-        h4.panel-title{
-        color: black;
-        }
         /*be very specific to change colors*/
         .panel-default >.panel-heading {
             background-color: #2ac7d2;
         }
+        .sliderContainer{
+        width: 50%;
+        margin-right: 1em;
+        }
+        .form-inline{
+        margin-bottom: 1em;
+        }
+        .actionSliderContainer{
+        width: 30%;
+        margin-left: 1em;
+        }
+        .actionLabel{
+        width:20em;
+        display: inline-block;
+        }
+        .section-content {
+        border: 1px solid lightgray;
+        margin-bottom: 20px;
+        padding: 20px;
+        min-height: 20em;
+        overflow: auto; /*of overflow(-y): scroll;*/
+        }
+        
+        
+        
+        
 
         `]
 })
@@ -155,9 +265,10 @@ export class AddPropositionComponent {
     private year: number = 2020;//TODO: default is current year?
     private errorMessage:any;
     project: Project = new Project("");
-    width: number = window.innerWidth < 768 ? window.innerWidth*0.7 : window.innerWidth/4;
+    private width: number = window.innerWidth < 768 ? window.innerWidth*0.7 : window.innerWidth/4;
     private budgetwijzigingen: BudgetWijziging [] =  [];
     private BegrotingsVoorstel: BegrotingsVoorstel = new BegrotingsVoorstel();
+    private scenario: number = 1;//todo: effectief scenario gebruiken!!!
 
     
     constructor(private _routeParams: RouteParams, private _projectService:ProjectService, private _townService : TownService, private _begrotingService:BegrotingService) {
@@ -173,7 +284,7 @@ export class AddPropositionComponent {
 
             
         }*/
-        _begrotingService.getGemeenteCategorieen(2020,"Gent")
+        this._begrotingService.getGemeenteCategorieen(2020,"Gent")
             .subscribe((cats: any) => this.categories = cats
             );
 
@@ -209,12 +320,12 @@ export class AddPropositionComponent {
     }
 
     click(){
-        alert(this.categories[1].naamCat);
-        /*let counter = 0;
-        for (var i = 0; i < this.project.cats.length; i++) {
-            console.log("id: " + this.project.cats[i].ID);
 
-        }*/
+
+        for (var i = 0; i < this.project.cats[0].childCats[0].childCats.length; i++) {
+         alert("dit is het id van level 1: "+this.project.cats[0].childCats[0].childCats[i].naamCat);
+
+        }
         
         
         
