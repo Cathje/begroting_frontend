@@ -14,5 +14,6 @@ export interface GemeenteCategorie
     inspraakNiveau?:number;
     gemcatID?:number;
     acties?:Actie [];
+    childCats?:GemeenteCategorie [];
     
 }
