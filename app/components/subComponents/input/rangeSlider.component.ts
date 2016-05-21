@@ -4,6 +4,7 @@ import {Component, Input, Output, EventEmitter} from 'angular2/core';
 @Component({ //invoke with metadata object
     selector: 'slider',
     template: `
+                <!--TODO: via NGIF disabled property toevoegen als input bool isDisabled==true-->
                 <input type="range" name="slide" id="speedSlider" [(ngModel)]="data" (ngModelChange)="datChange($event)" min="1500" max="15000" value="2000" step="50" (change)="emitEvent()"/>
     `,
     styles:[`
