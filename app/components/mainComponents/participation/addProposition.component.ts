@@ -66,7 +66,7 @@ import {BegrotingsVoorstel} from "../../../models/begrotingsVoorstel";
                                     <slider name="slide" id="speedSlider" [min]=0 [max]=5000000 [value]=2000 [step]=1000 (changes)="updateBudget()"></slider>
                                 </div>
                                 <div class="form-group">
-                                    <input type="number" class="form-control" id="taxInput" [(ngModel)]="myTaxes" readonly>
+                                    <input [ngClass]="{locked: cat.inspraakNiveau  != 3}" type="number" class="form-control" id="taxInput" [(ngModel)]="cat.totaal" readonly>
                                 </div>
                             </form>
                             <!--a form for capturing budget shifts on action level-->
@@ -76,7 +76,7 @@ import {BegrotingsVoorstel} from "../../../models/begrotingsVoorstel";
                                 <form *ngFor="#acA of cat.acties #l = index" class="form-inline">
                                     <div class="form-group">
                                         <label class="actionLabel" for="slide">{{acA.actieKort}}</label>
-                                        <input type="number" class="form-control" id="taxInput" [(ngModel)]="acA.uitgaven" readonly>
+                                        <input [ngClass]="{locked: acA.inspraakNiveau  != 3}" type="number" class="form-control" id="taxInput" [(ngModel)]="acA.uitgaven" readonly>
                                         <!--<slider name="slide" id="speedSlider" [min]=0 [max]=5000000 [value]=2000 [step]=1000 (changes)="updateBudget()"></slider>-->
                                     </div>
                                     <div class="form-group actionSliderContainer">
@@ -100,7 +100,7 @@ import {BegrotingsVoorstel} from "../../../models/begrotingsVoorstel";
                                             <slider name="slide" id="speedSlider" [min]=0 [max]=5000000 [value]=2000 [step]=1000 (changes)="updateBudget()"></slider>
                                         </div>
                                         <div class="form-group">
-                                            <input type="number" class="form-control" id="taxInput" [(ngModel)]="myTaxes" readonly>
+                                            <input [ngClass]="{locked: levB.inspraakNiveau  != 3}" type="number" class="form-control" id="taxInput" [(ngModel)]="levB.totaal" readonly>
                                         </div>
                                     </form>
                                     <!--a form for capturing budget shifts on action level-->
@@ -110,7 +110,7 @@ import {BegrotingsVoorstel} from "../../../models/begrotingsVoorstel";
                                         <form *ngFor="#acB of levB.acties #k = index" class="form-inline">
                                             <div class="form-group">
                                                 <label class="actionLabel" for="slide">{{acB.actieKort}}</label>
-                                                <input type="number" class="form-control" id="taxInput" [(ngModel)]="acB.uitgaven" readonly>
+                                                <input [ngClass]="{locked: acB.inspraakNiveau  != 3}" type="number" class="form-control" id="taxInput" [(ngModel)]="acB.uitgaven" readonly>
                                                 <!--<slider name="slide" id="speedSlider" [min]=0 [max]=5000000 [value]=2000 [step]=1000 (changes)="updateBudget()"></slider>-->
                                             </div>
                                             <div class="form-group actionSliderContainer">
@@ -135,17 +135,17 @@ import {BegrotingsVoorstel} from "../../../models/begrotingsVoorstel";
                                                     <slider name="slide" id="speedSlider" [min]=0 [max]=5000000 [value]=2000 [step]=1000 (changes)="updateBudget()"></slider>
                                                 </div>
                                                 <div class="form-group">
-                                                    <input type="number" class="form-control" id="taxInput" [(ngModel)]="myTaxes" readonly>
+                                                    <input [ngClass]="{locked: levC.inspraakNiveau  != 3}" type="number" class="form-control" id="taxInput" [(ngModel)]="levC.totaal" readonly>
                                                 </div>
                                             </form>
                                             <!--a form for capturing budget shifts on action level-->
                                             <h3>Acties</h3>
-                                            <p *ngIf="levC.acties===null">Er zijn geen acties gedefinieerd</p>
+                                            <p *ngIf="levC.acties==null">Er zijn geen acties gedefinieerd</p>
                                             <div *ngIf="levC.acties!=null"> 
                                                 <form *ngFor="#ac of levC.acties #k = index" class="form-inline">
                                                     <div class="form-group">
                                                         <label class="actionLabel" for="slide">{{ac.actieKort}}</label>
-                                                        <input type="number" class="form-control" id="taxInput" [(ngModel)]="ac.uitgaven" readonly>
+                                                        <input [ngClass]="{locked: ac.inspraakNiveau  != 3}" type="number" class="form-control" id="taxInput" [(ngModel)]="ac.uitgaven" readonly>
                                                         <!--<slider name="slide" id="speedSlider" [min]=0 [max]=5000000 [value]=2000 [step]=1000 (changes)="updateBudget()"></slider>-->
                                                     </div>
                                                     <div class="form-group actionSliderContainer">
@@ -154,34 +154,6 @@ import {BegrotingsVoorstel} from "../../../models/begrotingsVoorstel";
                                                     </div>
                                                 </form>
                                             </div>
-                                          <!--Level D accordion: actions-->
-                                           <!-- <div class="panel-group" id="levelD">
-                                              <div class="panel panel-default">
-                                                <div class="panel-heading">
-                                                  <h4 class="panel-title"><a data-toggle="collapse" data-parent="#levelD" href="#collapseInnerD">
-                                                    Collapsible Inner Group Level D
-                                                  </a></h4>
-                                                </div>
-                                                <div id="collapseInnerD" class="panel-collapse collapse in">
-                                                  <div class="panel-body">
-                                                  &lt;!&ndash;Level 4 accordion: actions&ndash;&gt;
-                                                    <h3>Acties</h3>
-                                                    <p *ngIf="scenario===1"></p>
-                                                    <form class="form-inline">
-                                                        <div class="form-group">
-                                                            <label class="actionLabel" for="slide">Dit is een actie </label>
-                                                            <input type="number" class="form-control" id="taxInput" [(ngModel)]="myTaxes" readonly>
-                                                            &lt;!&ndash;<slider name="slide" id="speedSlider" [min]=0 [max]=5000000 [value]=2000 [step]=1000 (changes)="updateBudget()"></slider>&ndash;&gt;
-                                                        </div>
-                                                        <div class="form-group actionSliderContainer">
-                                                            &lt;!&ndash;<input type="number" class="form-control" id="taxInput" [(ngModel)]="myTaxes" readonly>&ndash;&gt;
-                                                            <slider name="slide" id="speedSlider" [min]=0 [max]=5000000 [value]=2000 [step]=1000 (changes)="updateBudget()"></slider>
-                                                        </div>
-                                                    </form>
-                                                  </div>
-                                                </div>
-                                              </div>
-                                            </div>-->  
                                           </div>
                                         </div>
                                       </div>
@@ -250,6 +222,12 @@ import {BegrotingsVoorstel} from "../../../models/begrotingsVoorstel";
         padding: 20px;
         min-height: 20em;
         overflow: auto; /*of overflow(-y): scroll;*/
+        }
+        
+        .locked{
+        /*background-color: indianred;*/
+        background-color: indianred;
+        
         }
         
         
