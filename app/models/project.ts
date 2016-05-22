@@ -15,7 +15,7 @@ export class Project {
     gemeente:string;
     boekjaar: number;
     cats: GemeenteCategorie[] = [];
-    afbeeldingen: string [] = [];
+    afbeelding: string;
     isActief : boolean;
     voorstellen: BegrotingsVoorstel [] = [];
 

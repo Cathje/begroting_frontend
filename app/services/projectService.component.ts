@@ -33,7 +33,7 @@ export class ProjectService
         headers.append('Content-Type', 'application/json');
         return this.http.post(this._url2 + "/postProject",JSON.stringify({projectScenario:p.projectScenario, vraag:p.vraag,
                 titel:p.titel, extraInfo:p.extraInfo, bedrag: p.bedrag, minBedrag: p.minBedrag, maxBedrag:p.maxBedrag, cats: p.cats, boekjaar: p.boekjaar, gemeente: p.gemeente,
-                isActief:p.isActief, afbeeldingen:p.afbeeldingen})
+                isActief:p.isActief, afbeeldingen:p.afbeelding})
             ,{headers:headers}).map(this.extractData);
 
     }

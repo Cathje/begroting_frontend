@@ -300,7 +300,7 @@ export class ManageProjectComponent {
             console.log(this.afb);
         }
         //TODO: weet niet waarom, maar de base64 variabele wordt niet getoond in de component en blijft undefined, terwijl de console log wel werkt
-        this.project.afbeeldingen.push(this.afb);
+        this.project.afbeelding = this.afb;
     }
 
     onSelectActieNiveau(event: any, cat:GemeenteCategorie,ac:Actie)
