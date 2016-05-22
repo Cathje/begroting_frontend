@@ -1,39 +1,76 @@
 import {Component, Injector} from 'angular2/core';
-import {TownService} from './../../../services/townService.component';
-import {Http} from 'angular2/http';
-import {ROUTER_DIRECTIVES, Router, RouteParams, RouteConfig} from 'angular2/router';
-import {TownSelectorComponent} from './../../subComponents/input/townSelector.component';
-import {SelectorComponent} from './../../subComponents/input/selector.component';
-import {EditableFieldComponent} from './../../subComponents/input/editableField.component';
+import {TownService} from "../../../services/townService.component";
 import {MainTown} from "../../../models/mainTown";
 import {SunburstComponent} from './../../subComponents/graphs/sunburst.component';
 import {BegrotingService} from "../../../services/begrotingService";
-import {Actie} from "../../../models/actie";
 import {GemeenteCategorie} from "../../../models/gemeenteCategorie";
 
 @Component({ //invoke with metadata object
     selector: 'comparison-container',
     template: `
         <div class="container">
+            <p *ngIf="errorMessage" class="alert alert-danger">{{errorMessage}}</p>
             <h1>Vergelijk 2 gemeentes</h1>
-            <p>Hier komt een paragraaf.Similiquecilis est et expedita distinctio. Nam libero tempore, cum soluta nobis est eligendi optio cumque nihil impedit quo minus id quod maxime placeat facere possimus, omnis voluptas assumenda est, omnis dolor repellendus. Temporibus autem quibusdam et</p>
+            <p>Hieronder kan u 2 gemeentes vergelijken op basis van de gemeente en het jaartal.</p>
         <div class="comparison-content">
             <div (window:resize)="onResize($event)">
-                <selector defaultOption="Kies een gemeente" [options]="towns" (change)="onSelectTown($event, '2')"></selector>
-                <sunburst [data]=categories [onClick]=onCircleClick [height]=width [width]=width></sunburst>
+                <div class="selectors">
+                    <div>
+                        <div class=" styled-select">
+                            <select [(ngModel)]="selectedYear1">
+                                <option value="0">Kies een jaar</option>
+                                <option *ngFor="#o of years" [value]="o">{{o}}</option>
+                            </select>
+                        </div>
+                    </div>
+                    <div>
+                        <div class=" styled-select">
+                            <select [(ngModel)]="selectedTown1">
+                                <option value="">Kies een gemeente</option>
+                                <option *ngFor="#o of towns" [value]="o.naam">{{o.naam}}</option>
+                            </select>
+                        </div>
+                    </div>
+                    <button type="button" class="btn btn-primary" (click)="onChangeGraph(selectedYear1, selectedTown1, '1')">
+                            <span class="glyphicon glyphicon-ok"></span>
+                    </button>
+
+                 </div>
+                 <sunburst [data]=categories [onClick]=onCircleClick [height]=width [width]=width></sunburst>
             </div>
             <div class="vs">
                 VS
             </div>
             <div >
-                <selector defaultOption="Kies een gemeente" [options]="towns" (change)="onSelectTown($event, '2')"></selector>
+                <div class="selectors">
+                    <div>
+                        <div class=" styled-select">
+                            <select [(ngModel)]="selectedYear2">
+                                <option value="0">Kies een jaar</option>
+                                <option *ngFor="#o of years" [value]="o">{{o}}</option>
+                            </select>
+                        </div>
+                    </div>
+                    <div>
+                        <div class=" styled-select">
+                            <select [(ngModel)]="selectedTown2">
+                                <option value="">Kies een gemeente</option>
+                                <option *ngFor="#o of towns" [value]="o.naam">{{o.naam}}</option>
+                            </select>
+                        </div>
+                    </div>
+                    <button type="button" class="btn btn-primary" (click)="onChangeGraph(selectedYear2, selectedTown2, '2')">
+                            <span class="glyphicon glyphicon-ok"></span>
+                    </button>
+                </div>
                 <sunburst [data]=categories2 [onClick]=onCircleClick [height]=width [width]=width></sunburst>
+
             </div>
         </div>
 
        </div>
 `,
-    directives: [SelectorComponent, TownSelectorComponent, SunburstComponent,ROUTER_DIRECTIVES],
+    directives: [SunburstComponent],
     providers: [ BegrotingService, TownService],
     styles: [`
         .comparison-content {
@@ -51,83 +88,72 @@ import {GemeenteCategorie} from "../../../models/gemeenteCategorie";
             margin: 20px;
         }
 
-        @media screen and (max-width: 768px) {
-        .comparison-content {
-            flex-direction: column;
+        .styled-select{
+            flex: 0 1 auto !important;
         }
+
+        .selectors{
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            padding-bottom: 30px;
+        }
+
+        @media screen and (max-width: 768px) {
+            .comparison-content {
+                flex-direction: column;
+            }
         }
 
 `]
 })
 
 export class ComparisonComponent {
-    title = 'Gemeente - home';
-    towns = ["Berchem", "Gent", "Brussel"];
-    imglink: string = "";
-    name:string = "";
-    mainTown = new MainTown("","",0,0);  //opm: moet geïnitialiseerd zijn, anders werkt ngModel niet
-    isVisable = false;
-    contentbutton="meer info";
-    acties: Actie[];
-    showActions = false;
-    id:number;
-    errorMessage:any;
-    isEditor: boolean = false; //TODO: adapt value when signed in with special role
+    towns = [{naam: "Berchem"},{naam:  "Gent"}];
+    errorMessage:string;
+    years: number[];
     categories: GemeenteCategorie [] = [];
     categories2: GemeenteCategorie [] = [];
+    selectedYear1: number = 0;
+    selectedYear2: number = 0;
+    selectedTown1: sring = "";
+    selectedTown2: string = "";
     width: number = window.innerWidth < 768 ? window.innerWidth*0.8 : window.innerWidth/3.5;
 
-    onCircleClick: any = (id: number) => {
-        this.showActions = true;
-        //TODO: replace hardcoded 15 with id
-       this._begrotingService.getActies(24)
-           .subscribe((acties : any) => this.acties = acties);
-    };
-
-    constructor(private _townService:TownService, private _begrotingService:BegrotingService, public http: Http, params: RouteParams, injector: Injector, private _router: Router)
+    constructor(private _begrotingService:BegrotingService, private _townService: TownService)
     {
-        _townService.getTown(injector.parent.parent.get(RouteParams).get('town'))
-            .subscribe((town:any) => {
-                this.mainTown = town;
-                this.imglink = "/app/images/provincies/" + town.provincie.toLowerCase().split(' ').join('') +".png";
-                },
-                (err:any) => this.errorMessage = err
-             );
+        this.years = this._getYears();
 
-        _begrotingService.getGemeenteCategorieen(2020,"Gent")
-           .subscribe(
-               (finan: any) => this.categories = finan,
-               (err:any) => this.errorMessage = err
-            );
-        
+        _townService.getTowns()
+            .subscribe((towns:MainTown[]) => this.towns = towns.sort(function(a, b){
+                const nameA=a.naam.toLowerCase(),
+                    nameB=b.naam.toLowerCase();
+                if (nameA < nameB)
+                    return -1;
+                if (nameA > nameB)
+                    return 1;
+                return 0;
+            }))
     }
 
-    ngOnInit() {
-        /* @TODO CATHERINE INDIEN BACKEND BIJ JOUW NIET WERKT DEZE CALL UIT COMMENTAAR ZETTEN
-        EN DE SERVICE  en aside met naam town-info VAN HIERBOVEN IN COMMENTAAR ZETTEN*/
-        //this.name = this._routeParams.get('town');
-    }
+    onChangeGraph = (year: number, town: string, graphNumber: string) => {
+        console.log(year, town);
+        if(year === 0 || town === ""){
+            this.errorMessage= "Gelieve een jaartal en een gemeente te selecteren";
+        }else {
+            this._begrotingService.getGemeenteCategorieen(2020,"Gent")
+                .subscribe(
+                    (finan: any) => {
+                        if(graphNumber === "1"){
+                            this.categories = finan;
+                        }else {
+                            this.categories2 = finan;
+                        }
+                    },
+                    (err:any) => this.errorMessage = err
 
-
-    public toggle(): void
-    {
-        this.isVisable = !this.isVisable;
-    }
-
-    onSelectTown = (event, graphNumber) => {
-        console.log(event.target.value);
-        this._begrotingService.getGemeenteCategorieen(2020,"Gent")
-            .subscribe(
-                (finan: any) => {
-                    if(graphNumber === "1"){
-                        this.categories = finan;
-                    }else {
-                        this.categories2 = finan;
-                    }
-                },
-                (err:any) => this.errorMessage = err
-
-            );
+                );
+        }
     }
 
     onResize = (event: any) => {
@@ -138,6 +164,15 @@ export class ComparisonComponent {
             this.width = window.innerWidth/3.5;
 
         }
+    };
+
+    _getYears = () => {
+        const currentYear: number = new Date().getFullYear();
+        const years: number[] = [];
+        for(let i=0; i < 5; i++){
+            years.push(currentYear + i)
+        }
+        return years;
     }
 
 }
