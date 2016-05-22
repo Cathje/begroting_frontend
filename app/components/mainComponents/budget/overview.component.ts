@@ -9,62 +9,64 @@ import {BegrotingService} from "../../../services/begrotingService";
 import {ProjectService} from "../../../services/projectService.component";
 import {Project} from "../../../models/project";
 
-
 @Component({ //invoke with metadata object
     selector: 'overview-container',
     template: `
         <div class="overview-container">
-        <div class="container" (window:resize)="onResize($event)">
-        <div class="intro col-xs-12">
-            <h1>Dashboard {{mainTown?.naam}}</h1>
-            <p>Welkom op het online platform van {{mainTown?.naam}}. Hieronder vind u een overzicht met de belangrijkste informatie over de gemeente {{mainTown?.naam}}. Klik op een widget van uw keuze om meer informatie te verkrijgen rond een specifiek onderwerp.</p>
-        </div>
-
-         <section class="col-xs-12 col-sm-6 col-md-6">
-            <div class="widget-content">
-                <h4>Inkomsten per categorie</h4>
-                <sunburst [data]=income [onClick]=onCircleClick [height]=width [width]=width></sunburst>
-                <button type="button" class="btn btn-primary pull-right" [routerLink]="['Income']">Meer info</button>
+            <div class="container" (window:resize)="onResize($event)">
+                <div class="intro col-xs-12">
+                <h1>Dashboard {{mainTown?.naam}}</h1>
+                <p>Welkom op het online platform van {{mainTown?.naam}}. Hieronder vind u een overzicht met de belangrijkste informatie over onze gemeente. Klik op een widget van uw keuze om meer informatie te verkrijgen rond een specifiek onderwerp.</p>
             </div>
-        </section>
 
-        <section class="col-xs-12 col-sm-6 col-md-6">
-            <div class="widget-content" >
-                <h4>Uitgaves per categorie</h4>
-                <sunburst [data]=expenses [onClick]=onCircleClick [height]=width [width]=width></sunburst>
-                <button type="button" class="btn btn-primary pull-right" [routerLink]="['Expenses']">Meer info</button>
-            </div>
-        </section>
+            <section class="col-xs-12 col-sm-6">
+                <div class="widget-content">
+                    <h4>Inkomsten per categorie</h4>
+                    <sunburst [data]=income [height]=width [width]=width></sunburst>
+                    <button type="button" class="btn btn-primary pull-right" [routerLink]="['Income']">Meer info</button>
+                </div>
+            </section>
 
-        <section class="col-xs-12 col-sm-6">
+            <section class="col-xs-12 col-sm-6">
+                <div class="widget-content" >
+                    <h4>Uitgaves per categorie</h4>
+                    <sunburst [data]=expenses [height]=width [width]=width></sunburst>
+                    <button type="button" class="btn btn-primary pull-right" [routerLink]="['Expenses']">Meer info</button>
+                </div>
+            </section>
+
+            <section class="col-xs-12 col-sm-6">
+                <div class="widget-content">
+                    <h4> Extra informatie over projecten </h4>
+
+                    <p> Voeg hieronder extra informatie toe over toekomstige projecten en/of projecten uit het verleden </p>
+                    <div class="col-xs-12 input-group">
+                         <label>Jaar:</label>
+                         <input  type="number" [(ngModel)]="year"/>
+                   </div>
+
+                    <div class="col-xs-12 input-group">
+                        <label>Informatie:</label>
+                        <textarea rows="2" [(ngModel)]="information"></textarea>
+                    </div>
+                    <button type="button" class="btn btn-primary pull-right" (click)="saveExtraInfo()">Verzenden</button>
+                </div>
+            </section>
+
+            <section class="col-xs-12 col-sm-6">
              <div class="widget-content">
                 <h4> Openstaande projecten</h4>
                 <ul>
-                    <p [ngClass]="{hide: projects  !=null}" class='noData'> Er zijn geen openstaande projecten.</p>
-                   <li *ngFor="#project of projects"> <button type="button" class="btn btn-primary btn-sm" [routerLink]="['/','App', 'Participation', {town: townString}, 'Projects']">Meer info</button> 
+                   <p *ngIf="projects === null" class='noData'> Er zijn geen openstaande projecten.</p>
+                   <li *ngFor="#project of projects">
+                       <button type="button" class="btn btn-primary btn-sm" [routerLink]="['/','App', 'Participation', {town: townString}, 'Projects']">Meer info</button>
                        {{project.boekjaar}} - {{project.titel}}
-                    </li> 
+                   </li>
                 </ul>
             </div>
-        </section>
+           </section>
 
-        <section class="col-xs-12 col-sm-6 col-md-6">
-            <div class="widget-content">
-                <h4> Extra informatie over projecten </h4>
 
-                <p> Voeg hieronder extra informatie toe over toekomstige projecten en/of projecten uit het verleden </p>
-                <div class="col-xs-12 input-group">
-                     <label>Jaar:</label>
-                     <input  type="number" [(ngModel)]="year"/>
-               </div>
-
-                <div class="col-xs-12 input-group">
-                    <label>Informatie:</label>
-                    <textarea rows="2" [(ngModel)]="information"></textarea>
-                </div>
-                <button type="button" class="btn btn-primary pull-right" (click)="saveExtraInfo()">Verzenden</button>
-            </div>
-        </section>
 
         <section class="col-xs-12 col-sm-6 col-md-3 pull-right">
             <div class="widget-content">
@@ -99,7 +101,7 @@ import {Project} from "../../../models/project";
         </section>
 
        </div>
-       </div>
+    </div>
 `,
     directives: [SunburstComponent,ROUTER_DIRECTIVES],
     providers: [ ProjectService, BegrotingService, TownService],
@@ -121,21 +123,14 @@ import {Project} from "../../../models/project";
         overflow: auto;
     }
 
-    .widget-content div input {
-    }
-
-    .btn {
-        margin-top: 15px;
-    }
-
     li {
         display: flex;
         align-items: baseline;
         justify-content: flex-start;
     }
 
-    li .btn {
-        margin: 10px 20px 10px 0px;
+    .btn {
+        margin: 20px 0px 0px 10px;
     }
 
     .icon {
@@ -147,7 +142,7 @@ import {Project} from "../../../models/project";
 })
 
 export class OverviewComponent {
-    //TODO catherine: hide the extra information widget when the role of the user is not admin/superadmin
+    //TODO: hide the extra information widget when the role of the user is not admin/superadmin
 
     mainTown = new MainTown("","",0,0);  //opm: moet geïnitialiseerd zijn, anders werkt ngModel niet
 
@@ -163,46 +158,36 @@ export class OverviewComponent {
     width: number = window.innerWidth < 768 ? window.innerWidth*0.7 : window.innerWidth/4;
 
     // parameters for income widget
-    income: GemeenteCategorie [] = []; //TODO nadya: create a webapi that shows the income categories
+    income: GemeenteCategorie [] = []; //TODO create a webapi that shows the income categories
 
     //errors
     errorMessage: any;
-    errorMessage2:any;
 
     constructor(private _projectService:ProjectService,
                 private _townService:TownService,
                 private _begrotingService:BegrotingService,
                 private injector: Injector
-                )
+    )
     {
         _townService.getTown(injector.parent.parent.get(RouteParams).get('town'))
             .subscribe((town:Object) => {
-                this.mainTown = town;
+                    this.mainTown = town;
                 }
-             );
+            );
 
-        //@TODO nadya: een webapi opzetten om de openstaande projecten op te halen
-        //@TODO catherine; Deze url haalt alle openstaande projecten op van een gemeente
         _projectService.getProjects(injector.parent.parent.get(RouteParams).get('town')).subscribe(
             (projects:any) => {this.projects = projects; },
             (err:any) => this.errorMessage = err
         );
 
-        //TODO nadya: webapi aanpassen zodat het ook werkt voor andere jaren en steden --> Deze werkt met andere gemeenten en jaren. Je moet de hardcoded data wijzigen door variabelen
-        
+        // TODO: change hardcoded year and city with variables : today.getYear() + injector.parent.parent.get(RouteParams).get('town')
         _begrotingService.getGemeenteCategorieen(2020,"Gent")
-           .subscribe((finan: any) => this.expenses = finan
+            .subscribe((exp: any) => this.expenses = exp
             );
-    }
-
-    ngOnInit() {
-        /* @TODO CATHERINE INDIEN BACKEND BIJ JOUW NIET WERKT DEZE CALL UIT COMMENTAAR ZETTEN
-        EN DE SERVICE  en aside met naam town-info VAN HIERBOVEN IN COMMENTAAR ZETTEN*/
-        //this.name = this._routeParams.get('town');
-    }
+    };
 
     saveExtraInfo: any = () => {
-       //TODO nadya: send a call to backend for publishing the extra information
+        //TODO: send a call to backend for publishing the extra information
         alert('sending info to backend');
     };
 
@@ -213,17 +198,6 @@ export class OverviewComponent {
         }else {
             this.width = window.innerWidth/4;
         }
-    }
-
-    onCircleClick: any = (id: number) => {
-        alert('hey');
-        /*
-         this.showActions = true;
-         //TODO: replace hardcoded 15 with id
-         this._begrotingService.getActies(24)
-         .subscribe((acties : any) => this.acties = acties);
-         */
     };
-
 }
 
