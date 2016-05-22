@@ -13,7 +13,7 @@ import {Actie} from "../../../models/actie";
 @Component({ //invoke with metadata object
     selector: 'manage-project-container',
     template: `
-    <p class="alert alert-danger" *ngIf="errorMessage">{{errorMessage}}</p>
+    <p *ngIf="errorMessage" class="alert alert-info">Er is geen begroting voor dit jaar</p>
 
     <section class="container">
         <h1>Beheer project - {{town}}</h1>
@@ -34,7 +34,7 @@ import {Actie} from "../../../models/actie";
                     </div>
                  </section>
 
-                 <section class="col-xs-12 form-inline" *ngIf="project.titel">
+                 <section class="col-xs-12 form-inline" *ngIf="!errorMessage">
                       <h3>Project</h3>
                       <div class="section-content">
                         <div class="col-xs-12 form-group">
@@ -68,42 +68,82 @@ import {Actie} from "../../../models/actie";
                       </div>
                 </section>
 
-                <section class="col-xs-12 form-inline" *ngIf="project.titel">
-                     <h3>InspraakNiveaus vaststellen</h3>
+                <section class="col-xs-12 form-inline" *ngIf="!errorMessage">
                      <div class="section-content">
-                        <div *ngFor="#cat of categorieen #i = index">
-                            <h5>categorie: {{cat.naamCat}}</h5>
-                            <p>totaal: {{cat.totaal}}</p>
-                            <p>InspraakNiveau: {{niveaus[cat.inspraakNiveau]}}</p>
-
-                            <select (change)="onSelectCatNiveau($event, i)">
-                                    <option *ngFor="#t of niveaus | keys" [value]="t.key">{{t.value}}</option>
+             <div *ngFor="#catA of categorieen #i = index">
+                <h5>categorie: {{catA.naamCat}}</h5>
+                <p>totaal: {{catA.totaal}}</p>
+                <p>InspraakNiveau: {{niveaus[catA.inspraakNiveau]}}</p>
+                
+                <select (change)="onSelectCatNiveau($event, i,0,0, null, catA)">
+                        <option *ngFor="#t of niveaus | keys" [value]="t.key">{{t.value}}</option>
+                         </select>
+                    <br>    
+                         <div class="acties" *ngFor="#ac of catA.acties #j = index"> 
+                            <h5>Actie: {{ac.actieKort}} - {{ac.actieLang}}</h5>
+                            <p> uitgave: {{ac.uitgaven}}</p>
+                             <p>InspraakNiveau: {{niveaus[ac.inspraakNiveau]}}</p>
+                            <select (change)="onSelectActieNiveau($event,null, ac)">
+                                <option *ngFor="#t of niveaus | keys" [value]="t.key">{{t.value}}</option>
                             </select>
-                            <br>
-                            <div class="acties" *ngFor="#ac of cat.acties #j = index">
-                               <h5>Actie: {{ac.actieKort}} - {{ac.actieLang}}</h5>
-                               <p> uitgave: {{ac.uitgaven}}</p>
-                               <p>InspraakNiveau: {{niveaus[ac.inspraakNiveau]}}</p>
-                               <select (change)="onSelectActieNiveau($event,i,j)">
-                                    <option *ngFor="#t of niveaus | keys" [value]="t.key">{{t.value}}</option>
-                               </select>
-                            </div>
+                         </div>
+                  <div *ngFor="#catB of catA.childCats #k = index">
+                <h5>categorie: {{catB.naamCat}}</h5>
+                <p>totaal: {{catB.totaal}}</p>
+                <p>InspraakNiveau: {{niveaus[catB.inspraakNiveau]}}</p>
+                
+                <select (change)="onSelectCatNiveau($event, i,k,0, catA, catB)">
+                        <option *ngFor="#t of niveaus | keys" [value]="t.key">{{t.value}}</option>
+                         </select>
+                    <br>    
+                         <div class="acties" *ngFor="#ac of catB.acties #j = index"> 
+                            <h5>Actie: {{ac.actieKort}} - {{ac.actieLang}}</h5>
+                            <p> uitgave: {{ac.uitgaven}}</p>
+                             <p>InspraakNiveau: {{niveaus[ac.inspraakNiveau]}}</p>
+                            <select (change)="onSelectActieNiveau($event,catB,ac)">
+                                <option *ngFor="#t of niveaus | keys" [value]="t.key">{{t.value}}</option>
+                            </select>
+                         </div>
+                       <div *ngFor="#catC of catB.childCats #l = index">
+                <h5>categorie: {{catC.naamCat}}</h5>
+                <p>totaal: {{catC.totaal}}</p>
+                <p>InspraakNiveau: {{niveaus[catC.inspraakNiveau]}}</p>
+                
+                <select (change)="onSelectCatNiveau($event, i,k,l, catB, catC)">
+                        <option *ngFor="#t of niveaus | keys" [value]="t.key">{{t.value}}</option>
+                         </select>
+                    <br>    
+                         <div class="acties" *ngFor="#ac of catC.acties #j = index"> 
+                            <h5>Actie: {{ac.actieKort}} - {{ac.actieLang}}</h5>
+                            <p> uitgave: {{ac.uitgaven}}</p>
+                             <p>InspraakNiveau: {{niveaus[ac.inspraakNiveau]}}</p>
+                            <select (change)="onSelectActieNiveau($event,catC, ac)">
+                                <option *ngFor="#t of niveaus | keys" [value]="t.key">{{t.value}}</option>
+                            </select>
+                         </div>
                         </div>
-                     </div>
+                         
+            </div>       
+            </div>
+              </div>
                 </section>
-                <button (click)="editExistingProject()"class="btn btn-primary pull-right">opslaan</button>
+                <button [hidden]="!errorMessage"(click)="editExistingProject()"class="btn btn-primary pull-right">opslaan</button>
             </div>
 
             <!-- NEW PROJECTS TAB-->
             <div id="new" class="tab-pane fade in active">
-                <section class="col-xs-12 form-inline">
+            <section class="col-xs-12 form-inline">
+                    <h3>Voor welk boekjaar wenst u een nieuw Project op te stellen?</h3>
+                    <div class="section-content">
+                     <label>boekjaar:</label>
+                     <input type="number" class="form-control" [(ngModel)]="project.boekjaar"/>
+                     <button class="btn btn-primary form-control" (click)="getBegroting()">haal begroting op</button>
+                    </div>
+                 </section>
+                <section class="col-xs-12 form-inline" *ngIf="!errorMessage">
                         <h3>Project</h3>
 
                         <div class="section-content">
-                        <div class="col-xs-12 form-group">
-                            <label>Boekjaar:</label>
-                            <input type="number" class="form-control" [(ngModel)]="project.boekjaar"/>
-                        </div>
                         <div class="col-xs-12 form-group">
                             <label>Titel:</label>
                             <input type="text" [(ngModel)]="project.titel"/>
@@ -133,37 +173,71 @@ import {Actie} from "../../../models/actie";
                         </div>
                         </div>
                 </section>
-                <section class="col-xs-12 form-inline">
+                <section class="col-xs-12 form-inline" *ngIf="!errorMessage">
                         <h3>InspraakNiveaus vaststellen</h3>
                         <div class="section-content">
-                         <div *ngFor="#cat of categorieen #i = index">
-                            <h5>categorie: {{cat.naamCat}}</h5>
-                            <p>totaal: {{cat.totaal}}</p>
-                            <p>InspraakNiveau: {{niveaus[cat.inspraakNiveau]}}</p>
-
-                            <select (change)="onSelectCatNiveau($event, i)">
-                                 <option *ngFor="#t of niveaus | keys" [value]="t.key">{{t.value}}</option>
+             <div *ngFor="#catA of categorieen #i = index">
+                <h5>categorie: {{catA.naamCat}}</h5>
+                <p>totaal: {{catA.totaal}}</p>
+                <p>InspraakNiveau: {{niveaus[catA.inspraakNiveau]}}</p>
+                
+                <select (change)="onSelectCatNiveau($event, i,0,0, null, catA)">
+                        <option *ngFor="#t of niveaus | keys" [value]="t.key">{{t.value}}</option>
+                         </select>
+                    <br>    
+                         <div class="acties" *ngFor="#ac of catA.acties #j = index"> 
+                            <h5>Actie: {{ac.actieKort}} - {{ac.actieLang}}</h5>
+                            <p> uitgave: {{ac.uitgaven}}</p>
+                             <p>InspraakNiveau: {{niveaus[ac.inspraakNiveau]}}</p>
+                            <select (change)="onSelectActieNiveau($event,null, ac)">
+                                <option *ngFor="#t of niveaus | keys" [value]="t.key">{{t.value}}</option>
                             </select>
-                            <br>
-                            <div class="acties" *ngFor="#ac of cat.acties #j = index">
-                               <h5>Actie: {{ac.actieKort}} - {{ac.actieLang}}</h5>
-                               <p> uitgave: {{ac.uitgaven}}</p>
-                               <p>InspraakNiveau: {{niveaus[ac.inspraakNiveau]}}</p>
-                               <select (change)="onSelectActieNiveau($event,i,j)">
-                                  <option *ngFor="#t of niveaus | keys" [value]="t.key">{{t.value}}</option>
-                               </select>
-                            </div>
+                         </div>
+                  <div *ngFor="#catB of catA.childCats #k = index">
+                <h5>categorie: {{catB.naamCat}}</h5>
+                <p>totaal: {{catB.totaal}}</p>
+                <p>InspraakNiveau: {{niveaus[catB.inspraakNiveau]}}</p>
+                
+                <select (change)="onSelectCatNiveau($event, i,k,0, catA, catB)">
+                        <option *ngFor="#t of niveaus | keys" [value]="t.key">{{t.value}}</option>
+                         </select>
+                    <br>    
+                         <div class="acties" *ngFor="#ac of catB.acties #j = index"> 
+                            <h5>Actie: {{ac.actieKort}} - {{ac.actieLang}}</h5>
+                            <p> uitgave: {{ac.uitgaven}}</p>
+                             <p>InspraakNiveau: {{niveaus[ac.inspraakNiveau]}}</p>
+                            <select (change)="onSelectActieNiveau($event,catB,ac)">
+                                <option *ngFor="#t of niveaus | keys" [value]="t.key">{{t.value}}</option>
+                            </select>
+                         </div>
+                       <div *ngFor="#catC of catB.childCats #l = index">
+                <h5>categorie: {{catC.naamCat}}</h5>
+                <p>totaal: {{catC.totaal}}</p>
+                <p>InspraakNiveau: {{niveaus[catC.inspraakNiveau]}}</p>
+                
+                <select (change)="onSelectCatNiveau($event, i,k,l, catB, catC)">
+                        <option *ngFor="#t of niveaus | keys" [value]="t.key">{{t.value}}</option>
+                         </select>
+                    <br>    
+                         <div class="acties" *ngFor="#ac of catC.acties #j = index"> 
+                            <h5>Actie: {{ac.actieKort}} - {{ac.actieLang}}</h5>
+                            <p> uitgave: {{ac.uitgaven}}</p>
+                             <p>InspraakNiveau: {{niveaus[ac.inspraakNiveau]}}</p>
+                            <select (change)="onSelectActieNiveau($event,catC, ac)">
+                                <option *ngFor="#t of niveaus | keys" [value]="t.key">{{t.value}}</option>
+                            </select>
+                         </div>
                         </div>
-                          </div>
+                         
+            </div>       
+            </div>
+              </div>
                 </section>
-                <button [disabled]="!project.titel" (click)="submit()"class="btn btn-primary pull-right">opslaan</button>
+                <button [hidden]="!errorMessage" (click)="submit()"class="btn btn-primary pull-right">opslaan</button>
 
             </div>
         </div>
     </section>
-
-   <button *ngIf="!errorMessage" [disabled]="submitProject" (click)="submit()"class="btn btn-primary pull-right">opslaan</button>
-           <p *ngIf="errorMessage2" class="alert alert-info">Oeps er is al een project voor deze begroting opgezet</p>
 
 `,
     directives: [ROUTER_DIRECTIVES],
@@ -238,6 +312,7 @@ export class ManageProjectComponent {
     town:string;
     id: number;
     errorMessage:any;
+    errorMessage2:any;
     submitProject:boolean=true;
     afb: string;
     constructor(
@@ -245,9 +320,6 @@ export class ManageProjectComponent {
         this.town = injector.parent.parent.get(RouteParams).get('town');
     }
 
-    ngOnInit() {
-        var number = this._routeParams.get('projectNumber');
-    }
 
     getBegroting(){
         //Todo: get the project details
@@ -349,14 +421,7 @@ export class ManageProjectComponent {
             }
         }
     }
-
-    onChangeAfbeelding(event:any){
-        var reader = new FileReader();
-        reader.readAsDataURL(event.target.files[0]);
-        reader.onload = function() {
-            this.afb = reader.result;
-        }
-    }
+    
 
     onSelectActieNiveau(event: any, cat:GemeenteCategorie,ac:Actie)
     {
@@ -375,20 +440,17 @@ export class ManageProjectComponent {
 
     submit = ()=>
     {
+        this.errorMessage2="";
         this.project.cats = this.categorieen;
 
         this.project.isActief=true;
         this.project.gemeente = this.town;
-
-        this.project.afbeeldingen = [];
-        this.project.afbeeldingen.push(this.afb);
         this._projectService.putProject(this.project).subscribe(
-
             (id: any) => this.id = id,
-            (err:any) => this.errorMessage = err
+            (err:any) => this.errorMessage2 = err
         );
 
-        this._router.navigate(['/', 'App','Budget', { town: this.town}]);
+        //   this._router.navigate(['MainTown', { town: this.town}]);
 
     }
 
