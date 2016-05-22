@@ -19,6 +19,7 @@ export class BegrotingsVoorstel {
     verificatieStatus: number;
     verificatorEmail: string;
     auteurEmail: string;
+    afbeeldingen: string [] = [];
     
     constructor()
     {

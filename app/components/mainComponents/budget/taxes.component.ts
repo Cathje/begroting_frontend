@@ -32,7 +32,7 @@ import {rangeSlider} from './../../subComponents/input/rangeSlider.component';
                         </div>-->
                         <div class="rangeArea col-lg-12 col-md-12 col-sm-12 col-xs-12 speedSlider">
                             <!--<input type="range" name="slide" id="speedSlider" [(ngModel)]="mySalary" min="1500" max="15000" value="2000" step="50" (change)="calculateSalary()"/>  [data]=mySalary-->
-                            <slider name="slide" id="speedSlider" [(data)]="mySalary" [min]=1500 [max]=15000 [value]=2000 [step]=50 (changes)="calculateSalary()"></slider>
+                           <!-- <slider name="slide" id="speedSlider" [(data)]="mySalary" [min]=1500 [max]=15000 [value]=2000 [step]=50 (changes)="calculateSalary()"></slider>-->
                         </div>
                         <div class="labelArea col-lg-12 col-md-12 col-sm-12 col-xs-12">
                         <form class="form-inline">

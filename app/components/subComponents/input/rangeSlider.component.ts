@@ -4,8 +4,9 @@ import {Component, Input, Output, EventEmitter} from 'angular2/core';
 @Component({ //invoke with metadata object
     selector: 'slider',
     template: `
-                <!--TODO: via NGIF disabled property toevoegen als input bool isDisabled==true-->
-                <input type="range" name="slide" id="speedSlider" [(ngModel)]="data" (ngModelChange)="datChange($event)" min="1500" max="15000" value="2000" step="50" (change)="emitEvent()"/>
+                <!--TODO: ipv (click) (change) event????!!! maar niet steeds getriggerd!!!!-->
+                <input *ngIf="inspraakNiveau != 3" disabled type="range" name="{{name}}" id="{{id}}" [(ngModel)]="data" (ngModelChange)="datChange($event)" min="{{MIN}}" max="{{max}}" step="{{step}}" (click)="emitEvent($event)"/>
+                <input *ngIf="inspraakNiveau == 3" type="range" name="{{name}}" id="{{id}}" [(ngModel)]="data" (ngModelChange)="datChange($event)" min="{{MIN}}" max="{{max}}" step="{{step}}" (click)="emitEvent($event)"/>
     `,
     styles:[`
 
@@ -112,20 +113,46 @@ export class rangeSlider {
     @Input() name: string;
     @Input() id: string;
     @Input() data: number;
-    @Input() min: number;
-    @Input() max: number;
+    /*@Input() min: number;
+    @Input() max: number;*/
     @Input() value: number;
-    @Input() step: number;
+    /*@Input() step: number;*/
+    @Input() itemID: number;
+    @Input() propositionParent: boolean = false;
+    @Input() inspraakNiveau: number;
     @Output() dataChange = new EventEmitter();
     @Output() changes = new EventEmitter();
 
+    private MIN: number = 0;
+    private max: number;
+    private step: number;
+    ngOnInit() { /*TODO: limieten op max en min voor acties???*/
+        this.max = (this.value*2);
+        if (this.value <= 3000){
+            this.step = 10;
+        }
+        else if (this.value <= 10000){
+            this.step= 100
+        }
+        else {
+            this.step = 1000;
+        }
+    }
+    
     private datChange(newValue: any){
         this.data = newValue;
         this.dataChange.emit(this.data);
     }
 
-    private emitEvent(){
-        this.changes.emit(false);
+    private emitEvent(event: any){
+        if(!this.propositionParent)
+        {
+            this.changes.emit(false);
+        }
+        else{
+            this.changes.emit({event:event, id: this.itemID});
+        }
+        
     }
 
 
