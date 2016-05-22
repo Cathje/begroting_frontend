@@ -1,1 +1,1 @@
-{"version":3,"file":"stem.js","sourceRoot":"","sources":["stem.ts"],"names":[],"mappings":"AAAA;;GAEG;;;;;;;;YAEH;gBAAA;gBAGA,CAAC;gBAAD,WAAC;YAAD,CAAC,AAHD,IAGC;YAHD,uBAGC,CAAA"}
+{"version":3,"file":"stem.js","sourceRoot":"","sources":["stem.ts"],"names":["Stem","Stem.constructor"],"mappings":"AAAA;;GAEG;;;;;;YAEH;gBAAAA;gBAGAC,CAACA;gBAADD,WAACA;YAADA,CAACA,AAHD,IAGC;YAHD,uBAGC,CAAA"}
