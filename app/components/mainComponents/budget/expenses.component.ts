@@ -15,6 +15,9 @@ import {SelectorComponent} from './../../subComponents/input/selector.component'
     selector: 'expenses-container',
     template: `
         <div class="container">
+
+        <p *ngIf="errorMessage" class="alert alert-danger">{{errorMessage}}</p>
+
         <section class="intro col-xs-12">
             <h1>De uitgaven van {{town}}</h1>
             <p>Bekijk hieronder de uitgaves van de gemeente {{town}}. Klik op een categorie naar keuze om de specifieke acties te bekijken of beweeg met je muis over een categorie in de legende om meer informatie te verkrijgen over de desbetreffende categorie.</p>
