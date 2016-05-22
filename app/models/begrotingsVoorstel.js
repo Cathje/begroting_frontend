@@ -11,6 +11,9 @@ System.register([], function(exports_1, context_1) {
             BegrotingsVoorstel = (function () {
                 function BegrotingsVoorstel() {
                     this.budgetWijzigingen = [];
+                    this.stemmen = [];
+                    this.reacties = [];
+                    this.reactie = "";
                 }
                 return BegrotingsVoorstel;
             }());

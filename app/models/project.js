@@ -8,7 +8,7 @@ System.register([], function(exports_1, context_1) {
             Project = (function () {
                 function Project(titel) {
                     this.cats = [];
-                    this.afbeeldingen = [];
+                    this.voorstellen = [];
                     this.titel = titel;
                 }
                 return Project;

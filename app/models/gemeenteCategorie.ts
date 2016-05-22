@@ -15,5 +15,6 @@ export interface GemeenteCategorie
     gemcatID?:number;
     acties?:Actie [];
     childCats?:GemeenteCategorie [];
+    catType?:string;
     
 }

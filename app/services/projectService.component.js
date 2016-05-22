@@ -25,11 +25,11 @@ System.register(['angular2/core', 'angular2/http', 'rxjs/Rx'], function(exports_
             ProjectService = (function () {
                 function ProjectService(http) {
                     this.http = http;
-                    this._url = 'http://begroting-webapi.azurewebsites.net/api/Begroting';
-                    this._url2 = 'http://begroting-webapi.azurewebsites.net/api/Project';
+                    //private _url = 'http://begroting-webapi.azurewebsites.net/api/Begroting';
+                    // private _url2 = 'http://begroting-webapi.azurewebsites.net/api/Project';
+                    this._url = 'http://localhost:52597/api/Begroting';
+                    this._url2 = 'http://localhost:52597/api/Project';
                 }
-                //private _url = 'http://localhost:52597/api/Begroting';
-                //private _url2 = 'http://localhost:52597/api/Project';
                 ProjectService.prototype.getInspraakitems = function (jaar, naam) {
                     return this.http.get(this._url2 + "/itemsGET" + "?jaar=" + jaar + "&naam=" + naam)
                         .map(this.extractData);
@@ -39,7 +39,7 @@ System.register(['angular2/core', 'angular2/http', 'rxjs/Rx'], function(exports_
                     headers.append('Content-Type', 'application/json');
                     return this.http.post(this._url2 + "/postProject", JSON.stringify({ projectScenario: p.projectScenario, vraag: p.vraag,
                         titel: p.titel, extraInfo: p.extraInfo, bedrag: p.bedrag, minBedrag: p.minBedrag, maxBedrag: p.maxBedrag, cats: p.cats, boekjaar: p.boekjaar, gemeente: p.gemeente,
-                        isActief: p.isActief, afbeeldingen: p.afbeeldingen }), { headers: headers }).map(this.extractData);
+                        isActief: p.isActief, afbeeldingen: p.afbeelding }), { headers: headers }).map(this.extractData);
                 };
                 ProjectService.prototype.postBegrotingsVoorstel = function (projectId, voorstel) {
                     var headers = new http_1.Headers();
@@ -54,6 +54,16 @@ System.register(['angular2/core', 'angular2/http', 'rxjs/Rx'], function(exports_
                     var headers = new http_1.Headers();
                     headers.append('Content-Type', 'application/json');
                     return this.http.put(this._url2 + "/putVoorstel/" + voorstelId, JSON.stringify(status), { headers: headers }).map(this.extractData);
+                };
+                ProjectService.prototype.putStem = function (voorstelId, email) {
+                    var headers = new http_1.Headers();
+                    headers.append('Content-Type', 'application/json');
+                    return this.http.put(this._url2 + "/putStem/" + voorstelId, JSON.stringify(email), { headers: headers }).map(this.extractData);
+                };
+                ProjectService.prototype.postReactie = function (voorstelId, reactie) {
+                    var headers = new http_1.Headers();
+                    headers.append('Content-Type', 'application/json');
+                    return this.http.post(this._url2 + "/postReactie/" + voorstelId, JSON.stringify(reactie), { headers: headers }).map(this.extractData);
                 };
                 ProjectService.prototype.getProjects = function (naam) {
                     return this.http.get(this._url2 + "?naam=" + naam)

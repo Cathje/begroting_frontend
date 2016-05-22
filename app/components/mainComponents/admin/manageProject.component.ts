@@ -7,6 +7,7 @@ import {InspraakNiveau} from "../../../models/inspraakNiveau";
 import {Project} from "../../../models/project";
 import {ProjectScenario} from "../../../models/projectScenario";
 import {GemeenteCategorie} from "../../../models/gemeenteCategorie";
+import {Actie} from "../../../models/actie";
 
 
 @Component({ //invoke with metadata object
@@ -67,7 +68,7 @@ import {GemeenteCategorie} from "../../../models/gemeenteCategorie";
                       </div>
                 </section>
 
-                <section class="col-xs-12 form-inline" *ngIf="project">
+                <section class="col-xs-12 form-inline" *ngIf="project.titel">
                      <h3>InspraakNiveaus vaststellen</h3>
                      <div class="section-content">
                         <div *ngFor="#cat of categorieen #i = index">
@@ -156,9 +157,14 @@ import {GemeenteCategorie} from "../../../models/gemeenteCategorie";
                           </div>
                 </section>
                 <button [disabled]="!project.titel" (click)="submit()"class="btn btn-primary pull-right">opslaan</button>
+
             </div>
         </div>
     </section>
+
+   <button *ngIf="!errorMessage" [disabled]="submitProject" (click)="submit()"class="btn btn-primary pull-right">opslaan</button>
+           <p *ngIf="errorMessage2" class="alert alert-info">Oeps er is al een project voor deze begroting opgezet</p>
+
 `,
     directives: [ROUTER_DIRECTIVES],
     providers: [ ProjectService],
@@ -268,87 +274,96 @@ export class ManageProjectComponent {
         }
     }
 
-    onSelectCatNiveau(event: any, i:any)
+    onSelectCatNiveau(event: any, iA: number, iB: number, iC: number,catParent: GemeenteCategorie, cat: GemeenteCategorie)
     {
-        this.cat  = this.categorieen.filter(
-            (cat:any) => cat.ID === this.categorieen[i].gemcatID);
-
-        if(event.target.value == 2)
+        var inspraak = event.target.value;
+        switch (cat.catType)
         {
-            this.categorieen[i].inspraakNiveau = event.target.value;
-            this.changeInspraak(event.target.value, i);
-        }
-        else {
-            if(this.cat.length==0)
-            {
-                alert("A");
-                this.categorieen[i].inspraakNiveau = event.target.value;
-            }
-            if( this.cat.length != 0 && this.cat[0].inspraakNiveau !=2)
-            {
-                alert("lower cat: " + this.cat[0].inspraakNiveau);
-
-                this.categorieen[i].inspraakNiveau = event.target.value;
-            }
-
-        }
-
-    }
-
-    changeInspraak(inspraak:number, i:number)
-    {
-        //CAT A
-
-        if(this.categorieen[i].acties != null)
-        {
-            for (let k = 0; k < this.categorieen[i].acties.length; k++)
-            {
-                this.categorieen[i].acties[k].inspraakNiveau = 2;
-            }
-        }
-
-        for (let j = 0; j < this.categorieen.length; j++)
-        {
-            if( this.categorieen[j].gemcatID == this.categorieen[i].ID)
-            {
-                //CAT B
-                this.categorieen[j].inspraakNiveau = 2;
-                if(this.categorieen[j].acties != null)
-                {
-                    for (let k = 0; k < this.categorieen[j].acties.length; k++)
-                    {
-                        this.categorieen[j].acties[k].inspraakNiveau = 2;
+            case "A" :
+                this.categorieen[iA].inspraakNiveau = inspraak;
+                if(inspraak == 2) {
+                    this.changeInspraak(this.categorieen[iA].childCats, 2);
+                    if (this.categorieen[iA].acties != null) {
+                        for (var j = 0; j < this.categorieen[iA].acties.length; j++) {
+                            this.categorieen[iA].acties[j].inspraakNiveau = 2;
+                        }
                     }
                 }
-
-
-                for (let a = 0; a < this.categorieen.length; a++)
+                break;
+            case "B" :
+                if(catParent.inspraakNiveau !=2)
                 {
-                    if( this.categorieen[a].gemcatID == this.categorieen[j].ID)
-                    {
-                        //CAT C
-                        this.categorieen[a].inspraakNiveau = 2;
-                        if(this.categorieen[a].acties != null)
-                        {
-                            for (let k = 0; k < this.categorieen[a].acties.length; k++)
-                            {
-                                this.categorieen[a].acties[k].inspraakNiveau = 2;
+                    this.categorieen[iA].childCats[iB].inspraakNiveau = inspraak;
+                    if(inspraak == 2) {
+                        this.changeInspraak(this.categorieen[iA].childCats[iB].childCats, 2);
+                        if (this.categorieen[iA].childCats[iB].acties != null) {
+                            for (var j = 0; j < this.categorieen[iA].childCats[iB].acties.length; j++) {
+                                this.categorieen[iA].childCats[iB].acties[j].inspraakNiveau = 2;
                             }
                         }
-
                     }
                 }
+                break;
+            case "C" :
+                if(catParent.inspraakNiveau !=2)
+                {
+                    this.categorieen[iA].childCats[iB].childCats[iC].inspraakNiveau = inspraak;
+                    if(inspraak == 2) {
+                        if (this.categorieen[iA].childCats[iB].childCats[iC].acties != null) {
+                            for (var j = 0; j < this.categorieen[iA].childCats[iB].childCats[iC].acties.length; j++) {
+                                this.categorieen[iA].childCats[iB].childCats[iC].acties[j].inspraakNiveau = 2;
+                            }
+                        }
+                    }
+                }
+                break;
 
+        }
+
+
+
+
+    }
+
+    changeInspraak(childs : GemeenteCategorie[], inspraak:number)
+    {
+        if(childs != null)
+        {
+
+            for( var i = 0; i < childs.length ; i++)
+            {
+                //niv B
+                childs[i].inspraakNiveau = inspraak;
+                if(childs[i].acties != null )
+                {
+                    for (var j = 0; j < childs[i].acties.length ; j++)
+                    {
+                        childs[i].acties[j].inspraakNiveau = inspraak;
+                    }
+                }
+                //niv c
+                if(childs[i].childCats.length != null)
+                {
+                    this.changeInspraak(childs[i].childCats, inspraak)
+                }
             }
         }
     }
 
-    onSelectActieNiveau(event: any, i:any, j:any)
+    onChangeAfbeelding(event:any){
+        var reader = new FileReader();
+        reader.readAsDataURL(event.target.files[0]);
+        reader.onload = function() {
+            this.afb = reader.result;
+        }
+    }
+
+    onSelectActieNiveau(event: any, cat:GemeenteCategorie,ac:Actie)
     {
         //actie mag je enkel veranderen als de parent niet gelocked is
-        if(this.categorieen[i].inspraakNiveau != 2)
+        if(cat.inspraakNiveau != 2)
         {
-            this.categorieen[i].acties[j].inspraakNiveau = event.target.value;
+            ac.inspraakNiveau = event.target.value;
         }
 
     }
@@ -367,7 +382,8 @@ export class ManageProjectComponent {
 
         this.project.afbeeldingen = [];
         this.project.afbeeldingen.push(this.afb);
-         this._projectService.putProject(this.project).subscribe(
+        this._projectService.putProject(this.project).subscribe(
+
             (id: any) => this.id = id,
             (err:any) => this.errorMessage = err
         );
