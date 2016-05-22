@@ -1,4 +1,6 @@
-System.register(['angular2/core', 'angular2/http', 'rxjs/Rx'], function(exports_1) {
+System.register(['angular2/core', 'angular2/http', 'rxjs/Rx'], function(exports_1, context_1) {
+    "use strict";
+    var __moduleName = context_1 && context_1.id;
     var __decorate = (this && this.__decorate) || function (decorators, target, key, desc) {
         var c = arguments.length, r = c < 3 ? target : desc === null ? desc = Object.getOwnPropertyDescriptor(target, key) : desc, d;
         if (typeof Reflect === "object" && typeof Reflect.decorate === "function") r = Reflect.decorate(decorators, target, key, desc);
@@ -23,11 +25,11 @@ System.register(['angular2/core', 'angular2/http', 'rxjs/Rx'], function(exports_
             ProjectService = (function () {
                 function ProjectService(http) {
                     this.http = http;
-                    // private _url = 'http://begroting-webapi.azurewebsites.net/api/Begroting';
-                    // private _url2 = 'http://begroting-webapi.azurewebsites.net/api/Project';
-                    this._url = 'http://localhost:52597/api/Begroting';
-                    this._url2 = 'http://localhost:52597/api/Project';
+                    this._url = 'http://begroting-webapi.azurewebsites.net/api/Begroting';
+                    this._url2 = 'http://begroting-webapi.azurewebsites.net/api/Project';
                 }
+                //private _url = 'http://localhost:52597/api/Begroting';
+                //private _url2 = 'http://localhost:52597/api/Project';
                 ProjectService.prototype.getInspraakitems = function (jaar, naam) {
                     return this.http.get(this._url2 + "/itemsGET" + "?jaar=" + jaar + "&naam=" + naam)
                         .map(this.extractData);
@@ -68,7 +70,7 @@ System.register(['angular2/core', 'angular2/http', 'rxjs/Rx'], function(exports_
                     __metadata('design:paramtypes', [http_1.Http])
                 ], ProjectService);
                 return ProjectService;
-            })();
+            }());
             exports_1("ProjectService", ProjectService);
         }
     }

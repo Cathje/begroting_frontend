@@ -15,6 +15,7 @@ import {BestuurType} from "../../../models/bestuurType";
 import {KeysPipe} from "../../../pipes/keysPipe";
 
 
+
 @Component({ //invoke with metadata object
     selector: 'expenses-container',
     template: `
