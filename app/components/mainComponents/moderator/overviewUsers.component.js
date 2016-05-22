@@ -1,4 +1,4 @@
-System.register(['angular2/core', 'angular2/router', "../../subComponents/input/townSelector.component", "../../../services/townService.component", "../../../services/loginService.component", "../../../models/mainTown", "../../../pipes/keysPipe", "../../../models/rolType"], function(exports_1, context_1) {
+System.register(['angular2/core', 'angular2/router', "../../subComponents/input/townSelector.component", "../../../services/townService.component", "../../../services/loginService.component", "../../../models/mainTown", "../../../models/ingelogdeGebruiker", "../../../pipes/keysPipe", "../../../models/rolType"], function(exports_1, context_1) {
     "use strict";
     var __moduleName = context_1 && context_1.id;
     var __decorate = (this && this.__decorate) || function (decorators, target, key, desc) {
@@ -10,7 +10,7 @@ System.register(['angular2/core', 'angular2/router', "../../subComponents/input/
     var __metadata = (this && this.__metadata) || function (k, v) {
         if (typeof Reflect === "object" && typeof Reflect.metadata === "function") return Reflect.metadata(k, v);
     };
-    var core_1, router_1, townSelector_component_1, townService_component_1, loginService_component_1, mainTown_1, keysPipe_1, rolType_1;
+    var core_1, router_1, townSelector_component_1, townService_component_1, loginService_component_1, mainTown_1, ingelogdeGebruiker_1, keysPipe_1, rolType_1;
     var OverviewUsersComponent;
     return {
         setters:[
@@ -32,6 +32,9 @@ System.register(['angular2/core', 'angular2/router', "../../subComponents/input/
             function (mainTown_1_1) {
                 mainTown_1 = mainTown_1_1;
             },
+            function (ingelogdeGebruiker_1_1) {
+                ingelogdeGebruiker_1 = ingelogdeGebruiker_1_1;
+            },
             function (keysPipe_1_1) {
                 keysPipe_1 = keysPipe_1_1;
             },
@@ -49,22 +52,48 @@ System.register(['angular2/core', 'angular2/router', "../../subComponents/input/
                     this.mainTown = new mainTown_1.MainTown("", "", 0, 0);
                     this.rolTypes = rolType_1.rolType;
                     this.gebruikers = [];
-                    this.gebruikersOrigineel = [];
+                    this.gewijzigdeGebruikers = [];
+                    this.filterGebruikers = [];
+                    this.g = new ingelogdeGebruiker_1.IngelogdeGebruiker("", "", "", rolType_1.rolType.admin, false);
                     _townService.getTown(injector.parent.parent.get(router_1.RouteParams).get('town'))
                         .subscribe(function (town) { return _this.mainTown = town; }, function (err) { return _this.errorMessage = err; });
                     _loginService.getGebruikers(injector.parent.parent.get(router_1.RouteParams).get('town')).subscribe(function (gebrs) { return _this.gebruikers = gebrs; }, function (err) { return _this.errorMessage = err; });
                 }
                 OverviewUsersComponent.prototype.onSelectRolType = function (event, i) {
+                    var _this = this;
+                    this.filterGebruikers = this.gewijzigdeGebruikers.filter(function (g) { return g.userId === _this.gebruikers[i].userId; });
                     this.gebruikers[i].rolType = event.target.value;
+                    if (this.filterGebruikers.length == 0) {
+                        this.g = new ingelogdeGebruiker_1.IngelogdeGebruiker(this.gebruikers[i].userId, this.gebruikers[i].naam, this.gebruikers[i].gemeente, this.gebruikers[i].rolType, this.gebruikers[i].isActief);
+                        this.gewijzigdeGebruikers.push(this.g);
+                    }
+                    else {
+                        this.filterGebruikers[0].rolType = this.gebruikers[i].rolType = event.target.value;
+                    }
+                    alert(this.gewijzigdeGebruikers.length);
+                };
+                OverviewUsersComponent.prototype.onChange = function (event, i) {
+                    var _this = this;
+                    this.filterGebruikers = this.gewijzigdeGebruikers.filter(function (g) { return g.userId === _this.gebruikers[i].userId; });
+                    this.gebruikers[i].isActief = event.target.checked;
+                    if (this.filterGebruikers.length == 0) {
+                        this.gewijzigdeGebruikers.push(new ingelogdeGebruiker_1.IngelogdeGebruiker(this.gebruikers[i].userId, this.gebruikers[i].naam, this.gebruikers[i].gemeente, this.gebruikers[i].rolType, this.gebruikers[i].isActief));
+                    }
+                    else {
+                        this.filterGebruikers[0].rolType = this.gebruikers[i].rolType = event.target.value;
+                    }
+                    alert(this.gewijzigdeGebruikers.length);
                 };
                 OverviewUsersComponent.prototype.submit = function () {
-                    this._loginService.putGebruikers().subscribe(); // nog aan te passen
+                    var _this = this;
+                    this._loginService.putGebruikers(this.gewijzigdeGebruikers).subscribe(function (d) { return _this.data = d; }, function (err) { return _this.errorMessage = err; });
+                    alert(this.gewijzigdeGebruikers.length);
                     this._router.navigate(['/', 'App', 'Budget', { town: this.mainTown.naam }]);
                 };
                 OverviewUsersComponent = __decorate([
                     core_1.Component({
                         selector: 'overview-users-container',
-                        template: "\n    <p *ngIf=\"errorMessage\">Geen gebruikers gevonden voor deze gemeente</p>\n    <section class=\"container\" *ngIf=\"!errorMessage\">\n    <h1>Overzicht gebruikers</h1>\n    <section class=\"col-xs-12\">\n        <div class=\"section-content\">\n        <p *ngIf=\"!gebruikers\"><i>Er zijn geen gebruikers gevonden</i></p>\n\n        <table class=\"table table-striped\">\n            <thead>\n            <tr>\n                <th>Naam</th>\n                <th>E-mail</th>\n                <th>Rol</th>\n                <th>Actief?</th>\n            </tr>\n            </thead>\n            <tbody>\n            <tr *ngFor=\"#gebruiker of gebruikers #i=index\">\n                <td>{{gebruiker.naam}}</td>\n                <td>{{gebruiker.email}}</td>\n                <td>\n                <select (change)=\"onSelectRolType($event, i)\">\n                    <option *ngFor=\"#rol of rolTypes | keys\" [value]=\"rol.key\">{{rol.value}}</option>\n                </select>\n                </td>\n                <td>\n                <input type=\"checkbox\" [ngModel]=gebruiker.isActief checked={{gebruiker.isActief}}>\n                </td>\n            </tr>\n            </tbody>\n        </table>\n\n\n        </div>\n    </section>\n\n        <button class=\"btn btn-primary pull-right\" (click)=\"submit()\">opslaan</button>\n</section>\n",
+                        template: "\n    <p *ngIf=\"errorMessage\">Geen gebruikers gevonden voor deze gemeente</p>\n    <section class=\"container\" *ngIf=\"!errorMessage\">\n    <h1>Overzicht gebruikers</h1>\n    <section class=\"col-xs-12\">\n        <div class=\"section-content\">\n        <table class=\"table table-striped\">\n            <thead>\n            <tr>\n                <th>Naam</th>\n                <th>E-mail</th>\n                <th>Rol</th>\n                <th>Actief?</th>\n            </tr>\n            </thead>\n            <tbody>\n            <tr *ngFor=\"#gebruiker of gebruikers #i=index\">\n                <td>{{gebruiker.naam}}</td>\n                <td>{{gebruiker.userId}}</td>\n                <td>\n                <select (change)=\"onSelectRolType($event, i)\">\n                    <option *ngFor=\"#rol of rolTypes | keys\" [value]=\"rol.key\">{{rol.value}}</option>\n                </select>\n                </td>\n                <td>\n                <input type=\"checkbox\" [ngModel]=gebruiker.isActief (change)=\"onChange($event, i)\">\n                </td>\n            </tr>\n            </tbody>\n        </table>\n\n\n        </div>\n    </section>\n\n        <button class=\"btn btn-primary pull-right\" (click)=\"submit()\">opslaan</button>\n</section>\n",
                         providers: [townService_component_1.TownService, loginService_component_1.LoginService],
                         pipes: [keysPipe_1.KeysPipe],
                         directives: [router_1.ROUTER_DIRECTIVES, townSelector_component_1.TownSelectorComponent],
