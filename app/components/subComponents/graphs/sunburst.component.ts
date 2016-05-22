@@ -97,8 +97,8 @@ export class SunburstComponent {
     @Input() data: any = [];
     @Input() width: number = 400;
     @Input() height: number = 400;
-    @Input() onClick: string;
-    @Input() onHover: string;
+    @Input() onClick = function(){};
+    @Input() onHover = function(){};
     radius: number;
     translation: string;
 

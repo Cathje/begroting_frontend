@@ -192,6 +192,8 @@ System.register(['angular2/core', 'd3', "../../../mockData/mock-categories"], fu
                     this.data = [];
                     this.width = 400;
                     this.height = 400;
+                    this.onClick = function () { };
+                    this.onHover = function () { };
                     this.createChart = function (chart) {
                         _this.radius = Math.min(_this.width, _this.height) / 2;
                         _this.translation = "translate(" + _this.width / 2 + "," + _this.height / 2 + ")";
@@ -249,11 +251,11 @@ System.register(['angular2/core', 'd3', "../../../mockData/mock-categories"], fu
                 ], SunburstComponent.prototype, "height", void 0);
                 __decorate([
                     core_1.Input(), 
-                    __metadata('design:type', String)
+                    __metadata('design:type', Object)
                 ], SunburstComponent.prototype, "onClick", void 0);
                 __decorate([
                     core_1.Input(), 
-                    __metadata('design:type', String)
+                    __metadata('design:type', Object)
                 ], SunburstComponent.prototype, "onHover", void 0);
                 SunburstComponent = __decorate([
                     core_1.Component({

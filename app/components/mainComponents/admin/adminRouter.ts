@@ -4,7 +4,6 @@ import {HTTP_PROVIDERS} from "angular2/http";
 import {ManageDataComponent} from './manageData.component';
 import {ManageProjectComponent} from './manageProject.component';
 import {ManageTownComponent} from './manageTown.component';
-import {AddInformationComponent} from "./addInformation.component";
 
 @Component({
     selector: 'admin-router',
@@ -15,9 +14,7 @@ import {AddInformationComponent} from "./addInformation.component";
 @RouteConfig([
     { path: '/manageData', name: 'ManageData', component:ManageDataComponent, useAsDefault:true },
     { path: '/manageProject', name: 'ManageProject', component:ManageProjectComponent},
-    { path: '/manageTown', name: 'ManageTown', component:ManageTownComponent},
-    { path: '/addInformation', name: 'AddInformation', component:AddInformationComponent}
-
+    { path: '/manageTown', name: 'ManageTown', component:ManageTownComponent}
 ])
 
 export class AdminRouter {
