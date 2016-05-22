@@ -17,7 +17,7 @@ export class Project {
     cats: GemeenteCategorie[] = [];
     afbeeldingen: string [] = [];
     isActief : boolean;
-    voorstellen: BegrotingsVoorstel []
+    voorstellen: BegrotingsVoorstel [] = [];
 
     constructor(titel:string)
     {

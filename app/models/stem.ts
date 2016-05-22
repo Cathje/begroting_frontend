@@ -5,4 +5,5 @@
 export class Stem {
 
     registratieDatum:string;
+    email:string;
 }

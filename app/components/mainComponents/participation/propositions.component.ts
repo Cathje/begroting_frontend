@@ -3,6 +3,7 @@ import {RouteParams} from 'angular2/router';
 import {ProjectService} from "../../../services/projectService.component";
 import {Project} from "../../../models/project";
 import {BegrotingsVoorstel} from "../../../models/begrotingsVoorstel";
+import {ReactieOpVoorstel} from "../../../models/reactieOpVoorstel";
 
 @Component({ //invoke with metadata object
     selector: 'propositions-container',
@@ -23,16 +24,32 @@ import {BegrotingsVoorstel} from "../../../models/begrotingsVoorstel";
             <table class="table table-striped">
             <tbody>
             <tr *ngFor="#voorstel of project.voorstellen #i=index">
-                <td><textarea> {{voorstel.beschrijving}}</textarea></td>
+               <td><textarea readonly> {{voorstel.beschrijving}}</textarea></td>
                 <td>{{voorstel.aantalStemmen}}</td>
                 <td>
                 <span>Stem: </span><button class="btn btn-primary" (click)="stem(voorstel,j,i)"><span class="glyphicon glyphicon-thumbs-up"></span></button>
                 </td>
+                <td>
+                    <table>
+                    <tr *ngFor="#reactie of voorstel.reacties #i=index">
+                        <td>{{reactie.email}}</td>
+                        <td>{{reactie.beschrijving}}</td>
+                        <td>{{reactie.reactieDatum}}</td>
+                     </tr>
+                     <!-- om de laatste reactie te tonen -->
+                     <tr><td>{{voorstelreactie.email}}</td>
+                        <td>{{voorstelreactie.beschrijving}}</td>
+                        <td>{{voorstelreactie.reactieDatum}}</td></tr>
+                        <td>
+                        <textarea [(ngModel)]=projects[j].voorstellen[i].reactie></textarea>
+                        <button (click)="post(j,i)">post</button>
+                        </td>
+                    </table>
+                </td>
             </tr>
             </tbody>
-        </table>
+            </table>
                   </div>
-
                 </div>
             </div>
         </div>
@@ -77,6 +94,8 @@ export class PropositionsComponent
 {
     projects: Project[]= [];
     data:number = 0;
+    voorstelreactie:ReactieOpVoorstel = new ReactieOpVoorstel("","");
+
 
     constructor(
         private _routeParams: RouteParams, private _projectService: ProjectService)
@@ -87,7 +106,7 @@ export class PropositionsComponent
     //@TODO  email toevoegen vanuit token als stemmer (datum toegevoegd op backend)
     stem(v: BegrotingsVoorstel,project:number, voorstel:number)
     {
-        this._projectService.putReactieEnStem(this.projects[project].voorstellen[voorstel].Id, "nadya@nadya.be").subscribe((d:any) => this.data = d);
+        this._projectService.putStem(this.projects[project].voorstellen[voorstel].Id, "nadya@nadya.be").subscribe((d:any) => this.data = d);
 
         setTimeout(function(){
             if(this.data != 0)
@@ -95,6 +114,15 @@ export class PropositionsComponent
                 v.aantalStemmen +=1;
             }
         }, 1000);
+    }
+    post(project:number, voorstel:number)
+    {
+        this.voorstelreactie = new ReactieOpVoorstel(this.projects[project].voorstellen[voorstel].reactie,"test@test.be");
+        this._projectService.postReactie(this.projects[project].voorstellen[voorstel].Id, this.voorstelreactie).subscribe((d:any) => this.data = d);
+
+        //@TODO zorgen dat de reactie direct op het scherm komt, opl nu is niet ok
+       // this.projects[project].voorstellen[voorstel].reacties.push(this.voorstelreactie);
+        this.projects[project].voorstellen[voorstel].reactie="";
     }
 
 

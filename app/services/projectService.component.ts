@@ -6,6 +6,7 @@ import {PROJECTS} from "../mockData/mock-projects";
 import {Project} from "../models/project";
 import {GemeenteCategorie} from "../models/gemeenteCategorie";
 import {BegrotingsVoorstel} from "../models/begrotingsVoorstel";
+import {ReactieOpVoorstel} from "../models/reactieOpVoorstel";
 
 
 
@@ -16,10 +17,10 @@ export class ProjectService
 
     constructor(private http: Http ) {
     }
-  private _url = 'http://begroting-webapi.azurewebsites.net/api/Begroting';
-   private _url2 = 'http://begroting-webapi.azurewebsites.net/api/Project';
-   // private _url = 'http://localhost:52597/api/Begroting';
-   // private _url2 = 'http://localhost:52597/api/Project';
+  //private _url = 'http://begroting-webapi.azurewebsites.net/api/Begroting';
+  // private _url2 = 'http://begroting-webapi.azurewebsites.net/api/Project';
+   private _url = 'http://localhost:52597/api/Begroting';
+   private _url2 = 'http://localhost:52597/api/Project';
 
     getInspraakitems(jaar:number, naam:string):Observable<GemeenteCategorie[]> {
         return this.http.get(this._url2 + "/itemsGET" +"?jaar=" + jaar + "&naam=" + naam)
@@ -57,11 +58,19 @@ export class ProjectService
         return this.http.put(this._url2 + "/putVoorstel/" + voorstelId,JSON.stringify(status)
             ,{headers:headers}).map(this.extractData);
     }
-    putReactieEnStem(voorstelId:number, email:string)
+    putStem(voorstelId:number, email:string)
     {
         var headers = new Headers();
         headers.append('Content-Type', 'application/json');
-        return this.http.put(this._url2 + "/putReactieEnStem/" + voorstelId,JSON.stringify(email)
+        return this.http.put(this._url2 + "/putStem/" + voorstelId,JSON.stringify(email)
+            ,{headers:headers}).map(this.extractData);
+    }
+
+    postReactie(voorstelId:number, reactie:ReactieOpVoorstel)
+    {
+        var headers = new Headers();
+        headers.append('Content-Type', 'application/json');
+        return this.http.post(this._url2 + "/postReactie/" + voorstelId,JSON.stringify(reactie)
             ,{headers:headers}).map(this.extractData);
     }
 
