@@ -22,10 +22,10 @@ export class LoginService {
 
     }
 
-    private _url = 'http://begroting-webapi.azurewebsites.net/api/Account';
-    //private _url = 'http://localhost:52597/api/Account';
-    private _url2 = 'http://begroting-webapi.azurewebsites.net/token';
-    //private _url2 = 'http://localhost:52597/token';
+  //  private _url = 'http://begroting-webapi.azurewebsites.net/api/Account';
+    private _url = 'http://localhost:52597/api/Account';
+    //private _url2 = 'http://begroting-webapi.azurewebsites.net/token';
+    private _url2 = 'http://localhost:52597/token';
 
     login(email: string, password: string) {
 
@@ -71,7 +71,7 @@ export class LoginService {
     putGebruikers(gebruikers : IngelogdeGebruiker []) {
         var headers = new Headers();
         headers.append('Content-Type', 'application/json');
-        return this.http.put(this._url,JSON.stringify(status)
+        return this.http.put(this._url,JSON.stringify(gebruikers)
             ,{headers:headers}).map(this.extractDataAsJson);
     }
 

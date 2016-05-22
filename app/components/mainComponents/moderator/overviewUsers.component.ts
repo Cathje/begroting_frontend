@@ -18,8 +18,6 @@ import {rolType} from "../../../models/rolType";
     <h1>Overzicht gebruikers</h1>
     <section class="col-xs-12">
         <div class="section-content">
-        <p *ngIf="!gebruikers"><i>Er zijn geen gebruikers gevonden</i></p>
-
         <table class="table table-striped">
             <thead>
             <tr>
@@ -32,14 +30,14 @@ import {rolType} from "../../../models/rolType";
             <tbody>
             <tr *ngFor="#gebruiker of gebruikers #i=index">
                 <td>{{gebruiker.naam}}</td>
-                <td>{{gebruiker.email}}</td>
+                <td>{{gebruiker.userId}}</td>
                 <td>
                 <select (change)="onSelectRolType($event, i)">
                     <option *ngFor="#rol of rolTypes | keys" [value]="rol.key">{{rol.value}}</option>
                 </select>
                 </td>
                 <td>
-                <input type="checkbox" [ngModel]=gebruiker.isActief checked={{gebruiker.isActief}}>
+                <input type="checkbox" [ngModel]=gebruiker.isActief (change)="onChange($event, i)">
                 </td>
             </tr>
             </tbody>
@@ -102,7 +100,10 @@ export class OverviewUsersComponent {
     errorMessage: any;
     rolTypes = rolType;
     gebruikers: IngelogdeGebruiker[] = [];
-    gebruikersOrigineel : IngelogdeGebruiker[]=[];
+    gewijzigdeGebruikers : IngelogdeGebruiker[]=[];
+    filterGebruikers: IngelogdeGebruiker[] = [];
+    g:IngelogdeGebruiker = new IngelogdeGebruiker("","","", rolType.admin,false);
+    data:any;
 
     constructor(private _routeParams:RouteParams, private _townService:TownService, private _loginService:LoginService, private _router:Router, params:RouteParams, injector:Injector) {
         
@@ -120,13 +121,50 @@ export class OverviewUsersComponent {
 
     onSelectRolType(event: any, i : any)
     {
+        this.filterGebruikers  = this.gewijzigdeGebruikers.filter(
+            (g:any) => g.userId === this.gebruikers[i].userId);
+
         this.gebruikers[i].rolType = event.target.value;
+        if(this.filterGebruikers.length == 0)
+        {
+                this.g = new IngelogdeGebruiker(this.gebruikers[i].userId,this.gebruikers[i].naam, this.gebruikers[i].gemeente,
+                this.gebruikers[i].rolType, this.gebruikers[i].isActief);
+            this.gewijzigdeGebruikers.push(this.g);
+        }
+        else
+        {
+            this.filterGebruikers[0].rolType = this.gebruikers[i].rolType = event.target.value;
+        }
+        alert(this.gewijzigdeGebruikers.length);
+
+    }
+    onChange(event:any, i: number)
+    {
+
+        this.filterGebruikers  = this.gewijzigdeGebruikers.filter(
+            (g:any) => g.userId === this.gebruikers[i].userId);
+
+        this.gebruikers[i].isActief = event.target.checked;
+        if(this.filterGebruikers.length == 0)
+        {
+            this.gewijzigdeGebruikers.push(new IngelogdeGebruiker(this.gebruikers[i].userId,this.gebruikers[i].naam, this.gebruikers[i].gemeente,
+                this.gebruikers[i].rolType, this.gebruikers[i].isActief));
+        }
+        else
+        {
+            this.filterGebruikers[0].rolType = this.gebruikers[i].rolType = event.target.value;
+        }
+
+        alert(this.gewijzigdeGebruikers.length);
     }
 
 
     submit() {
-        this._loginService.putGebruikers().subscribe(); // nog aan te passen
-
+        this._loginService.putGebruikers(this.gewijzigdeGebruikers).subscribe(
+            (d:any) => this.data = d,
+            (err:any) => this.errorMessage = err
+        );
+        alert(this.gewijzigdeGebruikers.length);
         this._router.navigate(['/', 'App', 'Budget', {town: this.mainTown.naam}]);
 
     }
