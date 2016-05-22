@@ -42,7 +42,6 @@ import {SelectorComponent} from './../../subComponents/input/selector.component'
             </div>
 
             <div *ngIf="!hoveredCategory" class="legend col-xs-12 col-sm-4 ">
-                <span class="glyphicon glyphicon-info-sign" data-toggle="modal" data-target="#categories"></span>
                 <ul>
                     <li *ngFor="#category of headCategories">
                         <span class="{{' colorblock glyphicon '+ category.icoon}}" style="background-color: {{category.kleur}};"></span>
