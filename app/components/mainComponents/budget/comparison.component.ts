@@ -116,7 +116,7 @@ export class ComparisonComponent {
     categories2: GemeenteCategorie [] = [];
     selectedYear1: number = 0;
     selectedYear2: number = 0;
-    selectedTown1: sring = "";
+    selectedTown1: string = "";
     selectedTown2: string = "";
     width: number = window.innerWidth < 768 ? window.innerWidth*0.8 : window.innerWidth/3.5;
 
@@ -138,6 +138,7 @@ export class ComparisonComponent {
 
     onChangeGraph = (year: number, town: string, graphNumber: string) => {
         console.log(year, town);
+        console.log('555', this.selectedTown1, this.selectedYear1);
         if(year === 0 || town === ""){
             this.errorMessage= "Gelieve een jaartal en een gemeente te selecteren";
         }else {

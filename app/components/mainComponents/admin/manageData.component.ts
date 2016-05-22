@@ -10,12 +10,12 @@ import {KeysPipe} from "../../../pipes/keysPipe";
 @Component({ //invoke with metadata object
     selector: 'manage-data-container',
     template: `
-    <p *ngIf="errorMessage">Deze gemeente is niet gekend</p>
-<section class="container" *ngIf="!errorMessage">
-    <h1>Beheer informatie</h1>
-    <section class="col-xs-12 form-inline">
-        <h3>Demografische gegevens</h3>
-        <div class="section-content">
+    <p class="alert alert-danger" *ngIf="errorMessage">{{errorMessage}}</p>
+    <section class="container">
+        <h1>Beheer informatie</h1>
+        <section class="col-xs-12 form-inline">
+            <h3>Demografische gegevens</h3>
+            <div class="section-content">
         <div class="col-xs-12 col-sm-6 form-group">
             <label >Aantal bewoners</label>
              <input class="form-control" type="number" [(ngModel)]="mainTown.aantalBewoners"/>
@@ -52,11 +52,10 @@ import {KeysPipe} from "../../../pipes/keysPipe";
         </div>
         <div class="col-xs-12 form-group">
                     <label>Deelgemeenten: </label>
-                        <ul *ngIf="mainTown?.deelGemeenten" >
+                          <ul *ngIf="mainTown?.deelGemeenten" >
                             <li *ngFor="#town of mainTown.deelGemeenten"><span>{{town.naam}} - {{town.postCode}}</span></li>
                         </ul>
                         <p *ngIf="!mainTown.deelGemeenten"><i>Er zijn geen deelgemeentes</i></p>
-
         </div>
         </div>
     </section>
@@ -160,7 +159,6 @@ export class ManageDataComponent {
     bestuur: Bestuur = new Bestuur("", null);
 
     constructor(private _routeParams:RouteParams, private _townService:TownService, private _router:Router, params:RouteParams, injector:Injector) {
-        
         _townService.getTown(injector.parent.parent.get(RouteParams).get('town'))
             .subscribe(
                 (town:any) => this.mainTown = town,
@@ -176,12 +174,10 @@ export class ManageDataComponent {
         //TODO: extra info over projecten moet ook bewaard worden in de databank
         this._townService.putTown(this.mainTown).subscribe();
         this._router.navigate(['/', 'App', 'Budget', {town: this.mainTown.naam}]);
-
     }
 
     voegToe()
     {
-
         this.mainTown.bestuur.push(new Bestuur(this.bestuur.naam, this.bestuur.type));
         console.log(this.mainTown.bestuur);
     }

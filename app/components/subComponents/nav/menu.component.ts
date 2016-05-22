@@ -30,7 +30,6 @@ import {TownSelectorComponent} from '../input/townSelector.component';
             <li><a [routerLink]="['Budget', {town: townString}, 'Expenses']">Uitgaven</a></li>
             <li><a [routerLink]="['Budget', {town: townString}, 'CoreData']">Kerngegevens</a></li>
             <li><a [routerLink]="['Budget', {town: townString}, 'Taxes']">Mijn belastingen</a></li>
-            <li><a [routerLink]="['Budget', {town: townString}, 'Comparison']">Vergelijk 2 gemeentes</a></li>
           </ul>
         </li>
 
