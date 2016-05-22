@@ -63,9 +63,16 @@ export class LoginService {
     }
 
 
-    getGebruikers():Observable<IngelogdeGebruiker[]> {
-        return this.http.get(this._url)
+    getGebruikers(gemeente : string):Observable<IngelogdeGebruiker[]> {
+        return this.http.get(this._url + "/GetGebruikers?gemeente=" + gemeente)
             .map(this.extractDataAsJson);
+    }
+
+    putGebruikers(gebruikers : IngelogdeGebruiker []) {
+        var headers = new Headers();
+        headers.append('Content-Type', 'application/json');
+        return this.http.put(this._url,JSON.stringify(status)
+            ,{headers:headers}).map(this.extractDataAsJson);
     }
 
 

@@ -7,6 +7,7 @@ import {PoliticusType} from "../../../models/politicusType";
 import {MainTown} from "../../../models/mainTown";
 import {IngelogdeGebruiker} from "../../../models/ingelogdeGebruiker";
 import {KeysPipe} from "../../../pipes/keysPipe";
+import {rolType} from "../../../models/rolType";
 
 
 @Component({ //invoke with metadata object
@@ -29,22 +30,17 @@ import {KeysPipe} from "../../../pipes/keysPipe";
             </tr>
             </thead>
             <tbody>
-            <tr *ngFor="#gebruiker of gebruikers">
+            <tr *ngFor="#gebruiker of gebruikers #i=index">
                 <td>{{gebruiker.naam}}</td>
                 <td>{{gebruiker.email}}</td>
                 <td>
-                <select class="form-control" [ngModel]=gebruiker.rolType>
-                    <option selected disabled >{{gebruiker.rolType}}</option>
-                    <option>standaard</option>
-                    <option>moderator</option>
+                <select (change)="onSelectRolType($event, i)">
+                    <option *ngFor="#rol of rolTypes | keys" [value]="rol.key">{{rol.value}}</option>
                 </select>
                 </td>
                 <td>
                 <input type="checkbox" [ngModel]=gebruiker.isActief checked={{gebruiker.isActief}}>
                 </td>
-                <td>
-                    <button class="btn btn-primary" (click)="verwijder(gebruiker.email, gebruiker)"><span class="glyphicon glyphicon-trash"></span></button>
-</td>
             </tr>
             </tbody>
         </table>
@@ -104,10 +100,9 @@ export class OverviewUsersComponent {
 
     mainTown = new MainTown("", "", 0, 0);
     errorMessage: any;
-    roles: string[] = ['standaard','moderator'];
-    gebruikers: IngelogdeGebruiker[] = [
-        {naam: 'Catherine', email: 'catherine.beaucourt@gmail.com', rol: 'admin', isActief: true},
-        {naam: 'Nadya', email: 'nadyat@gmail.com', rol: 'moderator', isActief: false }];
+    rolTypes = rolType;
+    gebruikers: IngelogdeGebruiker[] = [];
+    gebruikersOrigineel : IngelogdeGebruiker[]=[];
 
     constructor(private _routeParams:RouteParams, private _townService:TownService, private _loginService:LoginService, private _router:Router, params:RouteParams, injector:Injector) {
         
@@ -117,24 +112,22 @@ export class OverviewUsersComponent {
                 (err:any) => this.errorMessage = err
             );
 
-        _loginService.getGebruikers().subscribe(
+        _loginService.getGebruikers(injector.parent.parent.get(RouteParams).get('town')).subscribe(
             (gebrs:any) => this.gebruikers = gebrs,
             (err:any) => this.errorMessage = err
         );
     }
 
-
-    submit() {
-        //TODO: create service for saving user changes
-        // this._townService.saveUsers(this.mainTown).subscribe();
-        this._router.navigate(['/', 'App', 'Budget', {town: this.mainTown.naam}]);
-
+    onSelectRolType(event: any, i : any)
+    {
+        this.gebruikers[i].rolType = event.target.value;
     }
 
-    delete(email: string, gebruiker: IngelogdeGebruiker)
-    {
-        //this.gebruikers.pop(gebruiker);
-        //TODO : create service for deleting user
-        //this._townService.deleteGebruiker(email).subscribe();
+
+    submit() {
+        this._loginService.putGebruikers().subscribe(); // nog aan te passen
+
+        this._router.navigate(['/', 'App', 'Budget', {town: this.mainTown.naam}]);
+
     }
 }

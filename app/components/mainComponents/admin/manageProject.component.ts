@@ -182,9 +182,6 @@ export class ManageProjectComponent {
         {
             this.categorieen[i].inspraakNiveau = event.target.value;
             this.changeInspraak(event.target.value, i);
-
-
-
         }
         else {
             if(this.cat.length==0)

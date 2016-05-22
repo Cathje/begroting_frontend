@@ -55,9 +55,14 @@ System.register(['angular2/core', 'angular2/http', 'rxjs/Rx'], function(exports_
                     var data = res.json();
                     return data;
                 };
-                LoginService.prototype.getGebruikers = function () {
-                    return this.http.get(this._url)
+                LoginService.prototype.getGebruikers = function (gemeente) {
+                    return this.http.get(this._url + "/GetGebruikers?gemeente=" + gemeente)
                         .map(this.extractDataAsJson);
+                };
+                LoginService.prototype.putGebruikers = function (gebruikers) {
+                    var headers = new http_1.Headers();
+                    headers.append('Content-Type', 'application/json');
+                    return this.http.put(this._url, JSON.stringify(status), { headers: headers }).map(this.extractDataAsJson);
                 };
                 LoginService = __decorate([
                     core_1.Injectable(), 
