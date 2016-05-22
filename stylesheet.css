@@ -1,4 +1,15 @@
-/* Master Styles */
+/*
+This document contains the styling for general elements
+0. body
+1. heading
+2. links
+3. input fiels
+4. modals
+5. general classes
+*/
+
+
+/******O.BODY******/
 body {
     font-family: 'Roboto', sans-serif;
     height: 100%;
@@ -7,6 +18,8 @@ body {
 body, input[text], button {
     color: #888;
 }
+
+/******1.HEADINGS******/
 
 h1 {
     color: gray;
@@ -32,7 +45,7 @@ h5{
     font-size: 0.7em;
 }
 
-
+/******2.ELEMENTS*****/
 ul {
     list-style-position: inside;
     padding-left: 0px;
@@ -50,24 +63,13 @@ a:hover {
     text-decoration: none;
 }
 
-.right-align {
-    text-align: right;
+.container {
+    max-width: 1200px;
+    margin-bottom: 50px;
 }
 
-.btn-primary {
-    background-color: #2ac7d2 !important;
-    border-color: #2ac7d2 !important;
 
-}
-
-.center {
-    text-align: center;
-    margin: 0 auto;
-}
-
-.pull-xs-right {
-    float:right;
-}
+/********3.INPUT********/
 
 input {
     text-align: center;
@@ -87,7 +89,7 @@ textarea {
 }
 
 
-/*SELECT*/
+/*select*/
 .styled-select {
     overflow: hidden;
     width: 250px;
@@ -99,7 +101,7 @@ textarea {
 .styled-select select {
     background: url(./../../../../app/images/arrow_down.png) no-repeat right rgba(255,255,255, 0.6);
     background-size: 35px 35px;
-    border: none;
+    border: 1px solid lightgray;
     font-size: 14px;
     height: 29px;
     padding: 5px; /* If you add too much padding here, the options won't show in IE */
@@ -124,6 +126,106 @@ option {
 
 .col-xs-12 {
     padding: 0;
+}
+
+/******4.MODALS********/
+.modal.right .modal-content,
+.modal.bottom .modal-content {
+    height: 100%;
+    overflow-y: auto;
+}
+
+.modal.right .modal-body,
+.modal.bottom .modal-body {
+    padding: 15px 15px 80px;
+}
+
+/*Right*/
+.modal-header {
+    background-color: #2ac7d2;
+    color:white;
+}
+
+.modal.right.fade .modal-dialog{
+    right: -50%;
+    -webkit-transition: opacity 0.3s linear, right 0.3s ease-out;
+    -moz-transition: opacity 0.3s linear, right 0.3s ease-out;
+    -o-transition: opacity 0.3s linear, right 0.3s ease-out;
+    transition: opacity 0.3s linear, right 0.3s ease-out;
+}
+
+.modal.right.fade.in .modal-dialog{
+    right: 0;
+}
+
+.modal.right .modal-dialog {
+    position: fixed;
+    margin: auto;
+    width: 50%;
+    margin-top:125px;
+    height: 80%;
+    -webkit-transform: translate3d(0%, 0, 0);
+    -ms-transform: translate3d(0%, 0, 0);
+    -o-transform: translate3d(0%, 0, 0);
+    transform: translate3d(0%, 0, 0);
+}
+
+/*Bottom*/
+.modal.bottom .modal-dialog {
+    position: fixed;
+    margin: auto;
+    width: 100%;
+    height: 87%;
+    -webkit-transform: translate3d(0%, 0, 0);
+    -ms-transform: translate3d(0%, 0, 0);
+    -o-transform: translate3d(0%, 0, 0);
+    transform: translate3d(0%, 0, 0);
+}
+
+.modal.bottom.fade .modal-dialog {
+    bottom: -50%;
+    -webkit-transition: opacity 0.3s linear, bottom 0.3s ease-out;
+    -moz-transition: opacity 0.3s linear, bottom 0.3s ease-out;
+    -o-transition: opacity 0.3s linear, bottom 0.3s ease-out;
+    transition: opacity 0.3s linear, bottom 0.3s ease-out;
+}
+
+.modal.bottom.fade.in .modal-dialog {
+    bottom: 0;
+}
+
+@media screen and (max-width: 480px) {
+    .modal.bottom.fade .modal-dialog {
+        bottom: -100%;
+    }
+
+    .modal.right.fade .modal-dialog{
+        right: -100%;
+    }
+    .modal.right .modal-dialog,
+    .modal.bottom .modal-dialog {
+        width: 100%;
+    }
+}
+
+/********GENERAL CLASSES***********/
+.right-align {
+    text-align: right;
+}
+
+.btn-primary {
+    background-color: #2ac7d2 !important;
+    border-color: #2ac7d2 !important;
+
+}
+
+.center {
+    text-align: center;
+    margin: 0 auto;
+}
+
+.pull-xs-right {
+    float:right;
 }
 
 

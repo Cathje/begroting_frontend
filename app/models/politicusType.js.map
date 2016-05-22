@@ -1,1 +1,1 @@
-{"version":3,"file":"politicusType.js","sourceRoot":"","sources":["politicusType.ts"],"names":[],"mappings":";;;;;;;YAAA;;eAEG;YACH,WAAY,aAAa;gBAEtB,yEAAoB,CAAA;gBACnB,uDAAW,CAAA;YAEf,CAAC,EALW,aAAa,KAAb,aAAa,QAKxB;sDAAA"}
+{"version":3,"file":"politicusType.js","sourceRoot":"","sources":["politicusType.ts"],"names":["PoliticusType"],"mappings":";;;;;YAAA;;eAEG;YACH,WAAY,aAAa;gBAEtBA,yEAAoBA,CAAAA;gBACnBA,uDAAWA,CAAAA;YAEfA,CAACA,EALW,aAAa,KAAb,aAAa,QAKxB;sDAAA"}
