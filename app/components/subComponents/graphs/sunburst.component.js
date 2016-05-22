@@ -1,4 +1,6 @@
-System.register(['angular2/core', 'd3', "../../../mockData/mock-categories"], function(exports_1) {
+System.register(['angular2/core', 'd3', "../../../mockData/mock-categories"], function(exports_1, context_1) {
+    "use strict";
+    var __moduleName = context_1 && context_1.id;
     var __decorate = (this && this.__decorate) || function (decorators, target, key, desc) {
         var c = arguments.length, r = c < 3 ? target : desc === null ? desc = Object.getOwnPropertyDescriptor(target, key) : desc, d;
         if (typeof Reflect === "object" && typeof Reflect.decorate === "function") r = Reflect.decorate(decorators, target, key, desc);
@@ -11,7 +13,7 @@ System.register(['angular2/core', 'd3', "../../../mockData/mock-categories"], fu
     var core_1, d3, mock_categories_1;
     var SunburstComponent;
     // Main function to draw and set up the visualization, once we have the data.
-    function createVisualization(json, callbackFunction, partition, arc, colors, totalSize, chart) {
+    function createVisualization(json, callbackFunction, hoverCallbackFunction, partition, arc, colors, totalSize, chart) {
         // For efficiency, filter nodes to keep only those large enough to see.
         var nodes = partition.nodes(json)
             .filter(function (d) {
@@ -29,15 +31,16 @@ System.register(['angular2/core', 'd3', "../../../mockData/mock-categories"], fu
             .attr("data-toggle", "modal")
             .attr("data-target", "#actions")
             .style("opacity", 1)
-            .on("mouseover", function (d) { return mouseover(d, totalSize, chart); })
+            .on("mouseover", function (d) { return mouseover(d, totalSize, chart, hoverCallbackFunction); })
             .on("mousedown", function (d) { return mouseclick(d, callbackFunction); });
         // Add the mouseleave handler to the bounding circle.
-        chart.select("#container").on("mouseleave", function (d) { return mouseleave(d, chart); });
+        chart.select("#container").on("mouseleave", function (d) { return mouseleave(d, chart, hoverCallbackFunction); });
         // Get total size of the tree = value of root node from partition.
         totalSize = path.node().__data__.value;
     }
     // Fade all but the current sequence
-    function mouseover(d, totalSize, chart) {
+    function mouseover(d, totalSize, chart, hoverCallbackFunction) {
+        hoverCallbackFunction(d);
         var percentage = (100 * d.value / totalSize).toPrecision(3);
         var percentageString = percentage + "%";
         if (parseFloat(percentage) < 0.1) {
@@ -53,7 +56,6 @@ System.register(['angular2/core', 'd3', "../../../mockData/mock-categories"], fu
         chart.select("#centerimg")
             .attr("src", "/app/images/categories/" + d.code.replace(new RegExp(' ', 'g'), '').toLowerCase() + ".jpg");
         var sequenceArray = getAncestors(d);
-        ;
         // Fade all the segments.
         chart.selectAll("path")
             .style("opacity", 0.3);
@@ -65,7 +67,8 @@ System.register(['angular2/core', 'd3', "../../../mockData/mock-categories"], fu
             .style("opacity", 1);
     }
     // Restore everything to full opacity when moving off the visualization.
-    function mouseleave(d, chart) {
+    function mouseleave(d, chart, hoverCallbackFunction) {
+        hoverCallbackFunction();
         // Transition each segment to full opacity and then reactivate it.
         chart.selectAll("path")
             .transition()
@@ -103,7 +106,8 @@ System.register(['angular2/core', 'd3', "../../../mockData/mock-categories"], fu
                 var size = +Math.abs(data[i]['totaal']);
                 var nodeName = data[i]['catA'];
                 var catA = { "name": nodeName, "id": data[i]['ID'], "code": data[i]['catA'], "size": size, "children": [] };
-                colors[nodeName] = categories.filter(function (categorie) { return categorie.naam === data[i]['catA']; })[0]['kleur'];
+                var categoryItem = categories.filter(function (categorie) { return categorie.naam === data[i]['catA']; });
+                colors[data[i]['catA']] = categoryItem.length > 0 ? categoryItem[0]['kleur'] : 'lightgray';
                 root["children"].push(catA);
             }
             else if (!data[i].hasOwnProperty('catC')) {
@@ -115,13 +119,15 @@ System.register(['angular2/core', 'd3', "../../../mockData/mock-categories"], fu
                 if (Object.keys(catA).length === 0) {
                     var catANode = { "name": data[i]['catA'], "id": id, "code": data[i]['catA'], "size": size, "children": [] };
                     children.push(catANode);
-                    colors[data[i]['catA']] = categories.filter(function (categorie) { return categorie.naam === data[i]['catA']; })[0]['kleur'];
+                    var categoryItem_1 = categories.filter(function (categorie) { return categorie.naam === data[i]['catA']; });
+                    colors[data[i]['catA']] = categoryItem_1.length > 0 ? categoryItem_1[0]['kleur'] : 'lightgray';
                 }
                 // move node down in hierarchy > to level A children
                 children = _moveNodeDown(children, data[i]['catA']);
                 // add catB to the catA children array
                 var catBNode = { "name": data[i]['catB'], "id": id, "code": data[i]['catA'], "size": size, "children": [] };
-                colors[data[i]['catB']] = categories.filter(function (categorie) { return categorie.naam === data[i]['catA']; })[0]['kleur'];
+                var categoryItem = categories.filter(function (categorie) { return categorie.naam === data[i]['catA']; });
+                colors[data[i]['catB']] = categoryItem.length > 0 ? categoryItem[0]['kleur'] : 'lightgray';
                 children.push(catBNode);
             }
             else {
@@ -133,7 +139,8 @@ System.register(['angular2/core', 'd3', "../../../mockData/mock-categories"], fu
                 if (Object.keys(catA).length === 0) {
                     var catANode = { "name": data[i]['catA'], "id": id, "code": data[i]['catA'], "size": size, "children": [] };
                     children.push(catANode);
-                    colors[data[i]['catA']] = categories.filter(function (categorie) { return categorie.naam === data[i]['catA']; })[0]['kleur'];
+                    var categoryItem_2 = categories.filter(function (categorie) { return categorie.naam === data[i]['catA']; });
+                    colors[data[i]['catA']] = categoryItem_2.length > 0 ? categoryItem_2[0]['kleur'] : 'lightgray';
                 }
                 // move node down in hierarchy > to level A children
                 children = _moveNodeDown(children, data[i]['catA']);
@@ -143,14 +150,16 @@ System.register(['angular2/core', 'd3', "../../../mockData/mock-categories"], fu
                 if (Object.keys(catB).length === 0) {
                     var catBNode = { "name": data[i]['catB'], "id": id, "code": data[i]['catA'], "size": size, "children": [] };
                     children.push(catBNode);
-                    colors[data[i]['catB']] = categories.filter(function (categorie) { return categorie.naam === data[i]['catA']; })[0]['kleur'];
+                    var categoryItem_3 = categories.filter(function (categorie) { return categorie.naam === data[i]['catA']; });
+                    colors[data[i]['catB']] = categoryItem_3.length > 0 ? categoryItem_3[0]['kleur'] : 'lightgray';
                 }
                 // move node down in hierarchy > to level B children
                 children = _moveNodeDown(children, data[i]['catB']);
                 // add catC to the catB children array
                 var catCNode = { "name": data[i]['catC'], "id": id, "code": data[i]['catA'], "size": size, "children": [] };
                 children.push(catCNode);
-                colors[data[i]['catC']] = categories.filter(function (categorie) { return categorie.naam === data[i]['catA']; })[0]['kleur'];
+                var categoryItem = categories.filter(function (categorie) { return categorie.naam === data[i]['catA']; });
+                colors[data[i]['catC']] = categoryItem.length > 0 ? categoryItem[0]['kleur'] : 'lightgray';
             }
         }
         return root;
@@ -180,6 +189,7 @@ System.register(['angular2/core', 'd3', "../../../mockData/mock-categories"], fu
                     var _this = this;
                     this.renderer = renderer;
                     this.el = el;
+                    this.data = [];
                     this.width = 400;
                     this.height = 400;
                     this.createChart = function (chart) {
@@ -206,9 +216,16 @@ System.register(['angular2/core', 'd3', "../../../mockData/mock-categories"], fu
                             .endAngle(function (d) { return d.x + d.dx; })
                             .innerRadius(function (d) { return Math.sqrt(d.y); })
                             .outerRadius(function (d) { return Math.sqrt(d.y + d.dy); });
-                        var json = buildHierarchy(_this.data, colors, mock_categories_1.CATEGORIES);
-                        createVisualization(json, _this.onClick, partition, arc, colors, totalSize, chart);
+                        var json;
+                        if (_this.data.length < 1) {
+                            json = buildHierarchy([{ 'ID': 1, 'catA': 'Algemene financiering', 'totaal': 100 }], colors, mock_categories_1.CATEGORIES); // create an empty gray graph
+                        }
+                        else {
+                            json = buildHierarchy(_this.data, colors, mock_categories_1.CATEGORIES);
+                        }
+                        createVisualization(json, _this.onClick, _this.onHover, partition, arc, colors, totalSize, chart);
                     };
+                    console.log(this.data.length);
                 }
                 SunburstComponent.prototype.ngOnInit = function () {
                 };
@@ -234,17 +251,21 @@ System.register(['angular2/core', 'd3', "../../../mockData/mock-categories"], fu
                     core_1.Input(), 
                     __metadata('design:type', String)
                 ], SunburstComponent.prototype, "onClick", void 0);
+                __decorate([
+                    core_1.Input(), 
+                    __metadata('design:type', String)
+                ], SunburstComponent.prototype, "onHover", void 0);
                 SunburstComponent = __decorate([
                     core_1.Component({
                         selector: 'sunburst',
-                        template: "\n      <div id=\"chart\" [ngClass]=\"{hide: data.length < 1}\" [style]=\"'width:' + width + 'px'\">\n        <h5 id=\"explanation\" style=\"visibility: hidden;\">\n          <img id=\"centerimg\" src=\"\"/>\n          <span id=\"percentage\"></span><br/>\n          <span id=\"category\"></span>\n        </h5>\n        <h5 id=\"explanation2\">\n          <img  src=\"/app/images/icons/clickPointer.png\">\n           <p > Klik op een categorie om de acties van deze categorie te bekijken.</p>\n        </h5>\n      </div>\n\n      <div [style]=\"'height:' + height + 'px'\" class=\"noData\" [ngClass]=\"{hide: data.length > 0}\">\n        <p>Geen grafiekgegevens beschikbaar.</p>\n      </div>\n\n    ",
+                        template: "\n      <div id=\"chart\" [style]=\"'width:' + width + 'px'\">\n        <h5 id=\"explanation\" style=\"visibility: hidden;\">\n          <img id=\"centerimg\" src=\"\"/>\n          <span id=\"percentage\"></span><br/>\n          <span id=\"category\"></span>\n        </h5>\n        <h5 id=\"explanation2\">\n          <img *ngIf=\"data.length > 0\"  src=\"/app/images/icons/clickPointer.png\">\n           <p *ngIf=\"data.length > 0\"> Klik op een categorie om de acties van deze categorie te bekijken.</p>\n           <p *ngIf=\"data.length < 1\">Geen grafiekgegevens beschikbaar.</p>\n        </h5>\n      </div>\n    ",
                         providers: [],
-                        styles: ["\n\n    .noData p{\n        padding-top: 40%;\n        text-align: center;\n    }\n\n    #chart {\n        position: relative;\n        text-align: center;\n        margin: 0 auto;\n    }\n\n    #explanation {\n        position: absolute;\n        margin: auto;\n        position: absolute;\n        top: 0; left: 0; bottom: 0; right: 0;\n        width: 50%;\n        height: 50%;\n        border-radius: 50%;\n        color: black;\n        display: flex;\n        justify-content:center;\n        align-content:center;\n        flex-direction:column; /* column | row */\n        z-index: 1;\n    }\n\n    #explanation2 {\n        position: absolute;\n        margin: auto;\n        position: absolute;\n        top: 0; left: 0; bottom: 0; right: 0;\n        width: 35%;\n        height: 180px;\n        color: #666;\n        display: flex;\n        justify-content:center;\n        align-content:center;\n        flex-direction:column; /* column | row */\n    }\n\n    #explanation2 img{\n     width: 50px;\n     margin: 0 auto;\n     display: inline-block;\n    }\n\n    #centerimg {\n        position: absolute;\n        border-radius: 50%;\n        width: 90%;\n        height: 90%;\n        top: 5%;\n        left: 5%;\n        z-index: 0;\n        opacity: 0.5;\n    }\n\n    #percentage{\n          font-size: 2.5em;\n          z-index: 1;\n    }\n\n    #category {\n        z-index: 1\n    }\n ",]
+                        styles: ["\n\n    .noData p{\n        padding-top: 40%;\n        text-align: center;\n    }\n\n    #chart {\n        position: relative;\n        text-align: center;\n        margin: 0 auto;\n    }\n\n    #explanation {\n        position: absolute;\n        margin: auto;\n        position: absolute;\n        top: 0; left: 0; bottom: 0; right: 0;\n        width: 50%;\n        height: 50%;\n        border-radius: 50%;\n        color: black;\n        display: flex;\n        justify-content:center;\n        align-content:center;\n        flex-direction:column; /* column | row */\n        z-index: 1;\n    }\n\n    #explanation2 {\n        position: absolute;\n        margin: auto;\n        position: absolute;\n        top: 0; left: 0; bottom: 0; right: 0;\n        width: 35%;\n        height: 180px;\n        color: #666;\n        display: flex;\n        justify-content:center;\n        align-content:center;\n        flex-direction:column; /* column | row */\n    }\n\n    #explanation2 img{\n     width: 50px;\n     margin: 0 auto;\n     display: inline-block;\n    }\n\n    #centerimg {\n        position: absolute;\n        border-radius: 50%;\n        width: 90%;\n        height: 90%;\n        top: 5%;\n        left: 5%;\n        z-index: 0;\n        opacity: 0.5;\n    }\n\n    #percentage{\n          font-size: 2.5em;\n          z-index: 1;\n    }\n\n    #category {\n        z-index: 1\n    }\n\n ",]
                     }), 
                     __metadata('design:paramtypes', [core_1.Renderer, core_1.ElementRef])
                 ], SunburstComponent);
                 return SunburstComponent;
-            })();
+            }());
             exports_1("SunburstComponent", SunburstComponent);
             ;
             ;

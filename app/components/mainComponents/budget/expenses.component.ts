@@ -1,6 +1,7 @@
 import {Component, Injector, ElementRef, Inject} from 'angular2/core';
 import {Http} from 'angular2/http';
 import {ROUTER_DIRECTIVES, Router, RouteParams, RouteConfig} from 'angular2/router';
+
 import {SunburstComponent} from './../../subComponents/graphs/sunburst.component';
 import {BegrotingService} from "../../../services/begrotingService";
 import {Actie} from "../../../models/actie";
@@ -23,7 +24,7 @@ import {SelectorComponent} from './../../subComponents/input/selector.component'
 
         <div class="main-content">
             <div class="graph col-xs-12 col-sm-8" (window:resize)="onResize($event)">
-                <sunburst [data]=categories [onClick]=onCircleClick [height]=width [width]=width></sunburst>
+                <sunburst [data]=data [onClick]=onCircleClick [onHover]=onHover [height]=width [width]=width></sunburst>
                 <div class="button-menu">
                     <selector defaultOption="Kies een jaar" [options]="years" (change)="onSelectYear($event, town)"></selector>
                     <div class="btn-group">
@@ -34,23 +35,34 @@ import {SelectorComponent} from './../../subComponents/input/selector.component'
                         <a class="dropdown-item" [routerLink]="['Comparison']">Vergelijk 2 gemeentes</a>
                         <a class="dropdown-item" [routerLink]="['/', 'App', 'Participation', {town: town}, 'AddPropositions']">Doe een voorstel</a>
                         <a class="dropdown-item" [routerLink]="['Taxes']">Vergelijk met salaris</a>
-                        <div class="dropdown-divider"></div>
                         <a class="dropdown-item" [routerLink]="['/', 'App', 'Participation', {town: town}, 'Projects']">Begrotingsvoorstellen</a>
                       </div>
                     </div>
                 </div>
             </div>
 
-            <div *ngIf="windowWidth > 768" class="legend col-xs-12 col-sm-4 ">
+            <div *ngIf="!hoveredCategory" class="legend col-xs-12 col-sm-4 ">
+                <span class="glyphicon glyphicon-info-sign" data-toggle="modal" data-target="#categories"></span>
                 <ul>
-                    <li *ngFor="#category of headCategories" (mouseover)="onHover()">
+                    <li *ngFor="#category of headCategories">
                         <span class="{{' colorblock glyphicon '+ category.icoon}}" style="background-color: {{category.kleur}};"></span>
                         {{category.naam}}
                     </li>
-                    <li><i>Beweeg over een categorie in de lijst om meer informatie te krijgen over de categorie </i></li>
                 </ul>
             </div>
+
+             <div class="legend col-xs-12 col-sm-4 " *ngIf="hoveredCategory">
+                        <h4>{{headCategories[7].naam}}</h4>
+                        <img *ngIf="headCategories[7].foto !== null" [src]="headCategories[7].foto"/>
+                        <h5> Beschrijving</h5>
+                        {{headCategories[7].input}}
+                        <span *ngIf="!headCategories[7].input"> Er is geen beschrijving beschikbaar voor deze categorie."</span>
+                        <h5 *ngIf="headCategories[7].film"> Bekijk de video</h5>
+                        <iframe *ngIf="headCategories[7].film" width="100%" [src]="headCategories[7].film+'?rel=0&autoplay=1'" frameborder="0" allowfullscreen></iframe>
+             </div>
+
         </div>
+
 
         <!-- Modal Actions-->
         <div class="modal bottom fade" id="actions" tabindex="-1" role="dialog" aria-labelledby="actions">
@@ -77,33 +89,7 @@ import {SelectorComponent} from './../../subComponents/input/selector.component'
 		</div><!-- modal-dialog -->
 	</div><!-- modal -->
 
-    <!-- Modal legend -->
-    <div class="modal right fade" id="legend" tabindex="-1" role="dialog" aria-labelledby="myModalLabel">
-		<div class="modal-dialog" role="document">
-			<div class="modal-content">
 
-				<div class="modal-header">
-					<button type="button" class="close" data-dismiss="modal" aria-label="Close"><span aria-hidden="true">&times;</span></button>
-					<h4 class="modal-title" id="myModalLabel">Legende</h4>
-				</div>
-
-				<div class="modal-body">
-                <ul>
-                    <li *ngFor="#category of headCategories">
-                        <span class="{{' colorblock glyphicon '+ category.icoon}}" style="background-color: {{category.kleur}};"></span>
-                        {{category.naam}}
-                        <!--<span class="{{'glyphicon '+ category.icoon}}" style="color: {{category.kleur}};"></span> -->
-                    </li>
-                    <li> <i>TODO: Beweeg over een categorie in de lijst om meer informatie te krijgen over de categorie </i></li>
-                </ul>
-				</div>
-
-			</div><!-- modal-content -->
-		</div><!-- modal-dialog -->
-	</div><!-- modal -->
-
-        </section>
-       </div>
 `,
     directives: [SunburstComponent,ROUTER_DIRECTIVES, SelectorComponent],
     providers: [BegrotingService],
@@ -120,6 +106,13 @@ import {SelectorComponent} from './../../subComponents/input/selector.component'
         color: white;
     }
 
+    .glyphicon-info-sign{
+        position: absolute;
+        top: 10px;
+        right: 10px;
+        font-size: 1.5em;
+    }
+
     .colorblock {
         margin: 5px;
         padding: 8px;
@@ -127,26 +120,48 @@ import {SelectorComponent} from './../../subComponents/input/selector.component'
     }
 
     .button-menu {
-        position: absolute;
-        top: 0;
-        left: 0;
         display:flex;
+        align-items: center;
+        justify-content: center;
+        width: 100%;
+    }
+
+    .dropdown-menu{
+        padding: 0;
     }
 
     .dropdown-menu a{
         color:black !important;
+        padding:5px;
+        display:block;
+        border: 1px solid lightgray;
     }
 
     .legend {
         border: 1px solid lightgray;
         padding: 10px;
+        max-width: 300px;
+    }
+
+    .legend img {
+        border: 3px solid white;
+        box-shadow: 2px 2px 2px lightgray;
     }
 
     .main-content {
         padding-top: 10px;
-        display: flex;
-        align-items: center;
+
     }
+
+    .panel-heading {
+        background-color: gray;
+    }
+
+    .panel-collapse {
+        padding: 10px;
+    }
+
+
 `]
 })
 
@@ -156,27 +171,24 @@ export class ExpensesComponent {
     id:number;
     years:number[];
     errorMessage:any;
-    isEditor: boolean = false; //TODO: adapt value when signed in with special role
-    categories: GemeenteCategorie [] = [];
+    data: GemeenteCategorie [] = [];
     headCategories: Categorie [] = CATEGORIES;
     types = BestuurType;
     windowWidth = window.innerWidth;
     width: number = window.innerWidth < 768 ? window.innerWidth*0.8 : window.innerWidth/2.5;
+    hoveredCategory: any;
 
-    constructor (private _begrotingService:BegrotingService, public http: Http, params: RouteParams, injector: Injector, private _router: Router)
+    //TODO catherine : zodra de gemeentecategorie is aangevuld met icoon, kleur, etc... code in html aanpassen
+    constructor (private elementRef: ElementRef, private _begrotingService:BegrotingService, public http: Http, params: RouteParams, injector: Injector, private _router: Router)
     {
         this.town = injector.parent.parent.get(RouteParams).get('town');
         this.years = this._getYears();
 
         _begrotingService.getGemeenteCategorieen(2020,"Gent")
-            .subscribe((finan: any) => this.categories = finan,
+            .subscribe((finan: any) => this.data = finan,
                 (err:any) => this.errorMessage = err
             );
 
-    }
-
-    onHover: any = () => {
-        //todo: show information of category
     }
 
     onCircleClick: any = (id: number) => {
@@ -184,6 +196,10 @@ export class ExpensesComponent {
         this._begrotingService.getActies(24)
             .subscribe((acties : any) => this.acties = acties,
                 (err:any) => this.errorMessage = err);
+    };
+
+    onHover: any = (d) => {
+        this.hoveredCategory = d;
     };
 
     onResize = (event: any) => {
@@ -199,7 +215,7 @@ export class ExpensesComponent {
 
     onSelectYear: any = (event: any, town: string) => {
         this._begrotingService.getGemeenteCategorieen(event.target.value,town)
-            .subscribe((finan: any) => this.categories = finan,
+            .subscribe((finan: any) => this.data = finan,
                 (err:any) => this.errorMessage = err
             );
     }

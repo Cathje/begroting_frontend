@@ -7,22 +7,18 @@ import {CATEGORIES} from "../../../mockData/mock-categories";
 @Component({ //invoke with metadata object
     selector: 'sunburst',
     template: `
-      <div id="chart" [ngClass]="{hide: data.length < 1}" [style]="'width:' + width + 'px'">
+      <div id="chart" [style]="'width:' + width + 'px'">
         <h5 id="explanation" style="visibility: hidden;">
           <img id="centerimg" src=""/>
           <span id="percentage"></span><br/>
           <span id="category"></span>
         </h5>
         <h5 id="explanation2">
-          <img  src="/app/images/icons/clickPointer.png">
-           <p > Klik op een categorie om de acties van deze categorie te bekijken.</p>
+          <img *ngIf="data.length > 0"  src="/app/images/icons/clickPointer.png">
+           <p *ngIf="data.length > 0"> Klik op een categorie om de acties van deze categorie te bekijken.</p>
+           <p *ngIf="data.length < 1">Geen grafiekgegevens beschikbaar.</p>
         </h5>
       </div>
-
-      <div [style]="'height:' + height + 'px'" class="noData" [ngClass]="{hide: data.length > 0}">
-        <p>Geen grafiekgegevens beschikbaar.</p>
-      </div>
-
     `,
     providers: [],
     styles:[`
@@ -93,18 +89,21 @@ import {CATEGORIES} from "../../../mockData/mock-categories";
     #category {
         z-index: 1
     }
+
  `,]
 })
 
 export class SunburstComponent {
-    @Input() data: any;
+    @Input() data: any = [];
     @Input() width: number = 400;
     @Input() height: number = 400;
     @Input() onClick: string;
+    @Input() onHover: string;
     radius: number;
     translation: string;
 
     constructor(public renderer: Renderer, public el: ElementRef){
+        console.log(this.data.length);
     }
 
     ngOnInit() {
@@ -148,16 +147,21 @@ export class SunburstComponent {
             .innerRadius(function(d: any) { return Math.sqrt(d.y); })
             .outerRadius(function(d: any) { return Math.sqrt(d.y + d.dy); });
 
-        let json: Object = buildHierarchy(this.data, colors, CATEGORIES);
+        let json: Object;
+        if(this.data.length < 1){
+            json = buildHierarchy([{'ID': 1, 'catA': 'Algemene financiering', 'totaal': 100}], colors, CATEGORIES); // create an empty gray graph
+        }else {
+            json= buildHierarchy(this.data, colors, CATEGORIES);
+        }
 
-        createVisualization(json, this.onClick, partition, arc, colors, totalSize, chart);
+        createVisualization(json, this.onClick, this.onHover, partition, arc, colors, totalSize, chart);
 
     }
 }
 
 
 // Main function to draw and set up the visualization, once we have the data.
-function createVisualization(json: Object, callbackFunction: any, partition: any, arc: any, colors: Object, totalSize: any, chart: any) {
+function createVisualization(json: Object, callbackFunction: any, hoverCallbackFunction: any, partition: any, arc: any, colors: Object, totalSize: any, chart: any) {
 
     // For efficiency, filter nodes to keep only those large enough to see.
     let nodes: any = partition.nodes(json)
@@ -177,11 +181,11 @@ function createVisualization(json: Object, callbackFunction: any, partition: any
         .attr("data-toggle", "modal")
         .attr("data-target", "#actions")
         .style("opacity", 1)
-        .on("mouseover", (d: any) => mouseover(d, totalSize, chart))
+        .on("mouseover", (d: any) => mouseover(d, totalSize, chart, hoverCallbackFunction))
         .on("mousedown", (d: any) => mouseclick(d, callbackFunction));
 
     // Add the mouseleave handler to the bounding circle.
-    chart.select("#container").on("mouseleave", (d: any) => mouseleave( d, chart));
+    chart.select("#container").on("mouseleave", (d: any) => mouseleave( d, chart, hoverCallbackFunction));
 
     // Get total size of the tree = value of root node from partition.
     totalSize = path.node().__data__.value;
@@ -189,7 +193,8 @@ function createVisualization(json: Object, callbackFunction: any, partition: any
 };
 
 // Fade all but the current sequence
-function mouseover(d: any, totalSize: any, chart:any) {
+function mouseover(d: any, totalSize: any, chart:any, hoverCallbackFunction: any) {
+    hoverCallbackFunction(d);
 
     let percentage = (100 * d.value / totalSize).toPrecision(3);
     let percentageString = percentage + "%";
@@ -211,7 +216,6 @@ function mouseover(d: any, totalSize: any, chart:any) {
             .attr("src","/app/images/categories/"+d.code.replace(new RegExp(' ', 'g'), '').toLowerCase()+".jpg" );
 
     var sequenceArray = getAncestors(d);
-;
 
     // Fade all the segments.
     chart.selectAll("path")
@@ -223,11 +227,12 @@ function mouseover(d: any, totalSize: any, chart:any) {
             return (sequenceArray.indexOf(node) >= 0);
         })
         .style("opacity", 1);
+
 }
 
 // Restore everything to full opacity when moving off the visualization.
-function mouseleave(d : any, chart: any) {
-
+function mouseleave(d : any, chart: any, hoverCallbackFunction) {
+    hoverCallbackFunction();
 
     // Transition each segment to full opacity and then reactivate it.
     chart.selectAll("path")
@@ -276,7 +281,8 @@ function buildHierarchy(data: [Object], colors: Object, categories) {
             let nodeName : string = data[i]['catA'];
 
             let catA : Object = {"name": nodeName, "id": data[i]['ID'],"code": data[i]['catA'], "size": size, "children": []};
-            colors[nodeName] = categories.filter((categorie) => categorie.naam === data[i]['catA'])[0]['kleur'];
+            let categoryItem = categories.filter((categorie) => categorie.naam === data[i]['catA']);
+            colors[data[i]['catA']] = categoryItem.length > 0 ?  categoryItem[0]['kleur'] : 'lightgray';
 
             root["children"].push(catA);
         }
@@ -293,7 +299,8 @@ function buildHierarchy(data: [Object], colors: Object, categories) {
             if (Object.keys(catA).length === 0) {
                 let catANode = {"name": data[i]['catA'], "id": id, "code": data[i]['catA'], "size": size, "children": []};
                 children.push(catANode);
-                colors[data[i]['catA']] = categories.filter((categorie) => categorie.naam === data[i]['catA'])[0]['kleur'];
+                let categoryItem = categories.filter((categorie) => categorie.naam === data[i]['catA']);
+                colors[data[i]['catA']] = categoryItem.length > 0 ?  categoryItem[0]['kleur'] : 'lightgray';
             }
 
             // move node down in hierarchy > to level A children
@@ -301,7 +308,8 @@ function buildHierarchy(data: [Object], colors: Object, categories) {
 
             // add catB to the catA children array
             let catBNode = {"name": data[i]['catB'], "id": id, "code": data[i]['catA'], "size": size, "children": []};
-            colors[data[i]['catB']] = categories.filter((categorie) => categorie.naam === data[i]['catA'])[0]['kleur'];
+            let categoryItem = categories.filter((categorie) => categorie.naam === data[i]['catA']);
+            colors[data[i]['catB']] = categoryItem.length > 0 ?  categoryItem[0]['kleur'] : 'lightgray';
             children.push(catBNode);
 
         } else  {
@@ -315,7 +323,8 @@ function buildHierarchy(data: [Object], colors: Object, categories) {
             if (Object.keys(catA).length === 0) {
                 let catANode = {"name": data[i]['catA'], "id": id, "code": data[i]['catA'], "size": size, "children": []};
                 children.push(catANode);
-                colors[data[i]['catA']] = categories.filter((categorie) => categorie.naam === data[i]['catA'])[0]['kleur'];
+                let categoryItem = categories.filter((categorie) => categorie.naam === data[i]['catA']);
+                colors[data[i]['catA']] = categoryItem.length > 0 ?  categoryItem[0]['kleur'] : 'lightgray';
 
             }
 
@@ -330,7 +339,8 @@ function buildHierarchy(data: [Object], colors: Object, categories) {
             if (Object.keys(catB).length === 0) {
                 let catBNode = {"name": data[i]['catB'], "id": id, "code": data[i]['catA'], "size": size, "children": []};
                 children.push(catBNode);
-                colors[data[i]['catB']] = categories.filter((categorie) => categorie.naam === data[i]['catA'])[0]['kleur'];
+                let categoryItem = categories.filter((categorie) => categorie.naam === data[i]['catA']);
+                colors[data[i]['catB']] = categoryItem.length > 0 ?  categoryItem[0]['kleur'] : 'lightgray';
 
             }
 
@@ -341,7 +351,8 @@ function buildHierarchy(data: [Object], colors: Object, categories) {
 
             let catCNode = {"name": data[i]['catC'], "id": id, "code": data[i]['catA'], "size": size, "children": []};
             children.push(catCNode);
-            colors[data[i]['catC']] = categories.filter((categorie) => categorie.naam === data[i]['catA'])[0]['kleur'];
+            let categoryItem = categories.filter((categorie) => categorie.naam === data[i]['catA']);
+            colors[data[i]['catC']] = categoryItem.length > 0 ?  categoryItem[0]['kleur'] : 'lightgray';
 
 
         }

@@ -1,4 +1,6 @@
-System.register(['angular2/core', 'angular2/http', 'rxjs/Rx', "../mockData/mock-towns", "../mockData/mock-catDTO"], function(exports_1) {
+System.register(['angular2/core', 'angular2/http', 'rxjs/Rx', "../mockData/mock-towns", "../mockData/mock-catDTO"], function(exports_1, context_1) {
+    "use strict";
+    var __moduleName = context_1 && context_1.id;
     var __decorate = (this && this.__decorate) || function (decorators, target, key, desc) {
         var c = arguments.length, r = c < 3 ? target : desc === null ? desc = Object.getOwnPropertyDescriptor(target, key) : desc, d;
         if (typeof Reflect === "object" && typeof Reflect.decorate === "function") r = Reflect.decorate(decorators, target, key, desc);
@@ -29,9 +31,9 @@ System.register(['angular2/core', 'angular2/http', 'rxjs/Rx', "../mockData/mock-
             TownService = (function () {
                 function TownService(http) {
                     this.http = http;
-                    this._url = 'http://begroting-webapi.azurewebsites.net/api/Gemeente';
+                    // private _url = 'http://begroting-webapi.azurewebsites.net/api/Gemeente';
+                    this._url = 'http://localhost:52597/api/Gemeente';
                 }
-                //private _url = 'http://localhost:52597/api/Gemeente';
                 TownService.prototype.getTowns = function () {
                     return this.http.get(this._url)
                         .map(this.extractData);
@@ -74,7 +76,7 @@ System.register(['angular2/core', 'angular2/http', 'rxjs/Rx', "../mockData/mock-
                     __metadata('design:paramtypes', [http_1.Http])
                 ], TownService);
                 return TownService;
-            })();
+            }());
             exports_1("TownService", TownService);
         }
     }

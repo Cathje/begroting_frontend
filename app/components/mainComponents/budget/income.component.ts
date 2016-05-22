@@ -16,3 +16,4 @@ import {Component, Injector} from 'angular2/core';
 
 export class IncomeComponent {}
 
+
