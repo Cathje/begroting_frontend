@@ -9,6 +9,7 @@ export class Faq {
 
     constructor(vraag:string, antwoord: string)
     {
+        this.ID=0;
         this.vraag = vraag;
         this.antwoord = antwoord;
     }

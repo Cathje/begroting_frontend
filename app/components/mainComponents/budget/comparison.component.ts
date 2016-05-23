@@ -133,7 +133,7 @@ export class ComparisonComponent {
                 if (nameA > nameB)
                     return 1;
                 return 0;
-            }))
+            }), (err:any) => this.errorMessage = err);
     }
 
     onChangeGraph = (year: number, town: string, graphNumber: string) => {
