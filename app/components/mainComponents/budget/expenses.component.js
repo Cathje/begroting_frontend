@@ -1,6 +1,4 @@
-System.register(['angular2/core', 'angular2/http', 'angular2/router', './../../subComponents/graphs/sunburst.component', "../../../services/begrotingService", "../../../mockData/mock-categories", "../../../models/bestuurType", './../../subComponents/input/selector.component'], function(exports_1, context_1) {
-    "use strict";
-    var __moduleName = context_1 && context_1.id;
+System.register(['angular2/core', 'angular2/http', 'angular2/router', './../../subComponents/graphs/sunburst.component', "../../../services/begrotingService", "../../../mockData/mock-categories", "../../../models/bestuurType", './../../subComponents/input/selector.component'], function(exports_1) {
     var __decorate = (this && this.__decorate) || function (decorators, target, key, desc) {
         var c = arguments.length, r = c < 3 ? target : desc === null ? desc = Object.getOwnPropertyDescriptor(target, key) : desc, d;
         if (typeof Reflect === "object" && typeof Reflect.decorate === "function") r = Reflect.decorate(decorators, target, key, desc);
@@ -97,7 +95,7 @@ System.register(['angular2/core', 'angular2/http', 'angular2/router', './../../s
                     __metadata('design:paramtypes', [core_1.ElementRef, begrotingService_1.BegrotingService, http_1.Http, router_1.RouteParams, core_1.Injector, router_1.Router])
                 ], ExpensesComponent);
                 return ExpensesComponent;
-            }());
+            })();
             exports_1("ExpensesComponent", ExpensesComponent);
         }
     }

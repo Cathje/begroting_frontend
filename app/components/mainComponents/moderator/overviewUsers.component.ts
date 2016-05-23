@@ -23,7 +23,8 @@ import {rolType} from "../../../models/rolType";
             <tr>
                 <th>Naam</th>
                 <th>E-mail</th>
-                <th>Rol</th>
+                <th>Huidige Rol</th>
+                <th>Nieuwe Rol</th>
                 <th>Actief?</th>
             </tr>
             </thead>
@@ -31,8 +32,10 @@ import {rolType} from "../../../models/rolType";
             <tr *ngFor="#gebruiker of gebruikers #i=index">
                 <td>{{gebruiker.naam}}</td>
                 <td>{{gebruiker.userId}}</td>
+                <td>{{rolTypes[gebruiker.rolType]}}</td>
                 <td>
                 <select (change)="onSelectRolType($event, i)">
+                    <option selected disabled></option>
                     <option *ngFor="#rol of rolTypes | keys" [value]="rol.key">{{rol.value}}</option>
                 </select>
                 </td>
@@ -135,7 +138,6 @@ export class OverviewUsersComponent {
         {
             this.filterGebruikers[0].rolType = this.gebruikers[i].rolType = event.target.value;
         }
-        alert(this.gewijzigdeGebruikers.length);
 
     }
     onChange(event:any, i: number)
@@ -154,8 +156,6 @@ export class OverviewUsersComponent {
         {
             this.filterGebruikers[0].rolType = this.gebruikers[i].rolType = event.target.value;
         }
-
-        alert(this.gewijzigdeGebruikers.length);
     }
 
 
@@ -164,7 +164,6 @@ export class OverviewUsersComponent {
             (d:any) => this.data = d,
             (err:any) => this.errorMessage = err
         );
-        alert(this.gewijzigdeGebruikers.length);
         this._router.navigate(['/', 'App', 'Budget', {town: this.mainTown.naam}]);
 
     }

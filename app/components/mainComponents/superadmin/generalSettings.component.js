@@ -1,6 +1,4 @@
-System.register(['angular2/core'], function(exports_1, context_1) {
-    "use strict";
-    var __moduleName = context_1 && context_1.id;
+System.register(['angular2/core', "../../subComponents/upload/multipart-item", "../../subComponents/upload/multipart-uploader"], function(exports_1) {
     var __decorate = (this && this.__decorate) || function (decorators, target, key, desc) {
         var c = arguments.length, r = c < 3 ? target : desc === null ? desc = Object.getOwnPropertyDescriptor(target, key) : desc, d;
         if (typeof Reflect === "object" && typeof Reflect.decorate === "function") r = Reflect.decorate(decorators, target, key, desc);
@@ -10,26 +8,63 @@ System.register(['angular2/core'], function(exports_1, context_1) {
     var __metadata = (this && this.__metadata) || function (k, v) {
         if (typeof Reflect === "object" && typeof Reflect.metadata === "function") return Reflect.metadata(k, v);
     };
-    var core_1;
+    var core_1, multipart_item_1, multipart_uploader_1;
     var GeneralSettingsComponent;
     return {
         setters:[
             function (core_1_1) {
                 core_1 = core_1_1;
+            },
+            function (multipart_item_1_1) {
+                multipart_item_1 = multipart_item_1_1;
+            },
+            function (multipart_uploader_1_1) {
+                multipart_uploader_1 = multipart_uploader_1_1;
             }],
         execute: function() {
             GeneralSettingsComponent = (function () {
                 function GeneralSettingsComponent() {
+                    var _this = this;
+                    this._url = 'http://localhost:52597/api/Begroting';
+                    this.uploader = new multipart_uploader_1.MultipartUploader({ url: this._url });
+                    this.multipartItem = new multipart_item_1.MultipartItem(this.uploader);
+                    this.upload = function () {
+                        if (null == _this.file) {
+                            console.error("Geen file meegegeven");
+                            return;
+                        }
+                        if (_this.multipartItem == null) {
+                            _this.multipartItem = new multipart_item_1.MultipartItem(_this.uploader);
+                        }
+                        if (_this.multipartItem.formData == null)
+                            _this.multipartItem.formData = new FormData();
+                        _this.multipartItem.formData.append("file", _this.file);
+                        _this.multipartItem.callback = _this.uploadCallback;
+                        _this.multipartItem.upload();
+                    };
+                    this.uploadCallback = function (data) {
+                        _this.file = null;
+                        if (data) {
+                            console.debug("File succesvol opgeladen.");
+                        }
+                        else {
+                            console.error("Fout bij het uploaden van de file");
+                        }
+                    };
                 }
+                GeneralSettingsComponent.prototype.selectFile = function (event) {
+                    this.file = event.target.files[0];
+                    console.debug("Input File name: " + this.file.name + " type:" + this.file.size + " size:" + this.file.size);
+                };
                 GeneralSettingsComponent = __decorate([
                     core_1.Component({
                         selector: 'general-settings-container',
-                        template: "\n    <div class=\"container\">\n    <h2>Algemene instellingen</h2>\n    </div>\n    "
+                        template: "\n    <div class=\"container\">\n    <h2>Algemene instellingen</h2>\n        <label>Voeg hieronder het bestand toe om de begroting op te laden.</label>\n        <input type=\"file\" (change)=\"selectFile($event)\" id=\"file\"/>\n        <button type=\"submit\" class=\"btn btn-default\" (click)=\"upload();\">Submit</button>\n    </div>\n    "
                     }), 
                     __metadata('design:paramtypes', [])
                 ], GeneralSettingsComponent);
                 return GeneralSettingsComponent;
-            }());
+            })();
             exports_1("GeneralSettingsComponent", GeneralSettingsComponent);
         }
     }
