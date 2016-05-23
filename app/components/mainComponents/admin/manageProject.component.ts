@@ -29,8 +29,8 @@ import {Actie} from "../../../models/actie";
                     <h3>Voor welk boekjaar wenst u een bestaand project op te halen?</h3>
                     <div class="section-content">
                      <label>boekjaar:</label>
-                     <input type="number" class="form-control" [(ngModel)]="project.boekjaar"/>
-                     <button class="btn btn-primary form-control" (click)="getBegroting()">haal begroting op</button>
+                     <input type="number" class="form-control" [(ngModel)]="boekjaar"/>
+                     <button class="btn btn-primary form-control" (click)="getProject()">haal project op</button>
                     </div>
                  </section>
 
@@ -39,26 +39,26 @@ import {Actie} from "../../../models/actie";
                       <div class="section-content">
                         <div class="col-xs-12 form-group">
                             <label>Titel:</label>
-                            <input type="text" [(ngModel)]="project.titel"/>
+                            <input type="text" [(ngModel)]="existProject.titel"/>
                         </div>
                         <div class="col-xs-12 form-group">
                             <label>Vraag:</label>
-                            <input type="text" [(ngModel)]="project.vraag"/>
+                            <input type="text" [(ngModel)]="existProject.vraag"/>
                         </div>
 
                         <div class="col-xs-12 col-md-6 form-group">
-                            <label>ProjectScenario: {{project.projectScenario}}</label>
+                            <label>ProjectScenario: {{projectScene[existProject.projectScenario]}}</label>
                             <select class="form-control" (change)="onSelectScenario($event)">
                                     <option *ngFor="#t of projectScene | keys" [value]="t.key">{{t.value}}</option>
                              </select>
                         </div>
                         <div class="col-xs-12 col-md-6 form-group">
                              <label>Bedrag:</label>
-                            <input class="form-control" type="number" [(ngModel)]="project.bedrag"/>
+                            <input class="form-control" type="number" [(ngModel)]="existProject.bedrag"/>
                         </div>
                         <div class="col-xs-12 form-group">
                             <label>Extra info:</label>
-                            <textarea rows="4" [(ngModel)]="project.extraInfo"></textarea>
+                            <textarea rows="4" [(ngModel)]="existProject.extraInfo"></textarea>
                         </div>
                         <div class="col-xs-12 form-group">
                             <label>Afbeelding:</label>
@@ -70,7 +70,7 @@ import {Actie} from "../../../models/actie";
 
                 <section class="col-xs-12 form-inline" *ngIf="!errorMessage">
                      <div class="section-content">
-             <div *ngFor="#catA of categorieen #i = index">
+             <div *ngFor="#catA of existProject.cats #i = index">
                 <h5>categorie: {{catA.naamCat}}</h5>
                 <p>totaal: {{catA.totaal}}</p>
                 <p>InspraakNiveau: {{niveaus[catA.inspraakNiveau]}}</p>
@@ -136,7 +136,7 @@ import {Actie} from "../../../models/actie";
                     <h3>Voor welk boekjaar wenst u een nieuw Project op te stellen?</h3>
                     <div class="section-content">
                      <label>boekjaar:</label>
-                     <input type="number" class="form-control" [(ngModel)]="project.boekjaar"/>
+                     <input type="number" class="form-control" [(ngModel)]="boekjaar"/>
                      <button class="btn btn-primary form-control" (click)="getBegroting()">haal begroting op</button>
                     </div>
                  </section>
@@ -146,25 +146,25 @@ import {Actie} from "../../../models/actie";
                         <div class="section-content">
                         <div class="col-xs-12 form-group">
                             <label>Titel:</label>
-                            <input type="text" [(ngModel)]="project.titel"/>
+                            <input type="text" [(ngModel)]="NewProject.titel"/>
                         </div>
                         <div class="col-xs-12 form-group">
                             <label>Vraag:</label>
-                            <input type="text" [(ngModel)]="project.vraag"/>
+                            <input type="text" [(ngModel)]="NewProject.vraag"/>
                         </div>
                         <div class="col-xs-12 col-md-6 form-group">
-                            <label>ProjectScenario: {{project.projectScenario}}</label>
+                            <label>ProjectScenario: {{projectScene[NewProject.projectScenario]}}</label>
                             <select class="form-control" (change)="onSelectScenario($event)">
                                     <option *ngFor="#t of projectScene | keys" [value]="t.key">{{t.value}}</option>
                             </select>
                         </div>
                         <div class="col-xs-12 col-md-6 form-group">
                             <label>Bedrag:</label>
-                            <input class="form-control" type="number" [(ngModel)]="project.bedrag"/>
+                            <input class="form-control" type="number" [(ngModel)]="NewProject.bedrag"/>
                         </div>
                         <div class="col-xs-12 form-group">
                             <label>Extra info:</label>
-                            <textarea rows="4" [(ngModel)]="project.extraInfo"></textarea>
+                            <textarea rows="4" [(ngModel)]="NewProject.extraInfo"></textarea>
                         </div>
                         <div class="col-xs-12 form-group">
                             <label>Afbeelding:</label>
@@ -303,12 +303,13 @@ import {Actie} from "../../../models/actie";
 
 export class ManageProjectComponent {
     //TODO : make upload button dutch
-    categorieen: GemeenteCategorie[];
-    cat:GemeenteCategorie [];
+    categorieen: GemeenteCategorie[] = [];
     niveaus = InspraakNiveau;
     projectScene = ProjectScenario;
     isNewProject: boolean = true;
-    project: Project = new Project("");
+    NewProject: Project = new Project("");
+    existProject: Project = new Project("");
+    boekjaar:number=2020;
     town:string;
     id: number;
     errorMessage:any;
@@ -325,10 +326,21 @@ export class ManageProjectComponent {
         //Todo: get the project details
 
         this.errorMessage="";
-        this._projectService.getInspraakitems(this.project.boekjaar,this.town)
-            .subscribe((finan: any) => this.categorieen = finan,
+        this._projectService.getInspraakitems(this.boekjaar,this.town)
+            .subscribe((cats: any) => this.categorieen = cats,
                 (err:any) => this.errorMessage = err
             );
+    }
+
+    getProject()
+    {
+        this.errorMessage="";
+        this.categorieen = [];
+        this._projectService.getProject(this.boekjaar,this.town)
+            .subscribe((pr: any) => this.existProject = pr,
+                (err:any) => this.errorMessage = err
+            );
+
     }
 
     onChange = (event: any)=>{
@@ -352,42 +364,95 @@ export class ManageProjectComponent {
         switch (cat.catType)
         {
             case "A" :
-                this.categorieen[iA].inspraakNiveau = inspraak;
-                if(inspraak == 2) {
-                    this.changeInspraak(this.categorieen[iA].childCats, 2);
-                    if (this.categorieen[iA].acties != null) {
-                        for (var j = 0; j < this.categorieen[iA].acties.length; j++) {
-                            this.categorieen[iA].acties[j].inspraakNiveau = 2;
+                if(this.isNewProject)
+                {
+                    this.categorieen[iA].inspraakNiveau = inspraak;
+                    if(inspraak == 2) {
+                        this.changeInspraak(this.categorieen[iA].childCats, 2);
+                        if (this.categorieen[iA].acties != null) {
+                            for (var j = 0; j < this.categorieen[iA].acties.length; j++) {
+                                this.categorieen[iA].acties[j].inspraakNiveau = 2;
+                            }
                         }
                     }
                 }
+                else {
+                    this.existProject.cats[iA].inspraakNiveau = inspraak;
+                    if(inspraak == 2) {
+                        this.changeInspraak(this.existProject.cats[iA].childCats, 2);
+                        if (this.existProject.cats[iA].acties != null) {
+                            for (var j = 0; j < this.existProject.cats[iA].acties.length; j++) {
+                                this.existProject.cats[iA].acties[j].inspraakNiveau = 2;
+                            }
+                        }
+                    }
+                }
+
                 break;
             case "B" :
-                if(catParent.inspraakNiveau !=2)
+
+                if(this.isNewProject)
                 {
-                    this.categorieen[iA].childCats[iB].inspraakNiveau = inspraak;
-                    if(inspraak == 2) {
-                        this.changeInspraak(this.categorieen[iA].childCats[iB].childCats, 2);
-                        if (this.categorieen[iA].childCats[iB].acties != null) {
-                            for (var j = 0; j < this.categorieen[iA].childCats[iB].acties.length; j++) {
-                                this.categorieen[iA].childCats[iB].acties[j].inspraakNiveau = 2;
+                    if(catParent.inspraakNiveau !=2)
+                    {
+                        this.categorieen[iA].childCats[iB].inspraakNiveau = inspraak;
+                        if(inspraak == 2) {
+                            this.changeInspraak(this.categorieen[iA].childCats[iB].childCats, 2);
+                            if (this.categorieen[iA].childCats[iB].acties != null) {
+                                for (var j = 0; j < this.categorieen[iA].childCats[iB].acties.length; j++) {
+                                    this.categorieen[iA].childCats[iB].acties[j].inspraakNiveau = 2;
+                                }
                             }
                         }
                     }
                 }
+                else {
+                    if(catParent.inspraakNiveau !=2)
+                    {
+                        this.existProject.cats[iA].childCats[iB].inspraakNiveau = inspraak;
+                        if(inspraak == 2) {
+                            this.changeInspraak(this.existProject.cats[iA].childCats[iB].childCats, 2);
+                            if (this.existProject.cats[iA].childCats[iB].acties != null) {
+                                for (var j = 0; j < this.existProject.cats[iA].childCats[iB].acties.length; j++) {
+                                    this.existProject.cats[iA].childCats[iB].acties[j].inspraakNiveau = 2;
+                                }
+                            }
+                        }
+                    }
+                }
+
                 break;
             case "C" :
-                if(catParent.inspraakNiveau !=2)
+
+                if(this.isNewProject)
                 {
-                    this.categorieen[iA].childCats[iB].childCats[iC].inspraakNiveau = inspraak;
-                    if(inspraak == 2) {
-                        if (this.categorieen[iA].childCats[iB].childCats[iC].acties != null) {
-                            for (var j = 0; j < this.categorieen[iA].childCats[iB].childCats[iC].acties.length; j++) {
-                                this.categorieen[iA].childCats[iB].childCats[iC].acties[j].inspraakNiveau = 2;
+                    if(catParent.inspraakNiveau !=2)
+                    {
+                        this.categorieen[iA].childCats[iB].childCats[iC].inspraakNiveau = inspraak;
+                        if(inspraak == 2) {
+                            if (this.categorieen[iA].childCats[iB].childCats[iC].acties != null) {
+                                for (var j = 0; j < this.categorieen[iA].childCats[iB].childCats[iC].acties.length; j++) {
+                                    this.categorieen[iA].childCats[iB].childCats[iC].acties[j].inspraakNiveau = 2;
+                                }
                             }
                         }
                     }
                 }
+                else
+                {
+                    if(catParent.inspraakNiveau !=2)
+                    {
+                        this.existProject.cats[iA].childCats[iB].childCats[iC].inspraakNiveau = inspraak;
+                        if(inspraak == 2) {
+                            if (this.existProject.cats[iA].childCats[iB].childCats[iC].acties != null) {
+                                for (var j = 0; j < this.existProject.cats[iA].childCats[iB].childCats[iC].acties.length; j++) {
+                                    this.existProject.cats[iA].childCats[iB].childCats[iC].acties[j].inspraakNiveau = 2;
+                                }
+                            }
+                        }
+                    }
+                }
+
                 break;
 
         }
@@ -435,17 +500,19 @@ export class ManageProjectComponent {
 
     onSelectScenario(event: any)
     {
-        this.project.projectScenario = event.target.value;
+        this.NewProject.projectScenario = event.target.value;
     }
 
     submit = ()=>
     {
         this.errorMessage2="";
-        this.project.cats = this.categorieen;
+        this.NewProject.cats = this.categorieen;
 
-        this.project.isActief=true;
-        this.project.gemeente = this.town;
-        this._projectService.putProject(this.project).subscribe(
+        this.NewProject.isActief=true;
+        this.NewProject.gemeente = this.town;
+        this.NewProject.boekjaar = this.boekjaar;
+        this.NewProject.afbeelding = this.afb;
+        this._projectService.postProject(this.NewProject).subscribe(
             (id: any) => this.id = id,
             (err:any) => this.errorMessage2 = err
         );
@@ -456,9 +523,13 @@ export class ManageProjectComponent {
 
     editExistingProject = () =>
     {
-        console.log('hello');
+        this.existProject.afbeelding = this.afb;
         //TODO: write webapi for editing existing project
-        this._router.navigate(['/', 'App','Budget', { town: this.town}]);
+        this._projectService.putProject(this.existProject).subscribe(
+            (id: any) => this.id = id,
+            (err:any) => this.errorMessage2 = err
+        );
+        //this._router.navigate(['/', 'App','Budget', { town: this.town}]);
 
 
     }
