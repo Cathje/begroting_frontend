@@ -67,7 +67,7 @@ import {StyledDirective} from '../../../directives/styled';
     directives: [ROUTER_DIRECTIVES, StyledDirective],
     styles: [`
     ::-webkit-file-upload-button {
-        background: #2ac7d2;
+        background: gray;
         box-shadow: none;
         border:none;
         color:white;
