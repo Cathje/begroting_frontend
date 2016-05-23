@@ -138,7 +138,7 @@ export class OverviewUsersComponent {
         }
         else
         {
-            this.filterGebruikers[0].rolType = this.gebruikers[i].rolType = event.target.value;
+            this.filterGebruikers[0].rolType = event.target.value;
         }
 
     }
@@ -156,7 +156,7 @@ export class OverviewUsersComponent {
         }
         else
         {
-            this.filterGebruikers[0].rolType = this.gebruikers[i].rolType = event.target.value;
+            this.filterGebruikers[0].isActief =  event.target.checked;
         }
     }
 
