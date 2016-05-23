@@ -9,10 +9,10 @@ export class BudgetWijziging {
     inspraakItemId: number;
     inspraakItem: string;
     
-    constructor(id:number, bedrag: number)
+    constructor(id:number, bedrag: number, beschrijving: string)
     {
         this.inspraakItemId = id;
-        //this.beschrijving = beschrijving;
+        this.beschrijving = beschrijving;
         this.bedrag = bedrag;
     }
 
