@@ -13,6 +13,7 @@ import {Project} from "./../../../models/project";
 import {Actie} from "./../../../models/actie";
 import {BudgetWijziging} from "../../../models/bugdetWijziging";
 import {BegrotingsVoorstel} from "../../../models/begrotingsVoorstel";
+import {StyledDirective} from '../../../directives/styled';
 
 
 
@@ -79,7 +80,7 @@ import {BegrotingsVoorstel} from "../../../models/begrotingsVoorstel";
                         </ul>
                     </div>
                 </div>
-                <button [disabled]="submitProject" (click)="submit()"class="btn btn-primary pull-right">opslaan</button>
+                <button [disabled]="submitProject" (click)="submit()"class="btn btn-primary pull-right" styled>opslaan</button>
             </form>
         </div>
         <div class ="row">

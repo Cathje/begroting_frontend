@@ -8,6 +8,7 @@ import {MainTown} from "../../../models/mainTown";
 import {IngelogdeGebruiker} from "../../../models/ingelogdeGebruiker";
 import {KeysPipe} from "../../../pipes/keysPipe";
 import {rolType} from "../../../models/rolType";
+import {StyledDirective} from '../../../directives/styled';
 
 
 @Component({ //invoke with metadata object
@@ -47,12 +48,12 @@ import {rolType} from "../../../models/rolType";
         </div>
     </section>
 
-        <button class="btn btn-primary pull-right" (click)="submit()">opslaan</button>
+        <button class="btn btn-primary pull-right" (click)="submit()" styled>opslaan</button>
 </section>
 `,
     providers: [TownService, LoginService],
     pipes: [KeysPipe],
-    directives: [ROUTER_DIRECTIVES, TownSelectorComponent],
+    directives: [ROUTER_DIRECTIVES, TownSelectorComponent, StyledDirective],
     styles: [`
 
     label{

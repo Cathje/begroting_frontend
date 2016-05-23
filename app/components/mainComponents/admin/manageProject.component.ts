@@ -8,7 +8,7 @@ import {Project} from "../../../models/project";
 import {ProjectScenario} from "../../../models/projectScenario";
 import {GemeenteCategorie} from "../../../models/gemeenteCategorie";
 import {Actie} from "../../../models/actie";
-
+import {StyledDirective} from '../../../directives/styled';
 
 @Component({ //invoke with metadata object
     selector: 'manage-project-container',
@@ -18,8 +18,8 @@ import {Actie} from "../../../models/actie";
     <section class="container">
         <h1>Beheer project - {{town}}</h1>
         <div class="tabs">
-            <button class="btn btn-primary" (click)="isNewProject = true" [ngClass]="{inactive: !isNewProject}" data-toggle="tab" href="#new">Nieuw project</button>
-            <button class="btn btn-primary" (click)="isNewProject = false" [ngClass]="{inactive: isNewProject}" data-toggle="tab" href="#existing">Bestaand project</button>
+            <button class="btn btn-primary" (click)="isNewProject = true" [ngClass]="{inactive: !isNewProject}" data-toggle="tab" href="#new" styled>Nieuw project</button>
+            <button class="btn btn-primary" (click)="isNewProject = false" [ngClass]="{inactive: isNewProject}" data-toggle="tab" href="#existing" styled>Bestaand project</button>
         </div>
 
         <!-- EXISTING PROJECTS TAB-->
@@ -30,7 +30,7 @@ import {Actie} from "../../../models/actie";
                     <div class="section-content">
                      <label>boekjaar:</label>
                      <input type="number" class="form-control" [(ngModel)]="boekjaar"/>
-                     <button class="btn btn-primary form-control" (click)="getProject()">haal project op</button>
+                     <button class="btn btn-primary form-control" (click)="getProject()" styled>haal project op</button>
                     </div>
                  </section>
 
@@ -138,7 +138,7 @@ import {Actie} from "../../../models/actie";
             </div>
               </div>
                 </section>
-                <button [hidden]="!errorMessage"(click)="editExistingProject()"class="btn btn-primary pull-right">opslaan</button>
+                <button [hidden]="!errorMessage"(click)="editExistingProject()"class="btn btn-primary pull-right" styled>opslaan</button>
             </div>
 
             <!-- NEW PROJECTS TAB-->
@@ -148,7 +148,7 @@ import {Actie} from "../../../models/actie";
                     <div class="section-content">
                      <label>boekjaar:</label>
                      <input type="number" class="form-control" [(ngModel)]="boekjaar"/>
-                     <button class="btn btn-primary form-control" (click)="getBegroting()">haal begroting op</button>
+                     <button class="btn btn-primary form-control" (click)="getBegroting()" styled>haal begroting op</button>
                     </div>
                  </section>
                 <section class="col-xs-12 form-inline" *ngIf="!errorMessage">
@@ -255,14 +255,14 @@ import {Actie} from "../../../models/actie";
             </div>
               </div>
                 </section>
-                <button [hidden]="!errorMessage" (click)="submit()"class="btn btn-primary pull-right">opslaan</button>
+                <button [hidden]="!errorMessage" (click)="submit()"class="btn btn-primary pull-right" styled>opslaan</button>
 
             </div>
         </div>
     </section>
 
 `,
-    directives: [ROUTER_DIRECTIVES],
+    directives: [ROUTER_DIRECTIVES, StyledDirective],
     providers: [ ProjectService],
     pipes: [KeysPipe]
     ,

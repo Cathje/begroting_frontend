@@ -6,6 +6,7 @@ import {PoliticusType} from "../../../models/politicusType";
 import {MainTown} from "../../../models/mainTown";
 import {Bestuur} from "../../../models/bestuur";
 import {KeysPipe} from "../../../pipes/keysPipe";
+import {StyledDirective} from '../../../directives/styled';
 
 @Component({ //invoke with metadata object
     selector: 'manage-data-container',
@@ -65,7 +66,7 @@ import {KeysPipe} from "../../../pipes/keysPipe";
         <div class="form-inline">
         <ul *ngIf="mainTown?.bestuur" >
            <li *ngFor="#b of mainTown.bestuur" >
-           <button class="btn btn-primary"(click)="verwijder(b.PoliticusId, b)" ><span class="glyphicon glyphicon-trash"></span></button>
+           <button class="btn btn-primary"(click)="verwijder(b.PoliticusId, b)" styled><span class="glyphicon glyphicon-trash"></span></button>
            <span>{{b.naam}} - {{types[b.type]}}  </span>
             </li>
         </ul>
@@ -73,7 +74,7 @@ import {KeysPipe} from "../../../pipes/keysPipe";
         </div>
 
         <div class="form-inline">
-         <button class="btn btn-primary" (click)="voegToe()"><span class="glyphicon glyphicon-plus"></span></button>
+         <button class="btn btn-primary" (click)="voegToe()" styled><span class="glyphicon glyphicon-plus"></span></button>
          <div class="form-group">
             <label >Naam:</label>
             <input class="form-control" type="text" [(ngModel)]="bestuur.naam"/>
@@ -103,12 +104,12 @@ import {KeysPipe} from "../../../pipes/keysPipe";
                 </div>
         </div>
     </section>
-        <button class="btn btn-primary pull-right" (click)="submit()">opslaan</button>
+        <button class="btn btn-primary pull-right" (click)="submit()" styled>opslaan</button>
 </section>
 `,
     providers: [TownService],
     pipes: [KeysPipe],
-    directives: [ROUTER_DIRECTIVES, TownSelectorComponent],
+    directives: [ROUTER_DIRECTIVES, TownSelectorComponent, StyledDirective],
     styles: [`
 
     label{

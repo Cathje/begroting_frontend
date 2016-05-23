@@ -8,6 +8,7 @@ import {TownService} from './../../../services/townService.component';
 import {BegrotingService} from "../../../services/begrotingService";
 import {ProjectService} from "../../../services/projectService.component";
 import {Project} from "../../../models/project";
+import {StyledDirective} from '../../../directives/styled';
 
 @Component({ //invoke with metadata object
     selector: 'overview-container',
@@ -23,7 +24,7 @@ import {Project} from "../../../models/project";
                 <div class="widget-content">
                     <h4>Inkomsten per categorie</h4>
                     <sunburst [data]=income [height]=width [width]=width></sunburst>
-                    <button type="button" class="btn btn-primary pull-right" [routerLink]="['Income']">Meer info</button>
+                    <button type="button" class="btn btn-primary pull-right" [routerLink]="['Income']" styled>Meer info</button>
                 </div>
             </section>
 
@@ -31,7 +32,7 @@ import {Project} from "../../../models/project";
                 <div class="widget-content" >
                     <h4>Uitgaves per categorie</h4>
                     <sunburst [data]=expenses [height]=width [width]=width></sunburst>
-                    <button type="button" class="btn btn-primary pull-right" [routerLink]="['Expenses']">Meer info</button>
+                    <button type="button" class="btn btn-primary pull-right" [routerLink]="['Expenses']" styled>Meer info</button>
                 </div>
             </section>
 
@@ -49,7 +50,7 @@ import {Project} from "../../../models/project";
                         <label>Informatie:</label>
                         <textarea rows="2" [(ngModel)]="information"></textarea>
                     </div>
-                    <button type="button" class="btn btn-primary pull-right" (click)="saveExtraInfo()">Verzenden</button>
+                    <button type="button" class="btn btn-primary pull-right" (click)="saveExtraInfo()" styled>Verzenden</button>
                 </div>
             </section>
 
@@ -59,7 +60,7 @@ import {Project} from "../../../models/project";
                 <ul>
                    <p *ngIf="projects === null" class='noData'> Er zijn geen openstaande projecten.</p>
                    <li *ngFor="#project of projects">
-                       <button type="button" class="btn btn-primary btn-sm" [routerLink]="['/','App', 'Participation', {town: townString}, 'Projects']">Meer info</button>
+                       <button type="button" class="btn btn-primary btn-sm" [routerLink]="['/','App', 'Participation', {town: townString}, 'Projects']" styled>Meer info</button>
                        {{project.boekjaar}} - {{project.titel}}
                    </li>
                 </ul>
@@ -72,7 +73,7 @@ import {Project} from "../../../models/project";
             <div class="widget-content">
                 <h4> Kerngegevens</h4>
                 <img class='icon' src="/app/images/icons/population.png">
-                <button type="button" class="btn btn-primary pull-right" [routerLink]="['CoreData']">Meer info</button>
+                <button type="button" class="btn btn-primary pull-right" [routerLink]="['CoreData']" styled>Meer info</button>
             </div>
         </section>
 
@@ -80,7 +81,7 @@ import {Project} from "../../../models/project";
             <div class="widget-content">
                 <h4>Vergelijk de begroting van 2 gemeentes</h4>
                 <p> Doet jouw gemeente het beter dan een andere gemeente? Vergelijk de begrotingsverdeling door op de knop meer info te klikken en selecteer jouw favoriete gemeentes.</p>
-                <button type="button" class="btn btn-primary pull-right" [routerLink]="['Comparison']">Meer info</button>
+                <button type="button" class="btn btn-primary pull-right" [routerLink]="['Comparison']" styled>Meer info</button>
             </div>
         </section>
 
@@ -88,7 +89,7 @@ import {Project} from "../../../models/project";
              <div class="widget-content">
                 <h4>Waar gaan mijn belastingen naartoe?</h4>
                 <p>Vul jouw loon in en ontdek hoeveel geld naar de verschillende categorieën van de begroting gaat.</p>
-                <button type="button" class="btn btn-primary pull-right" [routerLink]="['Taxes']">Meer info</button>
+                <button type="button" class="btn btn-primary pull-right" [routerLink]="['Taxes']" styled>Meer info</button>
             </div>
         </section>
 
@@ -96,14 +97,14 @@ import {Project} from "../../../models/project";
              <div class="widget-content">
                 <h4>Hoe participeren</h4>
                 <p>Wil je zelf participeren aan de begroting van {{mainTown?.naam}}? Klik op meer info en dien jouw voorstel in.</p>
-                <button type="button" class="btn btn-primary pull-right" [routerLink]="['/','App', 'Participation', {town: townString}, 'Projects']">Meer info</button>
+                <button type="button" class="btn btn-primary pull-right" [routerLink]="['/','App', 'Participation', {town: townString}, 'Projects']" styled>Meer info</button>
             </div>
         </section>
 
        </div>
     </div>
 `,
-    directives: [SunburstComponent,ROUTER_DIRECTIVES],
+    directives: [SunburstComponent,ROUTER_DIRECTIVES, StyledDirective],
     providers: [ ProjectService, BegrotingService, TownService],
     styles: [`
 

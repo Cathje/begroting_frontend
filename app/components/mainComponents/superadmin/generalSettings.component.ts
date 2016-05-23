@@ -2,6 +2,7 @@ import {Component} from 'angular2/core';
 import {RouteParams} from 'angular2/router';
 import {MultipartItem} from "../../subComponents/upload/multipart-item";
 import {MultipartUploader} from "../../subComponents/upload/multipart-uploader";
+import {StyledDirective} from '../../../directives/styled';
 
 
 @Component({ //invoke with metadata object
@@ -11,9 +12,10 @@ import {MultipartUploader} from "../../subComponents/upload/multipart-uploader";
     <h2>Algemene instellingen</h2>
         <label>Voeg hieronder het bestand toe om de begroting op te laden.</label>
         <input type="file" (change)="selectFile($event)" id="file"/>
-        <button type="submit" class="btn btn-default" (click)="upload();">Submit</button>
+        <button type="submit" class="btn btn-primary" (click)="upload();" styled>Submit</button>
     </div>
-    `
+    `,
+    directives: [StyledDirective]
 })
 
 export class GeneralSettingsComponent {

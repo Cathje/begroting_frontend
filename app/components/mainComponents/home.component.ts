@@ -2,6 +2,7 @@ import {Component} from 'angular2/core';
 
 import {TownSelectorComponent} from "../subComponents/input/townSelector.component";
 import {ProjectOverviewComponent} from "../subComponents/information/projectOverview.component";
+import {StyledDirective} from '../../directives/styled';
 
 @Component({
     selector: 'home-container',
@@ -19,17 +20,15 @@ import {ProjectOverviewComponent} from "../subComponents/information/projectOver
         </video>
     </div>
 
-    <div class="site-information-container">
+    <div class="site-information-container" styled>
         <h2> Ontdek de openstaande projecten van jouw favoriete gemeente en participeer!</h2>
         <p>Het doel van dit platform is om de begrotingen en de uitgaven van Vlaamse steden en gemeenten transparant en begrijpelijk te maken voor de burgers en om
 burgervoorstellen over de begroting te verzamelen en te communiceren met de bevoegde instanties binnen de steden en gemeenten.
         </p>
     </div>
-
-    <project-overview></project-overview>
     `
     ,
-    directives: [TownSelectorComponent, ProjectOverviewComponent],
+    directives: [TownSelectorComponent, ProjectOverviewComponent, StyledDirective],
     styles: [`
 
     h2 {
@@ -61,6 +60,7 @@ burgervoorstellen over de begroting te verzamelen en te communiceren met de bevo
         text-align: center;
         background-color:#2ac7d2;
         color:white;
+        padding-bottom: 100px;
     }
 
     .site-information-container h2 {

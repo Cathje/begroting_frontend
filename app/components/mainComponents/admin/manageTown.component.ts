@@ -1,4 +1,4 @@
-import {Component, Renderer, ElementRef, ApplicationRef} from 'angular2/core';
+import {Component} from 'angular2/core';
 import {RouteParams, ROUTER_DIRECTIVES, Router} from 'angular2/router';
 import {TownService} from "../../../services/townService.component";
 import {MainTown} from "../../../models/mainTown";
@@ -19,7 +19,7 @@ import {StyledDirective} from '../../../directives/styled';
                     <label >Hoofdkleur</label>
                     <input class="form-control" type="text" [(ngModel)]="mainTown.kleur"/>
                     <button class="btn btn-primary" (click)="changeColor()" styled ><span class="glyphicon glyphicon-plus"></span></button>
-                    <span class="small"><i>*Gelieve een hexadecimale waarde of een rgba waarde in te voeren</i></span>
+                    <span class="small"><i>*Gelieve een hexadecimale waarde, een rgba waarde of een standaard webkleur in te voeren</i></span>
                 </div>
             </div>
         </section>
@@ -53,7 +53,7 @@ import {StyledDirective} from '../../../directives/styled';
                         <label >Antwoord:</label>
                         <input type="text" [(ngModel)]="faq.antwoord"/>
                     </div>
-                   <button class="btn btn-primary pull-right" (click)="voegToe()" styled>Voeg toe</button>
+                   <button class="btn btn-primary pull-right" (click)="savefaq()" styled>Voeg toe</button>
                 </div>
             </div>
         </section>
@@ -94,12 +94,11 @@ export class ManageTownComponent {
     faq = new Faq("", "");
     faqs: Faq[];
 
-    constructor( private applicationRef: ApplicationRef , private _routeParams: RouteParams, _townService: TownService, private _router:Router)
+    constructor( private _routeParams: RouteParams, _townService: TownService, private _router:Router)
     {
         _townService.getTown(_routeParams.get('town'))
            .subscribe(town => this.mainTown = town
            );
-       // console.log(('666', _applicationRef);
     }
 
     ngOnInit() {
@@ -108,12 +107,17 @@ export class ManageTownComponent {
 
     changeColor = () => {
         sessionStorage.setItem("mainColor", this.mainTown.kleur);
+        location.reload();
+
+        //TODO: + create webapi to save this in backend
     }
 
     changeImg = (event: any)=>{
         this.loadimage(event.target.files[0], (img: string) =>{
             this.afb =  img;
         });
+
+        //TODO: + create webapi to save this in backend
     }
 
     loadimage = (img: string, cb: any)=> {
@@ -123,6 +127,10 @@ export class ManageTownComponent {
             let result = reader.result;
             cb(result);
         }
+    }
+
+    saveFaq = () {
+    //TODO: + create webapi to save this in backend
     }
 
 }

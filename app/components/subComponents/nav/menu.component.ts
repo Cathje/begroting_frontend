@@ -2,11 +2,12 @@ import {Component, Input, OnInit} from 'angular2/core';
 import { RouteParams } from 'angular2/router';
 import { ROUTER_DIRECTIVES } from 'angular2/router';
 import {TownSelectorComponent} from '../input/townSelector.component';
+import {StyledDirective} from '../../../directives/styled';
 
 @Component({
     selector: 'navigation-menu',
     template: `
-        <nav class="navbar navbar-default">
+        <nav class="navbar navbar-default" styled>
   <div class="container-fluid">
     <!-- Brand and toggle get grouped for better mobile display -->
     <div class="navbar-header">
@@ -21,10 +22,10 @@ import {TownSelectorComponent} from '../input/townSelector.component';
 
     <!-- Collect the nav links, forms, and other content for toggling -->
     <div class="collapse navbar-collapse" id="bs-example-navbar-collapse-1">
-      <ul class="nav navbar-nav">
-        <li class="dropdown">
-          <a href="#" class="dropdown-toggle" data-toggle="dropdown" role="button" aria-haspopup="true" aria-expanded="false">Begroting<span class="caret"></span></a>
-          <ul class="dropdown-menu">
+      <ul class="nav navbar-nav" styled>
+        <li class="dropdown" styled>
+          <a href="#" class="dropdown-toggle" data-toggle="dropdown" role="button" aria-haspopup="true" aria-expanded="false" styled>Begroting<span class="caret" ></span></a>
+          <ul class="dropdown-menu" styled>
             <li><a [routerLink]="['Budget', {town: townString}, 'Overview']">Dashboard</a></li>
             <li><a [routerLink]="['Budget', {town: townString}, 'Income']">Inkomsten</a></li>
             <li><a [routerLink]="['Budget', {town: townString}, 'Expenses']">Uitgaven</a></li>
@@ -34,16 +35,16 @@ import {TownSelectorComponent} from '../input/townSelector.component';
         </li>
 
         <li class="dropdown">
-          <a href="#" class="dropdown-toggle" data-toggle="dropdown" role="button" aria-haspopup="true" aria-expanded="false">Participeren<span class="caret"></span></a>
-          <ul class="dropdown-menu">
+          <a href="#" class="dropdown-toggle" data-toggle="dropdown" role="button" aria-haspopup="true" aria-expanded="false" styled>Participeren<span class="caret" ></span></a>
+          <ul class="dropdown-menu" styled>
             <li><a [routerLink]="['Participation', {town: townString}, 'Projects']">Begrotingsposten</a></li>
             <li><a [routerLink]="['Participation', {town: townString}, 'Propositions']">Burgervoorstellen</a></li>
             <li><a [routerLink]="['Participation', {town: townString}, 'AddPropositions']">Voorstel indienen</a></li>
           </ul>
         </li>
         <li class="dropdown">
-          <a href="#" class="dropdown-toggle" data-toggle="dropdown" role="button" aria-haspopup="true" aria-expanded="false">Admin<span class="caret"></span></a>
-          <ul class="dropdown-menu">
+          <a href="#" class="dropdown-toggle" data-toggle="dropdown" role="button" aria-haspopup="true" aria-expanded="false" styled>Admin<span class="caret"></span></a>
+          <ul class="dropdown-menu" styled>
             <li><a [routerLink]="['Admin', {town: townString}, 'ManageData']">Beheer kerngegevens</a></li>
             <li><a [routerLink]="['Admin', {town: townString}, 'ManageTown']">Instellingen gemeente</a></li>
             <li><a [routerLink]="['Admin', {town: townString}, 'ManageProject']">Beheer projecten</a></li>
@@ -51,16 +52,16 @@ import {TownSelectorComponent} from '../input/townSelector.component';
           </ul>
         </li>
         <li class="dropdown">
-          <a href="#" class="dropdown-toggle" data-toggle="dropdown" role="button" aria-haspopup="true" aria-expanded="false">Moderator<span class="caret"></span></a>
-          <ul class="dropdown-menu">
+          <a href="#" class="dropdown-toggle" data-toggle="dropdown" role="button" aria-haspopup="true" aria-expanded="false" styled>Moderator<span class="caret"></span></a>
+          <ul class="dropdown-menu" styled>
             <li><a [routerLink]="['Moderator', {town: townString}, 'OverviewUsers']">Overzicht gebruikers</a></li>
             <li><a [routerLink]="['Moderator', {town: townString}, 'OverviewPropositions']">Overzicht voorstellen</a></li>
 
           </ul>
         </li>
         <li class="dropdown">
-          <a href="#" class="dropdown-toggle" data-toggle="dropdown" role="button" aria-haspopup="true" aria-expanded="false">SuperAdmin<span class="caret"></span></a>
-          <ul class="dropdown-menu">
+          <a href="#" class="dropdown-toggle" data-toggle="dropdown" role="button" aria-haspopup="true" aria-expanded="false" styled>SuperAdmin<span class="caret"></span></a>
+          <ul class="dropdown-menu" styled>
             <li><a [routerLink]="['SuperAdmin', {town: townString}, 'GeneralSettings']">Algemene instellingen</a></li>
             <li><a [routerLink]="['SuperAdmin', {town: townString}, 'CreateAdmin']">Admin aanmaken</a></li>
             <li><a [routerLink]="['SuperAdmin', {town: townString}, 'ManageUsers']">Gebruikers beheren</a></li>
@@ -103,11 +104,11 @@ import {TownSelectorComponent} from '../input/townSelector.component';
     }
 
     .dropdown-menu > li > a:hover {
-                background-color: #8ec7ca;
+                opacity: 0.9;
     }
 
       `,],
-    directives: [ROUTER_DIRECTIVES, TownSelectorComponent],
+    directives: [ROUTER_DIRECTIVES, TownSelectorComponent, StyledDirective],
 
 })
 

@@ -1,4 +1,4 @@
-System.register(['angular2/core', "../../subComponents/upload/multipart-item", "../../subComponents/upload/multipart-uploader"], function(exports_1, context_1) {
+System.register(['angular2/core', "../../subComponents/upload/multipart-item", "../../subComponents/upload/multipart-uploader", '../../../directives/styled'], function(exports_1, context_1) {
     "use strict";
     var __moduleName = context_1 && context_1.id;
     var __decorate = (this && this.__decorate) || function (decorators, target, key, desc) {
@@ -10,7 +10,7 @@ System.register(['angular2/core', "../../subComponents/upload/multipart-item", "
     var __metadata = (this && this.__metadata) || function (k, v) {
         if (typeof Reflect === "object" && typeof Reflect.metadata === "function") return Reflect.metadata(k, v);
     };
-    var core_1, multipart_item_1, multipart_uploader_1;
+    var core_1, multipart_item_1, multipart_uploader_1, styled_1;
     var GeneralSettingsComponent;
     return {
         setters:[
@@ -22,6 +22,9 @@ System.register(['angular2/core', "../../subComponents/upload/multipart-item", "
             },
             function (multipart_uploader_1_1) {
                 multipart_uploader_1 = multipart_uploader_1_1;
+            },
+            function (styled_1_1) {
+                styled_1 = styled_1_1;
             }],
         execute: function() {
             GeneralSettingsComponent = (function () {
@@ -61,7 +64,8 @@ System.register(['angular2/core', "../../subComponents/upload/multipart-item", "
                 GeneralSettingsComponent = __decorate([
                     core_1.Component({
                         selector: 'general-settings-container',
-                        template: "\n    <div class=\"container\">\n    <h2>Algemene instellingen</h2>\n        <label>Voeg hieronder het bestand toe om de begroting op te laden.</label>\n        <input type=\"file\" (change)=\"selectFile($event)\" id=\"file\"/>\n        <button type=\"submit\" class=\"btn btn-default\" (click)=\"upload();\">Submit</button>\n    </div>\n    "
+                        template: "\n    <div class=\"container\">\n    <h2>Algemene instellingen</h2>\n        <label>Voeg hieronder het bestand toe om de begroting op te laden.</label>\n        <input type=\"file\" (change)=\"selectFile($event)\" id=\"file\"/>\n        <button type=\"submit\" class=\"btn btn-primary\" (click)=\"upload();\" styled>Submit</button>\n    </div>\n    ",
+                        directives: [styled_1.StyledDirective]
                     }), 
                     __metadata('design:paramtypes', [])
                 ], GeneralSettingsComponent);

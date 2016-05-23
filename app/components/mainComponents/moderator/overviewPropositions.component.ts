@@ -3,6 +3,7 @@ import {RouteParams} from 'angular2/router';
 import {Project} from "../../../models/project";
 import {ProjectService} from "../../../services/projectService.component";
 import {BegrotingsVoorstel} from "../../../models/begrotingsVoorstel";
+import {StyledDirective} from '../../../directives/styled';
 
 @Component({ //invoke with metadata object
     selector: 'overview-propositions-container',
@@ -27,8 +28,8 @@ import {BegrotingsVoorstel} from "../../../models/begrotingsVoorstel";
                 <td><textarea> {{voorstel.beschrijving}}</textarea></td>
                 <td>{{voorstel.verificatieStatus}}</td>
                 <td>
-                <button class="btn btn-primary approve" (click)="approve(voorstel)"><span class="glyphicon glyphicon-thumbs-up"></span></button>
-                <button class="btn btn-primary disapprove" (click)="disapprove(voorstel)"><span class="glyphicon glyphicon-thumbs-down"></span></button>
+                <button class="btn btn-primary approve" (click)="approve(voorstel)" ><span class="glyphicon glyphicon-thumbs-up"></span></button>
+                <button class="btn btn-primary disapprove" (click)="disapprove(voorstel)" ><span class="glyphicon glyphicon-thumbs-down"></span></button>
                 </td>
             </tr>
             </tbody>
@@ -44,6 +45,7 @@ import {BegrotingsVoorstel} from "../../../models/begrotingsVoorstel";
     providers: [
         ProjectService
     ],
+    directives: [StyledDirective],
     styles : [`
         .panel-heading {
             background-color: #2ac7d2;
