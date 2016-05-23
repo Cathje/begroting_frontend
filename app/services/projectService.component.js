@@ -34,10 +34,17 @@ System.register(['angular2/core', 'angular2/http', 'rxjs/Rx'], function(exports_
                     return this.http.get(this._url2 + "/itemsGET" + "?jaar=" + jaar + "&naam=" + naam)
                         .map(this.extractData);
                 };
-                ProjectService.prototype.putProject = function (p) {
+                ProjectService.prototype.postProject = function (p) {
                     var headers = new http_1.Headers();
                     headers.append('Content-Type', 'application/json');
                     return this.http.post(this._url2 + "/postProject", JSON.stringify({ projectScenario: p.projectScenario, vraag: p.vraag,
+                        titel: p.titel, extraInfo: p.extraInfo, bedrag: p.bedrag, minBedrag: p.minBedrag, maxBedrag: p.maxBedrag, cats: p.cats, boekjaar: p.boekjaar, gemeente: p.gemeente,
+                        isActief: p.isActief, afbeeldingen: p.afbeelding }), { headers: headers }).map(this.extractData);
+                };
+                ProjectService.prototype.putProject = function (p) {
+                    var headers = new http_1.Headers();
+                    headers.append('Content-Type', 'application/json');
+                    return this.http.put(this._url2 + "/updateProject/" + p.id, JSON.stringify({ projectScenario: p.projectScenario, vraag: p.vraag,
                         titel: p.titel, extraInfo: p.extraInfo, bedrag: p.bedrag, minBedrag: p.minBedrag, maxBedrag: p.maxBedrag, cats: p.cats, boekjaar: p.boekjaar, gemeente: p.gemeente,
                         isActief: p.isActief, afbeeldingen: p.afbeelding }), { headers: headers }).map(this.extractData);
                 };

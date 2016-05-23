@@ -14,6 +14,7 @@ System.register([], function(exports_1, context_1) {
                     this.stemmen = [];
                     this.reacties = [];
                     this.reactie = "";
+                    this.afbeeldingen = [];
                 }
                 return BegrotingsVoorstel;
             }());

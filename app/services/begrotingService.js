@@ -38,6 +38,10 @@ System.register(['angular2/core', 'angular2/http', 'rxjs/Rx', './../mockData/moc
                     return this.http.get(this._url + "?jaar=" + jaar + "&naam=" + naam)
                         .map(this.extractData);
                 };
+                BegrotingService.prototype.getBegrotingen = function (naam) {
+                    return this.http.get(this._url + "/getBegrotingen?naam=" + naam)
+                        .map(this.extractData);
+                };
                 BegrotingService.prototype.getActies = function (id) {
                     return this.http.get(this._url + "?id=" + id)
                         .map(this.extractData);

@@ -1,4 +1,4 @@
-System.register(['angular2/core'], function(exports_1, context_1) {
+System.register(['angular2/core', 'angular2/router', "../../../services/begrotingService"], function(exports_1, context_1) {
     "use strict";
     var __moduleName = context_1 && context_1.id;
     var __decorate = (this && this.__decorate) || function (decorators, target, key, desc) {
@@ -10,23 +10,35 @@ System.register(['angular2/core'], function(exports_1, context_1) {
     var __metadata = (this && this.__metadata) || function (k, v) {
         if (typeof Reflect === "object" && typeof Reflect.metadata === "function") return Reflect.metadata(k, v);
     };
-    var core_1;
+    var core_1, router_1, begrotingService_1;
     var ProjectsComponent;
     return {
         setters:[
             function (core_1_1) {
                 core_1 = core_1_1;
+            },
+            function (router_1_1) {
+                router_1 = router_1_1;
+            },
+            function (begrotingService_1_1) {
+                begrotingService_1 = begrotingService_1_1;
             }],
         execute: function() {
             ProjectsComponent = (function () {
-                function ProjectsComponent() {
+                function ProjectsComponent(_routeParams, _begrotingService, injector) {
+                    var _this = this;
+                    this._routeParams = _routeParams;
+                    this._begrotingService = _begrotingService;
+                    _begrotingService.getBegrotingen("Gent").subscribe(function (begr) { return _this.begrotingen = begr; }, function (err) { return _this.errorMessage = err; });
                 }
                 ProjectsComponent = __decorate([
                     core_1.Component({
                         selector: 'projects-container',
-                        template: "\n    <div class=\"container\">\n    <h2>Begrotingsposten</h2>\n    </div>\n    "
+                        template: "\n    <div class=\"container\">\n    <h2>Begrotingsposten</h2>\n     <p *ngIf=\"!begrotingen\"><i>Er zijn geen begrotingen gevonden voor deze gemeenten</i></p>\n\n        <div class=\"section-content\">\n            <div class=\"panel-group\" id=\"accordion\">\n                <div *ngFor=\"#begroting of begrotingen\" class=\"panel panel-default\">\n                      <div class=\"panel-heading\">\n                        <h4 class=\"panel-title\">\n                          <a data-toggle=\"collapse\" data-parent=\"#accordion\" href=\"{{'#'+begroting.boekjaar}}\">{{begroting.boekjaar}}</a>\n                        </h4>\n                      </div>\n                  <div [id]=begroting.boekjaar class=\"panel-collapse collapse in\">\n            <table class=\"table table-striped\">\n            <tbody>\n            <tr *ngFor=\"#cat of begroting.childCats\">\n                <td><p>{{cat.naamCat}}</p></td>\n                <td><p> \u20AC {{cat.totaal}}</p></td>\n            </tr>\n            </tbody>\n        </table>\n                  </div>\n\n                </div>\n            </div>\n        </div>\n    \n    </div>\n    ",
+                        directives: [router_1.ROUTER_DIRECTIVES],
+                        providers: [begrotingService_1.BegrotingService]
                     }), 
-                    __metadata('design:paramtypes', [])
+                    __metadata('design:paramtypes', [router_1.RouteParams, begrotingService_1.BegrotingService, core_1.Injector])
                 ], ProjectsComponent);
                 return ProjectsComponent;
             }());

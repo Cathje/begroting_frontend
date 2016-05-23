@@ -5,7 +5,6 @@ import {Injectable} from 'angular2/core';
 import {Http,Response,Headers}  from 'angular2/http';
 import 'rxjs/Rx';
 import {IngelogdeGebruiker} from "../models/IngelogdeGebruiker";
-import {Headers} from "angular2/http";
 import {InTeLoggenGebruiker} from "../models/InTeLoggenGebruiker";
 import {Token} from "../models/Token";
 import {Observable} from "rxjs/Observable";

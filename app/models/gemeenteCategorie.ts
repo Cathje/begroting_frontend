@@ -10,11 +10,18 @@ export interface GemeenteCategorie
     catA?:string;
     catB?:string;
     catC?:string;
-    naamCat?:string
+    naamCat?:string;
     inspraakNiveau?:number;
     gemcatID?:number;
     acties?:Actie [];
     childCats?:GemeenteCategorie [];
     catType?:string;
+    inputID?:number;
+    input?:string;
+    icoon?:string;
+    foto?:string;
+    film?:string;
+    kleur?:string;
+
     
 }

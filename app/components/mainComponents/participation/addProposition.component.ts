@@ -4,6 +4,7 @@ import {ProjectService} from "../../../services/projectService.component";
 import {BegrotingService} from "../../../services/begrotingService";
 import {GemeenteCategorie} from "./../../../models/gemeenteCategorie";
 import {rangeSlider} from './../../subComponents/input/rangeSlider.component';
+/*import {Slider} from './../../subComponents/input/slider.component';*/
 import {SunburstComponent} from './../../subComponents/graphs/sunburst.component'
 import { ROUTER_DIRECTIVES } from 'angular2/router'; // for routing
 import {MainTown} from "./../../../models/mainTown";
@@ -31,25 +32,58 @@ import {BegrotingsVoorstel} from "../../../models/begrotingsVoorstel";
                 <sunburst [data]=categories [onClick]=onCircleClick [height]=width [width]=width></sunburst> 
             </div>
             <div class ="col-lg-6 col-md-6 col-sm-12 col-xs-12">
-               <!-- <div class ="row">
-                    <p>Hier komt project info</p>
-                </div>-->
                 <div class ="row">
                     <h2>Gewijzigde categorieën en acties</h2>
                     <div class="section-content">
                     <!--acties toevoegen aan de box-->
+                    <p *ngIf="!budgetChange">Nog geen wijzigingen...</p>
+                    <div *ngIf="begrotingsVoorstel.budgetWijzigingen!=null">
+                        <table class="table table-striped">
+                            <tbody>
+                                <tr *ngFor="#change of begrotingsVoorstel.budgetWijzigingen">
+                                    <td>{{change.bedrag}}</td>
+                                    <td>{{change.inspraakItemId}}</td>
+                                </tr>
+                            </tbody>
+                        </table>
+                    </div>
                     </div>
                 </div>
                 <div class ="row">
                     <h2 *ngIf="scenario===1">Te besparen bedrag: €{{project.bedrag}}</h2><!--todo: gebruik project.projectScenario!!!-->
                     <h2 *ngIf="scenario===2">Te herschikken bedrag: €{{project.bedrag}}</h2>
                     <h2 *ngIf="scenario===3">Te bestemmen bedrag: €{{project.bedrag}}</h2>
+                    <h2>Verschoven bedrag: €{{tempTotal}}</h2>
                     <!--<h2>Totaal: €{{project.bedrag}}</h2>-->
                 </div>
             </div>
         </div>
+        <div class="row">
+            <form>
+                <div class="form-group">
+                    <label>Samenvatting</label>
+                    <textarea class="form-control" rows="3" [(ngModel)]="begrotingsVoorstel.samenvatting" placeholder="Samenvatting"></textarea>
+                </div>
+                <div class="form-group">
+                    <label>Motivatie</label>
+                    <textarea class="form-control" rows="10" [(ngModel)]="begrotingsVoorstel.beschrijving" placeholder="Motivatie"></textarea>
+                </div>
+                <div class="form-group">
+                    <label id="image">Afbeeldingen</label>
+                    <label class="btn btn-primary btn-file">
+                        Kies bestand <span class="glyphicon glyphicon-upload"></span><input type="file" style="display: none;" (change)="uploadImages($event)" />
+                    </label>
+                    <div *ngIf="afb">
+                        <ul>
+                            <li *ngFor="#af of afb">{{af}}</li>
+                        </ul>
+                    </div>
+                </div>
+                <button [disabled]="submitProject" (click)="submit()"class="btn btn-primary pull-right">opslaan</button>
+            </form>
+        </div>
         <div class ="row">
-            <!--<p>hier komt de accordeon</p>-->
+            <h2>Te wijzigen categorieën en acties</h2>
                     <!--outer accordion-->
                     <div *ngFor="#cat of project.cats #i = index" class="panel-group" #elem1 [attr.id]="'levelA_' + cat.ID"><!--id="levelA+cat.id""-->
                         <div class="panel panel-default">
@@ -63,27 +97,27 @@ import {BegrotingsVoorstel} from "../../../models/begrotingsVoorstel";
                             <!--a form for capturing budget shifts on cat level-->
                             <form class="form-inline">
                                 <div class="form-group sliderContainer">
-                                    <slider name="slide" id="speedSlider" [min]=0 [max]=5000000 [value]=2000 [step]=1000 (changes)="updateBudget()"></slider>
+                                    <slider name="slide" id="speedSlider" [(data)]="cat.totaal" [value]="cat.totaal" [itemID] = "cat.ID" [propositionParent]="ISPROP" [inspraakNiveau]="cat.inspraakNiveau" (changes)="updateBudget($event)"></slider>
                                 </div>
                                 <div class="form-group">
                                     <input [ngClass]="{locked: cat.inspraakNiveau  != 3}" type="number" class="form-control" id="taxInput" [(ngModel)]="cat.totaal" readonly>
                                 </div>
                             </form>
                             <!--a form for capturing budget shifts on action level-->
-                            <h3>Acties</h3>
+                            <!--<h3>Acties</h3>
                             <p *ngIf="cat.acties==null">Er zijn geen acties gedefinieerd op dit niveau</p>
                             <div *ngIf="cat.acties!=null">
                                 <form *ngFor="#acA of cat.acties #l = index" class="form-inline">
                                     <div class="form-group">
                                         <label class="actionLabel" for="slide">{{acA.actieKort}}</label>
                                         <input [ngClass]="{locked: acA.inspraakNiveau  != 3}" type="number" class="form-control" id="taxInput" [(ngModel)]="acA.uitgaven" readonly>
-                                        <!--<slider name="slide" id="speedSlider" [min]=0 [max]=5000000 [value]=2000 [step]=1000 (changes)="updateBudget()"></slider>-->
                                     </div>
                                     <div class="form-group actionSliderContainer">
-                                        <slider name="slide" id="speedSlider" [min]=0 [max]=5000000 [value]=2000 [step]=1000 (changes)="updateBudget()"></slider>
+                                        &lt;!&ndash;<slider name="slide" id="speedSlider" [min]=0 [max]=5000000 [value]=2000 [step]=1000 (changes)="updateBudget()"></slider>&ndash;&gt;
+                                        <slider name="slide" id="speedSlider" [(data)]="acA.uitgaven" [value]="acA.uitgaven" [itemID] = "acA.ID" [propositionParent]="ISPROP" [inspraakNiveau]="acA.inspraakNiveau" (changes)="updateBudget($event)"></slider>
                                     </div>
                                 </form>
-                            </div>
+                            </div>-->
                             <!-- Level B accordion -->
                             <div *ngFor="#levB of cat.childCats #j = index" class="panel-group" #elem2 [attr.id]="'levelB_' + levB.ID"><!--id="levelA+cat.id""-->
                               <div class="panel panel-default">
@@ -97,28 +131,28 @@ import {BegrotingsVoorstel} from "../../../models/begrotingsVoorstel";
                                     <!--a form for capturing budget shifts-->
                                     <form class="form-inline">
                                         <div class="form-group sliderContainer">
-                                            <slider name="slide" id="speedSlider" [min]=0 [max]=5000000 [value]=2000 [step]=1000 (changes)="updateBudget()"></slider>
+                                            <slider name="slide" id="speedSlider" [(data)]="levB.totaal" [value]="levB.totaal" [itemID] = "levB.ID" [propositionParent]="ISPROP" [inspraakNiveau]="levB.inspraakNiveau" (changes)="updateBudget($event)"></slider>
                                         </div>
                                         <div class="form-group">
                                             <input [ngClass]="{locked: levB.inspraakNiveau  != 3}" type="number" class="form-control" id="taxInput" [(ngModel)]="levB.totaal" readonly>
                                         </div>
                                     </form>
                                     <!--a form for capturing budget shifts on action level-->
-                                    <h3>Acties</h3>
+                                    <!--<h3>Acties</h3>
                                     <p *ngIf="levB.acties==null">Er zijn geen acties gedefinieerd op dit niveau</p>
                                     <div *ngIf="levB.acties!=null">
                                         <form *ngFor="#acB of levB.acties #k = index" class="form-inline">
                                             <div class="form-group">
                                                 <label class="actionLabel" for="slide">{{acB.actieKort}}</label>
                                                 <input [ngClass]="{locked: acB.inspraakNiveau  != 3}" type="number" class="form-control" id="taxInput" [(ngModel)]="acB.uitgaven" readonly>
-                                                <!--<slider name="slide" id="speedSlider" [min]=0 [max]=5000000 [value]=2000 [step]=1000 (changes)="updateBudget()"></slider>-->
+                                                &lt;!&ndash;<slider name="slide" id="speedSlider" [min]=0 [max]=5000000 [value]=2000 [step]=1000 (changes)="updateBudget()"></slider>&ndash;&gt;
                                             </div>
                                             <div class="form-group actionSliderContainer">
-                                                <!--<input type="number" class="form-control" id="taxInput" [(ngModel)]="myTaxes" readonly>-->
-                                                <slider name="slide" id="speedSlider" [min]=0 [max]=5000000 [value]=2000 [step]=1000 (changes)="updateBudget()"></slider>
+                                                &lt;!&ndash;<input type="number" class="form-control" id="taxInput" [(ngModel)]="myTaxes" readonly>&ndash;&gt;
+                                                <slider name="slide" id="speedSlider" [(data)]="acB.uitgaven" [value]="acB.uitgaven" [itemID] = "acB.ID" [propositionParent]="ISPROP" [inspraakNiveau]="acB.inspraakNiveau" (changes)="updateBudget($event)"></slider>
                                             </div>
                                         </form>
-                                    </div>
+                                    </div>-->
                                   <!--Level C accordion-->
                                     <div *ngFor="#levC of levB.childCats #j = index" class="panel-group" #elem3 [attr.id]="'levelC_' + levC.ID"><!--id="levelA+cat.id""-->
                                       <div class="panel panel-default">
@@ -132,7 +166,7 @@ import {BegrotingsVoorstel} from "../../../models/begrotingsVoorstel";
                                           <!--a form for capturing budget shifts-->
                                             <form class="form-inline">
                                                 <div class="form-group sliderContainer">
-                                                    <slider name="slide" id="speedSlider" [min]=0 [max]=5000000 [value]=2000 [step]=1000 (changes)="updateBudget()"></slider>
+                                                    <slider name="slide" id="speedSlider" [(data)]="levC.totaal" [value]="levC.totaal" [itemID] = "levC.ID" [propositionParent]="ISPROP" [inspraakNiveau]="levC.inspraakNiveau" (changes)="updateBudget($event)"></slider>
                                                 </div>
                                                 <div class="form-group">
                                                     <input [ngClass]="{locked: levC.inspraakNiveau  != 3}" type="number" class="form-control" id="taxInput" [(ngModel)]="levC.totaal" readonly>
@@ -142,17 +176,25 @@ import {BegrotingsVoorstel} from "../../../models/begrotingsVoorstel";
                                             <h3>Acties</h3>
                                             <p *ngIf="levC.acties==null">Er zijn geen acties gedefinieerd</p>
                                             <div *ngIf="levC.acties!=null"> 
-                                                <form *ngFor="#ac of levC.acties #k = index" class="form-inline">
+                                                <!--<form *ngFor="#ac of levC.acties #k = index" class="form-inline">
                                                     <div class="form-group">
-                                                        <label class="actionLabel" for="slide">{{ac.actieKort}}</label>
+                                                        <label class="actionLabel" for="slide">{{ac.actieLang}}</label>
                                                         <input [ngClass]="{locked: ac.inspraakNiveau  != 3}" type="number" class="form-control" id="taxInput" [(ngModel)]="ac.uitgaven" readonly>
-                                                        <!--<slider name="slide" id="speedSlider" [min]=0 [max]=5000000 [value]=2000 [step]=1000 (changes)="updateBudget()"></slider>-->
                                                     </div>
-                                                    <div class="form-group actionSliderContainer">
-                                                        <!--<input type="number" class="form-control" id="taxInput" [(ngModel)]="myTaxes" readonly>-->
-                                                        <slider name="slide" id="speedSlider" [min]=0 [max]=5000000 [value]=2000 [step]=1000 (changes)="updateBudget()"></slider>
-                                                    </div>
-                                                </form>
+                                                    &lt;!&ndash;<div class="form-group actionSliderContainer">
+                                                        <slider name="slide" id="speedSlider" [(data)]="ac.uitgaven" [value]="ac.uitgaven" [itemID] = "ac.ID" [propositionParent]="ISPROP" [inspraakNiveau]="ac.inspraakNiveau" (changes)="updateBudget($event)"></slider>
+                                                    </div>&ndash;&gt;
+                                                </form>-->
+                                                <table class="table table-striped">
+                                                    <tbody>
+                                                        <tr *ngFor="#ac of levC.acties #k = index">
+                                                            <td>{{ac.actieLang}}</td>
+                                                            <td>
+                                                                <input [ngClass]="{locked: ac.inspraakNiveau  != 3}" type="number" class="form-control" id="taxInput" [(ngModel)]="ac.uitgaven" readonly>
+                                                            </td>
+                                                        </tr>
+                                                    </tbody>
+                                                </table>
                                             </div>
                                           </div>
                                         </div>
@@ -166,16 +208,9 @@ import {BegrotingsVoorstel} from "../../../models/begrotingsVoorstel";
                         </div>
                       </div>
                     </div>
-                    
-                    
-                    
-                    
-                    
-                    
-                    
         </div>
     </div>
-    <button (click)="click()">test</button>
+    
     
                <!--@TODO verwijderen van deze test voor webapi en service -->
           <p>Dit is een test voor de service {{project.titel}}</p>
@@ -201,6 +236,14 @@ import {BegrotingsVoorstel} from "../../../models/begrotingsVoorstel";
         .panel-default >.panel-heading {
             background-color: #2ac7d2;
         }
+        #image{
+        width: 100%;
+        }
+        ul
+        {
+            list-style-type: none;
+            margin-top: 1em;
+        }
         .sliderContainer{
         width: 50%;
         margin-right: 1em;
@@ -213,7 +256,7 @@ import {BegrotingsVoorstel} from "../../../models/begrotingsVoorstel";
         margin-left: 1em;
         }
         .actionLabel{
-        width:20em;
+        width:60em;
         display: inline-block;
         }
         .section-content {
@@ -245,23 +288,17 @@ export class AddPropositionComponent {
     project: Project = new Project("");
     private width: number = window.innerWidth < 768 ? window.innerWidth*0.7 : window.innerWidth/4;
     private budgetwijzigingen: BudgetWijziging [] =  [];
-    private BegrotingsVoorstel: BegrotingsVoorstel = new BegrotingsVoorstel();
-    private scenario: number = 1;//todo: effectief scenario gebruiken!!!
+    private begrotingsVoorstel: BegrotingsVoorstel = new BegrotingsVoorstel(); //
+    private scenario: number = 1;//todo: effectief scenario gebruiken via pipe!!!
+    private ISPROP: boolean = true;
+    private tempTotal: number = 0;
+    private submitProject:boolean=true;
+    private afb: string [] = [];
+    private budgetChange: boolean = false;
 
     
     constructor(private _routeParams: RouteParams, private _projectService:ProjectService, private _townService : TownService, private _begrotingService:BegrotingService) {
 
-        /* this._projectService.getInspraakitems(this.year, "Gent")
-            .subscribe((finan: any) => this.categories = finan,
-                (err:any) => this.errorMessage = err
-            );
-
-        if(!this.errorMessage)
-        {
-            console.log("call ok?");
-
-            
-        }*/
         this._begrotingService.getGemeenteCategorieen(2020,"Gent")
             .subscribe((cats: any) => this.categories = cats
             );
@@ -285,7 +322,7 @@ export class AddPropositionComponent {
 
     ngOnInit() {
         var number = this._routeParams.get('projectNumber');
-        
+
      }
 
     //load accordion for selected year
@@ -293,20 +330,221 @@ export class AddPropositionComponent {
 
 
     }
-    updateBudget(){
-        alert('budget update');
-    }
+    updateBudget(event: any){
+        /*alert('budget update voor id ' + event.id + " van " + event.event.target.value);*/
+        let originalValue = 0;
+        let newValue = event.event.target.value;
 
-    click(){
+        this.budgetChange = true;//Todo; optimaliseren!
+
+        //get original value (2way db - different object!!!)
+        for (var i = 0; i < this.categories.length; i++) {
+            if(this.categories[i].ID == event.id){
+                originalValue = this.categories[i].totaal;
+            }
+        }
+
+        let result = newValue - originalValue;
+        this.tempTotal += result;
+        /*alert(this.tempTotal);*/
+
+        let level = 3;
+        for (var i = 0; i < this.project.cats.length; i++) {
+            //if top level update sub levels
+            if(this.project.cats[i].ID == event.id){
+                level = 1;
+                /*alert(this.project.cats[i].totaal);*/
+                //update level 2
+                let levelBTotal = 0;
+                for (var j = 0; j < this.project.cats[i].childCats.length; j++) {
+                    if(this.project.cats[i].childCats[j].inspraakNiveau != 2) //take locking into account
+                    {
+                        levelBTotal += this.project.cats[i].childCats[j].totaal;
+                    }
+                }
+                let levBResult = 0;
+                for (var j = 0; j < this.project.cats[i].childCats.length; j++) {
+                    if(this.project.cats[i].childCats[j].inspraakNiveau != 2)
+                    {
+                        let share = (this.project.cats[i].childCats[j].totaal/levelBTotal);
+                        levBResult = result * share;
+                        //create budgetWijziging and update total
+                        this.begrotingsVoorstel.budgetWijzigingen.push(new BudgetWijziging(this.project.cats[i].childCats[j].ID, levBResult));
+                        this.project.cats[i].childCats[j].totaal = levBResult + this.project.cats[i].childCats[j].totaal;
+                    }
+                    //update level 3
+                    let levelCTotal = 0;
+                    for (var k = 0; k < this.project.cats[i].childCats[j].childCats.length; k++) {
+                        if(this.project.cats[i].childCats[j].childCats[k].inspraakNiveau != 2) //take locking into account
+                        {
+                            levelCTotal += this.project.cats[i].childCats[j].childCats[k].totaal;
+                        }
+
+                    }
+                    let levCResult = 0;
+                    for (var k = 0; k < this.project.cats[i].childCats[j].childCats.length; k++) {
+                        if(this.project.cats[i].childCats[j].childCats[k].inspraakNiveau != 2) //take locking into account
+                        {
+                            let share = (this.project.cats[i].childCats[j].childCats[k].totaal/levelCTotal);
+                            //create budgetWijziging and update total
+                            levCResult = levBResult * share;
+                            this.begrotingsVoorstel.budgetWijzigingen.push(new BudgetWijziging(this.project.cats[i].childCats[j].childCats[k].ID, levCResult));
+                            this.project.cats[i].childCats[j].childCats[k].totaal = levCResult + this.project.cats[i].childCats[j].childCats[k].totaal;
+                        }
+                        //update actions
+                        let actTotal = 0;
+                        for (var l = 0; l < this.project.cats[i].childCats[j].childCats[k].acties.length; l++) {
+                            if(this.project.cats[i].childCats[j].childCats[k].acties[l].inspraakNiveau != 2) //take locking into account
+                            {
+                                actTotal += this.project.cats[i].childCats[j].childCats[k].acties[l].uitgaven;
+                            }
+
+                        }
+                        let actResult = 0;
+                        for (var l = 0; l < this.project.cats[i].childCats[j].childCats[k].acties.length; l++) {
+                            if(this.project.cats[i].childCats[j].childCats[k].acties[l].inspraakNiveau != 2) //take locking into account
+                            {
+                                let share = (this.project.cats[i].childCats[j].childCats[k].acties[l].uitgaven/actTotal);
+                                //create budgetWijziging and update total
+                                actResult = levCResult * share;
+                                this.begrotingsVoorstel.budgetWijzigingen.push(new BudgetWijziging(this.project.cats[i].childCats[j].childCats[k].ID, actResult));
+                                this.project.cats[i].childCats[j].childCats[k].acties[l].uitgaven = actResult + this.project.cats[i].childCats[j].childCats[k].acties[l].uitgaven;
+                            }
+
+                        }
+
+                    }//
+
+                }
 
 
-        for (var i = 0; i < this.project.cats[0].childCats[0].childCats.length; i++) {
-         alert("dit is het id van level 1: "+this.project.cats[0].childCats[0].childCats[i].naamCat);
+                
+
+            }
+        }
+        //if level is not a top //TODO: correct top level??????
+        if(level != 1){//is level B or C
+            for (var i = 0; i < this.project.cats.length; i++) {
+                for (var j = 0; j < this.project.cats[i].childCats.length; j++) {
+                    if(this.project.cats[i].childCats[j].ID == event.id){
+                        level = 2;
+                        //update level 3
+                        let levelCTotal = 0;
+                        for (var k = 0; k < this.project.cats[i].childCats[j].childCats.length; k++) {
+                            if(this.project.cats[i].childCats[j].childCats[k].inspraakNiveau != 2) //take locking into account
+                            {
+                                levelCTotal += this.project.cats[i].childCats[j].childCats[k].totaal;
+                            }
+
+                        }
+                        let levCResult = 0;
+                        for (var k = 0; k < this.project.cats[i].childCats[j].childCats.length; k++) {
+                            if(this.project.cats[i].childCats[j].childCats[k].inspraakNiveau != 2) //take locking into account
+                            {
+                                let share = (this.project.cats[i].childCats[j].childCats[k].totaal/levelCTotal);
+                                //create budgetWijziging and update total
+                                levCResult = result * share;
+                                this.begrotingsVoorstel.budgetWijzigingen.push(new BudgetWijziging(this.project.cats[i].childCats[j].childCats[k].ID, levCResult));
+                                this.project.cats[i].childCats[j].childCats[k].totaal = levCResult + this.project.cats[i].childCats[j].childCats[k].totaal;
+                            }
+                            //update actions
+                            let actTotal = 0;
+                            for (var l = 0; l < this.project.cats[i].childCats[j].childCats[k].acties.length; l++) {
+                                if(this.project.cats[i].childCats[j].childCats[k].acties[l].inspraakNiveau != 2) //take locking into account
+                                {
+                                    actTotal += this.project.cats[i].childCats[j].childCats[k].acties[l].uitgaven;
+                                }
+
+                            }
+                            let actResult = 0;
+                            for (var l = 0; l < this.project.cats[i].childCats[j].childCats[k].acties.length; l++) {
+                                if(this.project.cats[i].childCats[j].childCats[k].acties[l].inspraakNiveau != 2) //take locking into account
+                                {
+                                    let share = (this.project.cats[i].childCats[j].childCats[k].acties[l].uitgaven/actTotal);
+                                    //create budgetWijziging and update total
+                                    actResult = levCResult * share;
+                                    this.begrotingsVoorstel.budgetWijzigingen.push(new BudgetWijziging(this.project.cats[i].childCats[j].childCats[k].ID, actResult));
+                                    this.project.cats[i].childCats[j].childCats[k].acties[l].uitgaven = actResult + this.project.cats[i].childCats[j].childCats[k].acties[l].uitgaven;
+                                }
+
+                            }
+
+                        }
+                    }
+                }
+            }
+        }
+        //if C level change
+        if(level == 3){
+            for (var i = 0; i < this.project.cats.length; i++) {
+                for (var j = 0; j < this.project.cats[i].childCats.length; j++) {
+                    for (var k = 0; k < this.project.cats[i].childCats[j].childCats.length; k++) {
+                        if(this.project.cats[i].childCats[j].childCats[k].ID == event.id){
+                            //update actions
+                            let actTotal = 0;
+                            for (var l = 0; l < this.project.cats[i].childCats[j].childCats[k].acties.length; l++) {
+                                if(this.project.cats[i].childCats[j].childCats[k].acties[l].inspraakNiveau != 2) //take locking into account
+                                {
+                                    actTotal += this.project.cats[i].childCats[j].childCats[k].acties[l].uitgaven;
+                                }
+
+                            }
+                            let actResult = 0;
+                            for (var l = 0; l < this.project.cats[i].childCats[j].childCats[k].acties.length; l++) {
+                                if(this.project.cats[i].childCats[j].childCats[k].acties[l].inspraakNiveau != 2) //take locking into account
+                                {
+                                    let share = (this.project.cats[i].childCats[j].childCats[k].acties[l].uitgaven/actTotal);
+                                    //create budgetWijziging and update total
+                                    actResult = result * share;
+                                    this.begrotingsVoorstel.budgetWijzigingen.push(new BudgetWijziging(this.project.cats[i].childCats[j].childCats[k].ID, actResult));
+                                    this.project.cats[i].childCats[j].childCats[k].acties[l].uitgaven = actResult + this.project.cats[i].childCats[j].childCats[k].acties[l].uitgaven;
+                                }
+
+                            }
+
+                        }
+
+                    }
+
+                }
+            }
 
         }
         
         
+    }
+
+    updateCatView(){
+
+    }
+    
+    /*uploadImages(event: any){
+        var reader = new FileReader();
+        reader.readAsDataURL(event.target.files[0]);
+        reader.onload = function() {
+            this.begrotingsVoorstel.afbeeldingen[0] = reader.result;
+
+        }
+        //TODO: afwerken upload
         
+        
+        
+    }*/
+    //upload images
+    uploadImages = (event: any)=>{
+        this.loadimage(event.target.files[0], (img: string) =>{
+            this.afb.push(event.target.files[0].name);
+            this.begrotingsVoorstel.afbeeldingen.push(img);
+        });
+    }
+
+    loadimage = (img: string, cb: any)=> {
+        var reader = new FileReader();
+        reader.readAsDataURL(img);
+        reader.onload = function() {
+            let result = reader.result;
+            cb(result); //callback to store image
+        }
     }
 
 
@@ -318,9 +556,9 @@ export class AddPropositionComponent {
     //@TODO test voor webapi en service  --> te verwijderen
     submit()
     {
-        this.BegrotingsVoorstel.beschrijving = "kjQGQBjqshgbcjhqbckjb<clgbcqjbck:xjhb";
+        this.begrotingsVoorstel.beschrijving = "kjQGQBjqshgbcjhqbckjb<clgbcqjbck:xjhb";
         // alert(this.BegrotingsVoorstel.budgetWijzigingen.length);
-        this._projectService.postBegrotingsVoorstel(this.project.id, this.BegrotingsVoorstel).subscribe();
+        this._projectService.postBegrotingsVoorstel(this.project.id, this.begrotingsVoorstel).subscribe();
 
     }
 
@@ -329,13 +567,13 @@ export class AddPropositionComponent {
     //@TODO test voor webapi en service --> te verwijderen
     createBudgetWijziging(id: number, inspraak:number)
     {
-        if(inspraak != 2)
+        /*if(inspraak != 2)
         {
-            this.budgetwijzigingen  = this.BegrotingsVoorstel.budgetWijzigingen.filter(
+            this.budgetwijzigingen  = this.begrotingsVoorstel.budgetWijzigingen.filter(
                 (b:any) => b.inspraakItemId === id);
             if(this.budgetwijzigingen.length == 0)
             {
-                this.BegrotingsVoorstel.budgetWijzigingen.push(new BudgetWijziging(id, "test", 1000));
+                this.begrotingsVoorstel.budgetWijzigingen.push(new BudgetWijziging(id, 1000));
                 return true;
             }
             else {
@@ -345,6 +583,7 @@ export class AddPropositionComponent {
         }
         else {
             return false;
-        }
+        }*/
     }
+    //test
 }

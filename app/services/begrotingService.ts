@@ -9,6 +9,7 @@ import 'rxjs/Rx';
 import {GemeenteCategorie} from "../models/gemeenteCategorie";
 import {CATS} from './../mockData/mock-gemeenteCat';
 import {Actie} from "../models/actie";
+import {Begroting} from "../models/begroting";
 
 @Injectable()
 export class BegrotingService {
@@ -22,6 +23,11 @@ export class BegrotingService {
 
     getGemeenteCategorieen(jaar:number, naam:string):Observable<GemeenteCategorie[]> {
         return this.http.get(this._url + "?jaar=" + jaar + "&naam=" + naam)
+            .map(this.extractData);
+    }
+
+    getBegrotingen( naam:string):Observable<Begroting[]> {
+        return this.http.get(this._url + "/getBegrotingen?naam=" + naam)
             .map(this.extractData);
     }
 

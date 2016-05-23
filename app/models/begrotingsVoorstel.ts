@@ -22,6 +22,8 @@ export class BegrotingsVoorstel {
     auteurEmail: string;
     reacties: ReactieOpVoorstel[] = [];
     reactie:string="";
+    afbeeldingen: string [] = [];
+    
     
     constructor()
     {

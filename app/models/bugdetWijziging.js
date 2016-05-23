@@ -9,9 +9,9 @@ System.register([], function(exports_1, context_1) {
         setters:[],
         execute: function() {
             BudgetWijziging = (function () {
-                function BudgetWijziging(id, beschrijving, bedrag) {
+                function BudgetWijziging(id, bedrag) {
                     this.inspraakItemId = id;
-                    this.beschrijving = beschrijving;
+                    //this.beschrijving = beschrijving;
                     this.bedrag = bedrag;
                 }
                 return BudgetWijziging;
