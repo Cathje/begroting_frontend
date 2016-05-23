@@ -62,6 +62,7 @@ System.register(['angular2/core', 'angular2/router', "../../../services/townServ
                         sessionStorage.setItem('access_token', this.t.access_token);
                         sessionStorage.setItem('gemeente', this.t.gemeente);
                         sessionStorage.setItem('role', this.t.role);
+                        sessionStorage.setItem('user', this.t.userName);
                         sessionStorage.setItem('token', data);
                         this._router.navigate(['/', 'App', 'Budget', { town: this.t.gemeente }]);
                     }

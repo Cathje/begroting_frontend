@@ -49,6 +49,7 @@ import {Actie} from "../../../models/actie";
                         <div class="col-xs-12 col-md-6 form-group">
                             <label>ProjectScenario: {{projectScene[existProject.projectScenario]}}</label>
                             <select class="form-control" (change)="onSelectScenario($event)">
+                                    <option selected disabled></option>     
                                     <option *ngFor="#t of projectScene | keys" [value]="t.key">{{t.value}}</option>
                              </select>
                         </div>
@@ -65,6 +66,10 @@ import {Actie} from "../../../models/actie";
                             <input  id="file" type="file" (change)="onChange($event)"/>
                             <img *ngIf="afb" [src]="afb" />
                         </div>
+                        <div class="col-xs-12 form-group">
+                            <label>Actief?:</label>
+                            <input type="checkbox" [ngModel]=existProject.isActief (change)="onChangeActief($event)">
+                        </div>
                       </div>
                 </section>
 
@@ -76,6 +81,7 @@ import {Actie} from "../../../models/actie";
                 <p>InspraakNiveau: {{niveaus[catA.inspraakNiveau]}}</p>
                 
                 <select (change)="onSelectCatNiveau($event, i,0,0, null, catA)">
+                        <option selected disabled></option> 
                         <option *ngFor="#t of niveaus | keys" [value]="t.key">{{t.value}}</option>
                          </select>
                     <br>    
@@ -84,6 +90,7 @@ import {Actie} from "../../../models/actie";
                             <p> uitgave: {{ac.uitgaven}}</p>
                              <p>InspraakNiveau: {{niveaus[ac.inspraakNiveau]}}</p>
                             <select (change)="onSelectActieNiveau($event,null, ac)">
+                                <option selected disabled></option> 
                                 <option *ngFor="#t of niveaus | keys" [value]="t.key">{{t.value}}</option>
                             </select>
                          </div>
@@ -93,6 +100,7 @@ import {Actie} from "../../../models/actie";
                 <p>InspraakNiveau: {{niveaus[catB.inspraakNiveau]}}</p>
                 
                 <select (change)="onSelectCatNiveau($event, i,k,0, catA, catB)">
+                        <option selected disabled></option> 
                         <option *ngFor="#t of niveaus | keys" [value]="t.key">{{t.value}}</option>
                          </select>
                     <br>    
@@ -101,6 +109,7 @@ import {Actie} from "../../../models/actie";
                             <p> uitgave: {{ac.uitgaven}}</p>
                              <p>InspraakNiveau: {{niveaus[ac.inspraakNiveau]}}</p>
                             <select (change)="onSelectActieNiveau($event,catB,ac)">
+                                <option selected disabled></option> 
                                 <option *ngFor="#t of niveaus | keys" [value]="t.key">{{t.value}}</option>
                             </select>
                          </div>
@@ -110,6 +119,7 @@ import {Actie} from "../../../models/actie";
                 <p>InspraakNiveau: {{niveaus[catC.inspraakNiveau]}}</p>
                 
                 <select (change)="onSelectCatNiveau($event, i,k,l, catB, catC)">
+                        <option selected disabled></option> 
                         <option *ngFor="#t of niveaus | keys" [value]="t.key">{{t.value}}</option>
                          </select>
                     <br>    
@@ -118,6 +128,7 @@ import {Actie} from "../../../models/actie";
                             <p> uitgave: {{ac.uitgaven}}</p>
                              <p>InspraakNiveau: {{niveaus[ac.inspraakNiveau]}}</p>
                             <select (change)="onSelectActieNiveau($event,catC, ac)">
+                                <option selected disabled></option> 
                                 <option *ngFor="#t of niveaus | keys" [value]="t.key">{{t.value}}</option>
                             </select>
                          </div>
@@ -155,6 +166,7 @@ import {Actie} from "../../../models/actie";
                         <div class="col-xs-12 col-md-6 form-group">
                             <label>ProjectScenario: {{projectScene[NewProject.projectScenario]}}</label>
                             <select class="form-control" (change)="onSelectScenario($event)">
+                                    <option selected disabled></option> 
                                     <option *ngFor="#t of projectScene | keys" [value]="t.key">{{t.value}}</option>
                             </select>
                         </div>
@@ -171,6 +183,10 @@ import {Actie} from "../../../models/actie";
                             <input  id="file" type="file" (change)="onChange($event)"/>
                             <img *ngIf="afb" [src]="afb" />
                         </div>
+                        <div class="col-xs-12 form-group">
+                            <label>Actief?:</label>
+                            <input type="checkbox" [ngModel]=NewProject.isActief (change)="onChangeActief($event)">
+                        </div>
                         </div>
                 </section>
                 <section class="col-xs-12 form-inline" *ngIf="!errorMessage">
@@ -182,6 +198,7 @@ import {Actie} from "../../../models/actie";
                 <p>InspraakNiveau: {{niveaus[catA.inspraakNiveau]}}</p>
                 
                 <select (change)="onSelectCatNiveau($event, i,0,0, null, catA)">
+                        <option selected disabled></option> 
                         <option *ngFor="#t of niveaus | keys" [value]="t.key">{{t.value}}</option>
                          </select>
                     <br>    
@@ -190,6 +207,7 @@ import {Actie} from "../../../models/actie";
                             <p> uitgave: {{ac.uitgaven}}</p>
                              <p>InspraakNiveau: {{niveaus[ac.inspraakNiveau]}}</p>
                             <select (change)="onSelectActieNiveau($event,null, ac)">
+                                <option selected disabled></option> 
                                 <option *ngFor="#t of niveaus | keys" [value]="t.key">{{t.value}}</option>
                             </select>
                          </div>
@@ -199,6 +217,7 @@ import {Actie} from "../../../models/actie";
                 <p>InspraakNiveau: {{niveaus[catB.inspraakNiveau]}}</p>
                 
                 <select (change)="onSelectCatNiveau($event, i,k,0, catA, catB)">
+                        <option selected disabled></option> 
                         <option *ngFor="#t of niveaus | keys" [value]="t.key">{{t.value}}</option>
                          </select>
                     <br>    
@@ -207,6 +226,7 @@ import {Actie} from "../../../models/actie";
                             <p> uitgave: {{ac.uitgaven}}</p>
                              <p>InspraakNiveau: {{niveaus[ac.inspraakNiveau]}}</p>
                             <select (change)="onSelectActieNiveau($event,catB,ac)">
+                                <option selected disabled></option> 
                                 <option *ngFor="#t of niveaus | keys" [value]="t.key">{{t.value}}</option>
                             </select>
                          </div>
@@ -216,6 +236,7 @@ import {Actie} from "../../../models/actie";
                 <p>InspraakNiveau: {{niveaus[catC.inspraakNiveau]}}</p>
                 
                 <select (change)="onSelectCatNiveau($event, i,k,l, catB, catC)">
+                        <option selected disabled></option> 
                         <option *ngFor="#t of niveaus | keys" [value]="t.key">{{t.value}}</option>
                          </select>
                     <br>    
@@ -224,6 +245,7 @@ import {Actie} from "../../../models/actie";
                             <p> uitgave: {{ac.uitgaven}}</p>
                              <p>InspraakNiveau: {{niveaus[ac.inspraakNiveau]}}</p>
                             <select (change)="onSelectActieNiveau($event,catC, ac)">
+                                <option selected disabled></option> 
                                 <option *ngFor="#t of niveaus | keys" [value]="t.key">{{t.value}}</option>
                             </select>
                          </div>
@@ -503,12 +525,21 @@ export class ManageProjectComponent {
         this.NewProject.projectScenario = event.target.value;
     }
 
+    onChangeActief(event:any)
+    {
+        if(this.isNewProject)
+        {
+            this.NewProject.isActief = event.target.checked;
+        }
+        else {
+            this.existProject.isActief = event.target.checked;
+        }
+    }
+
     submit = ()=>
     {
         this.errorMessage2="";
-        this.NewProject.cats = this.categorieen;
-
-        this.NewProject.isActief=true;
+        this.NewProject.cats = this.categorieen;;
         this.NewProject.gemeente = this.town;
         this.NewProject.boekjaar = this.boekjaar;
         this.NewProject.afbeelding = this.afb;
@@ -521,10 +552,10 @@ export class ManageProjectComponent {
 
     }
 
+
     editExistingProject = () =>
     {
         this.existProject.afbeelding = this.afb;
-        //TODO: write webapi for editing existing project
         this._projectService.putProject(this.existProject).subscribe(
             (id: any) => this.id = id,
             (err:any) => this.errorMessage2 = err

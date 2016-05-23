@@ -77,7 +77,7 @@ System.register(['angular2/core', 'angular2/router', "../../subComponents/input/
                         this.gewijzigdeGebruikers.push(this.g);
                     }
                     else {
-                        this.filterGebruikers[0].rolType = this.gebruikers[i].rolType = event.target.value;
+                        this.filterGebruikers[0].rolType = event.target.value;
                     }
                 };
                 OverviewUsersComponent.prototype.onChange = function (event, i) {
@@ -88,7 +88,7 @@ System.register(['angular2/core', 'angular2/router', "../../subComponents/input/
                         this.gewijzigdeGebruikers.push(new ingelogdeGebruiker_1.IngelogdeGebruiker(this.gebruikers[i].userId, this.gebruikers[i].naam, this.gebruikers[i].gemeente, this.gebruikers[i].rolType, this.gebruikers[i].isActief));
                     }
                     else {
-                        this.filterGebruikers[0].rolType = this.gebruikers[i].rolType = event.target.value;
+                        this.filterGebruikers[0].isActief = event.target.checked;
                     }
                 };
                 OverviewUsersComponent.prototype.submit = function () {

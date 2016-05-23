@@ -4,6 +4,7 @@ import {LoginService} from "../../../services/loginService.component";
 import {IngelogdeGebruiker} from "../../../models/ingelogdeGebruiker";
 import {KeysPipe} from "../../../pipes/keysPipe";
 import {rolType} from "../../../models/rolType";
+import {TownService} from "../../../services/townService.component";
 
 
 @Component({
@@ -123,7 +124,7 @@ export class OverviewUsersComponent {
         }
         else
         {
-            this.filterGebruikers[0].rolType = this.gebruikers[i].rolType = event.target.value;
+            this.filterGebruikers[0].rolType = event.target.value;
         }
         alert(this.gewijzigdeGebruikers.length);
 
@@ -142,7 +143,7 @@ export class OverviewUsersComponent {
         }
         else
         {
-            this.filterGebruikers[0].rolType = this.gebruikers[i].rolType = event.target.value;
+            this.filterGebruikers[0].isActief = event.target.checked;
         }
 
         alert(this.gewijzigdeGebruikers.length);

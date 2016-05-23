@@ -1,4 +1,4 @@
-System.register(['angular2/core', 'angular2/router', "../../../services/loginService.component", "../../../models/ingelogdeGebruiker", "../../../pipes/keysPipe", "../../../models/rolType"], function(exports_1, context_1) {
+System.register(['angular2/core', 'angular2/router', "../../../services/loginService.component", "../../../models/ingelogdeGebruiker", "../../../pipes/keysPipe", "../../../models/rolType", "../../../services/townService.component"], function(exports_1, context_1) {
     "use strict";
     var __moduleName = context_1 && context_1.id;
     var __decorate = (this && this.__decorate) || function (decorators, target, key, desc) {
@@ -10,7 +10,7 @@ System.register(['angular2/core', 'angular2/router', "../../../services/loginSer
     var __metadata = (this && this.__metadata) || function (k, v) {
         if (typeof Reflect === "object" && typeof Reflect.metadata === "function") return Reflect.metadata(k, v);
     };
-    var core_1, router_1, loginService_component_1, ingelogdeGebruiker_1, keysPipe_1, rolType_1;
+    var core_1, router_1, loginService_component_1, ingelogdeGebruiker_1, keysPipe_1, rolType_1, townService_component_1;
     var OverviewUsersComponent;
     return {
         setters:[
@@ -31,6 +31,9 @@ System.register(['angular2/core', 'angular2/router', "../../../services/loginSer
             },
             function (rolType_1_1) {
                 rolType_1 = rolType_1_1;
+            },
+            function (townService_component_1_1) {
+                townService_component_1 = townService_component_1_1;
             }],
         execute: function() {
             OverviewUsersComponent = (function () {
@@ -68,7 +71,7 @@ System.register(['angular2/core', 'angular2/router', "../../../services/loginSer
                         this.gewijzigdeGebruikers.push(this.g);
                     }
                     else {
-                        this.filterGebruikers[0].rolType = this.gebruikers[i].rolType = event.target.value;
+                        this.filterGebruikers[0].rolType = event.target.value;
                     }
                     alert(this.gewijzigdeGebruikers.length);
                 };
@@ -80,7 +83,7 @@ System.register(['angular2/core', 'angular2/router', "../../../services/loginSer
                         this.gewijzigdeGebruikers.push(new ingelogdeGebruiker_1.IngelogdeGebruiker(this.gebruikers[i].userId, this.gebruikers[i].naam, this.gebruikers[i].gemeente, this.gebruikers[i].rolType, this.gebruikers[i].isActief));
                     }
                     else {
-                        this.filterGebruikers[0].rolType = this.gebruikers[i].rolType = event.target.value;
+                        this.filterGebruikers[0].isActief = event.target.checked;
                     }
                     alert(this.gewijzigdeGebruikers.length);
                 };
@@ -99,7 +102,7 @@ System.register(['angular2/core', 'angular2/router', "../../../services/loginSer
                         directives: [router_1.ROUTER_DIRECTIVES],
                         styles: ["\n\n\n    section div {\n        padding: 5px;\n        box-sizing: border-box;\n    }\n\n    .input-group {\n        float: left;\n        box-sizing: border-box;\n    }\n\n    li {\n        list-style: none;\n        margin-bottom: 10px;\n    }\n\n    .form-inline:nth-child(2) {\n        border-top: 1px dashed lightgray;\n    }\n\n    section .section-content {\n        border: 1px solid lightgray;\n        margin-bottom: 20px;\n        padding: 20px;\n        overflow: auto;\n    }\n\n    textarea {\n        width: 100% !important;\n    }\n\n    "]
                     }), 
-                    __metadata('design:paramtypes', [router_1.RouteParams, Object, loginService_component_1.LoginService, router_1.Router, router_1.RouteParams, core_1.Injector])
+                    __metadata('design:paramtypes', [router_1.RouteParams, townService_component_1.TownService, loginService_component_1.LoginService, router_1.Router, router_1.RouteParams, core_1.Injector])
                 ], OverviewUsersComponent);
                 return OverviewUsersComponent;
             }());

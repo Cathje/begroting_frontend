@@ -81,7 +81,7 @@ import {KeysPipe} from "../../../pipes/keysPipe";
          <div class="form-group">
             <label for="exampleInputEmail2">Functie</label>
             <select class="form-control" (change)="onSelect($event)">
-                <option>Geen functie</option>
+                <option selected disabled></option>
                 <option *ngFor="#t of types | keys" [value]="t.key">{{t.value}}</option>
             </select>
          </div>
