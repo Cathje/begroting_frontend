@@ -585,4 +585,5 @@ export class AddPropositionComponent {
             return false;
         }*/
     }
+    //test
 }
