@@ -99,7 +99,7 @@ System.register(['angular2/core', "../../../services/townService.component", './
                         if (nameA > nameB)
                             return 1;
                         return 0;
-                    }); });
+                    }); }, function (err) { return _this.errorMessage = err; });
                 }
                 ComparisonComponent = __decorate([
                     core_1.Component({

@@ -33,14 +33,29 @@ export class TownService {
         var headers = new Headers();
         headers.append('Content-Type', 'application/json');
         return this.http.put(this._url,JSON.stringify(maintown)
-            ,{headers:headers}).map((res:Response) => res.json());
+            ,{headers:headers}).map(this.extractData);
 
     }
-    
+
+    public putTownInput(maintown: MainTown)
+    {
+        var headers = new Headers();
+        headers.append('Content-Type', 'application/json');
+        return this.http.put(this._url,JSON.stringify(maintown)
+            ,{headers:headers}).map(this.extractData);
+
+    }
+
     public deleteBestuurslid(id:number)
     {
         return this.http.delete(this._url + "?id=" + id)
-            .map((res:Response) => res.json());
+            .map(this.extractData);
+    }
+
+    public deleteFAQ(id:number)
+    {
+        return this.http.delete(this._url + "/deleteFAQ/" + id)
+            .map(this.extractData);
     }
 
     private extractData(res: Response) {
@@ -60,13 +75,12 @@ export class TownService {
                 return TOWNS[i];
             }
         }
-        
+
     }
-    
+
     getCatDataHC(){
         return CATS;
-        
+
     }
-    
      
 }

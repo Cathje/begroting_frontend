@@ -46,11 +46,20 @@ System.register(['angular2/core', 'angular2/http', 'rxjs/Rx', "../mockData/mock-
                 TownService.prototype.putTown = function (maintown) {
                     var headers = new http_1.Headers();
                     headers.append('Content-Type', 'application/json');
-                    return this.http.put(this._url, JSON.stringify(maintown), { headers: headers }).map(function (res) { return res.json(); });
+                    return this.http.put(this._url, JSON.stringify(maintown), { headers: headers }).map(this.extractData);
+                };
+                TownService.prototype.putTownInput = function (maintown) {
+                    var headers = new http_1.Headers();
+                    headers.append('Content-Type', 'application/json');
+                    return this.http.put(this._url, JSON.stringify(maintown), { headers: headers }).map(this.extractData);
                 };
                 TownService.prototype.deleteBestuurslid = function (id) {
                     return this.http.delete(this._url + "?id=" + id)
-                        .map(function (res) { return res.json(); });
+                        .map(this.extractData);
+                };
+                TownService.prototype.deleteFAQ = function (id) {
+                    return this.http.delete(this._url + "/deleteFAQ/" + id)
+                        .map(this.extractData);
                 };
                 TownService.prototype.extractData = function (res) {
                     if (res.status < 200 || res.status >= 300) {

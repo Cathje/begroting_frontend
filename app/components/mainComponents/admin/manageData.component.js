@@ -64,7 +64,6 @@ System.register(['angular2/core', 'angular2/router', "../../subComponents/input/
                 };
                 ManageDataComponent.prototype.voegToe = function () {
                     this.mainTown.bestuur.push(new bestuur_1.Bestuur(this.bestuur.naam, this.bestuur.type));
-                    console.log(this.mainTown.bestuur);
                 };
                 ManageDataComponent.prototype.verwijder = function (id, b) {
                     //@TODO geeft in code een error maar werkt --> ??
