@@ -32,14 +32,21 @@ import {BegrotingsVoorstel} from "../../../models/begrotingsVoorstel";
                 <sunburst [data]=categories [onClick]=onCircleClick [height]=width [width]=width></sunburst> 
             </div>
             <div class ="col-lg-6 col-md-6 col-sm-12 col-xs-12">
-               <!-- <div class ="row">
-                    <p>Hier komt project info</p>
-                </div>-->
                 <div class ="row">
                     <h2>Gewijzigde categorieën en acties</h2>
                     <div class="section-content">
                     <!--acties toevoegen aan de box-->
-                    <p *ngIf="begrotingsVoorstel.budgetwijzigingen==null">Nog geen wijzigingen...</p>
+                    <p *ngIf="!budgetChange">Nog geen wijzigingen...</p>
+                    <div *ngIf="begrotingsVoorstel.budgetWijzigingen!=null">
+                        <table class="table table-striped">
+                            <tbody>
+                                <tr *ngFor="#change of begrotingsVoorstel.budgetWijzigingen">
+                                    <td>{{change.bedrag}}</td>
+                                    <td>{{change.inspraakItemId}}</td>
+                                </tr>
+                            </tbody>
+                        </table>
+                    </div>
                     </div>
                 </div>
                 <div class ="row">
@@ -62,10 +69,15 @@ import {BegrotingsVoorstel} from "../../../models/begrotingsVoorstel";
                     <textarea class="form-control" rows="10" [(ngModel)]="begrotingsVoorstel.beschrijving" placeholder="Motivatie"></textarea>
                 </div>
                 <div class="form-group">
-                    <!--<label>Voeg afbeeldingen toe</label>-->
-                    <label class="btn btn-default btn-file">
-                        Afbeeldingen <span class="glyphicon glyphicon-upload"></span><input type="file" style="display: none;" (change)="uploadImages($event)" />
+                    <label id="image">Afbeeldingen</label>
+                    <label class="btn btn-primary btn-file">
+                        Kies bestand <span class="glyphicon glyphicon-upload"></span><input type="file" style="display: none;" (change)="uploadImages($event)" />
                     </label>
+                    <div *ngIf="afb">
+                        <ul>
+                            <li *ngFor="#af of afb">{{af}}</li>
+                        </ul>
+                    </div>
                 </div>
                 <button [disabled]="submitProject" (click)="submit()"class="btn btn-primary pull-right">opslaan</button>
             </form>
@@ -92,7 +104,7 @@ import {BegrotingsVoorstel} from "../../../models/begrotingsVoorstel";
                                 </div>
                             </form>
                             <!--a form for capturing budget shifts on action level-->
-                            <h3>Acties</h3>
+                            <!--<h3>Acties</h3>
                             <p *ngIf="cat.acties==null">Er zijn geen acties gedefinieerd op dit niveau</p>
                             <div *ngIf="cat.acties!=null">
                                 <form *ngFor="#acA of cat.acties #l = index" class="form-inline">
@@ -101,11 +113,11 @@ import {BegrotingsVoorstel} from "../../../models/begrotingsVoorstel";
                                         <input [ngClass]="{locked: acA.inspraakNiveau  != 3}" type="number" class="form-control" id="taxInput" [(ngModel)]="acA.uitgaven" readonly>
                                     </div>
                                     <div class="form-group actionSliderContainer">
-                                        <!--<slider name="slide" id="speedSlider" [min]=0 [max]=5000000 [value]=2000 [step]=1000 (changes)="updateBudget()"></slider>-->
+                                        &lt;!&ndash;<slider name="slide" id="speedSlider" [min]=0 [max]=5000000 [value]=2000 [step]=1000 (changes)="updateBudget()"></slider>&ndash;&gt;
                                         <slider name="slide" id="speedSlider" [(data)]="acA.uitgaven" [value]="acA.uitgaven" [itemID] = "acA.ID" [propositionParent]="ISPROP" [inspraakNiveau]="acA.inspraakNiveau" (changes)="updateBudget($event)"></slider>
                                     </div>
                                 </form>
-                            </div>
+                            </div>-->
                             <!-- Level B accordion -->
                             <div *ngFor="#levB of cat.childCats #j = index" class="panel-group" #elem2 [attr.id]="'levelB_' + levB.ID"><!--id="levelA+cat.id""-->
                               <div class="panel panel-default">
@@ -126,21 +138,21 @@ import {BegrotingsVoorstel} from "../../../models/begrotingsVoorstel";
                                         </div>
                                     </form>
                                     <!--a form for capturing budget shifts on action level-->
-                                    <h3>Acties</h3>
+                                    <!--<h3>Acties</h3>
                                     <p *ngIf="levB.acties==null">Er zijn geen acties gedefinieerd op dit niveau</p>
                                     <div *ngIf="levB.acties!=null">
                                         <form *ngFor="#acB of levB.acties #k = index" class="form-inline">
                                             <div class="form-group">
                                                 <label class="actionLabel" for="slide">{{acB.actieKort}}</label>
                                                 <input [ngClass]="{locked: acB.inspraakNiveau  != 3}" type="number" class="form-control" id="taxInput" [(ngModel)]="acB.uitgaven" readonly>
-                                                <!--<slider name="slide" id="speedSlider" [min]=0 [max]=5000000 [value]=2000 [step]=1000 (changes)="updateBudget()"></slider>-->
+                                                &lt;!&ndash;<slider name="slide" id="speedSlider" [min]=0 [max]=5000000 [value]=2000 [step]=1000 (changes)="updateBudget()"></slider>&ndash;&gt;
                                             </div>
                                             <div class="form-group actionSliderContainer">
-                                                <!--<input type="number" class="form-control" id="taxInput" [(ngModel)]="myTaxes" readonly>-->
+                                                &lt;!&ndash;<input type="number" class="form-control" id="taxInput" [(ngModel)]="myTaxes" readonly>&ndash;&gt;
                                                 <slider name="slide" id="speedSlider" [(data)]="acB.uitgaven" [value]="acB.uitgaven" [itemID] = "acB.ID" [propositionParent]="ISPROP" [inspraakNiveau]="acB.inspraakNiveau" (changes)="updateBudget($event)"></slider>
                                             </div>
                                         </form>
-                                    </div>
+                                    </div>-->
                                   <!--Level C accordion-->
                                     <div *ngFor="#levC of levB.childCats #j = index" class="panel-group" #elem3 [attr.id]="'levelC_' + levC.ID"><!--id="levelA+cat.id""-->
                                       <div class="panel panel-default">
@@ -164,18 +176,25 @@ import {BegrotingsVoorstel} from "../../../models/begrotingsVoorstel";
                                             <h3>Acties</h3>
                                             <p *ngIf="levC.acties==null">Er zijn geen acties gedefinieerd</p>
                                             <div *ngIf="levC.acties!=null"> 
-                                                <form *ngFor="#ac of levC.acties #k = index" class="form-inline">
+                                                <!--<form *ngFor="#ac of levC.acties #k = index" class="form-inline">
                                                     <div class="form-group">
-                                                        <label class="actionLabel" for="slide">{{ac.actieKort}}</label>
+                                                        <label class="actionLabel" for="slide">{{ac.actieLang}}</label>
                                                         <input [ngClass]="{locked: ac.inspraakNiveau  != 3}" type="number" class="form-control" id="taxInput" [(ngModel)]="ac.uitgaven" readonly>
-                                                        <!--<slider name="slide" id="speedSlider" [min]=0 [max]=5000000 [value]=2000 [step]=1000 (changes)="updateBudget()"></slider>-->
                                                     </div>
-                                                    <div class="form-group actionSliderContainer">
-                                                        <!--<input type="number" class="form-control" id="taxInput" [(ngModel)]="myTaxes" readonly>-->
-                                                        <!--<slider name="slide" id="speedSlider" [min]=0 [max]=5000000 [value]=2000 [step]=1000 (changes)="updateBudget()"></slider>-->
+                                                    &lt;!&ndash;<div class="form-group actionSliderContainer">
                                                         <slider name="slide" id="speedSlider" [(data)]="ac.uitgaven" [value]="ac.uitgaven" [itemID] = "ac.ID" [propositionParent]="ISPROP" [inspraakNiveau]="ac.inspraakNiveau" (changes)="updateBudget($event)"></slider>
-                                                    </div>
-                                                </form>
+                                                    </div>&ndash;&gt;
+                                                </form>-->
+                                                <table class="table table-striped">
+                                                    <tbody>
+                                                        <tr *ngFor="#ac of levC.acties #k = index">
+                                                            <td>{{ac.actieLang}}</td>
+                                                            <td>
+                                                                <input [ngClass]="{locked: ac.inspraakNiveau  != 3}" type="number" class="form-control" id="taxInput" [(ngModel)]="ac.uitgaven" readonly>
+                                                            </td>
+                                                        </tr>
+                                                    </tbody>
+                                                </table>
                                             </div>
                                           </div>
                                         </div>
@@ -217,6 +236,14 @@ import {BegrotingsVoorstel} from "../../../models/begrotingsVoorstel";
         .panel-default >.panel-heading {
             background-color: #2ac7d2;
         }
+        #image{
+        width: 100%;
+        }
+        ul
+        {
+            list-style-type: none;
+            margin-top: 1em;
+        }
         .sliderContainer{
         width: 50%;
         margin-right: 1em;
@@ -229,7 +256,7 @@ import {BegrotingsVoorstel} from "../../../models/begrotingsVoorstel";
         margin-left: 1em;
         }
         .actionLabel{
-        width:20em;
+        width:60em;
         display: inline-block;
         }
         .section-content {
@@ -265,7 +292,9 @@ export class AddPropositionComponent {
     private scenario: number = 1;//todo: effectief scenario gebruiken via pipe!!!
     private ISPROP: boolean = true;
     private tempTotal: number = 0;
-    submitProject:boolean=true;
+    private submitProject:boolean=true;
+    private afb: string [] = [];
+    private budgetChange: boolean = false;
 
     
     constructor(private _routeParams: RouteParams, private _projectService:ProjectService, private _townService : TownService, private _begrotingService:BegrotingService) {
@@ -305,6 +334,8 @@ export class AddPropositionComponent {
         /*alert('budget update voor id ' + event.id + " van " + event.event.target.value);*/
         let originalValue = 0;
         let newValue = event.event.target.value;
+
+        this.budgetChange = true;//Todo; optimaliseren!
 
         //get original value (2way db - different object!!!)
         for (var i = 0; i < this.categories.length; i++) {
@@ -481,17 +512,13 @@ export class AddPropositionComponent {
         }
         
         
+    }
 
-
-
-
-
-
-
+    updateCatView(){
 
     }
-    //upload images
-    uploadImages(event: any){
+    
+    /*uploadImages(event: any){
         var reader = new FileReader();
         reader.readAsDataURL(event.target.files[0]);
         reader.onload = function() {
@@ -499,19 +526,26 @@ export class AddPropositionComponent {
 
         }
         //TODO: afwerken upload
+        
+        
+        
+    }*/
+    //upload images
+    uploadImages = (event: any)=>{
+        this.loadimage(event.target.files[0], (img: string) =>{
+            this.afb.push(event.target.files[0].name);
+            this.begrotingsVoorstel.afbeeldingen.push(img);
+        });
     }
 
-    /*click(){
-
-
- for (var i = 0; i < this.project.cats[0].childCats[0].childCats.length; i++) {
- alert("dit is het id van level 1: "+this.project.cats[0].childCats[0].childCats[i].naamCat);
-
- }
-
-
-
- }*/
+    loadimage = (img: string, cb: any)=> {
+        var reader = new FileReader();
+        reader.readAsDataURL(img);
+        reader.onload = function() {
+            let result = reader.result;
+            cb(result); //callback to store image
+        }
+    }
 
 
     onCircleClick: any = (id: number) => {
@@ -533,7 +567,7 @@ export class AddPropositionComponent {
     //@TODO test voor webapi en service --> te verwijderen
     createBudgetWijziging(id: number, inspraak:number)
     {
-        if(inspraak != 2)
+        /*if(inspraak != 2)
         {
             this.budgetwijzigingen  = this.begrotingsVoorstel.budgetWijzigingen.filter(
                 (b:any) => b.inspraakItemId === id);
@@ -549,6 +583,6 @@ export class AddPropositionComponent {
         }
         else {
             return false;
-        }
+        }*/
     }
 }
