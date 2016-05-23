@@ -164,8 +164,11 @@ export class OverviewUsersComponent {
         for(let key in Object.keys(rolTypes)){
             if(key == 1 || key == 4){ //only standard users and moderators
                 filteredObject[key] = rolTypes[key];
+                filteredObject[rolTypes[key]] = key;
             }
         }
+        console.log(filteredObject);
         return filteredObject;
+
     }
 }

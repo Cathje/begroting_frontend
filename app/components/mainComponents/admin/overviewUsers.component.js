@@ -49,8 +49,10 @@ System.register(['angular2/core', 'angular2/router', "../../../services/loginSer
                         for (var key in Object.keys(rolTypes)) {
                             if (key == 1 || key == 4) {
                                 filteredObject[key] = rolTypes[key];
+                                filteredObject[rolTypes[key]] = key;
                             }
                         }
+                        console.log(filteredObject);
                         return filteredObject;
                     };
                     this.town = injector.parent.parent.get(router_1.RouteParams).get('town');

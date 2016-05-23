@@ -14,7 +14,7 @@ import {rolType} from "../../../models/rolType";
     selector: 'overview-users-container',
     template: `
     <section class="container">
-        <p class="alert alert-danger" *ngIf="errorMessage">Geen gebruikers gevonden voor deze gemeente</p>
+    <p class="alert alert-danger" *ngIf="errorMessage">Geen gebruikers gevonden voor deze gemeente</p>
     <h1>Overzicht gebruikers</h1>
     <section class="col-xs-12">
         <div class="section-content">
@@ -114,7 +114,8 @@ export class OverviewUsersComponent {
             );
 
         _loginService.getGebruikers(injector.parent.parent.get(RouteParams).get('town')).subscribe(
-            (gebrs:any) => this.gebruikers = gebrs,
+            (gebrs:any) => {this.gebruikers = gebrs;
+                console.log(gebrs);},
             (err:any) => this.errorMessage = err
         );
 

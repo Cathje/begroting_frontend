@@ -17,7 +17,7 @@ import {GemeenteCategorie} from "../../../models/gemeenteCategorie";
                 <div class="selectors">
                     <div>
                         <div class=" styled-select">
-                            <select [(ngModel)]="selectedYear1">
+                            <select  (change)="onSelectYear($event,'1')">
                                 <option value="0">Kies een jaar</option>
                                 <option *ngFor="#o of years" [value]="o">{{o}}</option>
                             </select>
@@ -25,7 +25,7 @@ import {GemeenteCategorie} from "../../../models/gemeenteCategorie";
                     </div>
                     <div>
                         <div class=" styled-select">
-                            <select [(ngModel)]="selectedTown1">
+                            <select (change)="onSelectTown($event,'1')">
                                 <option value="">Kies een gemeente</option>
                                 <option *ngFor="#o of towns" [value]="o.naam">{{o.naam}}</option>
                             </select>
@@ -45,7 +45,7 @@ import {GemeenteCategorie} from "../../../models/gemeenteCategorie";
                 <div class="selectors">
                     <div>
                         <div class=" styled-select">
-                            <select [(ngModel)]="selectedYear2">
+                            <select (change)="onSelectYear($event,'2')">
                                 <option value="0">Kies een jaar</option>
                                 <option *ngFor="#o of years" [value]="o">{{o}}</option>
                             </select>
@@ -53,7 +53,7 @@ import {GemeenteCategorie} from "../../../models/gemeenteCategorie";
                     </div>
                     <div>
                         <div class=" styled-select">
-                            <select [(ngModel)]="selectedTown2">
+                            <select (change)="onSelectTown($event,'2')">
                                 <option value="">Kies een gemeente</option>
                                 <option *ngFor="#o of towns" [value]="o.naam">{{o.naam}}</option>
                             </select>
@@ -174,6 +174,22 @@ export class ComparisonComponent {
             years.push(currentYear + i)
         }
         return years;
+    }
+
+    onSelectYear = (event,graphNumber) => {
+        if(graphNumber === '1'){
+            this.selectedYear1 = event.target.value;
+        }  else {
+            this.selectedYear2 = event.target.value;
+        }
+    }
+
+    onSelectTown = (event,graphNumber) => {
+        if(graphNumber === '1'){
+            this.selectedTown1 = event.target.value;
+        }  else {
+            this.selectedTown2 = event.target.value;
+        }
     }
 
 }

@@ -8,8 +8,9 @@ import {BegrotingsVoorstel} from "../../../models/begrotingsVoorstel";
     selector: 'overview-propositions-container',
     template: `
     <div class="container">
+        <p class="alert alert-danger" *ngIf="projects.length < 1"><i>Er zijn geen projecten gevonden</i></p>
+
         <h2>Overzicht voorstellen</h2>
-        <p *ngIf="!projects"><i>Er zijn geen projecten gevonden</i></p>
 
         <div class="section-content">
             <div class="panel-group" id="accordion">

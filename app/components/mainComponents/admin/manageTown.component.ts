@@ -1,9 +1,10 @@
-
-import {Component} from 'angular2/core';
+import {Component, Renderer, ElementRef, ApplicationRef} from 'angular2/core';
 import {RouteParams, ROUTER_DIRECTIVES, Router} from 'angular2/router';
 import {TownService} from "../../../services/townService.component";
 import {MainTown} from "../../../models/mainTown";
 import {Faq} from "../../../models/faq";
+import {StyledDirective} from '../../../directives/styled';
+
 
 @Component({
     selector: 'manage-town-container',
@@ -17,7 +18,7 @@ import {Faq} from "../../../models/faq";
                 <div class="col-xs-12 form-group">
                     <label >Hoofdkleur</label>
                     <input class="form-control" type="text" [(ngModel)]="mainTown.kleur"/>
-                    <button class="btn btn-primary" (click)="changeColor()"><span class="glyphicon glyphicon-plus"></span></button>
+                    <button class="btn btn-primary" (click)="changeColor()" styled ><span class="glyphicon glyphicon-plus"></span></button>
                     <span class="small"><i>*Gelieve een hexadecimale waarde of een rgba waarde in te voeren</i></span>
                 </div>
             </div>
@@ -36,7 +37,7 @@ import {Faq} from "../../../models/faq";
                 <div class="form-inline">
                 <ul *ngIf="faqs" >
                    <li *ngFor="#f of faqs" >
-                   <button class="btn btn-primary" (click)="verwijder(f.id)" ><span class="glyphicon glyphicon-trash"></span></button>
+                   <button class="btn btn-primary" (click)="verwijder(f.id)" styled><span class="glyphicon glyphicon-trash"></span></button>
                    <p>{{f.vraag}} </p>
                     </li>
                 </ul>
@@ -52,7 +53,7 @@ import {Faq} from "../../../models/faq";
                         <label >Antwoord:</label>
                         <input type="text" [(ngModel)]="faq.antwoord"/>
                     </div>
-                   <button class="btn btn-primary pull-right" (click)="voegToe()">Voeg toe</button>
+                   <button class="btn btn-primary pull-right" (click)="voegToe()" styled>Voeg toe</button>
                 </div>
             </div>
         </section>
@@ -60,7 +61,7 @@ import {Faq} from "../../../models/faq";
     </section>
     `,
     providers: [TownService],
-    directives: [ROUTER_DIRECTIVES],
+    directives: [ROUTER_DIRECTIVES, StyledDirective],
     styles: [`
     ::-webkit-file-upload-button {
         background: #2ac7d2;
@@ -93,15 +94,20 @@ export class ManageTownComponent {
     faq = new Faq("", "");
     faqs: Faq[];
 
-    constructor( private _routeParams: RouteParams, _townService: TownService, private _router:Router)
+    constructor( private applicationRef: ApplicationRef , private _routeParams: RouteParams, _townService: TownService, private _router:Router)
     {
         _townService.getTown(_routeParams.get('town'))
            .subscribe(town => this.mainTown = town
            );
+       // console.log(('666', _applicationRef);
+    }
+
+    ngOnInit() {
+
     }
 
     changeColor = () => {
-        //TODO: look up a method to select all headers
+        sessionStorage.setItem("mainColor", this.mainTown.kleur);
     }
 
     changeImg = (event: any)=>{

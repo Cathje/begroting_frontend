@@ -25,11 +25,11 @@ System.register(['angular2/core', 'angular2/http', 'rxjs/Rx'], function(exports_
             LoginService = (function () {
                 function LoginService(http) {
                     this.http = http;
-                    //private _url = 'http://begroting-webapi.azurewebsites.net/api/Account';
-                    this._url = 'http://localhost:52597/api/Account';
-                    //private _url2 = 'http://begroting-webapi.azurewebsites.net/token';
-                    this._url2 = 'http://localhost:52597/token';
+                    this._url = 'http://begroting-webapi.azurewebsites.net/api/Account';
+                    //private _url = 'http://localhost:52597/api/Account';
+                    this._url2 = 'http://begroting-webapi.azurewebsites.net/token';
                 }
+                //private _url2 = 'http://localhost:52597/token';
                 LoginService.prototype.login = function (email, password) {
                     return this.http.post(this._url2, "grant_type=password&username=" + email + "&password=" + password, {
                         headers: new http_1.Headers({

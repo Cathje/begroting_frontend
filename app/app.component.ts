@@ -12,7 +12,9 @@ import {RegisterComponent} from "./components/mainComponents/login/register.comp
     <div class="menu">
         <img class="logo" src="/app/images/logo.png"/>
         <div class="right-menu">
-
+        <style>
+            .btn-primary { background-color: red;}
+        </style>
         <span  id="social">
             <span> Deel deze website</span>
             <!-- twitter-->
@@ -122,4 +124,6 @@ import {RegisterComponent} from "./components/mainComponents/login/register.comp
     {path: '/register', name: 'Register', component: RegisterComponent}
 ])
 
-export class AppComponent {}
+export class AppComponent {
+    colorme = "red";
+}
