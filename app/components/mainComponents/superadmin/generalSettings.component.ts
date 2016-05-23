@@ -12,11 +12,27 @@ import {StyledDirective} from '../../../directives/styled';
     <h2>Algemene instellingen</h2>
         <label>Voeg hieronder het bestand toe om de begroting op te laden.</label>
         <input type="file" (change)="selectFile($event)" id="file"/>
-        <button type="submit" class="btn btn-primary" (click)="upload();" styled>Submit</button>
+        <button type="submit" class="btn btn-primary  pull-right" (click)="upload();" styled>Submit</button>
     </div>
     `,
-    directives: [StyledDirective]
-})
+    directives: [StyledDirective],
+    styles: [`
+        ::-webkit-file-upload-button {
+            background: gray;
+            box-shadow: none;
+            border: none;
+            color:white;
+            border-radius: 5px;
+            padding: 5px;
+        }
+
+        input[type=file]{
+            padding: 5px;
+            height: 40px;
+        }
+    `
+    ]
+    })
 
 export class GeneralSettingsComponent {
 

@@ -273,14 +273,14 @@ import {StyledDirective} from '../../../directives/styled';
         box-sizing: border-box;
     }
 
-    ::-webkit-file-upload-button {
-        background: #2ac7d2;
-        box-shadow: none;
-        border:none;
-        color:white;
-        border-radius: 5px;
-        padding: 5px;
-    }
+            ::-webkit-file-upload-button {
+            background: gray;
+            box-shadow: none;
+            border: none;
+            color:white;
+            border-radius: 5px;
+            padding: 5px;
+        }
 
     input[type=file]{
         border: none;

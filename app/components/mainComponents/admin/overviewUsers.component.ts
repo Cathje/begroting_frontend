@@ -1,10 +1,14 @@
 import {Component, Injector} from 'angular2/core';
 import {RouteParams, ROUTER_DIRECTIVES, Router} from 'angular2/router';
+import {TownSelectorComponent} from "../../subComponents/input/townSelector.component";
+import {TownService} from "../../../services/townService.component";
 import {LoginService} from "../../../services/loginService.component";
+import {PoliticusType} from "../../../models/politicusType";
+import {MainTown} from "../../../models/mainTown";
 import {IngelogdeGebruiker} from "../../../models/ingelogdeGebruiker";
 import {KeysPipe} from "../../../pipes/keysPipe";
 import {rolType} from "../../../models/rolType";
-import {TownService} from "../../../services/townService.component";
+import {StyledDirective} from '../../../directives/styled';
 
 
 @Component({
@@ -20,7 +24,8 @@ import {TownService} from "../../../services/townService.component";
             <tr>
                 <th>Naam</th>
                 <th>E-mail</th>
-                <th>Rol</th>
+                <th>Huidige Rol</th>
+                <th>Nieuwe Rol</th>
                 <th>Actief?</th>
             </tr>
             </thead>
@@ -28,8 +33,10 @@ import {TownService} from "../../../services/townService.component";
             <tr *ngFor="#gebruiker of gebruikers #i=index">
                 <td>{{gebruiker.naam}}</td>
                 <td>{{gebruiker.userId}}</td>
+                <td>{{rolTypes[gebruiker.rolType]}}</td>
                 <td>
                 <select (change)="onSelectRolType($event, i)">
+                    <option selected disabled></option>
                     <option *ngFor="#rol of rolTypes | keys" [value]="rol.key">{{rol.value}}</option>
                 </select>
                 </td>
@@ -44,15 +51,19 @@ import {TownService} from "../../../services/townService.component";
         </div>
     </section>
 
-        <button class="btn btn-primary pull-right" (click)="submit()">opslaan</button>
+        <button class="btn btn-primary pull-right" (click)="submit()" styled>opslaan</button>
 </section>
 `,
-    providers: [LoginService],
+    providers: [TownService, LoginService],
     pipes: [KeysPipe],
-    directives: [ROUTER_DIRECTIVES],
+    directives: [ROUTER_DIRECTIVES,  StyledDirective],
     styles: [`
 
-
+    label{
+        text-align: left;
+        width: 120px;
+        background-color:white;
+    }
     section div {
         padding: 5px;
         box-sizing: border-box;
@@ -89,9 +100,9 @@ import {TownService} from "../../../services/townService.component";
 
 export class OverviewUsersComponent {
 
-    town: string;
+    mainTown = new MainTown("", "", 0, 0);
     errorMessage: any;
-    rolTypes: Object;
+    rolTypes;
     gebruikers: IngelogdeGebruiker[] = [];
     gewijzigdeGebruikers : IngelogdeGebruiker[]=[];
     filterGebruikers: IngelogdeGebruiker[] = [];
@@ -99,8 +110,12 @@ export class OverviewUsersComponent {
     data:any;
 
     constructor(private _routeParams:RouteParams, private _townService:TownService, private _loginService:LoginService, private _router:Router, params:RouteParams, injector:Injector) {
-        
-        this.town = injector.parent.parent.get(RouteParams).get('town');
+
+        _townService.getTown(injector.parent.parent.get(RouteParams).get('town'))
+            .subscribe(
+                (town:any) => this.mainTown = town,
+                (err:any) => this.errorMessage = err
+            );
 
         _loginService.getGebruikers(injector.parent.parent.get(RouteParams).get('town')).subscribe(
             (gebrs:any) => this.gebruikers = gebrs,
@@ -118,7 +133,7 @@ export class OverviewUsersComponent {
         this.gebruikers[i].rolType = event.target.value;
         if(this.filterGebruikers.length == 0)
         {
-                this.g = new IngelogdeGebruiker(this.gebruikers[i].userId,this.gebruikers[i].naam, this.gebruikers[i].gemeente,
+            this.g = new IngelogdeGebruiker(this.gebruikers[i].userId,this.gebruikers[i].naam, this.gebruikers[i].gemeente,
                 this.gebruikers[i].rolType, this.gebruikers[i].isActief);
             this.gewijzigdeGebruikers.push(this.g);
         }
@@ -126,7 +141,6 @@ export class OverviewUsersComponent {
         {
             this.filterGebruikers[0].rolType = event.target.value;
         }
-        alert(this.gewijzigdeGebruikers.length);
 
     }
     onChange(event:any, i: number)
@@ -143,10 +157,8 @@ export class OverviewUsersComponent {
         }
         else
         {
-            this.filterGebruikers[0].isActief = event.target.checked;
+            this.filterGebruikers[0].isActief =  event.target.checked;
         }
-
-        alert(this.gewijzigdeGebruikers.length);
     }
 
 
@@ -155,21 +167,18 @@ export class OverviewUsersComponent {
             (d:any) => this.data = d,
             (err:any) => this.errorMessage = err
         );
-        alert(this.gewijzigdeGebruikers.length);
-        this._router.navigate(['/', 'App', 'Budget', {town: this.town}]);
+        this._router.navigate(['/', 'App', 'Budget', {town: this.mainTown.naam}]);
 
     }
 
     filterRol = (rolTypes: any) => {
         let filteredObject = {};
         for(let key in Object.keys(rolTypes)){
-            if(key == 1 || key == 4){ //only standard users and moderators
+            if(key == 1 || key == 4 || key == 2){ //only standard users and moderators and admins
                 filteredObject[key] = rolTypes[key];
                 filteredObject[rolTypes[key]] = key;
             }
         }
-        console.log(filteredObject);
         return filteredObject;
-
     }
 }

@@ -14,8 +14,8 @@ import {StyledDirective} from '../../../directives/styled';
 @Component({ //invoke with metadata object
     selector: 'overview-users-container',
     template: `
-    <section class="container">
     <p class="alert alert-danger" *ngIf="errorMessage">Geen gebruikers gevonden voor deze gemeente</p>
+    <section class="container">
     <h1>Overzicht gebruikers</h1>
     <section class="col-xs-12">
         <div class="section-content">
@@ -24,7 +24,8 @@ import {StyledDirective} from '../../../directives/styled';
             <tr>
                 <th>Naam</th>
                 <th>E-mail</th>
-                <th>Rol</th>
+                <th>Huidige Rol</th>
+                <th>Nieuwe Rol</th>
                 <th>Actief?</th>
             </tr>
             </thead>
@@ -32,8 +33,10 @@ import {StyledDirective} from '../../../directives/styled';
             <tr *ngFor="#gebruiker of gebruikers #i=index">
                 <td>{{gebruiker.naam}}</td>
                 <td>{{gebruiker.userId}}</td>
+                <td>{{rolTypes[gebruiker.rolType]}}</td>
                 <td>
                 <select (change)="onSelectRolType($event, i)">
+                    <option selected disabled></option>
                     <option *ngFor="#rol of rolTypes | keys" [value]="rol.key">{{rol.value}}</option>
                 </select>
                 </td>
@@ -53,7 +56,7 @@ import {StyledDirective} from '../../../directives/styled';
 `,
     providers: [TownService, LoginService],
     pipes: [KeysPipe],
-    directives: [ROUTER_DIRECTIVES, TownSelectorComponent, StyledDirective],
+    directives: [ROUTER_DIRECTIVES,  StyledDirective],
     styles: [`
 
     label{
@@ -107,7 +110,7 @@ export class OverviewUsersComponent {
     data:any;
 
     constructor(private _routeParams:RouteParams, private _townService:TownService, private _loginService:LoginService, private _router:Router, params:RouteParams, injector:Injector) {
-        
+
         _townService.getTown(injector.parent.parent.get(RouteParams).get('town'))
             .subscribe(
                 (town:any) => this.mainTown = town,
@@ -115,12 +118,11 @@ export class OverviewUsersComponent {
             );
 
         _loginService.getGebruikers(injector.parent.parent.get(RouteParams).get('town')).subscribe(
-            (gebrs:any) => {this.gebruikers = gebrs;
-                console.log(gebrs);},
+            (gebrs:any) => this.gebruikers = gebrs,
             (err:any) => this.errorMessage = err
         );
 
-        this.rolTypes = this.filterRol(rolType);
+        this.rolTypes = rolType;
     }
 
     onSelectRolType(event: any, i : any)
@@ -131,15 +133,14 @@ export class OverviewUsersComponent {
         this.gebruikers[i].rolType = event.target.value;
         if(this.filterGebruikers.length == 0)
         {
-                this.g = new IngelogdeGebruiker(this.gebruikers[i].userId,this.gebruikers[i].naam, this.gebruikers[i].gemeente,
+            this.g = new IngelogdeGebruiker(this.gebruikers[i].userId,this.gebruikers[i].naam, this.gebruikers[i].gemeente,
                 this.gebruikers[i].rolType, this.gebruikers[i].isActief);
             this.gewijzigdeGebruikers.push(this.g);
         }
         else
         {
-            this.filterGebruikers[0].rolType = this.gebruikers[i].rolType = event.target.value;
+            this.filterGebruikers[0].rolType = event.target.value;
         }
-        alert(this.gewijzigdeGebruikers.length);
 
     }
     onChange(event:any, i: number)
@@ -156,10 +157,8 @@ export class OverviewUsersComponent {
         }
         else
         {
-            this.filterGebruikers[0].rolType = this.gebruikers[i].rolType = event.target.value;
+            this.filterGebruikers[0].isActief =  event.target.checked;
         }
-
-        alert(this.gewijzigdeGebruikers.length);
     }
 
 
@@ -168,18 +167,8 @@ export class OverviewUsersComponent {
             (d:any) => this.data = d,
             (err:any) => this.errorMessage = err
         );
-        alert(this.gewijzigdeGebruikers.length);
         this._router.navigate(['/', 'App', 'Budget', {town: this.mainTown.naam}]);
 
     }
 
-    filterRol = (rolTypes: any) => {
-        let filteredObject = {};
-        for(let key in Object.keys(rolTypes)){
-            if(key == 1 || key == 4){ //only standard users and moderators
-                filteredObject[key] = rolTypes[key];
-            }
-        }
-        return filteredObject;
-    }
 }

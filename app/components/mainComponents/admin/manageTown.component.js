@@ -59,9 +59,6 @@ System.register(['angular2/core', 'angular2/router', "../../../services/townServ
                             cb(result);
                         };
                     };
-                    this.saveFaq = function () {
-                        //TODO: + create webapi to save this in backend
-                    };
                     _townService.getTown(_routeParams.get('town'))
                         .subscribe(function (town) { return _this.mainTown = town; });
                 }

@@ -64,8 +64,10 @@ System.register(['angular2/core', "../../subComponents/upload/multipart-item", "
                 GeneralSettingsComponent = __decorate([
                     core_1.Component({
                         selector: 'general-settings-container',
-                        template: "\n    <div class=\"container\">\n    <h2>Algemene instellingen</h2>\n        <label>Voeg hieronder het bestand toe om de begroting op te laden.</label>\n        <input type=\"file\" (change)=\"selectFile($event)\" id=\"file\"/>\n        <button type=\"submit\" class=\"btn btn-primary\" (click)=\"upload();\" styled>Submit</button>\n    </div>\n    ",
-                        directives: [styled_1.StyledDirective]
+                        template: "\n    <div class=\"container\">\n    <h2>Algemene instellingen</h2>\n        <label>Voeg hieronder het bestand toe om de begroting op te laden.</label>\n        <input type=\"file\" (change)=\"selectFile($event)\" id=\"file\"/>\n        <button type=\"submit\" class=\"btn btn-primary  pull-right\" (click)=\"upload();\" styled>Submit</button>\n    </div>\n    ",
+                        directives: [styled_1.StyledDirective],
+                        styles: ["\n        ::-webkit-file-upload-button {\n            background: gray;\n            box-shadow: none;\n            border: none;\n            color:white;\n            border-radius: 5px;\n            padding: 5px;\n        }\n\n        input[type=file]{\n            padding: 5px;\n            height: 40px;\n        }\n    "
+                        ]
                     }), 
                     __metadata('design:paramtypes', [])
                 ], GeneralSettingsComponent);

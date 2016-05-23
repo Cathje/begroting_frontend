@@ -63,7 +63,6 @@ import {StyledDirective} from '../../../directives/styled';
           <a href="#" class="dropdown-toggle" data-toggle="dropdown" role="button" aria-haspopup="true" aria-expanded="false" styled>SuperAdmin<span class="caret"></span></a>
           <ul class="dropdown-menu" styled>
             <li><a [routerLink]="['SuperAdmin', {town: townString}, 'GeneralSettings']">Algemene instellingen</a></li>
-            <li><a [routerLink]="['SuperAdmin', {town: townString}, 'CreateAdmin']">Admin aanmaken</a></li>
             <li><a [routerLink]="['SuperAdmin', {town: townString}, 'ManageUsers']">Gebruikers beheren</a></li>
           </ul>
         </li>

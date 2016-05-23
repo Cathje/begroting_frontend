@@ -129,8 +129,5 @@ export class ManageTownComponent {
         }
     }
 
-    saveFaq = () {
-    //TODO: + create webapi to save this in backend
-    }
 
 }
