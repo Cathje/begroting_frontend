@@ -11,7 +11,7 @@ import {CATEGORIES} from "../../../mockData/mock-categories";
 import {BestuurType} from "../../../models/bestuurType";
 import {SelectorComponent} from './../../subComponents/input/selector.component';
 
-@Component({ //invoke with metadata object
+@Component({
     selector: 'expenses-container',
     template: `
         <div class="container">

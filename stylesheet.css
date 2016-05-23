@@ -231,4 +231,8 @@ option {
     max-width: 1200px;
 }
 
+.small{
+    font-size: 0.7em;
+}
+
 

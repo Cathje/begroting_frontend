@@ -5,13 +5,12 @@ import {Project} from "../../../models/project";
 import {BegrotingsVoorstel} from "../../../models/begrotingsVoorstel";
 import {ReactieOpVoorstel} from "../../../models/reactieOpVoorstel";
 
-@Component({ //invoke with metadata object
+@Component({
     selector: 'propositions-container',
     template: `
     <div class="container">
+          <p class="alert alert-danger" *ngIf="!projects"><i>Er zijn geen projecten gevonden</i></p>
     <h2>Stem en/of geef reactie op een Begrotingsvoorstel</h2>
-      <p *ngIf="!projects"><i>Er zijn geen projecten gevonden</i></p>
-
         <div class="section-content">
             <div class="panel-group" id="accordion">
                 <div *ngFor="#project of projects #j=index" class="panel panel-default">

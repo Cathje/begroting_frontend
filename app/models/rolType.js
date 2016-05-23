@@ -5,9 +5,6 @@ System.register([], function(exports_1, context_1) {
     return {
         setters:[],
         execute: function() {
-            /**
-             * Created by kevin on 18/05/2016.
-             */
             (function (rolType) {
                 rolType[rolType["standaard"] = 1] = "standaard";
                 rolType[rolType["admin"] = 2] = "admin";

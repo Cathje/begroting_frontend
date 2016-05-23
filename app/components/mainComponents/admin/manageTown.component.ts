@@ -1,54 +1,122 @@
-/**
- * Created by nadya on 10/05/2016.
- */
+
 import {Component} from 'angular2/core';
 import {RouteParams, ROUTER_DIRECTIVES, Router} from 'angular2/router';
 import {TownService} from "../../../services/townService.component";
 import {MainTown} from "../../../models/mainTown";
-import {Bestuur} from "../../../models/bestuur";
-import {PoliticusType} from "../../../models/politicusType";
-import {TownSelectorComponent} from "../../subComponents/input/townSelector.component";
+import {Faq} from "../../../models/faq";
 
-@Component({ //invoke with metadata object
+@Component({
     selector: 'manage-town-container',
     template: `
-    <div class="container">
-<h2>Isntellingen gemeente</h2>
+    <p class="alert alert-danger" *ngIf="errorMessage">{{errorMessage}}</p>
+    <section class="container">
+        <h1>Instellingen gemeente</h1>
+        <section class="col-xs-12 form-inline">
+            <h3>Kleuren website</h3>
+            <div class="section-content">
+                <div class="col-xs-12 form-group">
+                    <label >Hoofdkleur</label>
+                    <input class="form-control" type="text" [(ngModel)]="mainTown.kleur"/>
+                    <button class="btn btn-primary" (click)="changeColor()"><span class="glyphicon glyphicon-plus"></span></button>
+                    <span class="small"><i>*Gelieve een hexadecimale waarde of een rgba waarde in te voeren</i></span>
+                </div>
+            </div>
+        </section>
+        <section class="col-xs-12 form-inline">
+            <h3>Logo website</h3>
+            <div class="section-content">
+                <div class="col-xs-12 form-group">
+                    <input id="file" type="file" (change)="changeImg($event)"/>
+                    <img *ngIf="afb" [src]="afb" class="logo" />                </div>
+            </div>
+        </section>
+        <section class="col-xs-12">
+            <h3>FAQ</h3>
+            <div class="section-content">
+                <div class="form-inline">
+                <ul *ngIf="faqs" >
+                   <li *ngFor="#f of faqs" >
+                   <button class="btn btn-primary" (click)="verwijder(f.id)" ><span class="glyphicon glyphicon-trash"></span></button>
+                   <p>{{f.vraag}} </p>
+                    </li>
+                </ul>
+                <p *ngIf="!faqs"><i>Er zijn nog geen vragen en antwoord ingediend.</i></p>
+                </div>
 
+                <div class="addFaq">
+                    <div class="form-group">
+                        <label >Vraag:</label>
+                        <input type="text" [(ngModel)]="faq.vraag"/>
+                    </div>
+                    <div class="form-group">
+                        <label >Antwoord:</label>
+                        <input type="text" [(ngModel)]="faq.antwoord"/>
+                    </div>
+                   <button class="btn btn-primary pull-right" (click)="voegToe()">Voeg toe</button>
+                </div>
+            </div>
+        </section>
 
-</div>
-`,
+    </section>
+    `,
     providers: [TownService],
-    directives: [ROUTER_DIRECTIVES, TownSelectorComponent]
+    directives: [ROUTER_DIRECTIVES],
+    styles: [`
+    ::-webkit-file-upload-button {
+        background: #2ac7d2;
+        box-shadow: none;
+        border:none;
+        color:white;
+        border-radius: 5px;
+        padding: 5px;
+    }
+
+    input[type=file]{
+        border: none;
+    }
+
+    .addFaq {
+        border-top: 1px solid lightgray;
+    }
+
+    .logo{
+        width: 50%;
+        border: 1px solid lightgray;
+    }
+
+    `]
 })
 
 export class ManageTownComponent {
 
     mainTown = new MainTown("","",0,0);
-    // newBestuur:Bestuur = new Bestuur(""); // this gives an error
-    types =  PoliticusType;
-    selectedType:PoliticusType = PoliticusType.Schepen;
-    _townService:TownService;
-    keys: boolean;
+    faq = new Faq("", "");
+    faqs: Faq[];
 
     constructor( private _routeParams: RouteParams, _townService: TownService, private _router:Router)
     {
         _townService.getTown(_routeParams.get('town'))
            .subscribe(town => this.mainTown = town
            );
-
-        this._townService = _townService;
-      //  alert(_routeParams.get('town'));
     }
 
-    onSelect(event: any) {
-        this.selectedType = event.target.value;
+    changeColor = () => {
+        //TODO: look up a method to select all headers
     }
 
-    submit()
-    {
-        this._townService.putTown(this.mainTown).subscribe();
-        this._router.navigate(['MainTown', { town: this.mainTown.naam}]);
-
+    changeImg = (event: any)=>{
+        this.loadimage(event.target.files[0], (img: string) =>{
+            this.afb =  img;
+        });
     }
+
+    loadimage = (img: string, cb: any)=> {
+        var reader = new FileReader();
+        reader.readAsDataURL(img);
+        reader.onload = function() {
+            let result = reader.result;
+            cb(result);
+        }
+    }
+
 }

@@ -1,4 +1,4 @@
-System.register(['angular2/core', 'angular2/router', './manageData.component', './manageProject.component', './manageTown.component'], function(exports_1, context_1) {
+System.register(['angular2/core', 'angular2/router', './manageData.component', './manageProject.component', './manageTown.component', "./overviewUsers.component"], function(exports_1, context_1) {
     "use strict";
     var __moduleName = context_1 && context_1.id;
     var __decorate = (this && this.__decorate) || function (decorators, target, key, desc) {
@@ -10,7 +10,7 @@ System.register(['angular2/core', 'angular2/router', './manageData.component', '
     var __metadata = (this && this.__metadata) || function (k, v) {
         if (typeof Reflect === "object" && typeof Reflect.metadata === "function") return Reflect.metadata(k, v);
     };
-    var core_1, router_1, manageData_component_1, manageProject_component_1, manageTown_component_1;
+    var core_1, router_1, manageData_component_1, manageProject_component_1, manageTown_component_1, overviewUsers_component_1;
     var AdminRouter;
     return {
         setters:[
@@ -28,6 +28,9 @@ System.register(['angular2/core', 'angular2/router', './manageData.component', '
             },
             function (manageTown_component_1_1) {
                 manageTown_component_1 = manageTown_component_1_1;
+            },
+            function (overviewUsers_component_1_1) {
+                overviewUsers_component_1 = overviewUsers_component_1_1;
             }],
         execute: function() {
             AdminRouter = (function () {
@@ -42,7 +45,8 @@ System.register(['angular2/core', 'angular2/router', './manageData.component', '
                     router_1.RouteConfig([
                         { path: '/manageData', name: 'ManageData', component: manageData_component_1.ManageDataComponent, useAsDefault: true },
                         { path: '/manageProject', name: 'ManageProject', component: manageProject_component_1.ManageProjectComponent },
-                        { path: '/manageTown', name: 'ManageTown', component: manageTown_component_1.ManageTownComponent }
+                        { path: '/manageTown', name: 'ManageTown', component: manageTown_component_1.ManageTownComponent },
+                        { path: '/manageUsers', name: 'ManageUsers', component: overviewUsers_component_1.OverviewUsersComponent }
                     ]), 
                     __metadata('design:paramtypes', [])
                 ], AdminRouter);

@@ -13,8 +13,8 @@ import {rolType} from "../../../models/rolType";
 @Component({ //invoke with metadata object
     selector: 'overview-users-container',
     template: `
-    <p class="alert alert-danger" *ngIf="errorMessage">Geen gebruikers gevonden voor deze gemeente</p>
     <section class="container">
+        <p class="alert alert-danger" *ngIf="errorMessage">Geen gebruikers gevonden voor deze gemeente</p>
     <h1>Overzicht gebruikers</h1>
     <section class="col-xs-12">
         <div class="section-content">

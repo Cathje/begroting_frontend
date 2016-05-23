@@ -1,4 +1,4 @@
-System.register(['angular2/core', 'angular2/router', './createAdmin.component', './generalSettings.component'], function(exports_1, context_1) {
+System.register(['angular2/core', 'angular2/router', './createAdmin.component', './generalSettings.component', "./overviewUsers.component"], function(exports_1, context_1) {
     "use strict";
     var __moduleName = context_1 && context_1.id;
     var __decorate = (this && this.__decorate) || function (decorators, target, key, desc) {
@@ -10,7 +10,7 @@ System.register(['angular2/core', 'angular2/router', './createAdmin.component', 
     var __metadata = (this && this.__metadata) || function (k, v) {
         if (typeof Reflect === "object" && typeof Reflect.metadata === "function") return Reflect.metadata(k, v);
     };
-    var core_1, router_1, createAdmin_component_1, generalSettings_component_1;
+    var core_1, router_1, createAdmin_component_1, generalSettings_component_1, overviewUsers_component_1;
     var SuperAdminRouter;
     return {
         setters:[
@@ -25,6 +25,9 @@ System.register(['angular2/core', 'angular2/router', './createAdmin.component', 
             },
             function (generalSettings_component_1_1) {
                 generalSettings_component_1 = generalSettings_component_1_1;
+            },
+            function (overviewUsers_component_1_1) {
+                overviewUsers_component_1 = overviewUsers_component_1_1;
             }],
         execute: function() {
             SuperAdminRouter = (function () {
@@ -38,7 +41,8 @@ System.register(['angular2/core', 'angular2/router', './createAdmin.component', 
                     }),
                     router_1.RouteConfig([
                         { path: '/generalSettings', name: 'GeneralSettings', component: generalSettings_component_1.GeneralSettingsComponent, useAsDefault: true },
-                        { path: '/createAdmin', name: 'CreateAdmin', component: createAdmin_component_1.CreateAdminComponent }
+                        { path: '/createAdmin', name: 'CreateAdmin', component: createAdmin_component_1.CreateAdminComponent },
+                        { path: '/manageUsers', name: 'ManageUsers', component: overviewUsers_component_1.OverviewUsersComponent }
                     ]), 
                     __metadata('design:paramtypes', [])
                 ], SuperAdminRouter);

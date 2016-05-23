@@ -1,6 +1,4 @@
-System.register(['angular2/core', 'angular2/router', "../../subComponents/input/townSelector.component", "../../../services/townService.component", "../../../services/loginService.component", "../../../models/mainTown", "../../../models/ingelogdeGebruiker", "../../../pipes/keysPipe", "../../../models/rolType"], function(exports_1, context_1) {
-    "use strict";
-    var __moduleName = context_1 && context_1.id;
+System.register(['angular2/core', 'angular2/router', "../../subComponents/input/townSelector.component", "../../../services/townService.component", "../../../services/loginService.component", "../../../models/mainTown", "../../../models/ingelogdeGebruiker", "../../../pipes/keysPipe", "../../../models/rolType"], function(exports_1) {
     var __decorate = (this && this.__decorate) || function (decorators, target, key, desc) {
         var c = arguments.length, r = c < 3 ? target : desc === null ? desc = Object.getOwnPropertyDescriptor(target, key) : desc, d;
         if (typeof Reflect === "object" && typeof Reflect.decorate === "function") r = Reflect.decorate(decorators, target, key, desc);
@@ -102,7 +100,7 @@ System.register(['angular2/core', 'angular2/router', "../../subComponents/input/
                 OverviewUsersComponent = __decorate([
                     core_1.Component({
                         selector: 'overview-users-container',
-                        template: "\n    <p class=\"alert alert-danger\" *ngIf=\"errorMessage\">Geen gebruikers gevonden voor deze gemeente</p>\n    <section class=\"container\">\n    <h1>Overzicht gebruikers</h1>\n    <section class=\"col-xs-12\">\n        <div class=\"section-content\">\n        <table class=\"table table-striped\">\n            <thead>\n            <tr>\n                <th>Naam</th>\n                <th>E-mail</th>\n                <th>Rol</th>\n                <th>Actief?</th>\n            </tr>\n            </thead>\n            <tbody>\n            <tr *ngFor=\"#gebruiker of gebruikers #i=index\">\n                <td>{{gebruiker.naam}}</td>\n                <td>{{gebruiker.userId}}</td>\n                <td>\n                <select (change)=\"onSelectRolType($event, i)\">\n                    <option *ngFor=\"#rol of rolTypes | keys\" [value]=\"rol.key\">{{rol.value}}</option>\n                </select>\n                </td>\n                <td>\n                <input type=\"checkbox\" [ngModel]=gebruiker.isActief (change)=\"onChange($event, i)\">\n                </td>\n            </tr>\n            </tbody>\n        </table>\n\n\n        </div>\n    </section>\n\n        <button class=\"btn btn-primary pull-right\" (click)=\"submit()\">opslaan</button>\n</section>\n",
+                        template: "\n    <section class=\"container\">\n        <p class=\"alert alert-danger\" *ngIf=\"errorMessage\">Geen gebruikers gevonden voor deze gemeente</p>\n    <h1>Overzicht gebruikers</h1>\n    <section class=\"col-xs-12\">\n        <div class=\"section-content\">\n        <table class=\"table table-striped\">\n            <thead>\n            <tr>\n                <th>Naam</th>\n                <th>E-mail</th>\n                <th>Rol</th>\n                <th>Actief?</th>\n            </tr>\n            </thead>\n            <tbody>\n            <tr *ngFor=\"#gebruiker of gebruikers #i=index\">\n                <td>{{gebruiker.naam}}</td>\n                <td>{{gebruiker.userId}}</td>\n                <td>\n                <select (change)=\"onSelectRolType($event, i)\">\n                    <option *ngFor=\"#rol of rolTypes | keys\" [value]=\"rol.key\">{{rol.value}}</option>\n                </select>\n                </td>\n                <td>\n                <input type=\"checkbox\" [ngModel]=gebruiker.isActief (change)=\"onChange($event, i)\">\n                </td>\n            </tr>\n            </tbody>\n        </table>\n\n\n        </div>\n    </section>\n\n        <button class=\"btn btn-primary pull-right\" (click)=\"submit()\">opslaan</button>\n</section>\n",
                         providers: [townService_component_1.TownService, loginService_component_1.LoginService],
                         pipes: [keysPipe_1.KeysPipe],
                         directives: [router_1.ROUTER_DIRECTIVES, townSelector_component_1.TownSelectorComponent],
@@ -111,7 +109,7 @@ System.register(['angular2/core', 'angular2/router', "../../subComponents/input/
                     __metadata('design:paramtypes', [router_1.RouteParams, townService_component_1.TownService, loginService_component_1.LoginService, router_1.Router, router_1.RouteParams, core_1.Injector])
                 ], OverviewUsersComponent);
                 return OverviewUsersComponent;
-            }());
+            })();
             exports_1("OverviewUsersComponent", OverviewUsersComponent);
         }
     }

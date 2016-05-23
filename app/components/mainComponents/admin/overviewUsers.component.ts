@@ -1,16 +1,12 @@
 import {Component, Injector} from 'angular2/core';
 import {RouteParams, ROUTER_DIRECTIVES, Router} from 'angular2/router';
-import {TownSelectorComponent} from "../../subComponents/input/townSelector.component";
-import {TownService} from "../../../services/townService.component";
 import {LoginService} from "../../../services/loginService.component";
-import {PoliticusType} from "../../../models/politicusType";
-import {MainTown} from "../../../models/mainTown";
 import {IngelogdeGebruiker} from "../../../models/ingelogdeGebruiker";
 import {KeysPipe} from "../../../pipes/keysPipe";
 import {rolType} from "../../../models/rolType";
 
 
-@Component({ //invoke with metadata object
+@Component({
     selector: 'overview-users-container',
     template: `
     <p class="alert alert-danger" *ngIf="errorMessage">Geen gebruikers gevonden voor deze gemeente</p>
@@ -50,16 +46,12 @@ import {rolType} from "../../../models/rolType";
         <button class="btn btn-primary pull-right" (click)="submit()">opslaan</button>
 </section>
 `,
-    providers: [TownService, LoginService],
+    providers: [LoginService],
     pipes: [KeysPipe],
-    directives: [ROUTER_DIRECTIVES, TownSelectorComponent],
+    directives: [ROUTER_DIRECTIVES],
     styles: [`
 
-    label{
-        text-align: left;
-        width: 120px;
-        background-color:white;
-    }
+
     section div {
         padding: 5px;
         box-sizing: border-box;
@@ -96,9 +88,9 @@ import {rolType} from "../../../models/rolType";
 
 export class OverviewUsersComponent {
 
-    mainTown = new MainTown("", "", 0, 0);
+    town: string;
     errorMessage: any;
-    rolTypes;
+    rolTypes: Object;
     gebruikers: IngelogdeGebruiker[] = [];
     gewijzigdeGebruikers : IngelogdeGebruiker[]=[];
     filterGebruikers: IngelogdeGebruiker[] = [];
@@ -107,11 +99,7 @@ export class OverviewUsersComponent {
 
     constructor(private _routeParams:RouteParams, private _townService:TownService, private _loginService:LoginService, private _router:Router, params:RouteParams, injector:Injector) {
         
-        _townService.getTown(injector.parent.parent.get(RouteParams).get('town'))
-            .subscribe(
-                (town:any) => this.mainTown = town,
-                (err:any) => this.errorMessage = err
-            );
+        this.town = injector.parent.parent.get(RouteParams).get('town');
 
         _loginService.getGebruikers(injector.parent.parent.get(RouteParams).get('town')).subscribe(
             (gebrs:any) => this.gebruikers = gebrs,
@@ -167,7 +155,7 @@ export class OverviewUsersComponent {
             (err:any) => this.errorMessage = err
         );
         alert(this.gewijzigdeGebruikers.length);
-        this._router.navigate(['/', 'App', 'Budget', {town: this.mainTown.naam}]);
+        this._router.navigate(['/', 'App', 'Budget', {town: this.town}]);
 
     }
 

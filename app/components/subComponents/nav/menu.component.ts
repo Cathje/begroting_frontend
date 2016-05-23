@@ -47,6 +47,7 @@ import {TownSelectorComponent} from '../input/townSelector.component';
             <li><a [routerLink]="['Admin', {town: townString}, 'ManageData']">Beheer kerngegevens</a></li>
             <li><a [routerLink]="['Admin', {town: townString}, 'ManageTown']">Instellingen gemeente</a></li>
             <li><a [routerLink]="['Admin', {town: townString}, 'ManageProject']">Beheer projecten</a></li>
+            <li><a [routerLink]="['Admin', {town: townString}, 'ManageUsers']">Gebruikers beheren</a></li>
           </ul>
         </li>
         <li class="dropdown">
@@ -62,6 +63,7 @@ import {TownSelectorComponent} from '../input/townSelector.component';
           <ul class="dropdown-menu">
             <li><a [routerLink]="['SuperAdmin', {town: townString}, 'GeneralSettings']">Algemene instellingen</a></li>
             <li><a [routerLink]="['SuperAdmin', {town: townString}, 'CreateAdmin']">Admin aanmaken</a></li>
+            <li><a [routerLink]="['SuperAdmin', {town: townString}, 'ManageUsers']">Gebruikers beheren</a></li>
           </ul>
         </li>
       </ul>
