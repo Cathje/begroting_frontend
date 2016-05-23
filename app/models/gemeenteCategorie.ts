@@ -10,7 +10,7 @@ export interface GemeenteCategorie
     catA?:string;
     catB?:string;
     catC?:string;
-    naamCat?:string
+    naamCat?:string;
     inspraakNiveau?:number;
     gemcatID?:number;
     acties?:Actie [];
