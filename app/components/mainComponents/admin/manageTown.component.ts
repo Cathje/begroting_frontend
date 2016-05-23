@@ -37,8 +37,8 @@ import {StyledDirective} from '../../../directives/styled';
             <h3>FAQ</h3>
             <div class="section-content">
                 <div class="form-inline">
-                <ul *ngIf="mainTown?.faqs" >
-                   <li *ngFor="#f of mainTown.faqs" >
+                <ul *ngIf="mainTown?.FAQs" >
+                   <li *ngFor="#f of mainTown.FAQs" >
                    <button class="btn btn-primary" (click)="verwijder(f)" ><span class="glyphicon glyphicon-trash"></span></button>
                    <p>{{f.vraag}} </p>
                    <p>{{f.antwoord}} </p>
@@ -146,8 +146,8 @@ export class ManageTownComponent {
     verwijder( f: Faq)
     {
         //@TODO geeft in code een error maar werkt --> ??
-        this.mainTown.faqs.pop(f);
-        if(f.ID != 0)
+        this.mainTown.FAQs.pop(f);
+        if(f.id != 0)
         {
             this._townService.deleteFAQ(f.ID).subscribe(
                 (d:any) => this.id = d,
@@ -165,10 +165,6 @@ export class ManageTownComponent {
 
     voegToe()
     {
-        if(this.mainTown.faqs == null)
-        {
-            this.mainTown.faqs = [];
-        }
-        this.mainTown.faqs.push(new Faq(this.faq.vraag, this.faq.antwoord));
+        this.mainTown.FAQs.push(new Faq(this.faq.vraag, this.faq.antwoord));
     }
 }
