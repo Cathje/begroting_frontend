@@ -64,7 +64,7 @@ System.register(['angular2/core', 'angular2/router', "../../../services/townServ
                         sessionStorage.setItem('role', this.t.role);
                         sessionStorage.setItem('user', this.t.userName);
                         sessionStorage.setItem('token', data);
-                        this._router.navigate(['/', 'App', 'Budget', { town: this.t.gemeente }]);
+                        this._router.navigate(['/', 'App', { town: this.t.gemeente }, 'Budget']);
                     }
                 };
                 LoginComponent.prototype.onSelect = function (event) {

@@ -13,13 +13,9 @@ import {TownService} from "../../services/townService.component";
 import {MainTown} from "../../models/mainTown";
 import {StyledDirective} from "../../directives/styled";
 
-
-
-
 @Component({
     selector: 'home-router',
     template: `
-    <p *ngIf="errorMessage" class="alert alert-danger">{{errorMessage}}</p>
     <navigation-menu *ngIf="_location.path() !== ''"></navigation-menu>
     <router-outlet></router-outlet>
     <footer styled>

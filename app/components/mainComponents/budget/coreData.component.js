@@ -37,12 +37,11 @@ System.register(['angular2/core', './../../../services/townService.component', "
                     this.http = http;
                     this._router = _router;
                     this.mainTown = new mainTown_1.MainTown("", "", 0, 0); //opm: moet geïnitialiseerd zijn, anders werkt ngModel niet
-                    this.mainTown = injector.parent.parent.get(router_1.RouteParams).get('town');
-                    _townService.getTown(injector.parent.parent.get(router_1.RouteParams).get('town'))
+                    _townService.getTown(injector.parent.parent.parent.parent.get(router_1.RouteParams).get('town'))
                         .subscribe(function (town) {
                         _this.mainTown = town;
                         _this.imglink = "/app/images/provincies/" + town.provincie.toLowerCase().split(' ').join('') + ".png";
-                    }, function (err) { return _this.errorMessage = err; });
+                    }, function (err) { return _this.errorMessage = "Er was een probleem met het ophalen van de gegevens."; });
                 }
                 CoreDataComponent = __decorate([
                     core_1.Component({

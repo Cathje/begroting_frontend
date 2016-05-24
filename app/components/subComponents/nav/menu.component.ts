@@ -17,7 +17,7 @@ import {StyledDirective} from '../../../directives/styled';
         <span class="icon-bar"></span>
         <span class="icon-bar"></span>
       </button>
-      <a class="navbar-brand" [routerLink]="['Home']"><span class="glyphicon glyphicon-home"></span></a>
+      <a class="navbar-brand" [routerLink]="['/','Default']"><span class="glyphicon glyphicon-home"></span></a>
     </div>
 
     <!-- Collect the nav links, forms, and other content for toggling -->

@@ -82,6 +82,7 @@ export class RegisterComponent {
         }
         else {
             sessionStorage.removeItem("newUser");
+
         }
     }
 

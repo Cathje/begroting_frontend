@@ -57,7 +57,7 @@ System.register(['angular2/core', './../subComponents/nav/menu.component', './ho
                 HomeRouter = __decorate([
                     core_1.Component({
                         selector: 'home-router',
-                        template: "\n    <p *ngIf=\"errorMessage\" class=\"alert alert-danger\">{{errorMessage}}</p>\n    <navigation-menu *ngIf=\"_location.path() !== ''\"></navigation-menu>\n    <router-outlet></router-outlet>\n    <footer styled>\n       <img *ngIf=\"town?.logo\" [src]=\"town.logo\" class=\"smalllogo\">\n       <p>Tree company, De wakkere Burger en uw gemeente {{town?.naam}}</p>\n       <p> <a href=\"http://www.dewakkereburger.be/\">Meer info </a></p>\n    </footer>\n    ",
+                        template: "\n    <navigation-menu *ngIf=\"_location.path() !== ''\"></navigation-menu>\n    <router-outlet></router-outlet>\n    <footer styled>\n       <img *ngIf=\"town?.logo\" [src]=\"town.logo\" class=\"smalllogo\">\n       <p>Tree company, De wakkere Burger en uw gemeente {{town?.naam}}</p>\n       <p> <a href=\"http://www.dewakkereburger.be/\">Meer info </a></p>\n    </footer>\n    ",
                         directives: [router_1.ROUTER_DIRECTIVES, menu_component_1.NavigationMenuComponent, styled_1.StyledDirective],
                         providers: [townService_component_1.TownService],
                         styles: ["\n    footer {\n        background-color: #2ac7d2;\n        padding: 10px;\n        text-align: center;\n        border-top: 1px solid white !important;\n    }\n\n    footer p {\n        color: white;\n    }\n\n    .smalllogo {\n        margin: 0 auto;\n        width: 50px;\n    }\n    "]

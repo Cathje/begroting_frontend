@@ -1,5 +1,5 @@
 import {Component, Injector} from 'angular2/core';
-import {RouteConfig, ROUTER_DIRECTIVES, ROUTER_PROVIDERS} from 'angular2/router';
+import {RouteConfig, ROUTER_DIRECTIVES, ROUTER_PROVIDERS, Router, Location} from 'angular2/router';
 import {HTTP_PROVIDERS} from "angular2/http";
 
 import {HomeRouter} from './components/mainComponents/homeRouter';
@@ -9,17 +9,15 @@ import {TownService} from "./services/townService.component";
 import {Town} from "./models/town";
 import {MainTown} from "./models/mainTown";
 import {Inject} from "angular2/core";
+import {HomeComponent} from "./components/mainComponents/home.component";
+import {NavigationMenuComponent} from "./components/subComponents/nav/menu.component";
 
 @Component({
     selector: 'begroting-app',
     template: `
     <div class="menu">
-            <p *ngIf="errorMessage" class="alert alert-danger">{{errorMessage}}</p>
         <img class="logo" src="/app/images/logo.png"/>
         <div class="right-menu">
-        <style>
-            .btn-primary { background-color: red;}
-        </style>
         <span  id="social">
             <span> Deel deze website</span>
             <!-- twitter-->
@@ -47,18 +45,20 @@ import {Inject} from "angular2/core";
         </span>
 
         <span id="registration">
-            <a [routerLink]="['Register']">Registreer</a>|
-            <a [routerLink]="['Login']">Log in</a>
+            <a [routerLink]="['Register']">{{register}}</a>|
+            <a *ngIf="!isLoggedIn">Log in</a>
+            <span *ngIf="isLoggedIn" (click)="onLogOut()">Log uit</span>
         </span>
         </div>
     </div>
+    <navigation-menu *ngIf="isHomePage"></navigation-menu>
                 <router-outlet></router-outlet>
 
 
 
                 `,
     directives: [ROUTER_DIRECTIVES],
-    providers: [ROUTER_PROVIDERS, HTTP_PROVIDERS, TownService],
+    providers: [ROUTER_PROVIDERS, HTTP_PROVIDERS, TownService, NavigationMenuComponent],
     styles: [`
 
     .menu {
@@ -127,6 +127,7 @@ import {Inject} from "angular2/core";
 })
 
 @RouteConfig([
+    {path: '/', name: 'Default', component: HomeComponent},
     {path: '/:town/...', name: 'App', component: HomeRouter},
     {path: '/login', name: 'Login', component: LoginComponent},
     {path: '/register', name: 'Register', component: RegisterComponent}
@@ -134,4 +135,28 @@ import {Inject} from "angular2/core";
 ])
 
 export class AppComponent {
+    isLoggedIn: boolean;
+    isHomePage: boolean;
+    register: string;
+
+    constructor(private _router : Router, private _location: Location) {
+        console.log('111', _location.path() === '');
+        this.isHomePage = _location.path() === '';
+    }
+
+    ngOnInit() {
+        this.isLoggedIn = sessionStorage.getItem('user') == null? false : true ;
+        this.register = sessionStorage.getItem('user') == null? 'Registreer' : 'Welkom, ' + sessionStorage.getItem('user');
+    }
+
+    onLogOut = () => {
+        sessionStorage.removeItem("newUser");
+        sessionStorage.removeItem('access_token');
+        sessionStorage.removeItem('gemeente');
+        sessionStorage.removeItem('role');
+        sessionStorage.removeItem('user');
+        sessionStorage.removeItem('token');
+        this._router.navigate(['/','Default']);
+
+    }
 }
