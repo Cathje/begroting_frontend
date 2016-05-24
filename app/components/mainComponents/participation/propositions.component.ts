@@ -4,14 +4,14 @@ import {ProjectService} from "../../../services/projectService.component";
 import {Project} from "../../../models/project";
 import {BegrotingsVoorstel} from "../../../models/begrotingsVoorstel";
 import {ReactieOpVoorstel} from "../../../models/reactieOpVoorstel";
+import {StyledDirective} from '../../../directives/styled';
 
-@Component({ //invoke with metadata object
+@Component({
     selector: 'propositions-container',
     template: `
     <div class="container">
+          <p class="alert alert-danger" *ngIf="!projects"><i>Er zijn geen projecten gevonden</i></p>
     <h2>Stem en/of geef reactie op een Begrotingsvoorstel</h2>
-      <p *ngIf="!projects"><i>Er zijn geen projecten gevonden</i></p>
-
         <div class="section-content">
             <div class="panel-group" id="accordion">
                 <div *ngFor="#project of projects #j=index" class="panel panel-default">
@@ -27,7 +27,7 @@ import {ReactieOpVoorstel} from "../../../models/reactieOpVoorstel";
                <td><textarea readonly> {{voorstel.beschrijving}}</textarea></td>
                 <td>{{voorstel.aantalStemmen}}</td>
                 <td>
-                <span>Stem: </span><button class="btn btn-primary" (click)="stem(voorstel,j,i)"><span class="glyphicon glyphicon-thumbs-up"></span></button>
+                <span>Stem: </span><button class="btn btn-primary" (click)="stem(voorstel,j,i)" styled><span class="glyphicon glyphicon-thumbs-up"></span></button>
                 </td>
                 <td>
                     <table>
@@ -58,6 +58,7 @@ import {ReactieOpVoorstel} from "../../../models/reactieOpVoorstel";
     providers: [
         ProjectService
     ],
+    directives: [StyledDirective],
     styles : [`
         .panel-heading {
             background-color: #2ac7d2;

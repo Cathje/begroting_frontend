@@ -1,4 +1,6 @@
-System.register(['angular2/core', 'angular2/router', "../../../services/townService.component"], function(exports_1) {
+System.register(['angular2/core', 'angular2/router', "../../../services/townService.component"], function(exports_1, context_1) {
+    "use strict";
+    var __moduleName = context_1 && context_1.id;
     var __decorate = (this && this.__decorate) || function (decorators, target, key, desc) {
         var c = arguments.length, r = c < 3 ? target : desc === null ? desc = Object.getOwnPropertyDescriptor(target, key) : desc, d;
         if (typeof Reflect === "object" && typeof Reflect.decorate === "function") r = Reflect.decorate(decorators, target, key, desc);
@@ -38,7 +40,7 @@ System.register(['angular2/core', 'angular2/router', "../../../services/townServ
                     }); });
                 }
                 TownSelectorComponent.prototype.gotoHome = function (event) {
-                    this._router.navigate(['/', 'App', 'Budget', { town: event.target.value }]);
+                    this._router.navigate(['/', 'App', { town: event.target.value }, 'Budget']);
                 };
                 TownSelectorComponent = __decorate([
                     core_1.Component({
@@ -49,7 +51,7 @@ System.register(['angular2/core', 'angular2/router', "../../../services/townServ
                     __metadata('design:paramtypes', [router_1.Router, townService_component_1.TownService])
                 ], TownSelectorComponent);
                 return TownSelectorComponent;
-            })();
+            }());
             exports_1("TownSelectorComponent", TownSelectorComponent);
         }
     }

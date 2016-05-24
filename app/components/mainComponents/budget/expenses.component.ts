@@ -10,8 +10,9 @@ import {Categorie} from "../../../models/categorie";
 import {CATEGORIES} from "../../../mockData/mock-categories";
 import {BestuurType} from "../../../models/bestuurType";
 import {SelectorComponent} from './../../subComponents/input/selector.component';
+import {StyledDirective} from '../../../directives/styled';
 
-@Component({ //invoke with metadata object
+@Component({
     selector: 'expenses-container',
     template: `
         <div class="container">
@@ -21,7 +22,7 @@ import {SelectorComponent} from './../../subComponents/input/selector.component'
         <section class="intro col-xs-12">
             <h1>De uitgaven van {{town}}</h1>
             <p>Bekijk hieronder de uitgaves van de gemeente {{town}}. Klik op een categorie naar keuze om de specifieke acties te bekijken of beweeg met je muis over een categorie in de legende om meer informatie te verkrijgen over de desbetreffende categorie.</p>
-            <button *ngIf="windowWidth < 768" type="button" class="btn btn-primary pull-right" data-toggle="modal" data-target="#legend">
+            <button *ngIf="windowWidth < 768" type="button" class="btn btn-primary pull-right" data-toggle="modal" data-target="#legend" styled>
 			    Toon legende
 		    </button>
 
@@ -31,14 +32,14 @@ import {SelectorComponent} from './../../subComponents/input/selector.component'
                 <div class="button-menu">
                     <selector defaultOption="Kies een jaar" [options]="years" (change)="onSelectYear($event, town)"></selector>
                     <div class="btn-group">
-                      <button type="button" class="btn btn-primary dropdown-toggle" data-toggle="dropdown" aria-haspopup="true" aria-expanded="false">
+                      <button type="button" class="btn btn-primary dropdown-toggle" data-toggle="dropdown" aria-haspopup="true" aria-expanded="false" styled>
                         <span class="glyphicon glyphicon-plus"></span>
                       </button>
                       <div class="dropdown-menu">
                         <a class="dropdown-item" [routerLink]="['Comparison']">Vergelijk 2 gemeentes</a>
-                        <a class="dropdown-item" [routerLink]="['/', 'App', 'Participation', {town: town}, 'AddPropositions']">Doe een voorstel</a>
+                        <a class="dropdown-item" [routerLink]="['/', 'App',  {town: town}, 'Participation', 'AddPropositions']">Doe een voorstel</a>
                         <a class="dropdown-item" [routerLink]="['Taxes']">Vergelijk met salaris</a>
-                        <a class="dropdown-item" [routerLink]="['/', 'App', 'Participation', {town: town}, 'Projects']">Begrotingsvoorstellen</a>
+                        <a class="dropdown-item" [routerLink]="['/', 'App', {town: town}, 'Participation', 'Projects']">Begrotingsvoorstellen</a>
                       </div>
                     </div>
                 </div>
@@ -93,7 +94,7 @@ import {SelectorComponent} from './../../subComponents/input/selector.component'
 
 
 `,
-    directives: [SunburstComponent,ROUTER_DIRECTIVES, SelectorComponent],
+    directives: [SunburstComponent,ROUTER_DIRECTIVES, SelectorComponent, StyledDirective],
     providers: [BegrotingService],
     styles: [`
     li {

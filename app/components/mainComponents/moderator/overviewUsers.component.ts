@@ -8,13 +8,14 @@ import {MainTown} from "../../../models/mainTown";
 import {IngelogdeGebruiker} from "../../../models/ingelogdeGebruiker";
 import {KeysPipe} from "../../../pipes/keysPipe";
 import {rolType} from "../../../models/rolType";
+import {StyledDirective} from '../../../directives/styled';
 
 
 @Component({ //invoke with metadata object
     selector: 'overview-users-container',
     template: `
-    <p *ngIf="errorMessage">Geen gebruikers gevonden voor deze gemeente</p>
-    <section class="container" *ngIf="!errorMessage">
+    <p class="alert alert-danger" *ngIf="errorMessage">Geen gebruikers gevonden voor deze gemeente</p>
+    <section class="container">
     <h1>Overzicht gebruikers</h1>
     <section class="col-xs-12">
         <div class="section-content">
@@ -50,12 +51,12 @@ import {rolType} from "../../../models/rolType";
         </div>
     </section>
 
-        <button class="btn btn-primary pull-right" (click)="submit()">opslaan</button>
+        <button class="btn btn-primary pull-right" (click)="submit()" styled>opslaan</button>
 </section>
 `,
     providers: [TownService, LoginService],
     pipes: [KeysPipe],
-    directives: [ROUTER_DIRECTIVES, TownSelectorComponent],
+    directives: [ROUTER_DIRECTIVES,  StyledDirective],
     styles: [`
 
     label{
@@ -101,7 +102,7 @@ export class OverviewUsersComponent {
 
     mainTown = new MainTown("", "", 0, 0);
     errorMessage: any;
-    rolTypes = rolType;
+    rolTypes;
     gebruikers: IngelogdeGebruiker[] = [];
     gewijzigdeGebruikers : IngelogdeGebruiker[]=[];
     filterGebruikers: IngelogdeGebruiker[] = [];
@@ -120,6 +121,8 @@ export class OverviewUsersComponent {
             (gebrs:any) => this.gebruikers = gebrs,
             (err:any) => this.errorMessage = err
         );
+
+        this.rolTypes = this.filterRol(rolType);
     }
 
     onSelectRolType(event: any, i : any)
@@ -136,7 +139,7 @@ export class OverviewUsersComponent {
         }
         else
         {
-            this.filterGebruikers[0].rolType = this.gebruikers[i].rolType = event.target.value;
+            this.filterGebruikers[0].rolType = event.target.value;
         }
 
     }
@@ -154,7 +157,7 @@ export class OverviewUsersComponent {
         }
         else
         {
-            this.filterGebruikers[0].rolType = this.gebruikers[i].rolType = event.target.value;
+            this.filterGebruikers[0].isActief =  event.target.checked;
         }
     }
 
@@ -166,5 +169,15 @@ export class OverviewUsersComponent {
         );
         this._router.navigate(['/', 'App', 'Budget', {town: this.mainTown.naam}]);
 
+    }
+
+    filterRol = (rolTypes: any) => {
+        let filteredObject = {};
+        for(let key in Object.keys(rolTypes)){
+            if(key == 1 || key == 4){ //only standard users and moderators
+                filteredObject[key] = rolTypes[key];
+            }
+        }
+        return filteredObject;
     }
 }

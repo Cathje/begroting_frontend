@@ -17,7 +17,7 @@ import {GemeenteCategorie} from "../../../models/gemeenteCategorie";
                 <div class="selectors">
                     <div>
                         <div class=" styled-select">
-                            <select [(ngModel)]="selectedYear1">
+                            <select  (change)="onSelectYear($event,'1')">
                                 <option value="0">Kies een jaar</option>
                                 <option *ngFor="#o of years" [value]="o">{{o}}</option>
                             </select>
@@ -25,7 +25,7 @@ import {GemeenteCategorie} from "../../../models/gemeenteCategorie";
                     </div>
                     <div>
                         <div class=" styled-select">
-                            <select [(ngModel)]="selectedTown1">
+                            <select (change)="onSelectTown($event,'1')">
                                 <option value="">Kies een gemeente</option>
                                 <option *ngFor="#o of towns" [value]="o.naam">{{o.naam}}</option>
                             </select>
@@ -45,7 +45,7 @@ import {GemeenteCategorie} from "../../../models/gemeenteCategorie";
                 <div class="selectors">
                     <div>
                         <div class=" styled-select">
-                            <select [(ngModel)]="selectedYear2">
+                            <select (change)="onSelectYear($event,'2')">
                                 <option value="0">Kies een jaar</option>
                                 <option *ngFor="#o of years" [value]="o">{{o}}</option>
                             </select>
@@ -53,7 +53,7 @@ import {GemeenteCategorie} from "../../../models/gemeenteCategorie";
                     </div>
                     <div>
                         <div class=" styled-select">
-                            <select [(ngModel)]="selectedTown2">
+                            <select (change)="onSelectTown($event,'2')">
                                 <option value="">Kies een gemeente</option>
                                 <option *ngFor="#o of towns" [value]="o.naam">{{o.naam}}</option>
                             </select>
@@ -68,6 +68,64 @@ import {GemeenteCategorie} from "../../../models/gemeenteCategorie";
             </div>
         </div>
 
+
+            <h1>Vergelijk 2 clusters</h1>
+            <p>Hieronder kan u 2 gemeentes vergelijken op basis van hun cluster en het jaartal.</p>
+            <div class="comparison-content">
+                <div (window:resize)="onResize($event)">
+                    <div class="selectors">
+                        <div>
+                            <div class=" styled-select">
+                                <select  (change)="onSelectYear($event,'3')">
+                                    <option value="0">Kies een jaar</option>
+                                    <option *ngFor="#o of years" [value]="o">{{o}}</option>
+                                </select>
+                            </div>
+                        </div>
+                        <div>
+                            <div class=" styled-select">
+                                <select (change)="onSelectTown($event,'3')">
+                                    <option value="">Kies een gemeente</option>
+                                    <option *ngFor="#o of towns" [value]="o.naam">{{o.naam}}</option>
+                                </select>
+                            </div>
+                        </div>
+                        <button type="button" class="btn btn-primary" (click)="onChangeCluster(selectedYear4, selectedTown4, '4')">
+                                <span class="glyphicon glyphicon-ok"></span>
+                        </button>
+
+                     </div>
+                     <sunburst [data]=categories [onClick]=onCircleClick [height]=width [width]=width></sunburst>
+                </div>
+                <div class="vs">
+                    VS
+                </div>
+                <div >
+                    <div class="selectors">
+                        <div>
+                            <div class=" styled-select">
+                                <select (change)="onSelectYear($event,'4')">
+                                    <option value="0">Kies een jaar</option>
+                                    <option *ngFor="#o of years" [value]="o">{{o}}</option>
+                                </select>
+                            </div>
+                        </div>
+                        <div>
+                            <div class=" styled-select">
+                                <select (change)="onSelectTown($event,'4')">
+                                    <option value="">Kies een gemeente</option>
+                                    <option *ngFor="#o of towns" [value]="o.naam">{{o.naam}}</option>
+                                </select>
+                            </div>
+                        </div>
+                        <button type="button" class="btn btn-primary" (click)="onChangeCluster(selectedYear4, selectedTown4, '4')">
+                                <span class="glyphicon glyphicon-ok"></span>
+                        </button>
+                    </div>
+                    <sunburst [data]=categories2 [onClick]=onCircleClick [height]=width [width]=width></sunburst>
+
+                </div>
+            </div>
        </div>
 `,
     directives: [SunburstComponent],
@@ -114,10 +172,16 @@ export class ComparisonComponent {
     years: number[];
     categories: GemeenteCategorie [] = [];
     categories2: GemeenteCategorie [] = [];
+    categories3: GemeenteCategorie [] = [];
+    categories4: GemeenteCategorie [] = [];
     selectedYear1: number = 0;
     selectedYear2: number = 0;
+    selectedYear3: number = 0;
+    selectedYear4: number = 0;
     selectedTown1: string = "";
     selectedTown2: string = "";
+    selectedTown3: string = "";
+    selectedTown4: string = "";
     width: number = window.innerWidth < 768 ? window.innerWidth*0.8 : window.innerWidth/3.5;
 
     constructor(private _begrotingService:BegrotingService, private _townService: TownService)
@@ -133,7 +197,7 @@ export class ComparisonComponent {
                 if (nameA > nameB)
                     return 1;
                 return 0;
-            }))
+            }), (err:any) => this.errorMessage = err);
     }
 
     onChangeGraph = (year: number, town: string, graphNumber: string) => {
@@ -149,6 +213,28 @@ export class ComparisonComponent {
                             this.categories = finan;
                         }else {
                             this.categories2 = finan;
+                        }
+                    },
+                    (err:any) => this.errorMessage = err
+
+                );
+        }
+    }
+
+    onChangeCluster = (year: number, town: string, graphNumber: string) => {
+        console.log(year, town);
+        console.log('555', this.selectedTown1, this.selectedYear1);
+        if(year === 0 || town === ""){
+            this.errorMessage= "Gelieve een jaartal en een gemeente te selecteren";
+        }else {
+            //TODO: replace with new backend function
+            this._begrotingService.getGemeenteCategorieen(2020,"Gent")
+                .subscribe(
+                    (finan: any) => {
+                        if(graphNumber === "1"){
+                            this.categories3 = finan;
+                        }else {
+                            this.categories4 = finan;
                         }
                     },
                     (err:any) => this.errorMessage = err
@@ -174,6 +260,25 @@ export class ComparisonComponent {
             years.push(currentYear + i)
         }
         return years;
+    }
+
+    onSelectYear = (event,graphNumber) => {
+        switch(graphNumber){
+            case "1": this.selectedYear1 = event.target.value; break;
+            case "2":  this.selectedYear2 = event.target.value; break;
+            case "3":  this.selectedYear3 = event.target.value; break;
+            case "4":  this.selectedYear2 = event.target.value; break;
+        }
+    }
+
+    onSelectTown = (event,graphNumber) => {
+
+        switch(graphNumber){
+            case "1": this.selectedTown1 = event.target.value; break;
+            case "2":  this.selectedTown2 = event.target.value; break;
+            case "3":  this.selectedTown3 = event.target.value; break;
+            case "4":  this.selectedTown2 = event.target.value; break;
+        }
     }
 
 }

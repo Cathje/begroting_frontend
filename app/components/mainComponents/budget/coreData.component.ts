@@ -103,17 +103,13 @@ export class CoreDataComponent {
 
     constructor(private _townService:TownService, public http: Http, params: RouteParams, injector: Injector, private _router: Router)
     {
-
-        this.mainTown = injector.parent.parent.get(RouteParams).get('town');
-        _townService.getTown(injector.parent.parent.get(RouteParams).get('town'))
+        _townService.getTown(injector.parent.parent.parent.parent.get(RouteParams).get('town'))
             .subscribe(town => {
                 this.mainTown = town;
                 this.imglink = "/app/images/provincies/" + town.provincie.toLowerCase().split(' ').join('') +".png";
                 },
-                (err:any) => this.errorMessage = err
+                (err:any) => this.errorMessage = "Er was een probleem met het ophalen van de gegevens."
              );
-
     }
-
 }
 

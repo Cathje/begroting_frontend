@@ -14,8 +14,8 @@ export class TownService {
 
 
     }
-   //private _url = 'http://begroting-webapi.azurewebsites.net/api/Gemeente';
-   private _url = 'http://localhost:52597/api/Gemeente';
+   private _url = 'http://begroting-webapi.azurewebsites.net/api/Gemeente';
+   //private _url = 'http://localhost:52597/api/Gemeente';
 
     getTowns():Observable<MainTown[]> {
         return this.http.get(this._url)
@@ -28,19 +28,34 @@ export class TownService {
             .map(this.extractData);
     }
 
-    public putTown(maintown: MainTown)
+    public putTown(maintown: MainTown):Observable<number>
     {
         var headers = new Headers();
         headers.append('Content-Type', 'application/json');
         return this.http.put(this._url,JSON.stringify(maintown)
-            ,{headers:headers}).map((res:Response) => res.json());
+            ,{headers:headers}).map(this.extractData);
 
     }
-    
+
+    public putTownInput(maintown: MainTown):Observable<number>
+    {
+        var headers = new Headers();
+        headers.append('Content-Type', 'application/json');
+        return this.http.put(this._url + "?id=" + maintown.HoofdGemeenteID,JSON.stringify(maintown)
+            ,{headers:headers}).map(this.extractData);
+
+    }
+
     public deleteBestuurslid(id:number)
     {
         return this.http.delete(this._url + "?id=" + id)
-            .map((res:Response) => res.json());
+            .map(this.extractData);
+    }
+
+    public deleteFAQ(id:number):Observable<number>
+    {
+        return this.http.delete(this._url + "/deleteFAQ/" + id)
+            .map(this.extractData);
     }
 
     private extractData(res: Response) {
@@ -60,13 +75,12 @@ export class TownService {
                 return TOWNS[i];
             }
         }
-        
+
     }
-    
+
     getCatDataHC(){
         return CATS;
-        
+
     }
-    
      
 }

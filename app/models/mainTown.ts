@@ -1,7 +1,8 @@
 import {Town} from "./town";
 import {Bestuur} from "./bestuur";
+import {Faq} from "./faq";
 export class MainTown {
-    GemeenteID:number;
+    HoofdGemeenteID:number;
     naam:string;
     postCode:string;
     provincie:string;
@@ -15,6 +16,9 @@ export class MainTown {
     aanslagVoet:number;
     cluster:any;
     deelGemeenten:Town [];
+    FAQs: Faq [];
+    hoofdkleur: string;
+    logo: string;
 
 
     constructor(name:string, postCode: string, gemeenteId:number, belasting: number) {

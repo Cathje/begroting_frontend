@@ -9,6 +9,7 @@ import 'rxjs/Rx';
 import {GemeenteCategorie} from "../models/gemeenteCategorie";
 import {CATS} from './../mockData/mock-gemeenteCat';
 import {Actie} from "../models/actie";
+import {Begroting} from "../models/begroting";
 
 @Injectable()
 export class BegrotingService {
@@ -17,11 +18,16 @@ export class BegrotingService {
 
 
     }
- //private _url = 'http://begroting-webapi.azurewebsites.net/api/Begroting';
-  private _url = 'http://localhost:52597/api/Begroting';
+ private _url = 'http://begroting-webapi.azurewebsites.net/api/Begroting';
+ // private _url = 'http://localhost:52597/api/Begroting';
 
     getGemeenteCategorieen(jaar:number, naam:string):Observable<GemeenteCategorie[]> {
         return this.http.get(this._url + "?jaar=" + jaar + "&naam=" + naam)
+            .map(this.extractData);
+    }
+
+    getBegrotingen( naam:string):Observable<Begroting[]> {
+        return this.http.get(this._url + "/getBegrotingen?naam=" + naam)
             .map(this.extractData);
     }
 
