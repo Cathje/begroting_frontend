@@ -111,13 +111,13 @@ export class OverviewUsersComponent {
 
     constructor(private _routeParams:RouteParams, private _townService:TownService, private _loginService:LoginService, private _router:Router, params:RouteParams, injector:Injector) {
 
-        _townService.getTown(injector.parent.parent.get(RouteParams).get('town'))
+        _townService.getTown(injector.parent.parent.parent.parent.get(RouteParams).get('town'))
             .subscribe(
                 (town:any) => this.mainTown = town,
                 (err:any) => this.errorMessage = err
             );
 
-        _loginService.getGebruikers(injector.parent.parent.get(RouteParams).get('town')).subscribe(
+        _loginService.getGebruikers(injector.parent.parent.parent.parent.get(RouteParams).get('town')).subscribe(
             (gebrs:any) => this.gebruikers = gebrs,
             (err:any) => this.errorMessage = err
         );
@@ -173,9 +173,16 @@ export class OverviewUsersComponent {
 
     filterRol = (rolTypes: any) => {
         let filteredObject = {};
+        console.log(sessionStorage.getItem("role"));
+        let permittedRoleChanges: [] =[];
+        switch(sessionStorage.getItem("role")){
+            case "standaard": permittedRoleChanges.push(1)
+        }
+
         for(let key in Object.keys(rolTypes)){
             if(key == 1 || key == 4){ //only standard users and moderators
                 filteredObject[key] = rolTypes[key];
+                filteredObject[rolTypes[key]] = key;
             }
         }
         return filteredObject;

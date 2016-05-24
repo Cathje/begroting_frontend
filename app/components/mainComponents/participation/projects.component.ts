@@ -2,18 +2,20 @@ import {Component, Injector} from 'angular2/core';
 import {RouteParams, ROUTER_DIRECTIVES} from 'angular2/router';
 import {BegrotingService} from "../../../services/begrotingService";
 import {Begroting} from "../../../models/begroting";
+import {StyledDirective} from '../../../directives/styled';
 
 @Component({ //invoke with metadata object
     selector: 'projects-container',
     template: `
     <div class="container">
     <h2>Begrotingsposten</h2>
-     <p *ngIf="!begrotingen"><i>Er zijn geen begrotingen gevonden voor deze gemeenten</i></p>
+    <p> Op deze pagina kan u de begrotingsposten terugvinden van uw gemeente per jaar. </p>
+     <p class="alert alert-danger" *ngIf="!begrotingen"><i>{{errorMessage}}</i></p>
 
         <div class="section-content">
             <div class="panel-group" id="accordion">
                 <div *ngFor="#begroting of begrotingen" class="panel panel-default">
-                      <div class="panel-heading">
+                      <div class="panel-heading" styled>
                         <h4 class="panel-title">
                           <a data-toggle="collapse" data-parent="#accordion" href="{{'#'+begroting.boekjaar}}">{{begroting.boekjaar}}</a>
                         </h4>
@@ -23,7 +25,7 @@ import {Begroting} from "../../../models/begroting";
             <tbody>
             <tr *ngFor="#cat of begroting.childCats">
                 <td><p>{{cat.naamCat}}</p></td>
-                <td><p> € {{cat.totaal}}</p></td>
+                <td><p>{{cat.totaal | currency: 'EUR' : true : '3.1-1' }}</p></td>
             </tr>
             </tbody>
         </table>
@@ -36,7 +38,12 @@ import {Begroting} from "../../../models/begroting";
     </div>
     `,
     directives: [ROUTER_DIRECTIVES],
-    providers: [ BegrotingService]
+    providers: [ BegrotingService, StyledDirective],
+    styles: [`
+        .panel-heading{
+            background-color: #2ac7d2;
+        }
+    `]
 })
 
 export class ProjectsComponent 
@@ -49,6 +56,6 @@ export class ProjectsComponent
         private _routeParams: RouteParams, private _begrotingService:BegrotingService, injector:Injector )
         {
             _begrotingService.getBegrotingen("Gent").subscribe((begr: any) => this.begrotingen = begr,
-                (err:any) => this.errorMessage = err);
+                (err:any) => this.errorMessage = "Er zijn geen begrotingen gevonden voor deze gemeenten");
         }
 }
