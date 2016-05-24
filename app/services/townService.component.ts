@@ -14,8 +14,8 @@ export class TownService {
 
 
     }
-   private _url = 'http://begroting-webapi.azurewebsites.net/api/Gemeente';
-   //private _url = 'http://localhost:52597/api/Gemeente';
+  // private _url = 'http://begroting-webapi.azurewebsites.net/api/Gemeente';
+   private _url = 'http://localhost:52597/api/Gemeente';
 
     getTowns():Observable<MainTown[]> {
         return this.http.get(this._url)
@@ -32,6 +32,7 @@ export class TownService {
     {
         var headers = new Headers();
         headers.append('Content-Type', 'application/json');
+        headers.append('Authorization', 'Bearer ' + sessionStorage.getItem('access_token'));
         return this.http.put(this._url,JSON.stringify(maintown)
             ,{headers:headers}).map(this.extractData);
 
@@ -41,6 +42,7 @@ export class TownService {
     {
         var headers = new Headers();
         headers.append('Content-Type', 'application/json');
+        headers.append('Authorization', 'Bearer ' + sessionStorage.getItem('access_token'));
         return this.http.put(this._url + "?id=" + maintown.HoofdGemeenteID,JSON.stringify(maintown)
             ,{headers:headers}).map(this.extractData);
 
@@ -48,13 +50,19 @@ export class TownService {
 
     public deleteBestuurslid(id:number)
     {
-        return this.http.delete(this._url + "?id=" + id)
+        var headers = new Headers();
+        headers.append('Content-Type', 'application/json');
+        headers.append('Authorization', 'Bearer ' + sessionStorage.getItem('access_token'));
+        return this.http.delete(this._url + "?id=" + id,{headers:headers})
             .map(this.extractData);
     }
 
     public deleteFAQ(id:number):Observable<number>
     {
-        return this.http.delete(this._url + "/deleteFAQ/" + id)
+        var headers = new Headers();
+        headers.append('Content-Type', 'application/json');
+        headers.append('Authorization', 'Bearer ' + sessionStorage.getItem('access_token'));
+        return this.http.delete(this._url + "/deleteFAQ/" + id,{headers:headers})
             .map(this.extractData);
     }
 
