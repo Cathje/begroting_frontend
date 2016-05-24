@@ -38,8 +38,9 @@ import {Token} from "../../../models/Token";
 
         <div class="col-md-6" align="center">
             <h2 class="form-login-heading">Social Logins</h2>
-            <button class="btn btn-large btn-facebook btn-block" type="button" (click)="authExternalProvider('Facebook')"><i class="fa fa-facebook"></i>f | Connect with Facebook</button>
-            <button class="btn btn-large btn-google-plus btn-block" type="button" (click)="authExternalProvider('Google')"><i class="fa fa-google-plus"></i>g+ | Connect with Google+</button>
+            <button class="btn btn-large btn-facebook btn-block" type="button" (click)="authExternalProvider('Facebook')"><i class="fa fa-facebook"></i> | Connect with Facebook</button>
+            <button class="btn btn-large btn-google-plus btn-block" type="button" (click)="authExternalProvider('Google')"><i class="fa fa-google-plus"></i> | Connect with Google+</button>
+
         </div>
 
 
@@ -171,7 +172,6 @@ export class LoginComponent {
             sessionStorage.removeItem("newUser");
         }
     }
-
     onSubmit( )
     {
         this.err="";
@@ -201,14 +201,4 @@ export class LoginComponent {
         // alert(event.target.value)
         this.inTeLoggenGebruiker.gemeente = event.target.value;
     }
-
-    authExternalProvider(provider:string)
-    {
-        var redirectUri = location.protocol + '//' + location.host + '/authcomplete.html';
-        var externalProviderUrl = "http://localhost:52597/api/Account/ExternalLogin?provider=" + provider
-            + "&response_type=token&client_id="
-            + "&redirect_uri=" + redirectUri;
-        var oauthWindow = window.open(externalProviderUrl, "Authenticate Account", "location=0,status=0,width=600,height=750");
-    }
-
 }
