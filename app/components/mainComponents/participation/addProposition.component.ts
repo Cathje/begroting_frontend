@@ -193,7 +193,7 @@ import {CurConvert} from "./../../../pipes/curConvertPipe";
                                                     <tbody>
                                                         <tr *ngFor="#ac of levC.acties #k = index">
                                                             <td>{{ac.actieLang}}</td>
-                                                            <td>
+                                                            <td class="tdInput">
                                                                 <input [ngClass]="{locked: ac.inspraakNiveau  != 3}" type="text" class="form-control" id="taxInput" [ngModel]="ac.uitgaven  | curPipe" (ngModelChange)="ac.uitgaven" readonly>
                                                             </td>
                                                         </tr>
@@ -280,6 +280,10 @@ import {CurConvert} from "./../../../pipes/curConvertPipe";
         /*background-color: indianred;*/
         background-color: indianred;
         
+        
+        }
+        .tdInput{
+        width: 15em;
         }
         
         
@@ -305,7 +309,7 @@ export class AddPropositionComponent {
     private afb: string [] = [];
     private budgetChange: boolean = false;
 
-    
+
     constructor(private _routeParams: RouteParams, private _projectService:ProjectService, private _townService : TownService, private _begrotingService:BegrotingService) {
 
         this._begrotingService.getGemeenteCategorieen(2020,"Gent")
@@ -332,7 +336,7 @@ export class AddPropositionComponent {
     ngOnInit() {
         var number = this._routeParams.get('projectNumber');
 
-     }
+    }
 
     //load accordion for selected year
     loadAccordion(event: any){
@@ -362,8 +366,10 @@ export class AddPropositionComponent {
             //if top level update sub levels
             if(this.project.cats[i].ID == event.id){
                 level = 1;
-                /*alert(this.project.cats[i].totaal);*/
+
                 /*TODO: update level1 en budgetwijziging!!!!!!!!!*/
+                //add top level budget change
+                this.begrotingsVoorstel.budgetWijzigingen.push(new BudgetWijziging(this.project.cats[i].ID, result,this.project.cats[i].naamCat ));
                 //update level 2
                 let levelBTotal = 0;
                 for (var j = 0; j < this.project.cats[i].childCats.length; j++) {
@@ -428,7 +434,7 @@ export class AddPropositionComponent {
                 }
 
 
-                
+
 
             }
         }
@@ -437,6 +443,13 @@ export class AddPropositionComponent {
             for (var i = 0; i < this.project.cats.length; i++) {
                 for (var j = 0; j < this.project.cats[i].childCats.length; j++) {
                     if(this.project.cats[i].childCats[j].ID == event.id){
+                        //add B level budget change
+                        this.begrotingsVoorstel.budgetWijzigingen.push(new BudgetWijziging(this.project.cats[i].childCats[j].ID, result,this.project.cats[i].childCats[j].naamCat ));
+                        //adjust upper level
+                        this.project.cats[i].totaal += result;
+                        this.begrotingsVoorstel.budgetWijzigingen.push(new BudgetWijziging(this.project.cats[i].ID, result,this.project.cats[i].naamCat ));
+
+
                         level = 2;
                         //update level 3
                         let levelCTotal = 0;
@@ -490,6 +503,14 @@ export class AddPropositionComponent {
                 for (var j = 0; j < this.project.cats[i].childCats.length; j++) {
                     for (var k = 0; k < this.project.cats[i].childCats[j].childCats.length; k++) {
                         if(this.project.cats[i].childCats[j].childCats[k].ID == event.id){
+                            //add C-level budget change
+                            this.begrotingsVoorstel.budgetWijzigingen.push(new BudgetWijziging(this.project.cats[i].childCats[j].childCats[k].ID, result, this.project.cats[i].childCats[j].childCats[k].naamCat));
+                            //adjust upper levels
+                            this.project.cats[i].totaal += result;
+                            this.begrotingsVoorstel.budgetWijzigingen.push(new BudgetWijziging(this.project.cats[i].ID, result,this.project.cats[i].naamCat ));
+                            this.project.cats[i].childCats[j].totaal += result;
+                            this.begrotingsVoorstel.budgetWijzigingen.push(new BudgetWijziging(this.project.cats[i].childCats[j].ID, result,this.project.cats[i].childCats[j].naamCat ));
+
                             //update actions
                             let actTotal = 0;
                             for (var l = 0; l < this.project.cats[i].childCats[j].childCats[k].acties.length; l++) {
@@ -506,7 +527,7 @@ export class AddPropositionComponent {
                                     let share = (this.project.cats[i].childCats[j].childCats[k].acties[l].uitgaven/actTotal);
                                     //create budgetWijziging and update total
                                     actResult = result * share;
-                                    this.begrotingsVoorstel.budgetWijzigingen.push(new BudgetWijziging(this.project.cats[i].childCats[j].childCats[k].ID, actResult));
+                                    this.begrotingsVoorstel.budgetWijzigingen.push(new BudgetWijziging(this.project.cats[i].childCats[j].childCats[k].ID, actResult, this.project.cats[i].childCats[j].childCats[k].naamCat));
                                     this.project.cats[i].childCats[j].childCats[k].acties[l].uitgaven = actResult + this.project.cats[i].childCats[j].childCats[k].acties[l].uitgaven;
                                 }
 
@@ -520,26 +541,26 @@ export class AddPropositionComponent {
             }
 
         }
-        
-        
+
+
     }
 
     resetBudget(event: any){//
 
     }
-    
-    /*uploadImages(event: any){
-        var reader = new FileReader();
-        reader.readAsDataURL(event.target.files[0]);
-        reader.onload = function() {
-            this.begrotingsVoorstel.afbeeldingen[0] = reader.result;
 
-        }
-        //TODO: afwerken upload
-        
-        
-        
-    }*/
+    /*uploadImages(event: any){
+     var reader = new FileReader();
+     reader.readAsDataURL(event.target.files[0]);
+     reader.onload = function() {
+     this.begrotingsVoorstel.afbeeldingen[0] = reader.result;
+
+     }
+     //TODO: afwerken upload
+
+
+
+     }*/
     //upload images
     uploadImages = (event: any)=>{
         this.loadimage(event.target.files[0], (img: string) =>{
@@ -560,7 +581,7 @@ export class AddPropositionComponent {
 
     onCircleClick: any = (id: number) => {
         alert('test');
-        
+
     };
 
     //@TODO test voor webapi en service  --> te verwijderen
@@ -578,22 +599,22 @@ export class AddPropositionComponent {
     createBudgetWijziging(id: number, inspraak:number)
     {
         /*if(inspraak != 2)
-        {
-            this.budgetwijzigingen  = this.begrotingsVoorstel.budgetWijzigingen.filter(
-                (b:any) => b.inspraakItemId === id);
-            if(this.budgetwijzigingen.length == 0)
-            {
-                this.begrotingsVoorstel.budgetWijzigingen.push(new BudgetWijziging(id, 1000));
-                return true;
-            }
-            else {
-                //totaal wijzigen ofzo...
-                return true;
-            }
-        }
-        else {
-            return false;
-        }*/
+         {
+         this.budgetwijzigingen  = this.begrotingsVoorstel.budgetWijzigingen.filter(
+         (b:any) => b.inspraakItemId === id);
+         if(this.budgetwijzigingen.length == 0)
+         {
+         this.begrotingsVoorstel.budgetWijzigingen.push(new BudgetWijziging(id, 1000));
+         return true;
+         }
+         else {
+         //totaal wijzigen ofzo...
+         return true;
+         }
+         }
+         else {
+         return false;
+         }*/
     }
     //sessionStorage.removeItem("newUser");
 }
