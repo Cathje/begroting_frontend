@@ -16,12 +16,12 @@ export interface GemeenteCategorie
     acties?:Actie [];
     childCats?:GemeenteCategorie [];
     catType?:string;
-    inputID:number;
-    input:string;
-    icoon:string;
-    foto:string;
-    film:string;
-    kleur:string;
+    inputID?:number;
+    input?:string;
+    icoon?:string;
+    foto?:string;
+    film?:string;
+    kleur?:string;
 
     
 }
