@@ -53,6 +53,14 @@ import {StyledDirective} from '../../../directives/styled';
             <li><a [routerLink]="['Settings', 'OverviewPropositions']">Beheer voorstellen</a></li>
           </ul>
         </li>
+        <li class="dropdown">
+          <a href="#" class="dropdown-toggle" data-toggle="dropdown" role="button" aria-haspopup="true" aria-expanded="false" styled>Algemeen<span class="caret"></span></a>
+          <ul class="dropdown-menu" styled>
+            <li><a [routerLink]="['General', 'UserSettings']">Account settings</a></li>
+            <li><a [routerLink]="['General', 'Faq']">FAQ</a></li>
+            <li><a [routerLink]="['General', 'AboutUs']">Over ons</a></li>
+          </ul>
+        </li>
 
       </ul>
       <ul class="nav navbar-nav navbar-right">

@@ -1,4 +1,4 @@
-System.register(['angular2/core', './../subComponents/nav/menu.component', './home.component', './settings/SettingsRouter', './budget/budgetRouter', "./participation/participationRouter", 'angular2/router', "../../services/townService.component", "../../directives/styled"], function(exports_1, context_1) {
+System.register(['angular2/core', './../subComponents/nav/menu.component', './home.component', './settings/SettingsRouter', './budget/budgetRouter', "./participation/participationRouter", 'angular2/router', "../../services/townService.component", "../../directives/styled", "./general/GeneralRouter"], function(exports_1, context_1) {
     "use strict";
     var __moduleName = context_1 && context_1.id;
     var __decorate = (this && this.__decorate) || function (decorators, target, key, desc) {
@@ -10,7 +10,7 @@ System.register(['angular2/core', './../subComponents/nav/menu.component', './ho
     var __metadata = (this && this.__metadata) || function (k, v) {
         if (typeof Reflect === "object" && typeof Reflect.metadata === "function") return Reflect.metadata(k, v);
     };
-    var core_1, menu_component_1, home_component_1, SettingsRouter_1, budgetRouter_1, participationRouter_1, router_1, townService_component_1, styled_1;
+    var core_1, menu_component_1, home_component_1, SettingsRouter_1, budgetRouter_1, participationRouter_1, router_1, townService_component_1, styled_1, GeneralRouter_1;
     var HomeRouter;
     return {
         setters:[
@@ -40,6 +40,9 @@ System.register(['angular2/core', './../subComponents/nav/menu.component', './ho
             },
             function (styled_1_1) {
                 styled_1 = styled_1_1;
+            },
+            function (GeneralRouter_1_1) {
+                GeneralRouter_1 = GeneralRouter_1_1;
             }],
         execute: function() {
             HomeRouter = (function () {
@@ -57,7 +60,7 @@ System.register(['angular2/core', './../subComponents/nav/menu.component', './ho
                 HomeRouter = __decorate([
                     core_1.Component({
                         selector: 'home-router',
-                        template: "\n    <navigation-menu *ngIf=\"_location.path() !== ''\"></navigation-menu>\n    <router-outlet></router-outlet>\n    <footer styled>\n       <img *ngIf=\"town?.logo\" [src]=\"town.logo\" class=\"smalllogo\">\n       <p>Tree company, De wakkere Burger en uw gemeente {{town?.naam}}</p>\n       <p> <a href=\"http://www.dewakkereburger.be/\">Meer info </a></p>\n    </footer>\n    ",
+                        template: "\n    <navigation-menu *ngIf=\"_location.path() !== ''\"></navigation-menu>\n    <router-outlet></router-outlet>\n    <footer styled>\n       <img *ngIf=\"town?.logo\" [src]=\"town.logo\" class=\"smalllogo\">\n       <p>Tree company, De wakkere Burger en uw gemeente {{town?.naam}}</p>\n       <p> <a [routerLink]=\"['General', 'AboutUs']\">Over ons</a> -\n       <a [routerLink]=\"['General', 'Faq']\">FAQ</a> -\n       <a [routerLink]=\"['General', 'Privacy']\">Privacy</a> -\n       </p>\n    </footer>\n    ",
                         directives: [router_1.ROUTER_DIRECTIVES, menu_component_1.NavigationMenuComponent, styled_1.StyledDirective],
                         providers: [townService_component_1.TownService],
                         styles: ["\n    footer {\n        background-color: #2ac7d2;\n        padding: 10px;\n        text-align: center;\n        border-top: 1px solid white !important;\n    }\n\n    footer p {\n        color: white;\n    }\n\n    .smalllogo {\n        margin: 0 auto;\n        width: 50px;\n    }\n    "]
@@ -67,6 +70,7 @@ System.register(['angular2/core', './../subComponents/nav/menu.component', './ho
                         { path: '/budget/...', name: 'Budget', component: budgetRouter_1.BudgetRouter },
                         { path: '/settings/...', name: 'Settings', component: SettingsRouter_1.SettingsRouter },
                         { path: '/participation/...', name: 'Participation', component: participationRouter_1.ParticipationRouter },
+                        { path: '/general/...', name: 'General', component: GeneralRouter_1.GeneralRouter }
                     ]), 
                     __metadata('design:paramtypes', [townService_component_1.TownService, router_1.RouteParams, router_1.Location])
                 ], HomeRouter);

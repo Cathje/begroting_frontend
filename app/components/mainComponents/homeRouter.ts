@@ -12,6 +12,7 @@ import {HTTP_PROVIDERS} from "angular2/http";
 import {TownService} from "../../services/townService.component";
 import {MainTown} from "../../models/mainTown";
 import {StyledDirective} from "../../directives/styled";
+import {GeneralRouter} from "./general/GeneralRouter";
 
 @Component({
     selector: 'home-router',
@@ -21,7 +22,10 @@ import {StyledDirective} from "../../directives/styled";
     <footer styled>
        <img *ngIf="town?.logo" [src]="town.logo" class="smalllogo">
        <p>Tree company, De wakkere Burger en uw gemeente {{town?.naam}}</p>
-       <p> <a href="http://www.dewakkereburger.be/">Meer info </a></p>
+       <p> <a [routerLink]="['General', 'AboutUs']">Over ons</a> -
+       <a [routerLink]="['General', 'Faq']">FAQ</a> -
+       <a [routerLink]="['General', 'Privacy']">Privacy</a> -
+       </p>
     </footer>
     `
     ,
@@ -51,7 +55,7 @@ import {StyledDirective} from "../../directives/styled";
     { path: '/budget/...', name: 'Budget', component:BudgetRouter},
     { path: '/settings/...', name: 'Settings', component:SettingsRouter },
     { path: '/participation/...', name: 'Participation', component:ParticipationRouter },
-
+    { path: '/general/...', name: 'General', component:GeneralRouter }
 ])
 
 export class HomeRouter {
