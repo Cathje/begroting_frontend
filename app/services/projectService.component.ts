@@ -18,12 +18,15 @@ export class ProjectService
     constructor(private http: Http ) {
     }
   private _url = 'http://begroting-webapi.azurewebsites.net/api/Begroting';
-   private _url2 = 'http://begroting-webapi.azurewebsites.net/api/Project';
+ //  private _url2 = 'http://begroting-webapi.azurewebsites.net/api/Project';
   // private _url = 'http://localhost:52597/api/Begroting';
-  // private _url2 = 'http://localhost:52597/api/Project';
+   private _url2 = 'http://localhost:52597/api/Project';
 
     getInspraakitems(jaar:number, naam:string):Observable<GemeenteCategorie[]> {
-        return this.http.get(this._url2 + "/itemsGET" +"?jaar=" + jaar + "&naam=" + naam)
+        var headers = new Headers();
+        headers.append('Content-Type', 'application/json');
+        headers.append('Authorization', 'Bearer ' + sessionStorage.getItem('access_token'));
+        return this.http.get(this._url2 + "/itemsGET" +"?jaar=" + jaar + "&naam=" + naam,{headers:headers})
             .map(this.extractData);
     }
 
@@ -31,6 +34,7 @@ export class ProjectService
     {
         var headers = new Headers();
         headers.append('Content-Type', 'application/json');
+        headers.append('Authorization', 'Bearer ' + sessionStorage.getItem('access_token'));
         return this.http.post(this._url2 + "/postProject",JSON.stringify({projectScenario:p.projectScenario, vraag:p.vraag,
                 titel:p.titel, extraInfo:p.extraInfo, bedrag: p.bedrag, minBedrag: p.minBedrag, maxBedrag:p.maxBedrag, cats: p.cats, boekjaar: p.boekjaar, gemeente: p.gemeente,
                 isActief:p.isActief, afbeeldingen:p.afbeelding})
@@ -42,6 +46,7 @@ export class ProjectService
     {
         var headers = new Headers();
         headers.append('Content-Type', 'application/json');
+        headers.append('Authorization', 'Bearer ' + sessionStorage.getItem('access_token'));
         return this.http.put(this._url2 + "/updateProject/" + p.id,JSON.stringify({projectScenario:p.projectScenario, vraag:p.vraag,
                 titel:p.titel, extraInfo:p.extraInfo, bedrag: p.bedrag, minBedrag: p.minBedrag, maxBedrag:p.maxBedrag, cats: p.cats, boekjaar: p.boekjaar, gemeente: p.gemeente,
                 isActief:p.isActief, afbeeldingen:p.afbeelding})
@@ -53,12 +58,16 @@ export class ProjectService
     {
         var headers = new Headers();
         headers.append('Content-Type', 'application/json');
+        headers.append('Authorization', 'Bearer ' + sessionStorage.getItem('access_token'));
         return this.http.post(this._url2 + "/postVoorstel/" + projectId,JSON.stringify(voorstel)
             ,{headers:headers}).map(this.extractData);
     }
 
     getProject(jaar:number, naam:string):Observable<Project> {
-        return this.http.get(this._url2 + "/projectGET" +"?jaar=" + jaar + "&naam=" + naam)
+        var headers = new Headers();
+        headers.append('Content-Type', 'application/json');
+        headers.append('Authorization', 'Bearer ' + sessionStorage.getItem('access_token'));
+        return this.http.get(this._url2 + "/projectGET" +"?jaar=" + jaar + "&naam=" + naam ,{headers:headers})
             .map(this.extractData);
     }
 
@@ -66,6 +75,7 @@ export class ProjectService
     {
         var headers = new Headers();
         headers.append('Content-Type', 'application/json');
+        headers.append('Authorization', 'Bearer ' + sessionStorage.getItem('access_token'));
         return this.http.put(this._url2 + "/putVoorstel/" + voorstelId,JSON.stringify(status)
             ,{headers:headers}).map(this.extractData);
     }
@@ -73,6 +83,7 @@ export class ProjectService
     {
         var headers = new Headers();
         headers.append('Content-Type', 'application/json');
+        headers.append('Authorization', 'Bearer ' + sessionStorage.getItem('access_token'));
         return this.http.put(this._url2 + "/putStem/" + voorstelId,JSON.stringify(email)
             ,{headers:headers}).map(this.extractData);
     }
@@ -81,6 +92,7 @@ export class ProjectService
     {
         var headers = new Headers();
         headers.append('Content-Type', 'application/json');
+        headers.append('Authorization', 'Bearer ' + sessionStorage.getItem('access_token'));
         return this.http.post(this._url2 + "/postReactie/" + voorstelId,JSON.stringify(reactie)
             ,{headers:headers}).map(this.extractData);
     }
