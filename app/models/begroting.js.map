@@ -1,1 +1,1 @@
-{"version":3,"file":"begroting.js","sourceRoot":"","sources":["begroting.ts"],"names":[],"mappings":";;;;;;;YACA;;eAEG;YAEH;gBAAA;oBAGI,cAAS,GAAwB,EAAE,CAAC;gBACxC,CAAC;gBAAD,gBAAC;YAAD,CAAC,AAJD,IAIC;YAJD,iCAIC,CAAA"}
+{"version":3,"file":"begroting.js","sourceRoot":"","sources":["begroting.ts"],"names":["Begroting","Begroting.constructor"],"mappings":";;;;;YACA;;eAEG;YAEH;gBAAAA;oBAGIC,cAASA,GAAwBA,EAAEA,CAACA;gBACxCA,CAACA;gBAADD,gBAACA;YAADA,CAACA,AAJD,IAIC;YAJD,iCAIC,CAAA"}
