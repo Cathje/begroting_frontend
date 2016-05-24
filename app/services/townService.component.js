@@ -31,9 +31,9 @@ System.register(['angular2/core', 'angular2/http', 'rxjs/Rx', "../mockData/mock-
             TownService = (function () {
                 function TownService(http) {
                     this.http = http;
-                    this._url = 'http://begroting-webapi.azurewebsites.net/api/Gemeente';
+                    // private _url = 'http://begroting-webapi.azurewebsites.net/api/Gemeente';
+                    this._url = 'http://localhost:52597/api/Gemeente';
                 }
-                //private _url = 'http://localhost:52597/api/Gemeente';
                 TownService.prototype.getTowns = function () {
                     return this.http.get(this._url)
                         .map(this.extractData);
@@ -46,19 +46,27 @@ System.register(['angular2/core', 'angular2/http', 'rxjs/Rx', "../mockData/mock-
                 TownService.prototype.putTown = function (maintown) {
                     var headers = new http_1.Headers();
                     headers.append('Content-Type', 'application/json');
+                    headers.append('Authorization', 'Bearer ' + sessionStorage.getItem('access_token'));
                     return this.http.put(this._url, JSON.stringify(maintown), { headers: headers }).map(this.extractData);
                 };
                 TownService.prototype.putTownInput = function (maintown) {
                     var headers = new http_1.Headers();
                     headers.append('Content-Type', 'application/json');
+                    headers.append('Authorization', 'Bearer ' + sessionStorage.getItem('access_token'));
                     return this.http.put(this._url + "?id=" + maintown.HoofdGemeenteID, JSON.stringify(maintown), { headers: headers }).map(this.extractData);
                 };
                 TownService.prototype.deleteBestuurslid = function (id) {
-                    return this.http.delete(this._url + "?id=" + id)
+                    var headers = new http_1.Headers();
+                    headers.append('Content-Type', 'application/json');
+                    headers.append('Authorization', 'Bearer ' + sessionStorage.getItem('access_token'));
+                    return this.http.delete(this._url + "?id=" + id, { headers: headers })
                         .map(this.extractData);
                 };
                 TownService.prototype.deleteFAQ = function (id) {
-                    return this.http.delete(this._url + "/deleteFAQ/" + id)
+                    var headers = new http_1.Headers();
+                    headers.append('Content-Type', 'application/json');
+                    headers.append('Authorization', 'Bearer ' + sessionStorage.getItem('access_token'));
+                    return this.http.delete(this._url + "/deleteFAQ/" + id, { headers: headers })
                         .map(this.extractData);
                 };
                 TownService.prototype.extractData = function (res) {
