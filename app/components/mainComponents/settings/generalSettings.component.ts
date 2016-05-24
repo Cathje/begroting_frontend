@@ -9,7 +9,7 @@ import {StyledDirective} from '../../../directives/styled';
     selector: 'general-settings-container',
     template: `
     <div class="container">
-    <h2>Algemene instellingen</h2>
+    <h1>Algemene instellingen</h1>
         <label>Voeg hieronder het bestand toe om de begroting op te laden.</label>
         <input type="file" (change)="selectFile($event)" id="file"/>
         <button type="submit" class="btn btn-primary  pull-right" (click)="upload();" styled>Submit</button>

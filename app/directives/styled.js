@@ -22,8 +22,6 @@ System.register(['angular2/core'], function(exports_1, context_1) {
                 function StyledDirective(el, renderer) {
                     this.el = el;
                     this.renderer = renderer;
-                    // el.nativeElement.style.backgroundColor = 'yellow';
-                    console.log(sessionStorage.getItem("mainColor"));
                     renderer.setElementStyle(el.nativeElement, 'backgroundColor', sessionStorage.getItem("mainColor"));
                     renderer.setElementStyle(el.nativeElement, 'border', 'none');
                 }

@@ -26,46 +26,34 @@ import {StyledDirective} from '../../../directives/styled';
         <li class="dropdown" styled>
           <a href="#" class="dropdown-toggle" data-toggle="dropdown" role="button" aria-haspopup="true" aria-expanded="false" styled>Begroting<span class="caret" ></span></a>
           <ul class="dropdown-menu" styled>
-            <li><a [routerLink]="['Budget', {town: townString}, 'Overview']">Dashboard</a></li>
-            <li><a [routerLink]="['Budget', {town: townString}, 'Income']">Inkomsten</a></li>
-            <li><a [routerLink]="['Budget', {town: townString}, 'Expenses']">Uitgaven</a></li>
-            <li><a [routerLink]="['Budget', {town: townString}, 'CoreData']">Kerngegevens</a></li>
-            <li><a [routerLink]="['Budget', {town: townString}, 'Taxes']">Mijn belastingen</a></li>
+            <li><a [routerLink]="['Budget', 'Overview']">Dashboard</a></li>
+            <li><a [routerLink]="['Budget', 'Income']">Inkomsten</a></li>
+            <li><a [routerLink]="['Budget',  'Expenses']">Uitgaven</a></li>
+            <li><a [routerLink]="['Budget', 'CoreData']">Kerngegevens</a></li>
+            <li><a [routerLink]="['Budget', 'Taxes']">Mijn belastingen</a></li>
           </ul>
         </li>
 
         <li class="dropdown">
           <a href="#" class="dropdown-toggle" data-toggle="dropdown" role="button" aria-haspopup="true" aria-expanded="false" styled>Participeren<span class="caret" ></span></a>
           <ul class="dropdown-menu" styled>
-            <li><a [routerLink]="['Participation', {town: townString}, 'Projects']">Begrotingsposten</a></li>
-            <li><a [routerLink]="['Participation', {town: townString}, 'Propositions']">Burgervoorstellen</a></li>
-            <li><a [routerLink]="['Participation', {town: townString}, 'AddPropositions']">Voorstel indienen</a></li>
+            <li><a [routerLink]="['Participation', 'Projects']">Begrotingsposten</a></li>
+            <li><a [routerLink]="['Participation', 'Propositions']">Burgervoorstellen</a></li>
+            <li><a [routerLink]="['Participation', 'AddPropositions']">Voorstel indienen</a></li>
           </ul>
         </li>
         <li class="dropdown">
-          <a href="#" class="dropdown-toggle" data-toggle="dropdown" role="button" aria-haspopup="true" aria-expanded="false" styled>Admin<span class="caret"></span></a>
+          <a href="#" class="dropdown-toggle" data-toggle="dropdown" role="button" aria-haspopup="true" aria-expanded="false" styled>Settings<span class="caret"></span></a>
           <ul class="dropdown-menu" styled>
-            <li><a [routerLink]="['Admin', {town: townString}, 'ManageData']">Beheer kerngegevens</a></li>
-            <li><a [routerLink]="['Admin', {town: townString}, 'ManageTown']">Instellingen gemeente</a></li>
-            <li><a [routerLink]="['Admin', {town: townString}, 'ManageProject']">Beheer projecten</a></li>
-            <li><a [routerLink]="['Admin', {town: townString}, 'ManageUsers']">Gebruikers beheren</a></li>
+            <li><a [routerLink]="['Settings', 'GeneralSettings']">Algemene instellingen</a></li>
+            <li><a [routerLink]="['Settings', 'ManageTown']">Instellingen gemeente</a></li>
+            <li><a [routerLink]="['Settings', 'ManageUsers']">Beheer gebruikers</a></li>
+            <li><a [routerLink]="['Settings',   'ManageData']">Beheer kerngegevens</a></li>
+            <li><a [routerLink]="['Settings', 'ManageProject']">Beheer projecten</a></li>
+            <li><a [routerLink]="['Settings', 'OverviewPropositions']">Beheer voorstellen</a></li>
           </ul>
         </li>
-        <li class="dropdown">
-          <a href="#" class="dropdown-toggle" data-toggle="dropdown" role="button" aria-haspopup="true" aria-expanded="false" styled>Moderator<span class="caret"></span></a>
-          <ul class="dropdown-menu" styled>
-            <li><a [routerLink]="['Moderator', {town: townString}, 'OverviewUsers']">Overzicht gebruikers</a></li>
-            <li><a [routerLink]="['Moderator', {town: townString}, 'OverviewPropositions']">Overzicht voorstellen</a></li>
 
-          </ul>
-        </li>
-        <li class="dropdown">
-          <a href="#" class="dropdown-toggle" data-toggle="dropdown" role="button" aria-haspopup="true" aria-expanded="false" styled>SuperAdmin<span class="caret"></span></a>
-          <ul class="dropdown-menu" styled>
-            <li><a [routerLink]="['SuperAdmin', {town: townString}, 'GeneralSettings']">Algemene instellingen</a></li>
-            <li><a [routerLink]="['SuperAdmin', {town: townString}, 'ManageUsers']">Gebruikers beheren</a></li>
-          </ul>
-        </li>
       </ul>
       <ul class="nav navbar-nav navbar-right">
         <li><town-selector></town-selector></li>

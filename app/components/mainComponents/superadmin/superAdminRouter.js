@@ -38,7 +38,8 @@ System.register(['angular2/core', 'angular2/router', './generalSettings.componen
                     }),
                     router_1.RouteConfig([
                         { path: '/generalSettings', name: 'GeneralSettings', component: generalSettings_component_1.GeneralSettingsComponent, useAsDefault: true },
-                        { path: '/manageUsers', name: 'ManageUsers', component: overviewUsers_component_1.OverviewUsersComponent }
+                        { path: '/manageUsers', name: 'ManageUsers', component: overviewUsers_component_1.OverviewUsersComponent },
+                        { path: '/manageProject', name: 'ManageProject', component: overviewUsers_component_1.OverviewUsersComponent }
                     ]), 
                     __metadata('design:paramtypes', [])
                 ], SuperAdminRouter);

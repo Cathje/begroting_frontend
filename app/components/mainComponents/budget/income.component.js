@@ -24,7 +24,7 @@ System.register(['angular2/core'], function(exports_1, context_1) {
                 IncomeComponent = __decorate([
                     core_1.Component({
                         selector: 'income-container',
-                        template: "\n        <div class=\"container\">\n            <section class=\"intro col-xs-12\">\n                <h1>De inkomsten van {{mainTown?.naam}}</h1>\n                <p>\n                Er is nog geen informatie beschikbaar over de inkomsten van de gemeente {{mainTown?.naam}}. Neem binnenkort terug een kijkje.\n                </p>\n            </section>\n       </div>\n    ",
+                        template: "\n        <div class=\"container\">\n            <section class=\"intro col-xs-12\">\n                <h1>De inkomsten</h1>\n                <p>\n                Er is nog geen informatie beschikbaar over de inkomsten van uw gemeente. Neem binnenkort terug een kijkje.\n                </p>\n            </section>\n       </div>\n    ",
                     }), 
                     __metadata('design:paramtypes', [])
                 ], IncomeComponent);

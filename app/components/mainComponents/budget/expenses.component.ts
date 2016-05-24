@@ -37,9 +37,9 @@ import {StyledDirective} from '../../../directives/styled';
                       </button>
                       <div class="dropdown-menu">
                         <a class="dropdown-item" [routerLink]="['Comparison']">Vergelijk 2 gemeentes</a>
-                        <a class="dropdown-item" [routerLink]="['/', 'App', 'Participation', {town: town}, 'AddPropositions']">Doe een voorstel</a>
+                        <a class="dropdown-item" [routerLink]="['/', 'App',  {town: town}, 'Participation', 'AddPropositions']">Doe een voorstel</a>
                         <a class="dropdown-item" [routerLink]="['Taxes']">Vergelijk met salaris</a>
-                        <a class="dropdown-item" [routerLink]="['/', 'App', 'Participation', {town: town}, 'Projects']">Begrotingsvoorstellen</a>
+                        <a class="dropdown-item" [routerLink]="['/', 'App', {town: town}, 'Participation', 'Projects']">Begrotingsvoorstellen</a>
                       </div>
                     </div>
                 </div>

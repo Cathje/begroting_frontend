@@ -10,7 +10,7 @@ System.register([], function(exports_1, context_1) {
              */
             Faq = (function () {
                 function Faq(vraag, antwoord) {
-                    this.ID = 0;
+                    this.id = 0;
                     this.vraag = vraag;
                     this.antwoord = antwoord;
                 }

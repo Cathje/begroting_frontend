@@ -51,7 +51,7 @@ System.register(['angular2/core', 'angular2/http', 'rxjs/Rx', "../mockData/mock-
                 TownService.prototype.putTownInput = function (maintown) {
                     var headers = new http_1.Headers();
                     headers.append('Content-Type', 'application/json');
-                    return this.http.put(this._url, JSON.stringify(maintown), { headers: headers }).map(this.extractData);
+                    return this.http.put(this._url + "?id=" + maintown.HoofdGemeenteID, JSON.stringify(maintown), { headers: headers }).map(this.extractData);
                 };
                 TownService.prototype.deleteBestuurslid = function (id) {
                     return this.http.delete(this._url + "?id=" + id)

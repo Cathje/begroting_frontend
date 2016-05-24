@@ -60,7 +60,7 @@ import {StyledDirective} from '../../../directives/styled';
                 <ul>
                    <p *ngIf="projects === null" class='noData'> Er zijn geen openstaande projecten.</p>
                    <li *ngFor="#project of projects">
-                       <button type="button" class="btn btn-primary btn-sm" [routerLink]="['/','App', 'Participation', {town: townString}, 'Projects']" styled>Meer info</button>
+                       <button type="button" class="btn btn-primary btn-sm" [routerLink]="['/','App', {town: townString}, 'Participation', 'Projects']" styled>Meer info</button>
                        {{project.boekjaar}} - {{project.titel}}
                    </li>
                 </ul>
@@ -97,7 +97,7 @@ import {StyledDirective} from '../../../directives/styled';
              <div class="widget-content">
                 <h4>Hoe participeren</h4>
                 <p>Wil je zelf participeren aan de begroting van {{mainTown?.naam}}? Klik op meer info en dien jouw voorstel in.</p>
-                <button type="button" class="btn btn-primary pull-right" [routerLink]="['/','App', 'Participation', {town: townString}, 'Projects']" styled>Meer info</button>
+                <button type="button" class="btn btn-primary pull-right" [routerLink]="['/','App', {town: townString}, 'Participation', 'Projects']" styled>Meer info</button>
             </div>
         </section>
 
@@ -167,9 +167,12 @@ export class OverviewComponent {
     constructor(private _projectService:ProjectService,
                 private _townService:TownService,
                 private _begrotingService:BegrotingService,
-                private injector: Injector
+                private injector: Injector,
+                private _routeParams: RouteParams
     )
     {
+        sessionStorage.setItem("currentTown",injector.parent.parent.get(RouteParams).get('town'));
+
         _townService.getTown(injector.parent.parent.get(RouteParams).get('town'))
             .subscribe((town:Object) => {
                     this.mainTown = town;

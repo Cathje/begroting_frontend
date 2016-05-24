@@ -11,7 +11,7 @@ import {rolType} from "../../../models/rolType";
 import {StyledDirective} from '../../../directives/styled';
 
 
-@Component({
+@Component({ //invoke with metadata object
     selector: 'overview-users-container',
     template: `
     <p class="alert alert-danger" *ngIf="errorMessage">Geen gebruikers gevonden voor deze gemeente</p>
@@ -174,9 +174,8 @@ export class OverviewUsersComponent {
     filterRol = (rolTypes: any) => {
         let filteredObject = {};
         for(let key in Object.keys(rolTypes)){
-            if(key == 1 || key == 4 || key == 2){ //only standard users and moderators and admins
+            if(key == 1 || key == 4){ //only standard users and moderators
                 filteredObject[key] = rolTypes[key];
-                filteredObject[rolTypes[key]] = key;
             }
         }
         return filteredObject;

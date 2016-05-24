@@ -1,15 +1,20 @@
-import {Component} from 'angular2/core';
-import {RouteConfig, ROUTER_DIRECTIVES, ROUTER_PROVIDERS } from 'angular2/router';
+import {Component, Injector} from 'angular2/core';
+import {RouteConfig, ROUTER_DIRECTIVES, ROUTER_PROVIDERS} from 'angular2/router';
 import {HTTP_PROVIDERS} from "angular2/http";
 
 import {HomeRouter} from './components/mainComponents/homeRouter';
 import {LoginComponent} from "./components/mainComponents/login/login.component";
 import {RegisterComponent} from "./components/mainComponents/login/register.component";
+import {TownService} from "./services/townService.component";
+import {Town} from "./models/town";
+import {MainTown} from "./models/mainTown";
+import {Inject} from "angular2/core";
 
 @Component({
     selector: 'begroting-app',
     template: `
     <div class="menu">
+            <p *ngIf="errorMessage" class="alert alert-danger">{{errorMessage}}</p>
         <img class="logo" src="/app/images/logo.png"/>
         <div class="right-menu">
         <style>
@@ -47,10 +52,13 @@ import {RegisterComponent} from "./components/mainComponents/login/register.comp
         </span>
         </div>
     </div>
-                <router-outlet></router-outlet>    
+                <router-outlet></router-outlet>
+
+
+
                 `,
     directives: [ROUTER_DIRECTIVES],
-    providers: [ROUTER_PROVIDERS, HTTP_PROVIDERS],
+    providers: [ROUTER_PROVIDERS, HTTP_PROVIDERS, TownService],
     styles: [`
 
     .menu {
@@ -119,11 +127,11 @@ import {RegisterComponent} from "./components/mainComponents/login/register.comp
 })
 
 @RouteConfig([
-    {path: '/...', name: 'App', component: HomeRouter},
+    {path: '/:town/...', name: 'App', component: HomeRouter},
     {path: '/login', name: 'Login', component: LoginComponent},
     {path: '/register', name: 'Register', component: RegisterComponent}
+
 ])
 
 export class AppComponent {
-    colorme = "red";
 }

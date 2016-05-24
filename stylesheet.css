@@ -229,10 +229,15 @@ option {
 
 .container {
     max-width: 1200px;
+    min-height: 1000px !important;
 }
 
 .small{
     font-size: 0.7em;
 }
 
+.inputfile {
+    visibility: hidden;
+    position: absolute;
+}
 

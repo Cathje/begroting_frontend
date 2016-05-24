@@ -1,4 +1,4 @@
-System.register(['angular2/core', 'angular2/router', './manageData.component', './manageProject.component', './manageTown.component', "./overviewUsers.component"], function(exports_1, context_1) {
+System.register(['angular2/core', 'angular2/router', './manageData.component', './manageProject.component', './manageTown.component', "./overviewUsers.component", "./generalSettings.component", "./overviewPropositions.component"], function(exports_1, context_1) {
     "use strict";
     var __moduleName = context_1 && context_1.id;
     var __decorate = (this && this.__decorate) || function (decorators, target, key, desc) {
@@ -10,8 +10,8 @@ System.register(['angular2/core', 'angular2/router', './manageData.component', '
     var __metadata = (this && this.__metadata) || function (k, v) {
         if (typeof Reflect === "object" && typeof Reflect.metadata === "function") return Reflect.metadata(k, v);
     };
-    var core_1, router_1, manageData_component_1, manageProject_component_1, manageTown_component_1, overviewUsers_component_1;
-    var AdminRouter;
+    var core_1, router_1, manageData_component_1, manageProject_component_1, manageTown_component_1, overviewUsers_component_1, generalSettings_component_1, overviewPropositions_component_1;
+    var SettingsRouter;
     return {
         setters:[
             function (core_1_1) {
@@ -31,14 +31,20 @@ System.register(['angular2/core', 'angular2/router', './manageData.component', '
             },
             function (overviewUsers_component_1_1) {
                 overviewUsers_component_1 = overviewUsers_component_1_1;
+            },
+            function (generalSettings_component_1_1) {
+                generalSettings_component_1 = generalSettings_component_1_1;
+            },
+            function (overviewPropositions_component_1_1) {
+                overviewPropositions_component_1 = overviewPropositions_component_1_1;
             }],
         execute: function() {
-            AdminRouter = (function () {
-                function AdminRouter() {
+            SettingsRouter = (function () {
+                function SettingsRouter() {
                 }
-                AdminRouter = __decorate([
+                SettingsRouter = __decorate([
                     core_1.Component({
-                        selector: 'admin-router',
+                        selector: 'settings-router',
                         template: " <router-outlet></router-outlet>",
                         directives: [router_1.ROUTER_DIRECTIVES]
                     }),
@@ -46,14 +52,16 @@ System.register(['angular2/core', 'angular2/router', './manageData.component', '
                         { path: '/manageData', name: 'ManageData', component: manageData_component_1.ManageDataComponent, useAsDefault: true },
                         { path: '/manageProject', name: 'ManageProject', component: manageProject_component_1.ManageProjectComponent },
                         { path: '/manageTown', name: 'ManageTown', component: manageTown_component_1.ManageTownComponent },
-                        { path: '/manageUsers', name: 'ManageUsers', component: overviewUsers_component_1.OverviewUsersComponent }
+                        { path: '/manageUsers', name: 'ManageUsers', component: overviewUsers_component_1.OverviewUsersComponent },
+                        { path: '/generalSettings', name: 'GeneralSettings', component: generalSettings_component_1.GeneralSettingsComponent },
+                        { path: '/overviewPropositions', name: 'OverviewPropositions', component: overviewPropositions_component_1.OverviewPropositionsComponent }
                     ]), 
                     __metadata('design:paramtypes', [])
-                ], AdminRouter);
-                return AdminRouter;
+                ], SettingsRouter);
+                return SettingsRouter;
             }());
-            exports_1("AdminRouter", AdminRouter);
+            exports_1("SettingsRouter", SettingsRouter);
         }
     }
 });
-//# sourceMappingURL=adminRouter.js.map
+//# sourceMappingURL=SettingsRouter.js.map

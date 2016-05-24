@@ -40,7 +40,7 @@ System.register(['angular2/core', 'angular2/router', "../../../services/townServ
                     }); });
                 }
                 TownSelectorComponent.prototype.gotoHome = function (event) {
-                    this._router.navigate(['/', 'App', 'Budget', { town: event.target.value }]);
+                    this._router.navigate(['/', 'App', { town: event.target.value }, 'Budget']);
                 };
                 TownSelectorComponent = __decorate([
                     core_1.Component({
