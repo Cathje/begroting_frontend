@@ -213,17 +213,15 @@ export class ComparisonComponent {
                         }
                     },
                     (err:any) => this.errorMessage = "Geen categorieën gevonden."
-
                 );
         }
-    }
+    };
 
     onChangeCluster = (year: number, town: string, graphNumber: string) => {
         if(year === 0 || town === ""){
             this.errorMessage= "Gelieve een jaartal en een gemeente te selecteren";
         }else {
-            //TODO: replace with new backend function
-            this._begrotingService.getGemeenteCategorieen(2020,"Gent")
+            this._begrotingService.getClusters(2020,"Gent")
                 .subscribe(
                     (finan: any) => {
                         if(graphNumber === "1"){
@@ -232,11 +230,10 @@ export class ComparisonComponent {
                             this.categories4 = finan;
                         }
                     },
-                    (err:any) => this.errorMessage = "Geen categorieën gevonden"
-
+                    (err:any) => this.errorMessage = "Geen clusters gevonden"
                 );
         }
-    }
+    };
 
     onResize = (event: any) => {
         if(window.innerWidth < 768){
@@ -264,7 +261,7 @@ export class ComparisonComponent {
             case "3":  this.selectedYear3 = event.target.value; break;
             case "4":  this.selectedYear2 = event.target.value; break;
         }
-    }
+    };
 
     onSelectTown = (event: any,graphNumber: string) => {
 

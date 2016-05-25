@@ -1,6 +1,4 @@
-System.register(['angular2/core', "../../../services/townService.component", './../../subComponents/graphs/sunburst.component', "../../../services/begrotingService"], function(exports_1, context_1) {
-    "use strict";
-    var __moduleName = context_1 && context_1.id;
+System.register(['angular2/core', "../../../services/townService.component", './../../subComponents/graphs/sunburst.component', "../../../services/begrotingService"], function(exports_1) {
     var __decorate = (this && this.__decorate) || function (decorators, target, key, desc) {
         var c = arguments.length, r = c < 3 ? target : desc === null ? desc = Object.getOwnPropertyDescriptor(target, key) : desc, d;
         if (typeof Reflect === "object" && typeof Reflect.decorate === "function") r = Reflect.decorate(decorators, target, key, desc);
@@ -67,8 +65,7 @@ System.register(['angular2/core', "../../../services/townService.component", './
                             _this.errorMessage = "Gelieve een jaartal en een gemeente te selecteren";
                         }
                         else {
-                            //TODO: replace with new backend function
-                            _this._begrotingService.getGemeenteCategorieen(2020, "Gent")
+                            _this._begrotingService.getClusters(2020, "Gent")
                                 .subscribe(function (finan) {
                                 if (graphNumber === "1") {
                                     _this.categories3 = finan;
@@ -76,7 +73,7 @@ System.register(['angular2/core', "../../../services/townService.component", './
                                 else {
                                     _this.categories4 = finan;
                                 }
-                            }, function (err) { return _this.errorMessage = "Geen categorieën gevonden"; });
+                            }, function (err) { return _this.errorMessage = "Geen clusters gevonden"; });
                         }
                     };
                     this.onResize = function (event) {
@@ -149,7 +146,7 @@ System.register(['angular2/core', "../../../services/townService.component", './
                     __metadata('design:paramtypes', [begrotingService_1.BegrotingService, townService_component_1.TownService])
                 ], ComparisonComponent);
                 return ComparisonComponent;
-            }());
+            })();
             exports_1("ComparisonComponent", ComparisonComponent);
         }
     }

@@ -24,6 +24,10 @@ export class BegrotingService {
         return this.http.get(this._url + "?jaar=" + jaar + "&naam=" + naam)
             .map(this.extractData);
     }
+    getClusters(jaar:number, naam:string):Observable<GemeenteCategorie[]> {
+        return this.http.get(this._url + "/getClusterAverages" + "?jaar" + jaar + "$naam" + naam)
+            .map(this.extractData)
+    }
 
     getBegrotingen( naam:string):Observable<Begroting[]> {
         return this.http.get(this._url + "/getBegrotingen?naam=" + naam)
