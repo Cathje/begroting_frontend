@@ -41,6 +41,31 @@ declare var jQuery: any;
                 <button class="btn btn-primary pull-right" (click)="saveCategories()" styled >Opslaan</button>
         </section>
 
+        <section class="col-xs-12 form-inline">
+            <h3>Instellingen extra materiaal per categorie</h3>
+            <table class="section-content table table-striped" >
+            <thead>
+            <th>Naam categorie</th>
+            <th>Youtube url</th>
+            <th>Extra info</th>
+            <th>Afbeelding</th>
+            </thead>
+            <tbody>
+            <tr *ngFor="#gemeenteCat of gemeenteCategorieen">
+                    <td>{{gemeenteCat.naam}}</td>
+                   <td><input class="form-control" type="text" [(ngModel)]="gemeenteCat.film"/></td>
+                   <td><input class="form-control" type="text" [(ngModel)]="gemeenteCat.input"/></td>
+                   <td> <label for="file"> <span class="btn filebtn btn-primary" styled>Selecteer afbeelding</span>
+                            </label>
+                            <input id="file" class="form-control inputfile" (change)="onChange($event, gemeenteCat)" type="file" name="file">
+                      </td>
+
+                      </tr>
+                      </tbody>
+            </table>
+                <button class="btn btn-primary pull-right" (click)="saveCategories()" styled >Opslaan</button>
+        </section>
+
          <!-- Modal Icons-->
         <div class="modal bottom fade" id="icons" tabindex="-1" role="dialog" aria-labelledby="icons">
 		    <div class="modal-dialog" role="document">
@@ -78,7 +103,40 @@ declare var jQuery: any;
             display: inline-block;
             font-size: 2em;
             padding: 5px;
-    }}
+    }
+
+    ::-webkit-file-upload-button {
+            background: gray;
+            box-shadow: none;
+            border: none;
+            color: white;
+            border-radius: 5px;
+            padding: 5px;
+    }
+
+    input[type=file] {
+            border: none;
+    }
+
+    .input-group {
+            float: left;
+            box-sizing: border-box;
+    }
+
+    onChange = (event:any)=> {
+        this.loadimage(event.target.files[0], (img:string) => {
+            this.afb = img;
+        });
+    }
+
+    loadimage = (img:any, cb:any)=> {
+        var reader = new FileReader();
+        reader.readAsDataURL(img);
+        reader.onload = function () {
+            let result = reader.result;
+            cb(result);
+        }
+    }
 
     `]
 })
@@ -117,6 +175,24 @@ export class ManageCategoriesComponent {
     }
 
     saveCategories = () => {
+        this._begrotingService.putCategorieInput(this.gemeenteCategorieen)
+            .subscribe((finan:any) => this.gemeenteCategorieen = finan,
+                (err:any) => this.errorMessage = "Er zijn geen grafiekgegevens gevonden."
+            );
+    }
 
+    onChange = (event:any, gemeenteCat: GemeenteCategorie)=> {
+        this.loadimage(event.target.files[0], (img:string) => {
+            gemeenteCat.foto = img;
+        });
+    }
+
+    loadimage = (img:any, cb:any)=> {
+        var reader = new FileReader();
+        reader.readAsDataURL(img);
+        reader.onload = function () {
+            let result = reader.result;
+            cb(result);
+        }
     }
 }
