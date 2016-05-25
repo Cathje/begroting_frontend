@@ -1,5 +1,5 @@
 import {Component, Injector} from 'angular2/core';
-import {RouteParams, ROUTER_DIRECTIVES} from 'angular2/router';
+import {RouteParams, ROUTER_DIRECTIVES, Router} from 'angular2/router';
 
 //pipes
 import {KeysPipe} from "../../../pipes/keysPipe";
@@ -211,7 +211,9 @@ import {StyledDirective} from '../../../directives/styled';
                 </section>
                 <section class="col-xs-12 form-inline" *ngIf="!errorMessage">
                     <h3>InspraakNiveaus vaststellen</h3>
+                    
                     <div class="section-content">
+                    <p *ngIf="categorieen.length == 0"> haal eerst een begroting op</p>
                         <div *ngFor="#catA of categorieen #i = index">
                             <div class="row">
                                 <h5 class="col-xs-6">{{catA.naamCat}}</h5>
@@ -282,7 +284,7 @@ import {StyledDirective} from '../../../directives/styled';
                         </div>
                     </div>
                 </section>
-                <button [hidden]="!errorMessage" (click)="submit()" class="btn btn-primary pull-right" styled>opslaan</button>
+                <button [disabled]="errorMessage" (click)="submit()" class="btn btn-primary pull-right" styled>opslaan</button>
 
             </div>
         </div>
@@ -364,7 +366,7 @@ export class ManageProjectComponent {
     afb:string;
 
     constructor(private _projectService:ProjectService,
-                private injector:Injector)
+                private injector:Injector, private _router:Router)
     {
         this.town = injector.parent.parent.parent.parent.get(RouteParams).get('town');
     }
@@ -537,6 +539,8 @@ export class ManageProjectComponent {
         this.NewProject.gemeente = this.town;
         this.NewProject.boekjaar = this.boekjaar;
         this.NewProject.afbeelding = this.afb;
+        this.NewProject.emailBeheerder = sessionStorage.getItem('user');
+        alert(this.NewProject.emailBeheerder)
         this._projectService.postProject(this.NewProject).subscribe(
             (id:number) => this.id = id,
             (err:any) => this.errorMessage = err
