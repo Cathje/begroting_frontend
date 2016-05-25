@@ -23,6 +23,7 @@ export class BegrotingsVoorstel {
     reacties: ReactieOpVoorstel[] = [];
     reactie:string="";
     afbeeldingen: string [] = [];
+    auteurNaam:string;
     
     
     constructor()
