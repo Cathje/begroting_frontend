@@ -540,7 +540,6 @@ export class ManageProjectComponent {
         this.NewProject.boekjaar = this.boekjaar;
         this.NewProject.afbeelding = this.afb;
         this.NewProject.emailBeheerder = sessionStorage.getItem('user');
-        alert(this.NewProject.emailBeheerder)
         this._projectService.postProject(this.NewProject).subscribe(
             (id:number) => this.id = id,
             (err:any) => this.errorMessage = err
