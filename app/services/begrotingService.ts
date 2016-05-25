@@ -37,12 +37,12 @@ export class BegrotingService {
     }
 
 
-    putCategorieInput(gemcat: GemeenteCategorie)
+    putCategorieInput(gemcats: GemeenteCategorie [])
     {
         var headers = new Headers();
         headers.append('Content-Type', 'application/json');
         headers.append('Authorization', 'Bearer ' + sessionStorage.getItem('access_token'));
-        return this.http.put(this._url + "/changeCatInput",JSON.stringify(gemcat)
+        return this.http.put(this._url + "/changeCatInput",JSON.stringify(gemcats)
             ,{headers:headers}).map(this.extractData);
     }
 
