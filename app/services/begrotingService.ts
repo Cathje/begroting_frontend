@@ -37,7 +37,7 @@ export class BegrotingService {
     }
 
 
-    putVoorstel(gemcat: GemeenteCategorie)
+    putCategorieInput(gemcat: GemeenteCategorie)
     {
         var headers = new Headers();
         headers.append('Content-Type', 'application/json');
