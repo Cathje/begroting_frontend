@@ -93,14 +93,14 @@ export class OverviewPropositionsComponent {
     approve(voorstel: BegrotingsVoorstel)
     {
         voorstel.verificatieStatus = 2;
-        this._projectService.putVoorstel(voorstel.Id, voorstel.verificatieStatus).subscribe();
+        this._projectService.putVoorstelStatus(voorstel.Id, voorstel.verificatieStatus).subscribe();
     }
 
     //@TODO  email toevoegen vanuit token als verificator (datum toegevoegd op backend)
     disapprove(voorstel: BegrotingsVoorstel)
     {
         voorstel.verificatieStatus = 3;
-        this._projectService.putVoorstel(voorstel.Id, voorstel.verificatieStatus).subscribe();
+        this._projectService.putVoorstelStatus(voorstel.Id, voorstel.verificatieStatus).subscribe();
     }
 
 
