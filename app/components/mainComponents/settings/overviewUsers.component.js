@@ -99,7 +99,7 @@ System.register(['angular2/core', 'angular2/router', "../../../services/townServ
                 };
                 OverviewUsersComponent.prototype.submit = function () {
                     var _this = this;
-                    this._loginService.putGebruikers(this.gewijzigdeGebruikers).subscribe(function (d) { return _this.data = d; }, function (err) { return _this.errorMessage = err; });
+                    this._loginService.putGebruikers(this.gewijzigdeGebruikers).subscribe(function (d) { return _this.data = d; }, function (err) { return _this.errorMessage = "Er zijn geen gebruikers gewijzigd."; });
                     this._router.navigate(['/', 'App', 'Budget', { town: this.mainTown.naam }]);
                 };
                 OverviewUsersComponent = __decorate([

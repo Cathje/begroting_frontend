@@ -165,7 +165,7 @@ export class OverviewUsersComponent {
     submit() {
         this._loginService.putGebruikers(this.gewijzigdeGebruikers).subscribe(
             (d:any) => this.data = d,
-            (err:any) => this.errorMessage = err
+            (err:any) => this.errorMessage = "Er zijn geen gebruikers gewijzigd."
         );
         this._router.navigate(['/', 'App', 'Budget', {town: this.mainTown.naam}]);
 

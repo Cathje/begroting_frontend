@@ -7,7 +7,6 @@ import {Http,Response}  from 'angular2/http';
 import {Observable} from 'rxjs/observable';
 import 'rxjs/Rx';
 import {GemeenteCategorie} from "../models/gemeenteCategorie";
-import {CATS} from './../mockData/mock-gemeenteCat';
 import {Actie} from "../models/actie";
 import {Begroting} from "../models/begroting";
 
@@ -44,8 +43,4 @@ export class BegrotingService {
         return res.json();
     }
 
-    getCategorieHC (jaar:number,naam:string): GemeenteCategorie[]{
-        return CATS;
-
-    }
 }

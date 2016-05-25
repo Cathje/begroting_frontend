@@ -35,7 +35,7 @@ export class FaqComponent {
     {
         _townService.getTown(injector.parent.parent.parent.parent.get(RouteParams).get('town'))
             .subscribe(
-                (town:any) => this.mainTown = town,
+                (town:MainTown) => this.mainTown = town,
                 (err:any) => this.errorMessage = err
             );
     }

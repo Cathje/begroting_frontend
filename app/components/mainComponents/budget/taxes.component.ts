@@ -6,7 +6,6 @@ import { ROUTER_DIRECTIVES } from 'angular2/router'; // for routing
 import {SunburstComponent} from './../../subComponents/graphs/sunburst.component'
 import {SunburstCompare} from './../../subComponents/graphs/sunburstCompare.component'//SunburstCompare
 import {MainTown} from "./../../../models/mainTown";
-import {totalmem} from "os";
 import {Observable} from 'rxjs/observable';
 import {GemeenteCategorie} from "./../../../models/gemeenteCategorie";
 import {rangeSlider} from './../../subComponents/input/rangeSlider.component';

@@ -99,9 +99,9 @@ System.register(['angular2/core', 'angular2/router', "../../../services/projectS
                         alert('test');
                     };
                     this._begrotingService.getGemeenteCategorieen(2020, "Gent")
-                        .subscribe(function (cats) { return _this.categories = cats; });
+                        .subscribe(function (cats) { return _this.categories = cats; }, function (err) { return _this.errorMessage = "Er zijn geen categorieën gevonden."; });
                     this._projectService.getProject(this.year, "Gent")
-                        .subscribe(function (project) { return _this.project = project; }, function (err) { return _this.errorMessage = err; });
+                        .subscribe(function (project) { return _this.project = project; }, function (err) { return _this.errorMessage = "Er is geen project gevonden."; });
                     if (!this.errorMessage) {
                     }
                 }

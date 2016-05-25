@@ -23,6 +23,7 @@ import {StyledDirective} from '../../../directives/styled';
                 </div>
             </div>
         </section>
+
         <section class="col-xs-12 form-inline">
             <h3>Logo website</h3>
             <div class="section-content">
@@ -110,8 +111,8 @@ export class ManageTownComponent {
     {
         _townService.getTown(injector.parent.parent.get(RouteParams).get('town'))
             .subscribe(
-                (town:any) => this.mainTown = town,
-                (err:any) => this.errorMessage = err
+                (town:MainTown) => this.mainTown = town,
+                (err:any) => this.errorMessage = "Geen stad gevonden"
             );
     }
 
@@ -150,7 +151,7 @@ export class ManageTownComponent {
         if(f.id != 0)
         {
             this._townService.deleteFAQ(f.ID).subscribe(
-                (d:any) => this.id = d,
+                (d:number) => this.id = d,
                 (err:any) => this.errorMessage = err
             );
         }
@@ -159,8 +160,8 @@ export class ManageTownComponent {
     submit()
     {
         this._townService.putTownInput(this.mainTown).subscribe(
-            (d:any) => this.id = d,
-            (id:any) => this.errorMessage = id);
+            (d:number) => this.id = d,
+            (id:number) => this.errorMessage = id);
     }
 
     voegToe()

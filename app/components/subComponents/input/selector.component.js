@@ -38,7 +38,7 @@ System.register(['angular2/core'], function(exports_1, context_1) {
                     __metadata('design:type', String)
                 ], SelectorComponent.prototype, "defaultOption", void 0);
                 __decorate([
-                    core_1.Output, 
+                    core_1.Output(), 
                     __metadata('design:type', Object)
                 ], SelectorComponent.prototype, "changeRequest", void 0);
                 SelectorComponent = __decorate([

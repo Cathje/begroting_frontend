@@ -32,7 +32,7 @@ System.register(['angular2/core', './../../../services/townService.component', '
         execute: function() {
             TownMenuComponent = (function () {
                 function TownMenuComponent() {
-                    this.mainTown = new mainTown_1.MainTown("", ""); //opm: moet geïnitialiseerd zijn, anders werkt ngModel niet
+                    this.mainTown = new mainTown_1.MainTown("", "", 0, 0); //opm: moet geïnitialiseerd zijn, anders werkt ngModel niet
                 }
                 TownMenuComponent = __decorate([
                     core_1.Component({

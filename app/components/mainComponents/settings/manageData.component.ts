@@ -156,14 +156,14 @@ export class ManageDataComponent {
     mainTown = new MainTown("", "", 0, 0);
     types = PoliticusType;
     keys:boolean;
-    errorMessage: any;
+    errorMessage: string;
     bestuur: Bestuur = new Bestuur("", null);
 
     constructor(private _routeParams:RouteParams, private _townService:TownService, private _router:Router, params:RouteParams, injector:Injector) {
-        _townService.getTown(injector.parent.parent.get(RouteParams).get('town'))
+        _townService.getTown(injector.parent.parent.parent.parent.get(RouteParams).get('town'))
             .subscribe(
                 (town:any) => this.mainTown = town,
-                (err:any) => this.errorMessage = err
+                (err:any) => this.errorMessage = "Er is geen stad gevonden"
             );
     }
 

@@ -85,7 +85,7 @@ export class OverviewPropositionsComponent {
     constructor(
     private _routeParams: RouteParams, private _projectService: ProjectService)
     {
-        this._projectService.getProjects("Gent").subscribe((pr:any) => this.projects = pr);
+        this._projectService.getProjects("Gent").subscribe((pr: Project[]) => this.projects = pr);
     }
 
     //@TODO  email toevoegen vanuit token als verificator (datum toegevoegd op backend)

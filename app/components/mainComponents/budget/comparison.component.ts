@@ -5,7 +5,7 @@ import {SunburstComponent} from './../../subComponents/graphs/sunburst.component
 import {BegrotingService} from "../../../services/begrotingService";
 import {GemeenteCategorie} from "../../../models/gemeenteCategorie";
 
-@Component({ //invoke with metadata object
+@Component({
     selector: 'comparison-container',
     template: `
         <div class="container">
@@ -162,7 +162,6 @@ import {GemeenteCategorie} from "../../../models/gemeenteCategorie";
                 flex-direction: column;
             }
         }
-
 `]
 })
 
@@ -197,12 +196,10 @@ export class ComparisonComponent {
                 if (nameA > nameB)
                     return 1;
                 return 0;
-            }), (err:any) => this.errorMessage = err);
+            }), (err:any) => this.errorMessage = "Geen steden gevonden.");
     }
 
     onChangeGraph = (year: number, town: string, graphNumber: string) => {
-        console.log(year, town);
-        console.log('555', this.selectedTown1, this.selectedYear1);
         if(year === 0 || town === ""){
             this.errorMessage= "Gelieve een jaartal en een gemeente te selecteren";
         }else {
@@ -215,15 +212,13 @@ export class ComparisonComponent {
                             this.categories2 = finan;
                         }
                     },
-                    (err:any) => this.errorMessage = err
+                    (err:any) => this.errorMessage = "Geen categorieën gevonden."
 
                 );
         }
     }
 
     onChangeCluster = (year: number, town: string, graphNumber: string) => {
-        console.log(year, town);
-        console.log('555', this.selectedTown1, this.selectedYear1);
         if(year === 0 || town === ""){
             this.errorMessage= "Gelieve een jaartal en een gemeente te selecteren";
         }else {
@@ -237,7 +232,7 @@ export class ComparisonComponent {
                             this.categories4 = finan;
                         }
                     },
-                    (err:any) => this.errorMessage = err
+                    (err:any) => this.errorMessage = "Geen categorieën gevonden"
 
                 );
         }
@@ -262,7 +257,7 @@ export class ComparisonComponent {
         return years;
     }
 
-    onSelectYear = (event,graphNumber) => {
+    onSelectYear = (event: any,graphNumber: string) => {
         switch(graphNumber){
             case "1": this.selectedYear1 = event.target.value; break;
             case "2":  this.selectedYear2 = event.target.value; break;
@@ -271,7 +266,7 @@ export class ComparisonComponent {
         }
     }
 
-    onSelectTown = (event,graphNumber) => {
+    onSelectTown = (event: any,graphNumber: string) => {
 
         switch(graphNumber){
             case "1": this.selectedTown1 = event.target.value; break;

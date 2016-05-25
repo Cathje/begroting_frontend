@@ -9,7 +9,7 @@ System.register([], function(exports_1, context_1) {
                 function MainTown(name, postCode, gemeenteId, belasting) {
                     this.naam = name;
                     this.postCode = postCode;
-                    this.GemeenteID = gemeenteId;
+                    this.HoofdGemeenteID = gemeenteId;
                     this.aanslagVoet = belasting;
                 }
                 return MainTown;

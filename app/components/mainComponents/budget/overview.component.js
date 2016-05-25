@@ -69,8 +69,8 @@ System.register(['angular2/core', 'angular2/router', './../../subComponents/grap
                     _townService.getTown(injector.parent.parent.parent.parent.get(router_1.RouteParams).get('town'))
                         .subscribe(function (town) {
                         _this.mainTown = town;
-                    }, function (err) { return _this.errorMessage = err; });
-                    _projectService.getProjects(injector.parent.parent.get(router_1.RouteParams).get('town')).subscribe(function (projects) { _this.projects = projects; }, function (err) { return _this.errorMessage = err; });
+                    }, function (err) { return _this.errorMessage = "Er is geen stad gevonden."; });
+                    _projectService.getProjects(injector.parent.parent.get(router_1.RouteParams).get('town')).subscribe(function (projects) { _this.projects = projects; }, function (err) { return _this.errorMessage = "Er zijn geen projecten gevonden."; });
                     // TODO: change hardcoded year and city with variables : today.getYear() + injector.parent.parent.parent.parent.get(RouteParams).get('town')
                     _begrotingService.getGemeenteCategorieen(2020, "Gent")
                         .subscribe(function (exp) { return _this.expenses = exp; });

@@ -22,9 +22,7 @@ import {StyledDirective} from '../../../directives/styled';
         <section class="intro col-xs-12">
             <h1>De uitgaven van {{town}}</h1>
             <p>Bekijk hieronder de uitgaves van de gemeente {{town}}. Klik op een categorie naar keuze om de specifieke acties te bekijken of beweeg met je muis over een categorie in de legende om meer informatie te verkrijgen over de desbetreffende categorie.</p>
-            <button *ngIf="windowWidth < 768" type="button" class="btn btn-primary pull-right" data-toggle="modal" data-target="#legend" styled>
-			    Toon legende
-		    </button>
+
 
         <div class="main-content">
             <div class="graph col-xs-12 col-sm-8" (window:resize)="onResize($event)">
@@ -173,7 +171,7 @@ export class ExpensesComponent {
     acties: Actie[];
     id:number;
     years:number[];
-    errorMessage:any;
+    errorMessage:string;
     data: GemeenteCategorie [] = [];
     headCategories: Categorie [] = CATEGORIES;
     types = BestuurType;
@@ -189,7 +187,7 @@ export class ExpensesComponent {
 
         _begrotingService.getGemeenteCategorieen(2020,"Gent")
             .subscribe((finan: any) => this.data = finan,
-                (err:any) => this.errorMessage = err
+                (err:any) => this.errorMessage = "Er zijn geen grafiekgegevens gevonden."
             );
 
     }
@@ -198,10 +196,10 @@ export class ExpensesComponent {
         //TODO: replace hardcoded id with parameter
         this._begrotingService.getActies(24)
             .subscribe((acties : any) => this.acties = acties,
-                (err:any) => this.errorMessage = err);
+                (err:any) => this.errorMessage = "Er zijn geen acties gevonden.");
     };
 
-    onHover: any = (d) => {
+    onHover: any = (d:any) => {
         this.hoveredCategory = d;
     };
 
@@ -219,7 +217,7 @@ export class ExpensesComponent {
     onSelectYear: any = (event: any, town: string) => {
         this._begrotingService.getGemeenteCategorieen(event.target.value,town)
             .subscribe((finan: any) => this.data = finan,
-                (err:any) => this.errorMessage = err
+                (err:any) => this.errorMessage = "Er zijn geen grafiekgegevens gevonden."
             );
     }
 

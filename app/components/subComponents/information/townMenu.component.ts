@@ -46,8 +46,6 @@ import { ROUTER_DIRECTIVES } from 'angular2/router';
 })
 
 export class TownMenuComponent {
-    mainTown = new MainTown("","");  //opm: moet geïnitialiseerd zijn, anders werkt ngModel niet
-
-
+    mainTown: MainTown = new MainTown("","",0,0);  //opm: moet geïnitialiseerd zijn, anders werkt ngModel niet
 
 }

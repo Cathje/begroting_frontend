@@ -16,9 +16,6 @@ import {BegrotingsVoorstel} from "../../../models/begrotingsVoorstel";
 import {StyledDirective} from '../../../directives/styled';
 import {CurConvert} from "./../../../pipes/curConvertPipe";
 
-
-
-
 @Component({ //invoke with metadata object
     selector: 'add-proposition-container',
     template: `
@@ -293,7 +290,7 @@ export class AddPropositionComponent {
     private categories: GemeenteCategorie [] = [];
     private myTown: MainTown;
     private year: number = 2020;//TODO: default is current year?
-    private errorMessage:any;
+    private errorMessage:string;
     project: Project = new Project("");
     private width: number = window.innerWidth < 768 ? window.innerWidth*0.7 : window.innerWidth/4;
     private budgetwijzigingen: BudgetWijziging [] =  [];
@@ -309,12 +306,13 @@ export class AddPropositionComponent {
     constructor(private _routeParams: RouteParams, private _projectService:ProjectService, private _townService : TownService, private _begrotingService:BegrotingService) {
 
         this._begrotingService.getGemeenteCategorieen(2020,"Gent")
-            .subscribe((cats: any) => this.categories = cats
+            .subscribe((cats: any) => this.categories = cats,
+                (err:any) => this.errorMessage = "Er zijn geen categorieën gevonden."
             );
 
         this._projectService.getProject(this.year, "Gent")
             .subscribe((project: any) => this.project = project,
-                (err:any) => this.errorMessage = err
+                (err:any) => this.errorMessage = "Er is geen project gevonden."
             );
 
         if(!this.errorMessage)
@@ -548,7 +546,7 @@ export class AddPropositionComponent {
         });
     }
 
-    loadimage = (img: string, cb: any)=> {
+    loadimage = (img: any, cb: any)=> {
         var reader = new FileReader();
         reader.readAsDataURL(img);
         reader.onload = function() {

@@ -1,7 +1,7 @@
 /**
  * Created by nadya on 30/04/2016.
  */
-System.register(['angular2/core', 'angular2/http', 'rxjs/Rx', './../mockData/mock-gemeenteCat'], function(exports_1, context_1) {
+System.register(['angular2/core', 'angular2/http', 'rxjs/Rx'], function(exports_1, context_1) {
     "use strict";
     var __moduleName = context_1 && context_1.id;
     var __decorate = (this && this.__decorate) || function (decorators, target, key, desc) {
@@ -13,7 +13,7 @@ System.register(['angular2/core', 'angular2/http', 'rxjs/Rx', './../mockData/moc
     var __metadata = (this && this.__metadata) || function (k, v) {
         if (typeof Reflect === "object" && typeof Reflect.metadata === "function") return Reflect.metadata(k, v);
     };
-    var core_1, http_1, mock_gemeenteCat_1;
+    var core_1, http_1;
     var BegrotingService;
     return {
         setters:[
@@ -23,10 +23,7 @@ System.register(['angular2/core', 'angular2/http', 'rxjs/Rx', './../mockData/moc
             function (http_1_1) {
                 http_1 = http_1_1;
             },
-            function (_1) {},
-            function (mock_gemeenteCat_1_1) {
-                mock_gemeenteCat_1 = mock_gemeenteCat_1_1;
-            }],
+            function (_1) {}],
         execute: function() {
             BegrotingService = (function () {
                 function BegrotingService(http) {
@@ -51,9 +48,6 @@ System.register(['angular2/core', 'angular2/http', 'rxjs/Rx', './../mockData/moc
                         throw new Error('Response status: ' + res.status);
                     }
                     return res.json();
-                };
-                BegrotingService.prototype.getCategorieHC = function (jaar, naam) {
-                    return mock_gemeenteCat_1.CATS;
                 };
                 BegrotingService = __decorate([
                     core_1.Injectable(), 

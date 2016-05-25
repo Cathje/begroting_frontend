@@ -51,8 +51,8 @@ System.register(['angular2/core', 'angular2/router', "../../subComponents/input/
                     this.mainTown = new mainTown_1.MainTown("", "", 0, 0);
                     this.types = politicusType_1.PoliticusType;
                     this.bestuur = new bestuur_1.Bestuur("", null);
-                    _townService.getTown(injector.parent.parent.get(router_1.RouteParams).get('town'))
-                        .subscribe(function (town) { return _this.mainTown = town; }, function (err) { return _this.errorMessage = err; });
+                    _townService.getTown(injector.parent.parent.parent.parent.get(router_1.RouteParams).get('town'))
+                        .subscribe(function (town) { return _this.mainTown = town; }, function (err) { return _this.errorMessage = "Er is geen stad gevonden"; });
                 }
                 ManageDataComponent.prototype.onSelect = function (event) {
                     this.bestuur.type = event.target.value;

@@ -63,6 +63,6 @@ export class ProjectsComponent
         }
 
     onMakeProposition = () => {
-        this._router.navigate(['/', 'App',{ town: this.t.gemeente}, 'Participation', 'AddProposition']);
+        //this._router.navigate(['/', 'App',{ town: this.t.gemeente}, 'Participation', 'AddProposition']);
     }
 }

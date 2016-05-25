@@ -139,7 +139,7 @@ export class OverviewComponent {
     income: GemeenteCategorie [] = [];
 
     //errors
-    errorMessage: any;
+    errorMessage: string;
 
     constructor(private _projectService:ProjectService,
                 private _townService:TownService,
@@ -149,16 +149,16 @@ export class OverviewComponent {
     {
         console.log('55', injector.parent.parent.parent.parent.get(RouteParams).get('town'));
         _townService.getTown(injector.parent.parent.parent.parent.get(RouteParams).get('town'))
-            .subscribe((town:Object) => {
+            .subscribe((town:MainTown) => {
                     this.mainTown = town;
                 },
-                (err:any) => this.errorMessage = err
+                (err:any) => this.errorMessage = "Er is geen stad gevonden."
 
             );
 
         _projectService.getProjects(injector.parent.parent.get(RouteParams).get('town')).subscribe(
             (projects:any) => {this.projects = projects; },
-            (err:any) => this.errorMessage = err
+            (err:any) => this.errorMessage = "Er zijn geen projecten gevonden."
         );
 
         // TODO: change hardcoded year and city with variables : today.getYear() + injector.parent.parent.parent.parent.get(RouteParams).get('town')

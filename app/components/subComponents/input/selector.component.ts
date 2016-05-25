@@ -1,6 +1,5 @@
 import {Component, Input,Output, EventEmitter} from 'angular2/core';
 import {Router} from 'angular2/router';
-import {EventEmitter} from "../../../../node_modules/angular2/ts/src/facade/async";
 
 @Component({ //invoke with metadata object
     selector: 'selector',
@@ -18,10 +17,10 @@ import {EventEmitter} from "../../../../node_modules/angular2/ts/src/facade/asyn
 })
 
 export class SelectorComponent {
-    @Input() options: [];
+    @Input() options: String[];
     @Input() callbackFunction: any;
     @Input() defaultOption: string;
-    @Output changeRequest = new EventEmitter();
+    @Output() changeRequest = new EventEmitter();
 
     onChange(event: any){
         this.changeRequest.emit("");

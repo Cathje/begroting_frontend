@@ -99,7 +99,7 @@ export class CoreDataComponent {
     mainTown = new MainTown("","",0,0);  //opm: moet geïnitialiseerd zijn, anders werkt ngModel niet
     id:number;
     imglink: string;
-    errorMessage:any;
+    errorMessage:string;
 
     constructor(private _townService:TownService, public http: Http, params: RouteParams, injector: Injector, private _router: Router)
     {
