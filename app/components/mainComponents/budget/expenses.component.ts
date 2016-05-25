@@ -7,7 +7,7 @@ import {BegrotingService} from "../../../services/begrotingService";
 import {Actie} from "../../../models/actie";
 import {GemeenteCategorie} from "../../../models/gemeenteCategorie";
 import {Categorie} from "../../../models/categorie";
-import {CATEGORIES} from "../../../mockData/mock-categories";
+import {CATEGORIES} from "../../../defaults/categories";
 import {BestuurType} from "../../../models/bestuurType";
 import {SelectorComponent} from './../../subComponents/input/selector.component';
 import {StyledDirective} from '../../../directives/styled';
@@ -46,20 +46,20 @@ import {StyledDirective} from '../../../directives/styled';
             <div *ngIf="!hoveredCategory" class="legend col-xs-12 col-sm-4 ">
                 <ul>
                     <li *ngFor="#category of headCategories">
-                        <span class="{{' colorblock glyphicon '+ category.icoon}}" style="background-color: {{category.kleur}};"></span>
+                        <span class="{{' colorblock glyphicon '+ checkIconAvailable(category.icoon, category.name)}}" style="background-color: {{category.kleur}};"></span>
                         {{category.naam}}
                     </li>
                 </ul>
             </div>
 
              <div class="legend col-xs-12 col-sm-4 " *ngIf="hoveredCategory">
-                        <h4>{{headCategories[7].naam}}</h4>
-                        <img *ngIf="headCategories[7].foto !== null" [src]="headCategories[7].foto"/>
+                        <h4>{{hoveredCategory.name}}</h4>
+                        <img *ngIf="hoveredCategory.foto !== null" [src]="headCategories[7].foto"/>
                         <h5> Beschrijving</h5>
-                        {{headCategories[7].input}}
-                        <span *ngIf="!headCategories[7].input"> Er is geen beschrijving beschikbaar voor deze categorie."</span>
-                        <h5 *ngIf="headCategories[7].film"> Bekijk de video</h5>
-                        <iframe *ngIf="headCategories[7].film" width="100%" [src]="headCategories[7].film+'?rel=0&autoplay=1'" frameborder="0" allowfullscreen></iframe>
+                        {{hoveredCategory.input}}
+                        <span *ngIf="!hoveredCategory.input"> Er is geen beschrijving beschikbaar voor deze categorie.</span>
+                        <h5 *ngIf="hoveredCategory.film"> Bekijk de video</h5>
+                        <iframe *ngIf="hoveredCategory.film" width="100%" [src]="hoveredCategory.film+'?rel=0&autoplay=1'" frameborder="0" allowfullscreen></iframe>
              </div>
 
         </div>
@@ -179,10 +179,9 @@ export class ExpensesComponent {
     width: number = window.innerWidth < 768 ? window.innerWidth*0.8 : window.innerWidth/2.5;
     hoveredCategory: any;
 
-    //TODO catherine : zodra de gemeentecategorie is aangevuld met icoon, kleur, etc... code in html aanpassen
     constructor (private elementRef: ElementRef, private _begrotingService:BegrotingService, public http: Http, params: RouteParams, injector: Injector, private _router: Router)
     {
-        this.town = injector.parent.parent.get(RouteParams).get('town');
+        this.town = injector.parent.parent.parent.parent.get(RouteParams).get('town');
         this.years = this._getYears();
 
         _begrotingService.getGemeenteCategorieen(2020,"Gent")
@@ -229,5 +228,17 @@ export class ExpensesComponent {
         }
         return years;
     }
+
+    checkIconAvailable = (defaultIcon : string, categorieNaam: string) => {
+        var filteredData = this.data.filter((obj) => {
+            if (obj['naamCat'] === categorieNaam) {
+                return true;
+            }
+            return false;
+        });
+
+        return filteredData[0]? filteredData[0]['icoon'] : defaultIcon;
+    }
+
 }
 

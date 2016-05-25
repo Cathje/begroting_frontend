@@ -26,10 +26,10 @@ System.register(['angular2/core', 'angular2/http', 'rxjs/Rx'], function(exports_
                 function ProjectService(http) {
                     this.http = http;
                     this._url = 'http://begroting-webapi.azurewebsites.net/api/Begroting';
-                    //  private _url2 = 'http://begroting-webapi.azurewebsites.net/api/Project';
-                    // private _url = 'http://localhost:52597/api/Begroting';
-                    this._url2 = 'http://localhost:52597/api/Project';
+                    this._url2 = 'http://begroting-webapi.azurewebsites.net/api/Project';
                 }
+                // private _url = 'http://localhost:52597/api/Begroting';
+                //private _url2 = 'http://localhost:52597/api/Project';
                 ProjectService.prototype.getInspraakitems = function (jaar, naam) {
                     var headers = new http_1.Headers();
                     headers.append('Content-Type', 'application/json');

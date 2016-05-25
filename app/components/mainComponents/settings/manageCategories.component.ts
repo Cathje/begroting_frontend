@@ -6,7 +6,7 @@ import {Faq} from "../../../models/faq";
 import {StyledDirective} from '../../../directives/styled';
 import {BegrotingService} from "../../../services/begrotingService";
 import {GemeenteCategorie} from "../../../models/gemeenteCategorie";
-import {ICONS} from '../../../constants/icons'
+import {ICONS} from '../../../defaults/icons'
 
 declare var jQuery: any;
 

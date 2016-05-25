@@ -2,7 +2,7 @@ import {Component, Directive, ViewChild, ElementRef, Renderer, Input} from 'angu
 /// <reference path="../../../../typings/browser/definitions/d3/index.d.ts" />
 import * as d3 from 'd3';
 import {SimpleChange} from "../../../../node_modules/angular2/src/core/change_detection/change_detection_util";
-import {CATEGORIES} from "../../../mockData/mock-categories";
+import {CATEGORIES} from "../../../defaults/categories";
 
 @Component({ //invoke with metadata object
     selector: 'sunburst',
@@ -124,7 +124,6 @@ export class SunburstComponent {
         let totalSize = 0; // total size of all segments
         const colors = {};
 
-        //TODO: refactor as much code as possible from javascript to html components
         let partition = d3.layout.partition()
             .size([2 * Math.PI, this.radius * this.radius])
             .value(function(d: any) { return d.size; });
@@ -280,9 +279,9 @@ function buildHierarchy(data: [Object], colors: Object, categories: any) {
             var size = + Math.abs(data[i]['totaal']);
             let nodeName : string = data[i]['catA'];
 
-            let catA : Object = {"name": nodeName, "id": data[i]['ID'],"code": data[i]['catA'], "size": size, "children": []};
+            let catA : Object = {"name": nodeName, "id": data[i]['ID'],"code": data[i]['catA'], "size": size, "film": data[i]['film'], "foto":data[i]['foto'],"input": data[i]['input'], "children": []};
             let categoryItem = categories.filter((categorie: any) => categorie.naam === data[i]['catA']);
-            colors[data[i]['catA']] = categoryItem.length > 0 ?  categoryItem[0]['kleur'] : 'lightgray';
+            colors[data[i]['catA']] = data[i]['kleur'] ? data[i]['kleur']  : categoryItem[0]['kleur'] || 'lightgray';
 
             root["children"].push(catA);
         }
@@ -297,19 +296,19 @@ function buildHierarchy(data: [Object], colors: Object, categories: any) {
 
             // If we don't already have a Cat A for this branch, create it.
             if (Object.keys(catA).length === 0) {
-                let catANode = {"name": data[i]['catA'], "id": id, "code": data[i]['catA'], "size": size, "children": []};
+                let catANode = {"name": data[i]['catA'], "id": id, "code": data[i]['catA'], "film": data[i]['film'], "foto":data[i]['foto'],"input": data[i]['input'], "size": size, "children": []};
                 children.push(catANode);
                 let categoryItem = categories.filter((categorie) => categorie.naam === data[i]['catA']);
-                colors[data[i]['catA']] = categoryItem.length > 0 ?  categoryItem[0]['kleur'] : 'lightgray';
+                colors[data[i]['catA']] = data[i]['kleur'] ? data[i]['kleur']  : categoryItem[0]['kleur'] || 'lightgray';
             }
 
             // move node down in hierarchy > to level A children
             children = _moveNodeDown(children, data[i]['catA']);
 
             // add catB to the catA children array
-            let catBNode = {"name": data[i]['catB'], "id": id, "code": data[i]['catA'], "size": size, "children": []};
+            let catBNode = {"name": data[i]['catB'], "id": id, "code": data[i]['catA'], "film": data[i]['film'], "foto":data[i]['foto'],"input": data[i]['input'],"size": size, "children": []};
             let categoryItem = categories.filter((categorie) => categorie.naam === data[i]['catA']);
-            colors[data[i]['catB']] = categoryItem.length > 0 ?  categoryItem[0]['kleur'] : 'lightgray';
+            colors[data[i]['catB']] = data[i]['kleur'] ? data[i]['kleur']  : categoryItem[0]['kleur'] || 'lightgray';
             children.push(catBNode);
 
         } else  {
@@ -321,10 +320,10 @@ function buildHierarchy(data: [Object], colors: Object, categories: any) {
 
             // If we don't already have a Cat A for this branch, create it.
             if (Object.keys(catA).length === 0) {
-                let catANode = {"name": data[i]['catA'], "id": id, "code": data[i]['catA'], "size": size, "children": []};
+                let catANode = {"name": data[i]['catA'], "id": id, "code": data[i]['catA'],"film": data[i]['film'], "foto":data[i]['foto'],"input": data[i]['input'], "size": size, "children": []};
                 children.push(catANode);
                 let categoryItem = categories.filter((categorie) => categorie.naam === data[i]['catA']);
-                colors[data[i]['catA']] = categoryItem.length > 0 ?  categoryItem[0]['kleur'] : 'lightgray';
+                colors[data[i]['catA']] = data[i]['kleur'] ? data[i]['kleur']  : categoryItem[0]['kleur'] || 'lightgray';
 
             }
 
@@ -337,10 +336,10 @@ function buildHierarchy(data: [Object], colors: Object, categories: any) {
 
             // If we don't already have a Cat B for this branch, create it.
             if (Object.keys(catB).length === 0) {
-                let catBNode = {"name": data[i]['catB'], "id": id, "code": data[i]['catA'], "size": size, "children": []};
+                let catBNode = {"name": data[i]['catB'], "id": id, "code": data[i]['catA'], "size": size,"film": data[i]['film'], "foto":data[i]['foto'],"input": data[i]['input'], "children": []};
                 children.push(catBNode);
                 let categoryItem = categories.filter((categorie) => categorie.naam === data[i]['catA']);
-                colors[data[i]['catB']] = categoryItem.length > 0 ?  categoryItem[0]['kleur'] : 'lightgray';
+                colors[data[i]['catB']] = data[i]['kleur'] ? data[i]['kleur']  : categoryItem[0]['kleur'] || 'lightgray';
 
             }
 
@@ -349,10 +348,10 @@ function buildHierarchy(data: [Object], colors: Object, categories: any) {
 
             // add catC to the catB children array
 
-            let catCNode = {"name": data[i]['catC'], "id": id, "code": data[i]['catA'], "size": size, "children": []};
+            let catCNode = {"name": data[i]['catC'], "id": id, "code": data[i]['catA'], "size": size, "film": data[i]['film'], "foto":data[i]['foto'],"input": data[i]['input'], "children": []};
             children.push(catCNode);
             let categoryItem = categories.filter((categorie: any) => categorie.naam === data[i]['catA']);
-            colors[data[i]['catC']] = categoryItem.length > 0 ?  categoryItem[0]['kleur'] : 'lightgray';
+            colors[data[i]['catC']] = data[i]['kleur'] ? data[i]['kleur']  : categoryItem[0]['kleur'] || 'lightgray';
 
 
         }

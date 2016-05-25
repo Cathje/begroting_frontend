@@ -1,6 +1,4 @@
-System.register(['angular2/core', 'd3', "../../../mockData/mock-categories"], function(exports_1, context_1) {
-    "use strict";
-    var __moduleName = context_1 && context_1.id;
+System.register(['angular2/core', 'd3', "../../../defaults/categories"], function(exports_1) {
     var __decorate = (this && this.__decorate) || function (decorators, target, key, desc) {
         var c = arguments.length, r = c < 3 ? target : desc === null ? desc = Object.getOwnPropertyDescriptor(target, key) : desc, d;
         if (typeof Reflect === "object" && typeof Reflect.decorate === "function") r = Reflect.decorate(decorators, target, key, desc);
@@ -10,7 +8,7 @@ System.register(['angular2/core', 'd3', "../../../mockData/mock-categories"], fu
     var __metadata = (this && this.__metadata) || function (k, v) {
         if (typeof Reflect === "object" && typeof Reflect.metadata === "function") return Reflect.metadata(k, v);
     };
-    var core_1, d3, mock_categories_1;
+    var core_1, d3, categories_1;
     var SunburstComponent;
     // Main function to draw and set up the visualization, once we have the data.
     function createVisualization(json, callbackFunction, hoverCallbackFunction, partition, arc, colors, totalSize, chart) {
@@ -105,9 +103,9 @@ System.register(['angular2/core', 'd3', "../../../mockData/mock-categories"], fu
             if (!data[i].hasOwnProperty('catB') && !data[i].hasOwnProperty('catC')) {
                 var size = +Math.abs(data[i]['totaal']);
                 var nodeName = data[i]['catA'];
-                var catA = { "name": nodeName, "id": data[i]['ID'], "code": data[i]['catA'], "size": size, "children": [] };
+                var catA = { "name": nodeName, "id": data[i]['ID'], "code": data[i]['catA'], "size": size, "film": data[i]['film'], "foto": data[i]['foto'], "input": data[i]['input'], "children": [] };
                 var categoryItem = categories.filter(function (categorie) { return categorie.naam === data[i]['catA']; });
-                colors[data[i]['catA']] = categoryItem.length > 0 ? categoryItem[0]['kleur'] : 'lightgray';
+                colors[data[i]['catA']] = data[i]['kleur'] ? data[i]['kleur'] : categoryItem[0]['kleur'] || 'lightgray';
                 root["children"].push(catA);
             }
             else if (!data[i].hasOwnProperty('catC')) {
@@ -117,17 +115,17 @@ System.register(['angular2/core', 'd3', "../../../mockData/mock-categories"], fu
                 var catA = children.filter(function (obj) { return obj["name"] == data[i]['catA']; });
                 // If we don't already have a Cat A for this branch, create it.
                 if (Object.keys(catA).length === 0) {
-                    var catANode = { "name": data[i]['catA'], "id": id, "code": data[i]['catA'], "size": size, "children": [] };
+                    var catANode = { "name": data[i]['catA'], "id": id, "code": data[i]['catA'], "film": data[i]['film'], "foto": data[i]['foto'], "input": data[i]['input'], "size": size, "children": [] };
                     children.push(catANode);
                     var categoryItem_1 = categories.filter(function (categorie) { return categorie.naam === data[i]['catA']; });
-                    colors[data[i]['catA']] = categoryItem_1.length > 0 ? categoryItem_1[0]['kleur'] : 'lightgray';
+                    colors[data[i]['catA']] = data[i]['kleur'] ? data[i]['kleur'] : categoryItem_1[0]['kleur'] || 'lightgray';
                 }
                 // move node down in hierarchy > to level A children
                 children = _moveNodeDown(children, data[i]['catA']);
                 // add catB to the catA children array
-                var catBNode = { "name": data[i]['catB'], "id": id, "code": data[i]['catA'], "size": size, "children": [] };
+                var catBNode = { "name": data[i]['catB'], "id": id, "code": data[i]['catA'], "film": data[i]['film'], "foto": data[i]['foto'], "input": data[i]['input'], "size": size, "children": [] };
                 var categoryItem = categories.filter(function (categorie) { return categorie.naam === data[i]['catA']; });
-                colors[data[i]['catB']] = categoryItem.length > 0 ? categoryItem[0]['kleur'] : 'lightgray';
+                colors[data[i]['catB']] = data[i]['kleur'] ? data[i]['kleur'] : categoryItem[0]['kleur'] || 'lightgray';
                 children.push(catBNode);
             }
             else {
@@ -137,10 +135,10 @@ System.register(['angular2/core', 'd3', "../../../mockData/mock-categories"], fu
                 var catA = children.filter(function (obj) { return obj["name"] == data[i]['catA']; });
                 // If we don't already have a Cat A for this branch, create it.
                 if (Object.keys(catA).length === 0) {
-                    var catANode = { "name": data[i]['catA'], "id": id, "code": data[i]['catA'], "size": size, "children": [] };
+                    var catANode = { "name": data[i]['catA'], "id": id, "code": data[i]['catA'], "film": data[i]['film'], "foto": data[i]['foto'], "input": data[i]['input'], "size": size, "children": [] };
                     children.push(catANode);
                     var categoryItem_2 = categories.filter(function (categorie) { return categorie.naam === data[i]['catA']; });
-                    colors[data[i]['catA']] = categoryItem_2.length > 0 ? categoryItem_2[0]['kleur'] : 'lightgray';
+                    colors[data[i]['catA']] = data[i]['kleur'] ? data[i]['kleur'] : categoryItem_2[0]['kleur'] || 'lightgray';
                 }
                 // move node down in hierarchy > to level A children
                 children = _moveNodeDown(children, data[i]['catA']);
@@ -148,18 +146,18 @@ System.register(['angular2/core', 'd3', "../../../mockData/mock-categories"], fu
                 var catB = children.filter(function (obj) { return obj["name"] == data[i]['catA']; });
                 // If we don't already have a Cat B for this branch, create it.
                 if (Object.keys(catB).length === 0) {
-                    var catBNode = { "name": data[i]['catB'], "id": id, "code": data[i]['catA'], "size": size, "children": [] };
+                    var catBNode = { "name": data[i]['catB'], "id": id, "code": data[i]['catA'], "size": size, "film": data[i]['film'], "foto": data[i]['foto'], "input": data[i]['input'], "children": [] };
                     children.push(catBNode);
                     var categoryItem_3 = categories.filter(function (categorie) { return categorie.naam === data[i]['catA']; });
-                    colors[data[i]['catB']] = categoryItem_3.length > 0 ? categoryItem_3[0]['kleur'] : 'lightgray';
+                    colors[data[i]['catB']] = data[i]['kleur'] ? data[i]['kleur'] : categoryItem_3[0]['kleur'] || 'lightgray';
                 }
                 // move node down in hierarchy > to level B children
                 children = _moveNodeDown(children, data[i]['catB']);
                 // add catC to the catB children array
-                var catCNode = { "name": data[i]['catC'], "id": id, "code": data[i]['catA'], "size": size, "children": [] };
+                var catCNode = { "name": data[i]['catC'], "id": id, "code": data[i]['catA'], "size": size, "film": data[i]['film'], "foto": data[i]['foto'], "input": data[i]['input'], "children": [] };
                 children.push(catCNode);
                 var categoryItem = categories.filter(function (categorie) { return categorie.naam === data[i]['catA']; });
-                colors[data[i]['catC']] = categoryItem.length > 0 ? categoryItem[0]['kleur'] : 'lightgray';
+                colors[data[i]['catC']] = data[i]['kleur'] ? data[i]['kleur'] : categoryItem[0]['kleur'] || 'lightgray';
             }
         }
         return root;
@@ -180,8 +178,8 @@ System.register(['angular2/core', 'd3', "../../../mockData/mock-categories"], fu
             function (d3_1) {
                 d3 = d3_1;
             },
-            function (mock_categories_1_1) {
-                mock_categories_1 = mock_categories_1_1;
+            function (categories_1_1) {
+                categories_1 = categories_1_1;
             }],
         execute: function() {
             SunburstComponent = (function () {
@@ -199,7 +197,6 @@ System.register(['angular2/core', 'd3', "../../../mockData/mock-categories"], fu
                         _this.translation = "translate(" + _this.width / 2 + "," + _this.height / 2 + ")";
                         var totalSize = 0; // total size of all segments
                         var colors = {};
-                        //TODO: refactor as much code as possible from javascript to html components
                         var partition = d3.layout.partition()
                             .size([2 * Math.PI, _this.radius * _this.radius])
                             .value(function (d) { return d.size; });
@@ -220,10 +217,10 @@ System.register(['angular2/core', 'd3', "../../../mockData/mock-categories"], fu
                             .outerRadius(function (d) { return Math.sqrt(d.y + d.dy); });
                         var json;
                         if (_this.data.length < 1) {
-                            json = buildHierarchy([{ 'ID': 1, 'catA': 'Algemene financiering', 'totaal': 100 }], colors, mock_categories_1.CATEGORIES); // create an empty gray graph
+                            json = buildHierarchy([{ 'ID': 1, 'catA': 'Algemene financiering', 'totaal': 100 }], colors, categories_1.CATEGORIES); // create an empty gray graph
                         }
                         else {
-                            json = buildHierarchy(_this.data, colors, mock_categories_1.CATEGORIES);
+                            json = buildHierarchy(_this.data, colors, categories_1.CATEGORIES);
                         }
                         createVisualization(json, _this.onClick, _this.onHover, partition, arc, colors, totalSize, chart);
                     };
@@ -267,7 +264,7 @@ System.register(['angular2/core', 'd3', "../../../mockData/mock-categories"], fu
                     __metadata('design:paramtypes', [core_1.Renderer, core_1.ElementRef])
                 ], SunburstComponent);
                 return SunburstComponent;
-            }());
+            })();
             exports_1("SunburstComponent", SunburstComponent);
             ;
             ;
