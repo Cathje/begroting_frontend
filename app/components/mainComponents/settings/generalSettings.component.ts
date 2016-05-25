@@ -100,7 +100,7 @@ import {GemeenteCategorie} from "../../../models/gemeenteCategorie";
 
 export class GeneralSettingsComponent {
 
-    gemeenteCategorieen: GemeenteCategorie[] = [{kleur : "red", icon: "glyphicon glyphicon-ok"}];
+    gemeenteCategorieen: GemeenteCategorie[] = [{kleur : "red", icoon: "glyphicon glyphicon-ok"}];
     private _url = 'http://localhost:52597/api/Begroting';
 
     private uploader:MultipartUploader = new MultipartUploader({url: this._url});

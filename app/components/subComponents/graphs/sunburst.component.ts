@@ -231,7 +231,7 @@ function mouseover(d: any, totalSize: any, chart:any, hoverCallbackFunction: any
 }
 
 // Restore everything to full opacity when moving off the visualization.
-function mouseleave(d : any, chart: any, hoverCallbackFunction) {
+function mouseleave(d : any, chart: any, hoverCallbackFunction: any) {
     hoverCallbackFunction();
 
     // Transition each segment to full opacity and then reactivate it.
@@ -269,7 +269,7 @@ function getAncestors(node: any) {
 // for a partition layout. The first column is a sequence of step names, from
 // root to leaf, separated by hyphens. The second column is a count of how
 // often that sequence occurred.
-function buildHierarchy(data: [Object], colors: Object, categories) {
+function buildHierarchy(data: [Object], colors: Object, categories: any) {
     var root = {"name": "root", "children": [Object]};
 
     for (var i = 0; i < data.length; i++) {
@@ -281,7 +281,7 @@ function buildHierarchy(data: [Object], colors: Object, categories) {
             let nodeName : string = data[i]['catA'];
 
             let catA : Object = {"name": nodeName, "id": data[i]['ID'],"code": data[i]['catA'], "size": size, "children": []};
-            let categoryItem = categories.filter((categorie) => categorie.naam === data[i]['catA']);
+            let categoryItem = categories.filter((categorie: any) => categorie.naam === data[i]['catA']);
             colors[data[i]['catA']] = categoryItem.length > 0 ?  categoryItem[0]['kleur'] : 'lightgray';
 
             root["children"].push(catA);
@@ -351,7 +351,7 @@ function buildHierarchy(data: [Object], colors: Object, categories) {
 
             let catCNode = {"name": data[i]['catC'], "id": id, "code": data[i]['catA'], "size": size, "children": []};
             children.push(catCNode);
-            let categoryItem = categories.filter((categorie) => categorie.naam === data[i]['catA']);
+            let categoryItem = categories.filter((categorie: any) => categorie.naam === data[i]['catA']);
             colors[data[i]['catC']] = categoryItem.length > 0 ?  categoryItem[0]['kleur'] : 'lightgray';
 
 

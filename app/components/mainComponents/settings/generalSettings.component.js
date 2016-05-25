@@ -30,7 +30,7 @@ System.register(['angular2/core', "../../subComponents/upload/multipart-item", "
             GeneralSettingsComponent = (function () {
                 function GeneralSettingsComponent() {
                     var _this = this;
-                    this.gemeenteCategorieen = [{ kleur: "red", icon: "glyphicon glyphicon-ok" }];
+                    this.gemeenteCategorieen = [{ kleur: "red", icoon: "glyphicon glyphicon-ok" }];
                     this._url = 'http://localhost:52597/api/Begroting';
                     this.uploader = new multipart_uploader_1.MultipartUploader({ url: this._url });
                     this.multipartItem = new multipart_item_1.MultipartItem(this.uploader);
