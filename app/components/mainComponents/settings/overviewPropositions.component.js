@@ -39,12 +39,12 @@ System.register(['angular2/core', 'angular2/router', "../../../services/projectS
                 //verificatiestatus :  1 = tebehandelen, 2 = goedgekeurd, 3= afgekeurd
                 OverviewPropositionsComponent.prototype.approve = function (voorstel) {
                     voorstel.verificatieStatus = 2;
-                    this._projectService.putVoorstel(voorstel.Id, voorstel.verificatieStatus).subscribe();
+                    this._projectService.putVoorstelStatus(voorstel.Id, voorstel.verificatieStatus).subscribe();
                 };
                 //@TODO  email toevoegen vanuit token als verificator (datum toegevoegd op backend)
                 OverviewPropositionsComponent.prototype.disapprove = function (voorstel) {
                     voorstel.verificatieStatus = 3;
-                    this._projectService.putVoorstel(voorstel.Id, voorstel.verificatieStatus).subscribe();
+                    this._projectService.putVoorstelStatus(voorstel.Id, voorstel.verificatieStatus).subscribe();
                 };
                 OverviewPropositionsComponent = __decorate([
                     core_1.Component({

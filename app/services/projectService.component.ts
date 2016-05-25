@@ -71,12 +71,12 @@ export class ProjectService
             .map(this.extractData);
     }
 
-    putVoorstel(voorstelId:number, status: number)
+    putVoorstelStatus(voorstelId:number, status: number)
     {
         var headers = new Headers();
         headers.append('Content-Type', 'application/json');
         headers.append('Authorization', 'Bearer ' + sessionStorage.getItem('access_token'));
-        return this.http.put(this._url2 + "/putVoorstel/" + voorstelId,JSON.stringify(status)
+        return this.http.put(this._url2 + "/putVoorstelStatus/" + voorstelId,JSON.stringify(status)
             ,{headers:headers}).map(this.extractData);
     }
     putStem(voorstelId:number, email:string)

@@ -66,11 +66,11 @@ System.register(['angular2/core', 'angular2/http', 'rxjs/Rx'], function(exports_
                     return this.http.get(this._url2 + "/projectGET" + "?jaar=" + jaar + "&naam=" + naam, { headers: headers })
                         .map(this.extractData);
                 };
-                ProjectService.prototype.putVoorstel = function (voorstelId, status) {
+                ProjectService.prototype.putVoorstelStatus = function (voorstelId, status) {
                     var headers = new http_1.Headers();
                     headers.append('Content-Type', 'application/json');
                     headers.append('Authorization', 'Bearer ' + sessionStorage.getItem('access_token'));
-                    return this.http.put(this._url2 + "/putVoorstel/" + voorstelId, JSON.stringify(status), { headers: headers }).map(this.extractData);
+                    return this.http.put(this._url2 + "/putVoorstelStatus/" + voorstelId, JSON.stringify(status), { headers: headers }).map(this.extractData);
                 };
                 ProjectService.prototype.putStem = function (voorstelId, email) {
                     var headers = new http_1.Headers();

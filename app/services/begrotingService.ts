@@ -3,7 +3,7 @@
  */
 
 import {Injectable} from 'angular2/core';
-import {Http,Response}  from 'angular2/http';
+import {Http, Response, Headers}  from 'angular2/http';
 import {Observable} from 'rxjs/observable';
 import 'rxjs/Rx';
 import {GemeenteCategorie} from "../models/gemeenteCategorie";
@@ -34,6 +34,16 @@ export class BegrotingService {
     {
         return this.http.get(this._url +  "?id=" + id)
             .map(this.extractData);
+    }
+
+
+    putCategorieInput(gemcat: GemeenteCategorie)
+    {
+        var headers = new Headers();
+        headers.append('Content-Type', 'application/json');
+        headers.append('Authorization', 'Bearer ' + sessionStorage.getItem('access_token'));
+        return this.http.put(this._url + "/changeCatInput",JSON.stringify(gemcat)
+            ,{headers:headers}).map(this.extractData);
     }
 
     private extractData(res: Response) {
