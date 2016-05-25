@@ -7,6 +7,7 @@ import {ManageTownComponent} from './manageTown.component';
 import {OverviewUsersComponent} from "./overviewUsers.component";
 import {GeneralSettingsComponent} from "./generalSettings.component";
 import {OverviewPropositionsComponent} from "./overviewPropositions.component";
+import {ManageCategoriesComponent} from "./manageCategories.component";
 
 @Component({
     selector: 'settings-router',
@@ -20,7 +21,8 @@ import {OverviewPropositionsComponent} from "./overviewPropositions.component";
     { path: '/manageTown', name: 'ManageTown', component:ManageTownComponent},
     { path: '/manageUsers', name: 'ManageUsers', component:OverviewUsersComponent},
     { path: '/generalSettings', name: 'GeneralSettings', component:GeneralSettingsComponent},
-    { path: '/overviewPropositions', name: 'OverviewPropositions', component:OverviewPropositionsComponent}
+    { path: '/overviewPropositions', name: 'OverviewPropositions', component:OverviewPropositionsComponent},
+    { path: '/manageCategories', name: 'ManageCategories', component:ManageCategoriesComponent}
 
 ])
 

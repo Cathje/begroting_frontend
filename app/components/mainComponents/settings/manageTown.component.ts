@@ -4,7 +4,11 @@ import {TownService} from "../../../services/townService.component";
 import {MainTown} from "../../../models/mainTown";
 import {Faq} from "../../../models/faq";
 import {StyledDirective} from '../../../directives/styled';
+import {BegrotingService} from "../../../services/begrotingService";
+import {GemeenteCategorie} from "../../../models/gemeenteCategorie";
+import {ICONS} from '../../../constants/icons'
 
+declare var jQuery: any;
 
 @Component({
     selector: 'manage-town-container',
@@ -34,6 +38,7 @@ import {StyledDirective} from '../../../directives/styled';
             </div>
             </div>
         </section>
+
       <section class="col-xs-12">
             <h3>FAQ</h3>
             <div class="section-content">
@@ -63,9 +68,11 @@ import {StyledDirective} from '../../../directives/styled';
         </section>
         <button class="btn btn-primary pull-right" (click)="submit()" styled>opslaan</button>
     </section>
+
+
     `,
-    providers: [TownService],
-    directives: [ROUTER_DIRECTIVES, StyledDirective],
+    providers: [TownService, BegrotingService],
+    directives: [ROUTER_DIRECTIVES, StyledDirective, ],
     styles: [`
     ::-webkit-file-upload-button {
         background: gray;
@@ -101,18 +108,24 @@ import {StyledDirective} from '../../../directives/styled';
 
 export class ManageTownComponent {
 
-    mainTown = new MainTown("","",0,0);
+    mainTown = new MainTown("", "", 0, 0);
     faq = new Faq("", "");
-    afb: string;
+    afb:string;
     id:number;
     errorMessage:string;
+    gemeenteCategorieen:GemeenteCategorie[] = [{kleur: "red", icoon: "glyphicon glyphicon-ok"}];
 
-    constructor( private _routeParams: RouteParams, private _townService: TownService, private _router:Router, injector:Injector)
-    {
+
+    constructor(private _begrotingService:BegrotingService, private _routeParams:RouteParams, private _townService:TownService, private _router:Router, injector:Injector) {
         _townService.getTown(injector.parent.parent.get(RouteParams).get('town'))
             .subscribe(
                 (town:MainTown) => this.mainTown = town,
                 (err:any) => this.errorMessage = "Geen stad gevonden"
+            );
+
+        _begrotingService.getGemeenteCategorieen(2020, "Gent")
+            .subscribe((finan:any) => this.gemeenteCategorieen = finan,
+                (err:any) => this.errorMessage = "Er zijn geen grafiekgegevens gevonden."
             );
     }
 
@@ -127,29 +140,27 @@ export class ManageTownComponent {
         //TODO: + create webapi to save this in backend
     }
 
-    changeImg = (event: any)=>{
-        this.loadimage(event.target.files[0], (img: string) =>{
-            this.afb =  img;
+    changeImg = (event:any)=> {
+        this.loadimage(event.target.files[0], (img:string) => {
+            this.afb = img;
         });
 
         //TODO: + create webapi to save this in backend
     }
 
-    loadimage = (img: string, cb: any)=> {
+    loadimage = (img:string, cb:any)=> {
         var reader = new FileReader();
         reader.readAsDataURL(img);
-        reader.onload = function() {
+        reader.onload = function () {
             let result = reader.result;
             cb(result);
         }
     }
 
-    verwijder( f: Faq)
-    {
+    verwijder(f:Faq) {
         //@TODO geeft in code een error maar werkt --> ??
         this.mainTown.FAQs.pop(f);
-        if(f.id != 0)
-        {
+        if (f.id != 0) {
             this._townService.deleteFAQ(f.ID).subscribe(
                 (d:number) => this.id = d,
                 (err:any) => this.errorMessage = err
@@ -157,15 +168,16 @@ export class ManageTownComponent {
         }
 
     }
-    submit()
-    {
+
+    submit() {
         this._townService.putTownInput(this.mainTown).subscribe(
             (d:number) => this.id = d,
             (id:number) => this.errorMessage = id);
     }
 
-    voegToe()
-    {
+    voegToe() {
         this.mainTown.FAQs.push(new Faq(this.faq.vraag, this.faq.antwoord));
     }
+
+
 }

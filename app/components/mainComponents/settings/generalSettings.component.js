@@ -1,4 +1,4 @@
-System.register(['angular2/core', "../../subComponents/upload/multipart-item", "../../subComponents/upload/multipart-uploader", '../../../directives/styled', '../../../constants/icons'], function(exports_1, context_1) {
+System.register(['angular2/core', "../../subComponents/upload/multipart-item", "../../subComponents/upload/multipart-uploader", '../../../directives/styled'], function(exports_1, context_1) {
     "use strict";
     var __moduleName = context_1 && context_1.id;
     var __decorate = (this && this.__decorate) || function (decorators, target, key, desc) {
@@ -10,7 +10,7 @@ System.register(['angular2/core', "../../subComponents/upload/multipart-item", "
     var __metadata = (this && this.__metadata) || function (k, v) {
         if (typeof Reflect === "object" && typeof Reflect.metadata === "function") return Reflect.metadata(k, v);
     };
-    var core_1, multipart_item_1, multipart_uploader_1, styled_1, icons_1;
+    var core_1, multipart_item_1, multipart_uploader_1, styled_1;
     var GeneralSettingsComponent;
     return {
         setters:[
@@ -25,25 +25,14 @@ System.register(['angular2/core', "../../subComponents/upload/multipart-item", "
             },
             function (styled_1_1) {
                 styled_1 = styled_1_1;
-            },
-            function (icons_1_1) {
-                icons_1 = icons_1_1;
             }],
         execute: function() {
             GeneralSettingsComponent = (function () {
                 function GeneralSettingsComponent() {
                     var _this = this;
-                    this.icons = icons_1.ICONS;
-                    this.gemeenteCategorieen = [{ kleur: "red", icoon: "glyphicon glyphicon-ok" }];
                     this._url = 'http://localhost:52597/api/Begroting';
                     this.uploader = new multipart_uploader_1.MultipartUploader({ url: this._url });
                     this.multipartItem = new multipart_item_1.MultipartItem(this.uploader);
-                    this.onSelectIcon = function (event) {
-                        _this.selectedIcon = event.target.className;
-                    };
-                    this.onShowIcons = function (event) {
-                        console.log(event.target.value);
-                    };
                     this.upload = function () {
                         if (null == _this.file) {
                             console.error("Geen file meegegeven");
@@ -75,9 +64,9 @@ System.register(['angular2/core', "../../subComponents/upload/multipart-item", "
                 GeneralSettingsComponent = __decorate([
                     core_1.Component({
                         selector: 'general-settings-container',
-                        template: "\n    <div class=\"container\">\n        <h1>Algemene instellingen</h1>\n        <label>Voeg hieronder het bestand toe om de begroting op te laden.</label>\n        <input type=\"file\" (change)=\"selectFile($event)\" id=\"file\"/>\n        <button type=\"submit\" class=\"btn btn-primary  pull-right\" (click)=\"upload();\" styled>Submit</button>\n\n        <section class=\"col-xs-12 form-inline\">\n            <h3>Kleuren grafiek categorie\u00EBn</h3>\n            <table class=\"section-content table table-striped\" >\n            <thead>\n            <th>Naam categorie</th>\n            <th>Kleur</th>\n            <th>Icoon</th>\n            </thead>\n            <tbody>\n            <tr *ngFor=\"#gemeenteCat of gemeenteCategorieen\">\n                    <td>{{gemeenteCat.naam}}</td>\n                   <td><input class=\"form-control\" type=\"text\" [(ngModel)]=\"gemeenteCat.kleur\"/></td>\n                   <td> <span>{{gemeenteCat.icoon}}</span>\n                      <button class=\"btn btn-primary\" data-toggle=\"modal\" data-target=\"#icons\"  styled >\n                        <span class=\"glyphicon glyphicon-eye-open\"></span>\n                      </button>\n                      </td>\n\n                      </tr>\n                      </tbody>\n            </table>\n                <button class=\"btn btn-primary\" (click)=\"changeColor()\" styled >Opslaan</button>\n        </section>\n    </div>\n\n     <!-- Modal Icons-->\n        <div class=\"modal bottom fade\" id=\"icons\" tabindex=\"-1\" role=\"dialog\" aria-labelledby=\"icons\">\n\t\t    <div class=\"modal-dialog\" role=\"document\">\n\t\t\t    <div class=\"modal-content\">\n                    <div class=\"modal-header\">\n\t\t\t\t\t    <button type=\"button\" class=\"close\" data-dismiss=\"modal\" aria-label=\"Close\"><span aria-hidden=\"true\">&times;</span></button>\n\t\t\t\t\t    <h4 class=\"modal-title\" id=\"icons\">Iconen</h4>\n\t\t\t\t    </div>\n\t\t\t\t<div class=\"modal-body\">\n\t\t\t\t\t <div class=\"icons\" >\n\t\t\t\t\t    <span *ngFor=\"#icon of icons\" [class]=\"icon\" (click)=\"onSelectIcon($event)\" ></span>\n\t\t\t\t\t </div>\n\t\t\t\t</div>\n\t\t\t</div><!-- modal-content -->\n\t\t</div><!-- modal-dialog -->\n\t</div><!-- modal -->\n\n\n    ",
+                        template: "\n    <div class=\"container\">\n        <h1>Algemene instellingen</h1>\n        <label>Voeg hieronder het bestand toe om de begroting op te laden.</label>\n        <input type=\"file\" (change)=\"selectFile($event)\" id=\"file\"/>\n        <button type=\"submit\" class=\"btn btn-primary  pull-right\" (click)=\"upload();\" styled>Submit</button>\n\n    </div>\n\n\n\n    ",
                         directives: [styled_1.StyledDirective],
-                        styles: ["\n        ::-webkit-file-upload-button {\n            background: gray;\n            box-shadow: none;\n            border: none;\n            color:white;\n            border-radius: 5px;\n            padding: 5px;\n        }\n\n        input[type=file]{\n            padding: 5px;\n            height: 40px;\n        }\n\n        .icons span {\n            display: inline-block;\n            font-size: 2em;\n            padding: 5px;\n        }\n    "
+                        styles: ["\n        ::-webkit-file-upload-button {\n            background: gray;\n            box-shadow: none;\n            border: none;\n            color:white;\n            border-radius: 5px;\n            padding: 5px;\n        }\n\n        input[type=file]{\n            padding: 5px;\n            height: 40px;\n        }\n\n    "
                         ]
                     }), 
                     __metadata('design:paramtypes', [])

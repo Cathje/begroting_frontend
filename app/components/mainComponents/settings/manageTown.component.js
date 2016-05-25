@@ -1,6 +1,4 @@
-System.register(['angular2/core', 'angular2/router', "../../../services/townService.component", "../../../models/mainTown", "../../../models/faq", '../../../directives/styled'], function(exports_1, context_1) {
-    "use strict";
-    var __moduleName = context_1 && context_1.id;
+System.register(['angular2/core', 'angular2/router', "../../../services/townService.component", "../../../models/mainTown", "../../../models/faq", '../../../directives/styled', "../../../services/begrotingService"], function(exports_1) {
     var __decorate = (this && this.__decorate) || function (decorators, target, key, desc) {
         var c = arguments.length, r = c < 3 ? target : desc === null ? desc = Object.getOwnPropertyDescriptor(target, key) : desc, d;
         if (typeof Reflect === "object" && typeof Reflect.decorate === "function") r = Reflect.decorate(decorators, target, key, desc);
@@ -10,7 +8,7 @@ System.register(['angular2/core', 'angular2/router', "../../../services/townServ
     var __metadata = (this && this.__metadata) || function (k, v) {
         if (typeof Reflect === "object" && typeof Reflect.metadata === "function") return Reflect.metadata(k, v);
     };
-    var core_1, router_1, townService_component_1, mainTown_1, faq_1, styled_1;
+    var core_1, router_1, townService_component_1, mainTown_1, faq_1, styled_1, begrotingService_1;
     var ManageTownComponent;
     return {
         setters:[
@@ -31,16 +29,21 @@ System.register(['angular2/core', 'angular2/router', "../../../services/townServ
             },
             function (styled_1_1) {
                 styled_1 = styled_1_1;
+            },
+            function (begrotingService_1_1) {
+                begrotingService_1 = begrotingService_1_1;
             }],
         execute: function() {
             ManageTownComponent = (function () {
-                function ManageTownComponent(_routeParams, _townService, _router, injector) {
+                function ManageTownComponent(_begrotingService, _routeParams, _townService, _router, injector) {
                     var _this = this;
+                    this._begrotingService = _begrotingService;
                     this._routeParams = _routeParams;
                     this._townService = _townService;
                     this._router = _router;
                     this.mainTown = new mainTown_1.MainTown("", "", 0, 0);
                     this.faq = new faq_1.Faq("", "");
+                    this.gemeenteCategorieen = [{ kleur: "red", icoon: "glyphicon glyphicon-ok" }];
                     this.changeColor = function () {
                         sessionStorage.setItem("mainColor", _this.mainTown.hoofdkleur);
                         location.reload();
@@ -62,6 +65,8 @@ System.register(['angular2/core', 'angular2/router', "../../../services/townServ
                     };
                     _townService.getTown(injector.parent.parent.get(router_1.RouteParams).get('town'))
                         .subscribe(function (town) { return _this.mainTown = town; }, function (err) { return _this.errorMessage = "Geen stad gevonden"; });
+                    _begrotingService.getGemeenteCategorieen(2020, "Gent")
+                        .subscribe(function (finan) { return _this.gemeenteCategorieen = finan; }, function (err) { return _this.errorMessage = "Er zijn geen grafiekgegevens gevonden."; });
                 }
                 ManageTownComponent.prototype.ngOnInit = function () {
                 };
@@ -83,15 +88,15 @@ System.register(['angular2/core', 'angular2/router', "../../../services/townServ
                 ManageTownComponent = __decorate([
                     core_1.Component({
                         selector: 'manage-town-container',
-                        template: "\n    <p class=\"alert alert-danger\" *ngIf=\"errorMessage\">{{errorMessage}}</p>\n    <section class=\"container\">\n        <h1>Instellingen gemeente {{mainTown?.naam}}</h1>\n        <section class=\"col-xs-12 form-inline\">\n            <h3>Kleuren website</h3>\n            <div class=\"section-content\">\n                <div class=\"col-xs-12 form-group\">\n                    <label >Hoofdkleur</label>\n                    <input class=\"form-control\" type=\"text\" [(ngModel)]=\"mainTown.hoofdkleur\"/>\n                    <button class=\"btn btn-primary\" (click)=\"changeColor()\" styled ><span class=\"glyphicon glyphicon-eye-open\"></span></button>\n                    <span class=\"small\"><i>*Klik op het oogje om het resultaat te bekijken. U kan dit nadien onderaan opslaan.</i></span>\n                </div>\n            </div>\n        </section>\n\n        <section class=\"col-xs-12 form-inline\">\n            <h3>Logo website</h3>\n            <div class=\"section-content\">\n            <div class=\"section-content\">\n                <div class=\"col-xs-12 form-group\">\n                    <input id=\"file\" type=\"file\" (change)=\"changeImg($event)\"/>\n                    <img *ngIf=\"afb\" [src]=\"afb\" class=\"logo\" />                </div>\n            </div>\n            </div>\n        </section>\n      <section class=\"col-xs-12\">\n            <h3>FAQ</h3>\n            <div class=\"section-content\">\n                <div class=\"form-inline\">\n                <ul *ngIf=\"mainTown?.FAQs\" >\n                   <li *ngFor=\"#f of mainTown.FAQs\" >\n                   <button class=\"btn btn-primary\" (click)=\"verwijder(f)\" ><span class=\"glyphicon glyphicon-trash\"></span></button>\n                   <p>{{f.vraag}} </p>\n                   <p>{{f.antwoord}} </p>\n                    </li>\n                </ul>\n                <p *ngIf=\"!mainTown?.faqs\"><i>Er zijn nog geen vragen en antwoord ingediend.</i></p>\n                </div>\n\n                <div class=\"addFaq\">\n                    <div class=\"form-group\">\n                        <label >Vraag:</label>\n                        <input type=\"text\" [(ngModel)]=\"faq.vraag\"/>\n                    </div>\n                    <div class=\"form-group\">\n                        <label >Antwoord:</label>\n                        <input type=\"text\" [(ngModel)]=\"faq.antwoord\"/>\n                    </div>\n                   <button class=\"btn btn-primary pull-right\" (click)=\"voegToe()\" styled>Voeg vraag toe</button>\n                </div>\n            </div>\n        </section>\n        <button class=\"btn btn-primary pull-right\" (click)=\"submit()\" styled>opslaan</button>\n    </section>\n    ",
-                        providers: [townService_component_1.TownService],
-                        directives: [router_1.ROUTER_DIRECTIVES, styled_1.StyledDirective],
+                        template: "\n    <p class=\"alert alert-danger\" *ngIf=\"errorMessage\">{{errorMessage}}</p>\n    <section class=\"container\">\n        <h1>Instellingen gemeente {{mainTown?.naam}}</h1>\n        <section class=\"col-xs-12 form-inline\">\n            <h3>Kleuren website</h3>\n            <div class=\"section-content\">\n                <div class=\"col-xs-12 form-group\">\n                    <label >Hoofdkleur</label>\n                    <input class=\"form-control\" type=\"text\" [(ngModel)]=\"mainTown.hoofdkleur\"/>\n                    <button class=\"btn btn-primary\" (click)=\"changeColor()\" styled ><span class=\"glyphicon glyphicon-eye-open\"></span></button>\n                    <span class=\"small\"><i>*Klik op het oogje om het resultaat te bekijken. U kan dit nadien onderaan opslaan.</i></span>\n                </div>\n            </div>\n        </section>\n\n        <section class=\"col-xs-12 form-inline\">\n            <h3>Logo website</h3>\n            <div class=\"section-content\">\n            <div class=\"section-content\">\n                <div class=\"col-xs-12 form-group\">\n                    <input id=\"file\" type=\"file\" (change)=\"changeImg($event)\"/>\n                    <img *ngIf=\"afb\" [src]=\"afb\" class=\"logo\" />                </div>\n            </div>\n            </div>\n        </section>\n\n      <section class=\"col-xs-12\">\n            <h3>FAQ</h3>\n            <div class=\"section-content\">\n                <div class=\"form-inline\">\n                <ul *ngIf=\"mainTown?.FAQs\" >\n                   <li *ngFor=\"#f of mainTown.FAQs\" >\n                   <button class=\"btn btn-primary\" (click)=\"verwijder(f)\" ><span class=\"glyphicon glyphicon-trash\"></span></button>\n                   <p>{{f.vraag}} </p>\n                   <p>{{f.antwoord}} </p>\n                    </li>\n                </ul>\n                <p *ngIf=\"!mainTown?.faqs\"><i>Er zijn nog geen vragen en antwoord ingediend.</i></p>\n                </div>\n\n                <div class=\"addFaq\">\n                    <div class=\"form-group\">\n                        <label >Vraag:</label>\n                        <input type=\"text\" [(ngModel)]=\"faq.vraag\"/>\n                    </div>\n                    <div class=\"form-group\">\n                        <label >Antwoord:</label>\n                        <input type=\"text\" [(ngModel)]=\"faq.antwoord\"/>\n                    </div>\n                   <button class=\"btn btn-primary pull-right\" (click)=\"voegToe()\" styled>Voeg vraag toe</button>\n                </div>\n            </div>\n        </section>\n        <button class=\"btn btn-primary pull-right\" (click)=\"submit()\" styled>opslaan</button>\n    </section>\n\n\n    ",
+                        providers: [townService_component_1.TownService, begrotingService_1.BegrotingService],
+                        directives: [router_1.ROUTER_DIRECTIVES, styled_1.StyledDirective,],
                         styles: ["\n    ::-webkit-file-upload-button {\n        background: gray;\n        box-shadow: none;\n        border:none;\n        color:white;\n        border-radius: 5px;\n        padding: 5px;\n    }\n\n    input[type=file]{\n        border: none;\n    }\n\n    .addFaq {\n        border-top: 1px solid lightgray;\n    }\n\n    .logo{\n        width: 50%;\n        border: 1px solid lightgray;\n    }\n\n    section .section-content {\n        border: 1px solid lightgray;\n        margin-bottom: 20px;\n        padding: 20px;\n        overflow: auto;\n    }\n\n    "]
                     }), 
-                    __metadata('design:paramtypes', [router_1.RouteParams, townService_component_1.TownService, router_1.Router, core_1.Injector])
+                    __metadata('design:paramtypes', [begrotingService_1.BegrotingService, router_1.RouteParams, townService_component_1.TownService, router_1.Router, core_1.Injector])
                 ], ManageTownComponent);
                 return ManageTownComponent;
-            }());
+            })();
             exports_1("ManageTownComponent", ManageTownComponent);
         }
     }

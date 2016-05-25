@@ -47,6 +47,7 @@ import {StyledDirective} from '../../../directives/styled';
           <ul class="dropdown-menu" styled>
             <li><a [routerLink]="['Settings', 'GeneralSettings']">Algemene instellingen</a></li>
             <li><a [routerLink]="['Settings', 'ManageTown']">Instellingen gemeente</a></li>
+            <li><a [routerLink]="['Settings', 'ManageCategories']">Instellingen categorieën</a></li>
             <li><a [routerLink]="['Settings', 'ManageUsers']">Beheer gebruikers</a></li>
             <li><a [routerLink]="['Settings',   'ManageData']">Beheer kerngegevens</a></li>
             <li><a [routerLink]="['Settings', 'ManageProject']">Beheer projecten</a></li>
