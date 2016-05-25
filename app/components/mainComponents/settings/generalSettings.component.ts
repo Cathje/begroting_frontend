@@ -4,7 +4,7 @@ import {MultipartItem} from "../../subComponents/upload/multipart-item";
 import {MultipartUploader} from "../../subComponents/upload/multipart-uploader";
 import {StyledDirective} from '../../../directives/styled';
 import {GemeenteCategorie} from "../../../models/gemeenteCategorie";
-
+import {ICONS} from '../../../constants/icons'
 
 @Component({ //invoke with metadata object
     selector: 'general-settings-container',
@@ -17,18 +17,26 @@ import {GemeenteCategorie} from "../../../models/gemeenteCategorie";
 
         <section class="col-xs-12 form-inline">
             <h3>Kleuren grafiek categorieën</h3>
-            <div class="section-content" *ngFor="#gemeenteCat of gemeenteCategorieen">
-                <div class="col-xs-12 form-group">
-                    <label >Kleur</label>
-                    <input class="form-control" type="text" [(ngModel)]="gemeenteCat.kleur"/>
-                </div>
-                <div class="col-xs-12 form-group">
-                    <label >Icoon</label>
-                    <span [class]="gemeenteCat.icoon"></span>
-                    <button class="btn btn-primary" data-toggle="modal" data-target="#icons"  styled ><span class="glyphicon glyphicon-eye-open"></span></button>
-                </div>
+            <table class="section-content table table-striped" >
+            <thead>
+            <th>Naam categorie</th>
+            <th>Kleur</th>
+            <th>Icoon</th>
+            </thead>
+            <tbody>
+            <tr *ngFor="#gemeenteCat of gemeenteCategorieen">
+                    <td>{{gemeenteCat.naam}}</td>
+                   <td><input class="form-control" type="text" [(ngModel)]="gemeenteCat.kleur"/></td>
+                   <td> <span>{{gemeenteCat.icoon}}</span>
+                      <button class="btn btn-primary" data-toggle="modal" data-target="#icons"  styled >
+                        <span class="glyphicon glyphicon-eye-open"></span>
+                      </button>
+                      </td>
+
+                      </tr>
+                      </tbody>
+            </table>
                 <button class="btn btn-primary" (click)="changeColor()" styled >Opslaan</button>
-            </div>
         </section>
     </div>
 
@@ -41,32 +49,8 @@ import {GemeenteCategorie} from "../../../models/gemeenteCategorie";
 					    <h4 class="modal-title" id="icons">Iconen</h4>
 				    </div>
 				<div class="modal-body">
-					 <div class="icons">
-					 <span class="glyphicon glyphicon-adjust" (click)="onSelectIcon($event)" ></span>
-					 <span class="glyphicon glyphicon-adjust" (click)="onSelectIcon($event)" ></span>
-					 <span class="glyphicon glyphicon-alert" (click)="onSelectIcon($event)" ></span>
-					 <span class="glyphicon glyphicon-align-center" (click)="onSelectIcon($event)" ></span>
-					 <span class="glyphicon glyphicon-apple" (click)="onSelectIcon($event)" ></span>
-					 <span class="glyphicon glyphicon-arrow-down" (click)="onSelectIcon($event)" ></span>
-					 <span class="glyphicon glyphicon-asterisk" (click)="onSelectIcon($event)" ></span>
-					 <span class="glyphicon glyphicon-baby-formula" (click)="onSelectIcon($event)" ></span>
-					 <span class="glyphicon glyphicon-barcode" (click)="onSelectIcon($event)" ></span>
-					 <span class="glyphicon glyphicon-blackboard" (click)="onSelectIcon($event)" ></span>
-					 <span class="glyphicon glyphicon-book" (click)="onSelectIcon($event)" ></span>
-					 <span class="glyphicon glyphicon-briefcase" (click)="onSelectIcon($event)" ></span>
-					 <span class="glyphicon glyphicon-bullhorn" (click)="onSelectIcon($event)" ></span>
-					 <span class="glyphicon glyphicon-camera" (click)="onSelectIcon($event)" ></span>
-					 <span class="glyphicon glyphicon-copyright-mark" (click)="onSelectIcon($event)" ></span>
-					 <span class="glyphicon glyphicon-credit-card" (click)="onSelectIcon($event)" ></span>
-					 <span class="glyphicon glyphicon-dashboard" (click)="onSelectIcon($event)" ></span>
-					 <span class="glyphicon glyphicon-edit" (click)="onSelectIcon($event)" ></span>
-					 <span class="glyphicon glyphicon-file" (click)="onSelectIcon($event)" ></span>
-					 <span class="glyphicon glyphicon-fire" (click)="onSelectIcon($event)" ></span>
-					 <span class="glyphicon glyphicon-glass" (click)="onSelectIcon($event)" ></span>
-					 <span class="glyphicon glyphicon-globe" (click)="onSelectIcon($event)" ></span>
-					 <span class="glyphicon glyphicon-hand-up" (click)="onSelectIcon($event)" ></span>
-					 <span class="glyphicon glyphicon-hand-down" (click)="onSelectIcon($event)" ></span>
-					 <span class="glyphicon glyphicon-ice-lolly" (click)="onSelectIcon($event)" ></span>
+					 <div class="icons" >
+					    <span *ngFor="#icon of icons" [class]="icon" (click)="onSelectIcon($event)" ></span>
 					 </div>
 				</div>
 			</div><!-- modal-content -->
@@ -93,6 +77,8 @@ import {GemeenteCategorie} from "../../../models/gemeenteCategorie";
 
         .icons span {
             display: inline-block;
+            font-size: 2em;
+            padding: 5px;
         }
     `
     ]
@@ -100,6 +86,8 @@ import {GemeenteCategorie} from "../../../models/gemeenteCategorie";
 
 export class GeneralSettingsComponent {
 
+    icons: string[] = ICONS;
+    selectedIcon: string;
     gemeenteCategorieen: GemeenteCategorie[] = [{kleur : "red", icoon: "glyphicon glyphicon-ok"}];
     private _url = 'http://localhost:52597/api/Begroting';
 
@@ -149,7 +137,7 @@ export class GeneralSettingsComponent {
     }
 
     onSelectIcon = (event:any) => {
-        console.log(event.target.value)
+        this.selectedIcon = event.target.className;
     }
 
     onShowIcons = (event:any) => {
