@@ -11,6 +11,7 @@ import {MainTown} from "./models/mainTown";
 import {Inject} from "angular2/core";
 import {HomeComponent} from "./components/mainComponents/home.component";
 import {NavigationMenuComponent} from "./components/subComponents/nav/menu.component";
+import {RouteParams} from "angular2/router";
 
 @Component({
     selector: 'begroting-app',

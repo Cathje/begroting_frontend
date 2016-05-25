@@ -68,10 +68,11 @@ export class HomeRouter {
         private _location: Location
     )
     {
+
         _townService.getTown(_routeParams.get('town'))
             .subscribe(town => {
+                    sessionStorage.setItem("mainColor", town.hoofdkleur);
                     this.town = town;
-                    console.log('555', this.town);
                 },
                 (err:any) => this.errorMessage = err
             );

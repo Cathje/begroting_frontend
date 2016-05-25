@@ -18,8 +18,8 @@ import {StyledDirective} from '../../../directives/styled';
                 <div class="col-xs-12 form-group">
                     <label >Hoofdkleur</label>
                     <input class="form-control" type="text" [(ngModel)]="mainTown.hoofdkleur"/>
-                    <button class="btn btn-primary" (click)="changeColor()" styled ><span class="glyphicon glyphicon-plus"></span></button>
-                    <span class="small"><i>*Gelieve een hexadecimale waarde, een rgba waarde of een standaard webkleur in te voeren</i></span>
+                    <button class="btn btn-primary" (click)="changeColor()" styled ><span class="glyphicon glyphicon-eye-open"></span></button>
+                    <span class="small"><i>*Klik op het oogje om het resultaat te bekijken. U kan dit nadien onderaan opslaan.</i></span>
                 </div>
             </div>
         </section>

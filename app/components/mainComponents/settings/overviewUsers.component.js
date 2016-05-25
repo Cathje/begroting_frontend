@@ -56,16 +56,22 @@ System.register(['angular2/core', 'angular2/router', "../../../services/townServ
                     this.g = new ingelogdeGebruiker_1.IngelogdeGebruiker("", "", "", rolType_1.rolType.admin, false);
                     this.filterRol = function (rolTypes) {
                         var filteredObject = {};
+                        console.log(sessionStorage.getItem("role"));
+                        var permittedRoleChanges = [];
+                        switch (sessionStorage.getItem("role")) {
+                            case "standaard": permittedRoleChanges.push(1);
+                        }
                         for (var key in Object.keys(rolTypes)) {
                             if (key == 1 || key == 4) {
                                 filteredObject[key] = rolTypes[key];
+                                filteredObject[rolTypes[key]] = key;
                             }
                         }
                         return filteredObject;
                     };
-                    _townService.getTown(injector.parent.parent.get(router_1.RouteParams).get('town'))
+                    _townService.getTown(injector.parent.parent.parent.parent.get(router_1.RouteParams).get('town'))
                         .subscribe(function (town) { return _this.mainTown = town; }, function (err) { return _this.errorMessage = err; });
-                    _loginService.getGebruikers(injector.parent.parent.get(router_1.RouteParams).get('town')).subscribe(function (gebrs) { return _this.gebruikers = gebrs; }, function (err) { return _this.errorMessage = err; });
+                    _loginService.getGebruikers(injector.parent.parent.parent.parent.get(router_1.RouteParams).get('town')).subscribe(function (gebrs) { return _this.gebruikers = gebrs; }, function (err) { return _this.errorMessage = err; });
                     this.rolTypes = this.filterRol(rolType_1.rolType);
                 }
                 OverviewUsersComponent.prototype.onSelectRolType = function (event, i) {
