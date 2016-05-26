@@ -47,11 +47,11 @@ System.register(['angular2/core', 'angular2/http', 'rxjs/Rx'], function(exports_
                     return this.http.get(this._url + "?id=" + id)
                         .map(this.extractData);
                 };
-                BegrotingService.prototype.putCategorieInput = function (gemcat) {
+                BegrotingService.prototype.putCategorieInput = function (gemcats) {
                     var headers = new http_1.Headers();
                     headers.append('Content-Type', 'application/json');
                     headers.append('Authorization', 'Bearer ' + sessionStorage.getItem('access_token'));
-                    return this.http.put(this._url + "/changeCatInput", JSON.stringify(gemcat), { headers: headers }).map(this.extractData);
+                    return this.http.put(this._url + "/changeCatInput", JSON.stringify(gemcats), { headers: headers }).map(this.extractData);
                 };
                 BegrotingService.prototype.extractData = function (res) {
                     if (res.status < 200 || res.status >= 300) {
