@@ -263,100 +263,104 @@ function getAncestors(node: any) {
 }
 
 
-
-// Take a 2-column CSV and transform it into a hierarchical structure suitable
-// for a partition layout. The first column is a sequence of step names, from
-// root to leaf, separated by hyphens. The second column is a count of how
-// often that sequence occurred.
 function buildHierarchy(data: [Object], colors: Object, categories: any) {
     var root = {"name": "root", "children": [Object]};
 
-    for (var i = 0; i < data.length; i++) {
+    let levelAList = data.filter((obj) => { return (!obj.hasOwnProperty('catB') && !obj.hasOwnProperty('catC')});
+    let levelBList = data.filter((obj) => { return (obj.hasOwnProperty('catB') && !obj.hasOwnProperty('catC')});
+    let levelCList = data.filter((obj) => { return (obj.hasOwnProperty('catC')});
+
+    console.log(levelAList, levelBList, levelCList);
+    for (var i = 0; i < levelAList.length; i++) {
         var currentNode : Object = root;
 
         //TOP LEVEL CAT A
-        if(!data[i].hasOwnProperty('catB') && !data[i].hasOwnProperty('catC')){
-            var size = + Math.abs(data[i]['totaal']);
-            let nodeName : string = data[i]['catA'];
+            let nodeName : string = levelAList[i]['catA'];
+        const size = + Math.abs(levelAList[i]['totaal']);
 
-            let catA : Object = {"name": nodeName, "id": data[i]['ID'],"code": data[i]['catA'], "size": size, "film": data[i]['film'], "foto":data[i]['foto'],"input": data[i]['input'], "children": []};
-            let categoryItem = categories.filter((categorie: any) => categorie.naam === data[i]['catA']);
-            colors[data[i]['catA']] = data[i]['kleur'] ? data[i]['kleur']  : categoryItem[0]['kleur'] || 'lightgray';
+            let catA : Object = {
+                "name": nodeName, "id": levelAList[i]['ID'],"code": levelAList[i]['catA'], "size": size, "film": levelAList[i]['film'], "foto":levelAList[i]['foto'],"input": levelAList[i]['input'], "children": []};
+            let categoryItem = categories.filter((categorie: any) => categorie.naam === levelAList[i]['catA']);
+            colors[levelAList[i]['catA']] = levelAList[i]['kleur'] ? levelAList[i]['kleur']  : categoryItem[0]['kleur'] || 'lightgray';
 
             root["children"].push(catA);
         }
 
         // SECOND LEVEL CAT B
-        else if (!data[i].hasOwnProperty('catC')) {
+    for (var i = 0; i < levelBList.length; i++) {
             let children = root["children"];
-            let id: number = data[i]['ID'];
+            let id: number = levelBList[i]['ID'];
+        const size = + Math.abs(levelBList[i]['totaal']);
 
-            // check if Cat A already exists
-            let catA : Object  = children.filter((obj) => {return obj["name"] == data[i]['catA']});
+
+        // check if Cat A already exists
+            let catA : Object  = children.filter((obj) => {return obj["name"] == levelBList[i]['catA']});
 
             // If we don't already have a Cat A for this branch, create it.
             if (Object.keys(catA).length === 0) {
-                let catANode = {"name": data[i]['catA'], "id": id, "code": data[i]['catA'], "film": data[i]['film'], "foto":data[i]['foto'],"input": data[i]['input'], "size": size, "children": []};
+                let catANode = {"name": levelBList[i]['catA'], "id": id, "code": levelBList[i]['catA'], "film": levelBList[i]['film'], "foto":levelBList[i]['foto'],"input": levelBList[i]['input'], "size": size, "children": []};
                 children.push(catANode);
-                let categoryItem = categories.filter((categorie) => categorie.naam === data[i]['catA']);
-                colors[data[i]['catA']] = data[i]['kleur'] ? data[i]['kleur']  : categoryItem[0]['kleur'] || 'lightgray';
+                let categoryItem = categories.filter((categorie) => categorie.naam === levelBList[i]['catA']);
+                colors[levelBList[i]['catA']] = levelBList[i]['kleur'] ? levelBList[i]['kleur']  : categoryItem[0]['kleur'] || 'lightgray';
             }
 
             // move node down in hierarchy > to level A children
-            children = _moveNodeDown(children, data[i]['catA']);
+            children = _moveNodeDown(children, levelBList[i]['catA']);
 
             // add catB to the catA children array
-            let catBNode = {"name": data[i]['catB'], "id": id, "code": data[i]['catA'], "film": data[i]['film'], "foto":data[i]['foto'],"input": data[i]['input'],"size": size, "children": []};
-            let categoryItem = categories.filter((categorie) => categorie.naam === data[i]['catA']);
-            colors[data[i]['catB']] = data[i]['kleur'] ? data[i]['kleur']  : categoryItem[0]['kleur'] || 'lightgray';
+            let catBNode = {"name": levelBList[i]['catB'], "id": id, "code": levelBList[i]['catA'], "film": levelBList[i]['film'], "foto":levelBList[i]['foto'],"input": levelBList[i]['input'],"size": size, "children": []};
+            let categoryItem = categories.filter((categorie) => categorie.naam === levelBList[i]['catA']);
+            colors[levelBList[i]['catB']] = levelBList[i]['kleur'] ? levelBList[i]['kleur']  : categoryItem[0]['kleur'] || 'lightgray';
             children.push(catBNode);
 
-        } else  {
-            let children = root["children"]; // root level children
-            let id: number = data[i]['ID'];
+        }
+    for (var i = 0; i < levelCList.length; i++) {
+        const size = + Math.abs(levelCList[i]['totaal']);
+
+        let children = root["children"]; // root level children
+            let id: number = levelCList[i]['ID'];
 
             // check if Cat A already exists
-            let catA : Object  = children.filter((obj) => {return obj["name"] == data[i]['catA']});
+            let catA : Object  = children.filter((obj) => {return obj["name"] == levelCList[i]['catA']});
 
             // If we don't already have a Cat A for this branch, create it.
             if (Object.keys(catA).length === 0) {
-                let catANode = {"name": data[i]['catA'], "id": id, "code": data[i]['catA'],"film": data[i]['film'], "foto":data[i]['foto'],"input": data[i]['input'], "size": size, "children": []};
+                let catANode = {"name": levelCList[i]['catA'], "id": id, "code": levelCList[i]['catA'],"film": levelCList[i]['film'], "foto":levelCList[i]['foto'],"input": levelCList[i]['input'], "size": size, "children": []};
                 children.push(catANode);
-                let categoryItem = categories.filter((categorie) => categorie.naam === data[i]['catA']);
-                colors[data[i]['catA']] = data[i]['kleur'] ? data[i]['kleur']  : categoryItem[0]['kleur'] || 'lightgray';
+                let categoryItem = categories.filter((categorie) => categorie.naam === levelCList[i]['catA']);
+                colors[levelCList[i]['catA']] = levelCList[i]['kleur'] ? levelCList[i]['kleur']  : categoryItem[0]['kleur'] || 'lightgray';
 
             }
 
             // move node down in hierarchy > to level A children
-            children = _moveNodeDown(children, data[i]['catA']);
+            children = _moveNodeDown(children, levelCList[i]['catA']);
 
 
             // check if Cat B already exists
-            let catB : Object  = children.filter((obj) => {return obj["name"] == data[i]['catA']});
+            let catB : Object  = children.filter((obj) => {return obj["name"] == levelCList[i]['catA']});
 
             // If we don't already have a Cat B for this branch, create it.
             if (Object.keys(catB).length === 0) {
-                let catBNode = {"name": data[i]['catB'], "id": id, "code": data[i]['catA'], "size": size,"film": data[i]['film'], "foto":data[i]['foto'],"input": data[i]['input'], "children": []};
+                let catBNode = {"name": levelCList[i]['catB'], "id": id, "code": levelCList[i]['catA'], "size": size,"film": levelCList[i]['film'], "foto":levelCList[i]['foto'],"input": levelCList[i]['input'], "children": []};
                 children.push(catBNode);
-                let categoryItem = categories.filter((categorie) => categorie.naam === data[i]['catA']);
-                colors[data[i]['catB']] = data[i]['kleur'] ? data[i]['kleur']  : categoryItem[0]['kleur'] || 'lightgray';
+                let categoryItem = categories.filter((categorie) => categorie.naam === levelCList[i]['catA']);
+                colors[levelCList[i]['catB']] = levelCList[i]['kleur'] ? levelCList[i]['kleur']  : categoryItem[0]['kleur'] || 'lightgray';
 
             }
 
             // move node down in hierarchy > to level B children
-            children = _moveNodeDown(children, data[i]['catB']);
+            children = _moveNodeDown(children, levelCList[i]['catB']);
 
             // add catC to the catB children array
 
-            let catCNode = {"name": data[i]['catC'], "id": id, "code": data[i]['catA'], "size": size, "film": data[i]['film'], "foto":data[i]['foto'],"input": data[i]['input'], "children": []};
+            let catCNode = {"name": levelCList[i]['catC'], "id": id, "code": levelCList[i]['catA'], "size": size, "film": levelCList[i]['film'], "foto":levelCList[i]['foto'],"input": levelCList[i]['input'], "children": []};
             children.push(catCNode);
-            let categoryItem = categories.filter((categorie: any) => categorie.naam === data[i]['catA']);
-            colors[data[i]['catC']] = data[i]['kleur'] ? data[i]['kleur']  : categoryItem[0]['kleur'] || 'lightgray';
+            let categoryItem = categories.filter((categorie: any) => categorie.naam === levelCList[i]['catA']);
+            colors[levelCList[i]['catC']] = levelCList[i]['kleur'] ? levelCList[i]['kleur']  : categoryItem[0]['kleur'] || 'lightgray';
 
 
         }
-    }
-
+    console.log(root);
     return root;
 };
 
