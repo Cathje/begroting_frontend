@@ -80,7 +80,7 @@ import {CurConvert} from "./../../../pipes/curConvertPipe";
                         </ul>
                     </div>
                 </div>
-                <button [disabled]="!submitProject" (click)="submit()"class="btn btn-primary pull-right" styled>opslaan</button>
+                <button [disabled]="submitProject" (click)="submit()"class="btn btn-primary pull-right" styled>opslaan</button>
             </form>
         </div>
         <div class ="row">
@@ -211,19 +211,7 @@ import {CurConvert} from "./../../../pipes/curConvertPipe";
                     </div>
         </div>
     </div>
-    
-    
-               <!--@TODO verwijderen van deze test voor webapi en service -->
-          <p>Dit is een test voor de service {{project.titel}}</p>
-                 <div *ngFor="#cat of project.cats #i = index">
-                <h5>categorie: {{cat.naamCat}}</h5>
-                <p>totaal: {{cat.totaal}}</p>
-                <div *ngIf="createBudgetWijziging(cat.ID, cat.inspraakNiveau)">              
-                </div>
-            </div>
-            <button (click)="submit()" >opslaan</button>
-
-
+   
 
 
         `,
