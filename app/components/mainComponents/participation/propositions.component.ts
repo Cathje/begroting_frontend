@@ -5,6 +5,9 @@ import {Project} from "../../../models/project";
 import {BegrotingsVoorstel} from "../../../models/begrotingsVoorstel";
 import {ReactieOpVoorstel} from "../../../models/reactieOpVoorstel";
 import {StyledDirective} from '../../../directives/styled';
+import {SunburstComponent} from "../../subComponents/graphs/sunburst.component";
+import {GemeenteCategorie} from "../../../models/gemeenteCategorie";
+import {BegrotingService} from "../../../services/begrotingService";
 
 @Component({
     selector: 'propositions-container',
@@ -40,6 +43,10 @@ import {StyledDirective} from '../../../directives/styled';
                             </div>
                             <div [id]="(i+1)" class="panel-collapse collapse">
                               <div class="panel-body">
+                              <div>
+                                <sunburst [data]=categoriesBegroting [onClick]=onCircleClick [height]=width [width]=width></sunburst>
+                                <sunburst [data]=categoriesBegroting [onClick]=onCircleClick [height]=width [width]=width></sunburst>
+                              </div>
 
                               <div class="section-content">
                                     <div class="form-inline">
@@ -81,9 +88,9 @@ import {StyledDirective} from '../../../directives/styled';
     </div>
     `,
     providers: [
-        ProjectService
+        ProjectService, BegrotingService
     ],
-    directives: [StyledDirective],
+    directives: [StyledDirective, SunburstComponent],
     styles : [`
         .panel-heading {
             background-color: lightgray;
@@ -158,13 +165,15 @@ export class PropositionsComponent
     projects: Project[]= [];
     data:number = 0;
     errorMessage: string;
+    width: number = 250;
     voorstelreactie:ReactieOpVoorstel = new ReactieOpVoorstel("","");
+    categoriesBegroting: GemeenteCategorie[] = [];
 
 
     constructor(
-        private _routeParams: RouteParams, private _projectService: ProjectService)
+        private _routeParams: RouteParams, private _projectService: ProjectService, private _begrotingService: BegrotingService)
     {
-        this._projectService.getProjects("Gent").subscribe((pr:any) => {
+        _projectService.getProjects("Gent").subscribe((pr:any) => {
             this.projects = pr;
             console.log(pr)},
                 (err:any) => this.errorMessage = "Er zijn geen projecten gevonden voor deze gemeenten"
@@ -189,6 +198,11 @@ export class PropositionsComponent
         this._projectService.postReactie(this.projects[project].voorstellen[voorstel].Id, this.voorstelreactie).subscribe((d:any) => this.data = d);
         this.projects[project].voorstellen[voorstel].reactie="";
     }
+
+    onCircleClick = () => {
+
+    }
+
 
 
 }

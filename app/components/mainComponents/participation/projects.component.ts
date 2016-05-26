@@ -3,6 +3,7 @@ import {RouteParams, ROUTER_DIRECTIVES, Router} from 'angular2/router';
 import {BegrotingService} from "../../../services/begrotingService";
 import {Begroting} from "../../../models/begroting";
 import {StyledDirective} from '../../../directives/styled';
+import {GemeenteCategorie} from "../../../models/gemeenteCategorie";
 
 @Component({
     selector: 'projects-container',
@@ -61,6 +62,8 @@ export class ProjectsComponent
             _begrotingService.getBegrotingen("Gent").subscribe((begr: any) => this.begrotingen = begr,
                 (err:any) => this.errorMessage = "Er zijn geen begrotingen gevonden voor deze gemeenten"
                 );
+
+
         }
 
     onMakeProposition = () => {
