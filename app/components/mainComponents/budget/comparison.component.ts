@@ -214,7 +214,6 @@ export class ComparisonComponent {
     };
 
     onChangeCluster = (year: number, town: string, graphNumber: string) => {
-        console.log(year, town, graphNumber);
         if(year === 0 || town === ""){
             this.errorMessage= "Gelieve een jaartal en een gemeente te selecteren";
         }else {

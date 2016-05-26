@@ -43,7 +43,7 @@ System.register(['angular2/core', 'angular2/http', 'rxjs/Rx'], function(exports_
                     headers.append('Authorization', 'Bearer ' + sessionStorage.getItem('access_token'));
                     return this.http.post(this._url2 + "/postProject", JSON.stringify({ projectScenario: p.projectScenario, vraag: p.vraag,
                         titel: p.titel, extraInfo: p.extraInfo, bedrag: p.bedrag, minBedrag: p.minBedrag, maxBedrag: p.maxBedrag, cats: p.cats, boekjaar: p.boekjaar, gemeente: p.gemeente,
-                        isActief: p.isActief, afbeeldingen: p.afbeelding, emailBeheerder: p.emailBeheerder }), { headers: headers }).map(this.extractData);
+                        isActief: p.isActief, afbeelding: p.afbeelding, emailBeheerder: p.emailBeheerder }), { headers: headers }).map(this.extractData);
                 };
                 ProjectService.prototype.putProject = function (p) {
                     var headers = new http_1.Headers();
@@ -51,7 +51,7 @@ System.register(['angular2/core', 'angular2/http', 'rxjs/Rx'], function(exports_
                     headers.append('Authorization', 'Bearer ' + sessionStorage.getItem('access_token'));
                     return this.http.put(this._url2 + "/updateProject/" + p.id, JSON.stringify({ projectScenario: p.projectScenario, vraag: p.vraag,
                         titel: p.titel, extraInfo: p.extraInfo, bedrag: p.bedrag, minBedrag: p.minBedrag, maxBedrag: p.maxBedrag, cats: p.cats, boekjaar: p.boekjaar, gemeente: p.gemeente,
-                        isActief: p.isActief, afbeeldingen: p.afbeelding }), { headers: headers }).map(this.extractData);
+                        isActief: p.isActief, afbeelding: p.afbeelding }), { headers: headers }).map(this.extractData);
                 };
                 ProjectService.prototype.postBegrotingsVoorstel = function (projectId, voorstel) {
                     var headers = new http_1.Headers();

@@ -64,7 +64,6 @@ System.register(['angular2/core', "../../../services/townService.component", './
                         }
                     };
                     this.onChangeCluster = function (year, town, graphNumber) {
-                        console.log(year, town, graphNumber);
                         if (year === 0 || town === "") {
                             _this.errorMessage = "Gelieve een jaartal en een gemeente te selecteren";
                         }

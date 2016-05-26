@@ -307,7 +307,12 @@ export class AddPropositionComponent {
                     this.project = project;
                 console.log(project);
                 },
-                (err:any) => this.errorMessage = "Er is geen project gevonden."
+                (err:any) => {
+                    this._projectService.getInspraakitems(this.year, "Gent")
+                        .subscribe((cats:any) => this.project = cats,
+                            (err:any) => this.errorMessage = "Geen inspraakitems gevonden."
+                        );
+                }
             );
 
         if(!this.errorMessage)

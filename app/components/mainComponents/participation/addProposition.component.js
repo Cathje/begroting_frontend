@@ -104,7 +104,10 @@ System.register(['angular2/core', 'angular2/router', "../../../services/projectS
                         .subscribe(function (project) {
                         _this.project = project;
                         console.log(project);
-                    }, function (err) { return _this.errorMessage = "Er is geen project gevonden."; });
+                    }, function (err) {
+                        _this._projectService.getInspraakitems(_this.year, "Gent")
+                            .subscribe(function (cats) { return _this.project = cats; }, function (err) { return _this.errorMessage = "Geen inspraakitems gevonden."; });
+                    });
                     if (!this.errorMessage) {
                     }
                 }
