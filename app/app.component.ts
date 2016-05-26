@@ -47,7 +47,7 @@ import {RouteParams} from "angular2/router";
 
         <span id="registration">
             <a [routerLink]="['Register']">{{register}}</a>|
-            <a *ngIf="!isLoggedIn" [routerLink]="['Login']">Log in</a>
+            <a *ngIf="!isLoggedIn" (click)="ngDoCheck()" [routerLink]="['Login']">Log in</a>
             <span *ngIf="isLoggedIn" (click)="onLogOut()">Log uit</span>
         </span>
         </div>
@@ -149,6 +149,12 @@ export class AppComponent {
         this.register = sessionStorage.getItem('user') == null? 'Registreer' : 'Welkom, ' + sessionStorage.getItem('user');
     }
 
+    ngDoCheck() {
+        this.isLoggedIn = sessionStorage.getItem('user') == null? false : true ;
+        this.register = sessionStorage.getItem('user') == null? 'Registreer' : 'Welkom, ' + sessionStorage.getItem('user');
+    }
+
+
     onLogOut = () => {
         sessionStorage.removeItem("newUser");
         sessionStorage.removeItem('access_token');
@@ -156,6 +162,8 @@ export class AppComponent {
         sessionStorage.removeItem('role');
         sessionStorage.removeItem('user');
         sessionStorage.removeItem('token');
+        this.register =  'Registreer';
+
         this._router.navigate(['/','Default']);
 
     }
