@@ -36,7 +36,7 @@ System.register(['angular2/core', 'angular2/http', 'rxjs/Rx'], function(exports_
                         .map(this.extractData);
                 };
                 BegrotingService.prototype.getClusters = function (jaar, naam) {
-                    return this.http.get(this._url + "/getClusterAverages" + "?jaar=" + jaar + "$gemeenteNaam=" + naam)
+                    return this.http.get(this._url + "/getClusterAverages" + "?jaar=" + jaar + "&gemeenteNaam=" + naam)
                         .map(this.extractData);
                 };
                 BegrotingService.prototype.getBegrotingen = function (naam) {

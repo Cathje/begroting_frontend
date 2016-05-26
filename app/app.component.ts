@@ -47,7 +47,7 @@ import {RouteParams} from "angular2/router";
 
         <span id="registration">
             <a [routerLink]="['Register']">{{register}}</a>|
-            <a *ngIf="!isLoggedIn">Log in</a>
+            <a *ngIf="!isLoggedIn" [routerLink]="['Login']">Log in</a>
             <span *ngIf="isLoggedIn" (click)="onLogOut()">Log uit</span>
         </span>
         </div>

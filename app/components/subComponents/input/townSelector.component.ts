@@ -14,7 +14,12 @@ import {MainTown} from "../../../models/mainTown";
                     </select>
                 </div>
     `,
-    providers: [TownService]
+    providers: [TownService],
+    styles:[`
+        select {
+            border:none;
+        }
+    `]
 })
 
 export class TownSelectorComponent {

@@ -90,7 +90,7 @@ import {GemeenteCategorie} from "../../../models/gemeenteCategorie";
                                 </select>
                             </div>
                         </div>
-                        <button type="button" class="btn btn-primary" (click)="onChangeCluster(selectedYear3, selectedTown3, '4')">
+                        <button type="button" class="btn btn-primary" (click)="onChangeCluster(selectedYear3, selectedTown3, '3')">
                                 <span class="glyphicon glyphicon-ok"></span>
                         </button>
 
@@ -221,7 +221,7 @@ export class ComparisonComponent {
             this._begrotingService.getClusters(2020,"Gent")
                 .subscribe(
                     (finan: any) => {
-                        if(graphNumber === "1"){
+                        if(graphNumber === "3"){
                             this.categories3 = finan;
                         }else {
                             this.categories4 = finan;

@@ -46,7 +46,7 @@ declare var jQuery: any;
                 <ul *ngIf="mainTown?.FAQs" >
                    <li *ngFor="#f of mainTown.FAQs" >
                    <p>
-                    <button class="btn btn-primary" (click)="verwijder(f)" ><span class="glyphicon glyphicon-trash"></span></button>
+                    <button class="btn btn-primary" (click)="verwijder(f)" styled><span class="glyphicon glyphicon-trash"></span></button>
                    <strong>{{f.vraag}}</strong> {{f.antwoord}} </p>
                     </li>
                 </ul>

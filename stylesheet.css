@@ -245,3 +245,7 @@ option {
     padding: 15px 7px;
 }
 
+ul {
+    list-style: none;
+}
+
