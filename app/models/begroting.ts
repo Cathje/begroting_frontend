@@ -5,6 +5,7 @@ import {GemeenteCategorie} from "./gemeenteCategorie";
 
 export class Begroting
 {
+    hasProject:boolean;
     boekjaar:number;
     childCats:GemeenteCategorie [] = [];
 }
