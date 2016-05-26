@@ -60,17 +60,17 @@ burgervoorstellen over de begroting te verzamelen en te communiceren met de bevo
         text-align: center;
         background-color:#2ac7d2;
         color:white;
-        padding-bottom: 100px;
+        padding-bottom: 200px;
     }
 
     .site-information-container h2 {
         font-weight: 300;
-        padding: 20px 40px ;
+        padding: 20px 40px;
     }
 
     .site-information-container p {
         margin: 0;
-        padding: 0px 40px;
+        padding: 0px 0px;
     }
 
     video {

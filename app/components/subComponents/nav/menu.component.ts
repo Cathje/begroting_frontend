@@ -58,8 +58,9 @@ import {StyledDirective} from '../../../directives/styled';
           <a href="#" class="dropdown-toggle" data-toggle="dropdown" role="button" aria-haspopup="true" aria-expanded="false" styled>Algemeen<span class="caret"></span></a>
           <ul class="dropdown-menu" styled>
             <li><a [routerLink]="['General', 'UserSettings']">Account settings</a></li>
-            <li><a [routerLink]="['General', 'Faq']">FAQ</a></li>
             <li><a [routerLink]="['General', 'AboutUs']">Over ons</a></li>
+            <li><a [routerLink]="['General', 'Privacy']">Privacy</a></li>
+            <li><a [routerLink]="['General', 'Faq']">FAQ</a></li>
           </ul>
         </li>
 
@@ -100,7 +101,8 @@ import {StyledDirective} from '../../../directives/styled';
     }
 
     .dropdown-menu > li > a:hover {
-                opacity: 0.9;
+                opacity: 1;
+                background-color:#2ac7af;
     }
 
       `,],

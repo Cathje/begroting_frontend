@@ -6,7 +6,6 @@ import {Faq} from "../../../models/faq";
 import {StyledDirective} from '../../../directives/styled';
 import {BegrotingService} from "../../../services/begrotingService";
 import {GemeenteCategorie} from "../../../models/gemeenteCategorie";
-import {ICONS} from '../../../constants/icons'
 
 declare var jQuery: any;
 
@@ -50,7 +49,7 @@ declare var jQuery: any;
                    <strong>{{f.vraag}}</strong> {{f.antwoord}} </p>
                     </li>
                 </ul>
-                <p *ngIf="mainTown?.faqs?.length < 1"><i>Er zijn nog geen vragen en antwoord ingediend.</i></p>
+                <p *ngIf="mainTown?.FAQs?.length < 1"><i>Er zijn nog geen vragen en antwoord ingediend.</i></p>
                 </div>
 
                 <div class="addFaq">

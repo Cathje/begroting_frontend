@@ -43,9 +43,16 @@ import {BegrotingService} from "../../../services/begrotingService";
                             </div>
                             <div [id]="(i+1)" class="panel-collapse collapse">
                               <div class="panel-body">
+                              <div class="graphs">
+                              <div *ngIf="windowWidth > 768">
+                              <h3> Begrotingsvoorstel </h3>
+                                                              <sunburst [data]=categoriesBegroting [onClick]=onCircleClick [height]=width [width]=width></sunburst>
+
+                              </div>
                               <div>
+                              <h3> Eigen voorstel </h3>
                                 <sunburst [data]=categoriesBegroting [onClick]=onCircleClick [height]=width [width]=width></sunburst>
-                                <sunburst [data]=categoriesBegroting [onClick]=onCircleClick [height]=width [width]=width></sunburst>
+                                </div>
                               </div>
 
                               <div class="section-content">
@@ -157,6 +164,20 @@ import {BegrotingService} from "../../../services/begrotingService";
         .panel-default {
             border: none;
         }
+
+        .graphs {
+            display:flex;
+            align-items: center;
+            justify-content:center;
+        }
+
+        .graphs h3 {
+        text-align : center;
+        }
+
+        .graphs > div {
+        padding: 0px 30px;
+        }
     `]
 })
 
@@ -166,6 +187,7 @@ export class PropositionsComponent
     data:number = 0;
     errorMessage: string;
     width: number = 250;
+    windowWidth: number =  window.innerWidth;
     voorstelreactie:ReactieOpVoorstel = new ReactieOpVoorstel("","");
     categoriesBegroting: GemeenteCategorie[] = [];
 
@@ -178,6 +200,15 @@ export class PropositionsComponent
             console.log(pr)},
                 (err:any) => this.errorMessage = "Er zijn geen projecten gevonden voor deze gemeenten"
         );
+
+        this._begrotingService.getGemeenteCategorieen(2020,"Gent")
+            .subscribe(
+                (finan: any) => {
+
+                        this.categoriesBegroting = finan;
+                },
+                (err:any) => this.errorMessage = "Geen categorieën gevonden."
+            );
 
     }
 

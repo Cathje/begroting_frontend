@@ -18,7 +18,11 @@ import {GemeenteCategorie} from "../../../models/gemeenteCategorie";
                 <div *ngFor="#begroting of begrotingen" class="panel panel-default">
                       <div class="panel-heading" styled>
                         <h4 class="panel-title">
-                          <a data-toggle="collapse" data-parent="#accordion" href="{{'#'+begroting.boekjaar}}">{{begroting.boekjaar}}</a>
+                          <a data-toggle="collapse" data-parent="#accordion" href="{{'#'+begroting.boekjaar}}">
+                            <span *ngIf="!begroting.hasProject" class="glyphicon glyphicon-edit"></span>
+                            <span *ngIf="begroting.hasProject" class="glyphicon glyphicon-zoom-in"></span>
+                            {{begroting.boekjaar}} - <span *ngIf="!begroting.hasProject"> Open</span>
+                            <span *ngIf="begroting.hasProject"> Gesloten</span></a>
                         </h4>
                       </div>
                   <div [id]=begroting.boekjaar class="panel-collapse collapse in">
@@ -35,7 +39,7 @@ import {GemeenteCategorie} from "../../../models/gemeenteCategorie";
                 </div>
             </div>
 
-             <button class="btn btn-primary pull-right" (click)="onMakeProposition()" styled>Doe zelf een voorstel</button>
+             <button class="btn btn-primary pull-right" (click)="onMakeProposition()" styled>Verdeel zelf de begroting</button>
 
         </div>
     

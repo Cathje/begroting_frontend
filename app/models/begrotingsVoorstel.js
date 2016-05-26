@@ -1,4 +1,6 @@
-System.register([], function(exports_1) {
+System.register([], function(exports_1, context_1) {
+    "use strict";
+    var __moduleName = context_1 && context_1.id;
     var DateTimeFormat, BegrotingsVoorstel;
     return {
         setters:[],
@@ -16,7 +18,7 @@ System.register([], function(exports_1) {
                     this.gemcats = [];
                 }
                 return BegrotingsVoorstel;
-            })();
+            }());
             exports_1("BegrotingsVoorstel", BegrotingsVoorstel);
         }
     }
