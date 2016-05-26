@@ -1,6 +1,4 @@
-System.register(['angular2/core', 'angular2/router', "../../../services/projectService.component", '../../../directives/styled'], function(exports_1, context_1) {
-    "use strict";
-    var __moduleName = context_1 && context_1.id;
+System.register(['angular2/core', 'angular2/router', "../../../services/projectService.component", '../../../directives/styled'], function(exports_1) {
     var __decorate = (this && this.__decorate) || function (decorators, target, key, desc) {
         var c = arguments.length, r = c < 3 ? target : desc === null ? desc = Object.getOwnPropertyDescriptor(target, key) : desc, d;
         if (typeof Reflect === "object" && typeof Reflect.decorate === "function") r = Reflect.decorate(decorators, target, key, desc);
@@ -51,7 +49,7 @@ System.register(['angular2/core', 'angular2/router', "../../../services/projectS
                 OverviewPropositionsComponent = __decorate([
                     core_1.Component({
                         selector: 'overview-propositions-container',
-                        template: "\n    <div class=\"container\">\n        <p class=\"alert alert-danger\" *ngIf=\"projects.length < 1\"><i>Er zijn geen projecten gevonden</i></p>\n\n        <h2>Overzicht voorstellen</h2>\n\n        <div class=\"section-content\">\n            <div class=\"panel-group\" id=\"accordion\">\n                <div *ngFor=\"#project of projects\" class=\"panel panel-default\">\n                      <div class=\"panel-heading\">\n                        <h4 class=\"panel-title\">\n                          <a data-toggle=\"collapse\" data-parent=\"#accordion\" href=\"{{'#'+project.titel}}\">{{project.titel}}</a>\n                        </h4>\n                      </div>\n                  <div [id]=project.titel class=\"panel-collapse collapse in\">\n            <table class=\"table table-striped\">\n            <tbody>\n            <tr *ngFor=\"#voorstel of project.voorstellen\">\n                <td><textarea> {{voorstel.beschrijving}}</textarea></td>\n                <td>{{voorstel.verificatieStatus}}</td>\n                <td>\n                <button class=\"btn btn-primary approve\" (click)=\"approve(voorstel)\" ><span class=\"glyphicon glyphicon-thumbs-up\"></span></button>\n                <button class=\"btn btn-primary disapprove\" (click)=\"disapprove(voorstel)\" ><span class=\"glyphicon glyphicon-thumbs-down\"></span></button>\n                </td>\n            </tr>\n            </tbody>\n        </table>\n                  </div>\n\n                </div>\n            </div>\n        </div>\n\n    </div>\n    ",
+                        template: "\n    <div class=\"container\">\n        <p class=\"alert alert-danger\" *ngIf=\"projects.length < 1\"><i>Er zijn geen projecten gevonden</i></p>\n\n        <h2>Overzicht voorstellen</h2>\n\n        <div class=\"section-content\">\n            <div class=\"panel-group\" id=\"accordion\">\n                <div *ngFor=\"#project of projects\" class=\"panel panel-default\">\n                      <div class=\"panel-heading\">\n                        <h4 class=\"panel-title\">\n                          <a data-toggle=\"collapse\" data-parent=\"#accordion\" href=\"{{'#'+project.id}}\">{{project.titel}}</a>\n                        </h4>\n                      </div>\n                  <div [id]=project.id class=\"panel-collapse collapse in\">\n            <table class=\"table table-striped\">\n            <tbody>\n            <tr *ngFor=\"#voorstel of project.voorstellen\">\n                <td><textarea> {{voorstel.beschrijving}}</textarea></td>\n                <td>{{voorstel.verificatieStatus}}</td>\n                <td>\n                <button class=\"btn btn-primary approve\" (click)=\"approve(voorstel)\" ><span class=\"glyphicon glyphicon-thumbs-up\"></span></button>\n                <button class=\"btn btn-primary disapprove\" (click)=\"disapprove(voorstel)\" ><span class=\"glyphicon glyphicon-thumbs-down\"></span></button>\n                </td>\n            </tr>\n            </tbody>\n        </table>\n                  </div>\n\n                </div>\n            </div>\n        </div>\n\n    </div>\n    ",
                         providers: [
                             projectService_component_1.ProjectService
                         ],
@@ -61,7 +59,7 @@ System.register(['angular2/core', 'angular2/router', "../../../services/projectS
                     __metadata('design:paramtypes', [router_1.RouteParams, projectService_component_1.ProjectService])
                 ], OverviewPropositionsComponent);
                 return OverviewPropositionsComponent;
-            }());
+            })();
             exports_1("OverviewPropositionsComponent", OverviewPropositionsComponent);
         }
     }

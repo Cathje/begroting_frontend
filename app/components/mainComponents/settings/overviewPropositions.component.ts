@@ -5,7 +5,7 @@ import {ProjectService} from "../../../services/projectService.component";
 import {BegrotingsVoorstel} from "../../../models/begrotingsVoorstel";
 import {StyledDirective} from '../../../directives/styled';
 
-@Component({ //invoke with metadata object
+@Component({
     selector: 'overview-propositions-container',
     template: `
     <div class="container">
@@ -18,10 +18,10 @@ import {StyledDirective} from '../../../directives/styled';
                 <div *ngFor="#project of projects" class="panel panel-default">
                       <div class="panel-heading">
                         <h4 class="panel-title">
-                          <a data-toggle="collapse" data-parent="#accordion" href="{{'#'+project.titel}}">{{project.titel}}</a>
+                          <a data-toggle="collapse" data-parent="#accordion" href="{{'#'+project.id}}">{{project.titel}}</a>
                         </h4>
                       </div>
-                  <div [id]=project.titel class="panel-collapse collapse in">
+                  <div [id]=project.id class="panel-collapse collapse in">
             <table class="table table-striped">
             <tbody>
             <tr *ngFor="#voorstel of project.voorstellen">
