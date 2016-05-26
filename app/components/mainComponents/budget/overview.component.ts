@@ -35,7 +35,38 @@ import {StyledDirective} from '../../../directives/styled';
                     <button type="button" class="btn btn-primary pull-right" [routerLink]="['Expenses']" styled>Meer info</button>
                 </div>
             </section>
-            <section class="col-xs-12 col-sm-6">
+
+
+<section class="col-xs-12 ">
+            <div class="widget-content">
+                <h4> Kerngegevens</h4>
+                <section class="demographic col-xs-12 col-sm-12">
+                    <div class="col-xs-12 col-sm-6 col-md-3">
+                         <img class='icon' src="/app/images/icons/population.png">
+                        <h4>Aantal bewoners</h4>
+                        <p>{{mainTown.aantalBewoners}}</p>
+                    </div>
+                    <div class="col-xs-12 col-sm-6 col-md-3">
+                        <img class='icon' src="/app/images/icons/man.png">
+                        <h4>Aantal mannen</h4>
+                        <p>{{mainTown.isMan}}</p>
+                    </div>
+                    <div class="col-xs-12 col-sm-6 col-md-3">
+                        <img class='icon' src="/app/images/icons/woman.png">
+                        <h4>Aantal vrouwen</h4>
+                        <p>{{mainTown.isVrouw}}</p>
+                    </div>
+                    <div class="col-xs-12 col-sm-6 col-md-3">
+                        <img class='icon' src="/app/images/icons/child.png">
+                        <h4>Aantal kinderen</h4>
+                        <p>{{mainTown.isKind}}</p>
+                    </div>
+        </section>
+            </div>
+        </section>
+
+        <div class="col-xs-12 col-sm-6">
+        <section class="col-xs-12 ">
              <div class="widget-content">
                 <h4> Openstaande projecten</h4>
                 <ul>
@@ -44,18 +75,26 @@ import {StyledDirective} from '../../../directives/styled';
                        <button type="button" class="btn btn-primary btn-sm" [routerLink]="['/','App', {town: townString}, 'Participation', 'Projects']" styled>Meer info</button>
                        {{project.boekjaar}} - {{project.titel}}
                    </li>
+                   <br>
                 </ul>
-            </div>
-           </section>
-        <section class="col-xs-12 col-sm-6 col-md-3 pull-right">
-            <div class="widget-content">
-                <h4> Kerngegevens</h4>
-                <img class='icon' src="/app/images/icons/population.png">
-                <button type="button" class="btn btn-primary pull-right" [routerLink]="['CoreData']" styled>Meer info</button>
             </div>
         </section>
 
-        <section class="col-xs-12 col-sm-6 col-md-3 pull-right">
+        <section class="col-xs-12">
+             <div class="widget-content">
+                <h4> Provincie </h4>
+                <div class='col-xs-12'>
+                      <img src={{imglink}} class="provincie">
+                     </div>
+                                                 <button type="button" class="btn btn-primary pull-right" [routerLink]="['CoreData']" styled>Meer info</button>
+
+            </div>
+
+        </section>
+        </div>
+
+
+        <section class="col-xs-12 col-sm-6  pull-right">
             <div class="widget-content">
                 <h4>Vergelijk de begroting van 2 gemeentes</h4>
                 <p> Doet jouw gemeente het beter dan een andere gemeente? Vergelijk de begrotingsverdeling door op de knop meer info te klikken en selecteer jouw favoriete gemeentes.</p>
@@ -63,7 +102,7 @@ import {StyledDirective} from '../../../directives/styled';
             </div>
         </section>
 
-        <section class="col-xs-12 col-sm-6 col-md-3">
+        <section class="col-xs-12 col-sm-6 pull-right">
              <div class="widget-content">
                 <h4>Waar gaan mijn belastingen naartoe?</h4>
                 <p>Vul jouw loon in en ontdek hoeveel geld naar de verschillende categorieën van de begroting gaat.</p>
@@ -71,13 +110,24 @@ import {StyledDirective} from '../../../directives/styled';
             </div>
         </section>
 
-        <section class="col-xs-12 col-sm-6 col-md-3 pull-right">
+        <section class="col-xs-12 col-sm-6 pull-right">
              <div class="widget-content">
                 <h4>Hoe participeren</h4>
                 <p>Wil je zelf participeren aan de begroting van {{mainTown?.naam}}? Klik op meer info en dien jouw voorstel in.</p>
                 <button type="button" class="btn btn-primary pull-right" [routerLink]="['/','App', {town: townString}, 'Participation', 'Projects']" styled>Meer info</button>
             </div>
         </section>
+
+        <section class="col-xs-12 col-sm-6  pull-right">
+             <div class="widget-content">
+                <h4>Heb je nog vragen?</h4>
+                <p> Zit je nog met vragen. Neem dan een kijkje op onze FAQ pagina of stuur een mailtje naar info@debegroting.be.</p>
+            </div>
+        </section>
+
+
+
+
 
        </div>
     </div>
@@ -93,6 +143,10 @@ import {StyledDirective} from '../../../directives/styled';
     section {
         box-sizing: border-box;
         padding: 20px;
+    }
+
+    .demographic *:not(h2){
+        text-align: center;
     }
 
     .widget-content {
@@ -138,6 +192,9 @@ export class OverviewComponent {
     // parameters for income widget
     income: GemeenteCategorie [] = [];
 
+    //paramters for coredata
+    imglink: string;
+
     //errors
     errorMessage: string;
 
@@ -151,6 +208,7 @@ export class OverviewComponent {
         _townService.getTown(injector.parent.parent.parent.parent.get(RouteParams).get('town'))
             .subscribe((town:MainTown) => {
                     this.mainTown = town;
+                    this.imglink = "/app/images/provincies/" + town.provincie.toLowerCase().split(' ').join('') +".png";
                 },
                 (err:any) => this.errorMessage = "Er is geen stad gevonden."
 

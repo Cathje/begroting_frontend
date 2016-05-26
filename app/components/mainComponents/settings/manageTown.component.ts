@@ -13,8 +13,8 @@ declare var jQuery: any;
 @Component({
     selector: 'manage-town-container',
     template: `
-    <p class="alert alert-danger" *ngIf="errorMessage">{{errorMessage}}</p>
     <section class="container">
+        <p class="alert alert-danger" *ngIf="errorMessage">{{errorMessage}}</p>
         <h1>Instellingen gemeente {{mainTown?.naam}}</h1>
         <section class="col-xs-12 form-inline">
             <h3>Kleuren website</h3>
