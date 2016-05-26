@@ -42,7 +42,6 @@ System.register(['angular2/core', 'angular2/router', './overview.component', './
             BudgetRouter = (function () {
                 function BudgetRouter(_routeParams) {
                     this._routeParams = _routeParams;
-                    console.log('param', _routeParams.get('town'));
                 }
                 BudgetRouter = __decorate([
                     core_1.Component({

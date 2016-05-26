@@ -17,9 +17,10 @@ declare var jQuery: any;
     <section class="container">
         <h1>Instellingen categorieën {{mainTown?.naam}}</h1>
 
-        <section class="col-xs-12 form-inline">
+        <section class="col-xs-12 form-inline" >
             <h3>Instellingen kleuren en iconen</h3>
-            <table class="section-content table table-striped" >
+            <p *ngIf="gemeenteCategorieen?.length < 1"><i>Er zijn geen categorieën gevonden. </i></p>
+            <table class="section-content table table-striped" *ngIf="gemeenteCategorieen?.length > 0">
             <thead>
             <th>Naam categorie</th>
             <th>Kleur</th>
@@ -40,9 +41,10 @@ declare var jQuery: any;
             </table>
         </section>
 
-        <section class="col-xs-12 form-inline">
+        <section class="col-xs-12 form-inline" >
             <h3>Instellingen extra materiaal per categorie</h3>
-            <table class="section-content table table-striped" >
+            <p *ngIf="gemeenteCategorieen?.length < 1"><i>Er zijn geen categorieën gevonden. </i></p>
+            <table class="section-content table table-striped" *ngIf="gemeenteCategorieen?.length > 0">
             <thead>
             <th>Naam categorie</th>
             <th>Youtube url</th>
@@ -62,7 +64,7 @@ declare var jQuery: any;
                       </tr>
                       </tbody>
             </table>
-                <button class="btn btn-primary pull-right" (click)="saveCategories()" styled >Opslaan</button>
+                <button *ngIf="gemeenteCategorieen?.length > 0" class="btn btn-primary pull-right" (click)="saveCategories()" styled >Opslaan</button>
         </section>
 
          <!-- Modal Icons-->
@@ -149,7 +151,7 @@ export class ManageCategoriesComponent {
     errorMessage:string;
     icons:string[] = ICONS;
     selectedGemeenteCat:GemeenteCategorie;
-    gemeenteCategorieen:GemeenteCategorie[] = [{kleur: "red", icoon: "glyphicon glyphicon-ok"}];
+    gemeenteCategorieen:GemeenteCategorie[] = [];
 
 
     constructor(private _begrotingService:BegrotingService, private _routeParams:RouteParams, private _townService:TownService, private _router:Router, injector:Injector) {
@@ -162,7 +164,6 @@ export class ManageCategoriesComponent {
         _begrotingService.getGemeenteCategorieen(2020, "Gent")
             .subscribe((finan:any) => {
                 this.gemeenteCategorieen = finan;
-                console.log(finan);
             },
                         (err:any) => this.errorMessage = "Er zijn geen grafiekgegevens gevonden."
 
@@ -182,6 +183,7 @@ export class ManageCategoriesComponent {
             .subscribe((finan:any) => this.gemeenteCategorieen = finan,
                 (err:any) => this.errorMessage = "De gegevens zijn niet correct bewaard."
             );
+        this._router.navigate(['/', 'App',{town: this.mainTown.naam}, 'Budget']);
     }
 
     onChange = (event:any, gemeenteCat: GemeenteCategorie)=> {

@@ -228,7 +228,6 @@ System.register(['angular2/core', 'd3', "../../../defaults/categories"], functio
                         }
                         createVisualization(json, _this.onClick, _this.onHover, partition, arc, colors, totalSize, chart);
                     };
-                    console.log(this.data.length);
                 }
                 SunburstComponent.prototype.ngOnInit = function () {
                 };

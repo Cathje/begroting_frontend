@@ -25,7 +25,6 @@ import {CoreDataComponent} from "./coreData.component";
 
 export class BudgetRouter {
     constructor(private _routeParams:RouteParams) {
-        console.log('param', _routeParams.get('town'));
     }
 }
 

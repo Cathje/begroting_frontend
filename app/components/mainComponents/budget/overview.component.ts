@@ -204,7 +204,6 @@ export class OverviewComponent {
                 private injector: Injector
     )
     {
-        console.log('55', injector.parent.parent.parent.parent.get(RouteParams).get('town'));
         _townService.getTown(injector.parent.parent.parent.parent.get(RouteParams).get('town'))
             .subscribe((town:MainTown) => {
                     this.mainTown = town;

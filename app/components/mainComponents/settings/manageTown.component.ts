@@ -178,6 +178,7 @@ export class ManageTownComponent {
         this._townService.putTownInput(this.mainTown).subscribe(
             (d:number) => this.id = d,
             (id:number) => this.errorMessage = id);
+        this._router.navigate(['/', 'App',{town: this.mainTown.naam}, 'Budget']);
     }
 
     voegToe() {

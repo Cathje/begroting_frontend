@@ -55,7 +55,6 @@ System.register(['angular2/core', './../subComponents/nav/menu.component', './ho
                         .subscribe(function (town) {
                         sessionStorage.setItem("mainColor", town.hoofdKleur);
                         _this.town = town;
-                        console.log(town);
                     }, function (err) { return _this.errorMessage = err; });
                 }
                 HomeRouter = __decorate([

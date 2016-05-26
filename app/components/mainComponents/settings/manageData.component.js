@@ -60,7 +60,7 @@ System.register(['angular2/core', 'angular2/router', "../../subComponents/input/
                 ManageDataComponent.prototype.submit = function () {
                     //TODO: extra info over projecten moet ook bewaard worden in de databank
                     this._townService.putTown(this.mainTown).subscribe();
-                    this._router.navigate(['/', 'App', 'Budget', { town: this.mainTown.naam }]);
+                    this._router.navigate(['/', 'App', { town: this.mainTown.naam }, 'Budget']);
                 };
                 ManageDataComponent.prototype.voegToe = function () {
                     this.mainTown.bestuur.push(new bestuur_1.Bestuur(this.bestuur.naam, this.bestuur.type));

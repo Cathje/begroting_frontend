@@ -8,9 +8,9 @@ import {StyledDirective} from '../../../directives/styled';
     selector: 'projects-container',
     template: `
     <div class="container">
+    <p class="alert alert-danger" *ngIf="errorMessage"><i>{{errorMessage}}</i></p>
     <h2>Begrotingsposten</h2>
     <p> Op deze pagina kan u de begrotingsposten terugvinden van uw gemeente per jaar. </p>
-     <p class="alert alert-danger" *ngIf="!begrotingen"><i>{{errorMessage}}</i></p>
 
         <div class="section-content">
             <div class="panel-group" id="accordion">
@@ -56,7 +56,7 @@ export class ProjectsComponent
     begrotingen: Begroting [];
     errorMessage:any;
     constructor(
-        private _routeParams: RouteParams, private _begrotingService:BegrotingService,private  injector:Injector,private _router : Router)
+        private _routeParams: RouteParams, private _begrotingService:BegrotingService,private injector:Injector,private _router : Router)
         {
             _begrotingService.getBegrotingen("Gent").subscribe((begr: any) => this.begrotingen = begr,
                 (err:any) => this.errorMessage = "Er zijn geen begrotingen gevonden voor deze gemeenten"
@@ -64,6 +64,6 @@ export class ProjectsComponent
         }
 
     onMakeProposition = () => {
-        this._router.navigate(['/', 'App',{ town: injector.parent.parent.parent.parent.get(RouteParams).get('town')}, 'Participation', 'AddPropositions']);
+        this._router.navigate(['/', 'App',{ town: this.injector.parent.parent.parent.parent.get(RouteParams).get('town')}, 'Participation', 'AddPropositions']);
     }
 }

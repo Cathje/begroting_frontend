@@ -564,7 +564,7 @@ export class ManageProjectComponent {
             (err:any) => this.errorMessageCreate = "Er bestaat al een project, dit kan je wijzigen"
         );
 
-        this._router.navigate(['/', 'App','Budget', { town: this.town}]);
+        this._router.navigate(['/', 'App',{town: this.town}, 'Budget']);
 
     }
 
@@ -576,6 +576,6 @@ export class ManageProjectComponent {
             (id:number) => this.id = id,
             (err:any) => this.errorMessage = err
         );
-        this._router.navigate(['/', 'App','Budget', { town: this.town}]);
+        this._router.navigate(['/', 'App',{town: this.town}, 'Budget']);
     }
 }

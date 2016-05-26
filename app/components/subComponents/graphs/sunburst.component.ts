@@ -104,7 +104,6 @@ export class SunburstComponent {
     translation: string;
 
     constructor(public renderer: Renderer, public el: ElementRef){
-        console.log(this.data.length);
     }
 
     ngOnInit() {

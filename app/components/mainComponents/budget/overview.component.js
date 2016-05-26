@@ -65,7 +65,6 @@ System.register(['angular2/core', 'angular2/router', './../../subComponents/grap
                             _this.width = window.innerWidth / 4;
                         }
                     };
-                    console.log('55', injector.parent.parent.parent.parent.get(router_1.RouteParams).get('town'));
                     _townService.getTown(injector.parent.parent.parent.parent.get(router_1.RouteParams).get('town'))
                         .subscribe(function (town) {
                         _this.mainTown = town;

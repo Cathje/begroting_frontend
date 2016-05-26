@@ -73,13 +73,13 @@ System.register(['angular2/core', 'angular2/router', "../../../pipes/keysPipe", 
                         _this.NewProject.afbeelding = _this.afb;
                         _this.NewProject.emailBeheerder = sessionStorage.getItem('user');
                         _this._projectService.postProject(_this.NewProject).subscribe(function (id) { return _this.id = id; }, function (err) { return _this.errorMessageCreate = "Er bestaat al een project, dit kan je wijzigen"; });
-                        _this._router.navigate(['/', 'App', 'Budget', { town: _this.town }]);
+                        _this._router.navigate(['/', 'App', { town: _this.town }, 'Budget']);
                     };
                     this.editExistingProject = function () {
                         _this.errorMessage = "";
                         _this.existProject.afbeelding = _this.afb;
                         _this._projectService.putProject(_this.existProject).subscribe(function (id) { return _this.id = id; }, function (err) { return _this.errorMessage = err; });
-                        _this._router.navigate(['/', 'App', 'Budget', { town: _this.town }]);
+                        _this._router.navigate(['/', 'App', { town: _this.town }, 'Budget']);
                     };
                     this.town = injector.parent.parent.parent.parent.get(router_1.RouteParams).get('town');
                 }

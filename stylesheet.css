@@ -49,6 +49,8 @@ h5{
 ul {
     list-style-position: inside;
     padding-left: 0px;
+    list-style: none;
+
 }
 
 img {
@@ -245,7 +247,11 @@ option {
     padding: 15px 7px;
 }
 
-ul {
-    list-style: none;
+.alert-danger {
+    position: absolute;
+    top: 0;
+    left:0;
+    width: 100%
+
 }
 
