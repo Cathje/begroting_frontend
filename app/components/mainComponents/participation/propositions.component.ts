@@ -18,6 +18,7 @@ import {StyledDirective} from '../../../directives/styled';
                       <div class="panel-heading">
                         <h4 class="panel-title">
                           <a data-toggle="collapse" data-parent="#accordion" href="{{'#'+project.titel}}">{{project.titel}}</a>
+                          
                         </h4>
                       </div>
                   <div [id]=project.titel class="panel-collapse collapse in">
@@ -25,6 +26,7 @@ import {StyledDirective} from '../../../directives/styled';
             <tbody>
             <tr *ngFor="#voorstel of project.voorstellen #i=index">
                <td><textarea readonly> {{voorstel.beschrijving}}</textarea></td>
+               <td>{{voorstel.auteurNaam}}</td>
                 <td>{{voorstel.aantalStemmen}}</td>
                 <td>
                 <span>Stem: </span><button class="btn btn-primary" (click)="stem(voorstel,j,i)" styled><span class="glyphicon glyphicon-thumbs-up"></span></button>
@@ -107,7 +109,7 @@ export class PropositionsComponent
     //@TODO  email toevoegen vanuit token als stemmer (datum toegevoegd op backend)
     stem(v: BegrotingsVoorstel,project:number, voorstel:number)
     {
-        this._projectService.putStem(this.projects[project].voorstellen[voorstel].Id, "nadya@nadya.be").subscribe((d:any) => this.data = d);
+        this._projectService.putStem(this.projects[project].voorstellen[voorstel].Id, sessionStorage.getItem('user')).subscribe((d:any) => this.data = d);
 
         setTimeout(function(){
             if(this.data != 0)
@@ -118,7 +120,7 @@ export class PropositionsComponent
     }
     post(project:number, voorstel:number)
     {
-        this.voorstelreactie = new ReactieOpVoorstel(this.projects[project].voorstellen[voorstel].reactie,"test@test.be");
+        this.voorstelreactie = new ReactieOpVoorstel(this.projects[project].voorstellen[voorstel].reactie,sessionStorage.getItem('user'));
         this._projectService.postReactie(this.projects[project].voorstellen[voorstel].Id, this.voorstelreactie).subscribe((d:any) => this.data = d);
 
         //@TODO zorgen dat de reactie direct op het scherm komt, opl nu is niet ok

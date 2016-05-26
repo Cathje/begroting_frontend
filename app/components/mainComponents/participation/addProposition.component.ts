@@ -80,7 +80,7 @@ import {CurConvert} from "./../../../pipes/curConvertPipe";
                         </ul>
                     </div>
                 </div>
-                <button [disabled]="submitProject" (click)="submit()"class="btn btn-primary pull-right" styled>opslaan</button>
+                <button [disabled]="!submitProject" (click)="submit()"class="btn btn-primary pull-right" styled>opslaan</button>
             </form>
         </div>
         <div class ="row">
@@ -585,34 +585,9 @@ export class AddPropositionComponent {
     //@TODO test voor webapi en service  --> te verwijderen
     submit()
     {
-        this.begrotingsVoorstel.beschrijving = "kjQGQBjqshgbcjhqbckjb<clgbcqjbck:xjhb";
-        // alert(this.BegrotingsVoorstel.budgetWijzigingen.length);
+        this.begrotingsVoorstel.auteurEmail = sessionStorage.getItem('user');
         this._projectService.postBegrotingsVoorstel(this.project.id, this.begrotingsVoorstel).subscribe();
 
     }
 
-
-
-    //@TODO test voor webapi en service --> te verwijderen
-    createBudgetWijziging(id: number, inspraak:number)
-    {
-        /*if(inspraak != 2)
-         {
-         this.budgetwijzigingen  = this.begrotingsVoorstel.budgetWijzigingen.filter(
-         (b:any) => b.inspraakItemId === id);
-         if(this.budgetwijzigingen.length == 0)
-         {
-         this.begrotingsVoorstel.budgetWijzigingen.push(new BudgetWijziging(id, 1000));
-         return true;
-         }
-         else {
-         //totaal wijzigen ofzo...
-         return true;
-         }
-         }
-         else {
-         return false;
-         }*/
-    }
-    //sessionStorage.removeItem("newUser");
 }

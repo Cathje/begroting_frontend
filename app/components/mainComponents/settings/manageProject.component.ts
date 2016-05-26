@@ -1,5 +1,5 @@
 import {Component, Injector} from 'angular2/core';
-import {RouteParams, ROUTER_DIRECTIVES} from 'angular2/router';
+import {RouteParams, ROUTER_DIRECTIVES, Router} from 'angular2/router';
 
 //pipes
 import {KeysPipe} from "../../../pipes/keysPipe";
@@ -24,7 +24,7 @@ import {StyledDirective} from '../../../directives/styled';
     selector: 'manage-project-container',
     template: `
     <section class="container">
-        <p *ngIf="errorMessage" class="alert alert-info">Er is geen begroting voor dit jaar</p>
+        
         <h1>Beheer project - {{town}}</h1>
         <div class="tabs">
             <button class="btn btn-primary" (click)="isNewProject = true" [ngClass]="{inactive: !isNewProject}" data-toggle="tab" href="#new" styled>Nieuw project</button>
@@ -35,6 +35,7 @@ import {StyledDirective} from '../../../directives/styled';
         <div class="tab-content">
             <div id="existing" class="tab-pane fade">
                 <section class="col-xs-12 form-inline">
+                <p *ngIf="errorMessage2" class="alert alert-info">{{errorMessage2}}</p>
                     <h3>Voor welk boekjaar wenst u een bestaand project op te halen?</h3>
                     <div class="section-content">
                         <label>boekjaar:</label>
@@ -89,7 +90,8 @@ import {StyledDirective} from '../../../directives/styled';
                         <div *ngFor="#catA of existProject.cats #i = index">
                             <div class="row">
                                 <h5 class="col-xs-6">{{catA.naamCat}}</h5>
-                                <p class="col-xs-3">{{catA.totaal | currency: 'EUR' : true : '1.1-1'}}</p>
+                                <p class="col-xs-2">{{catA.totaal | currency: 'EUR' : true : '1.1-1'}}</p>
+                                <p class="col-xs-1">{{niveaus[catA.inspraakNiveau]}}</p>
                                 <div class=" styled-select">
                                 <select class="col-xs-3" (change)="onSelectCatNiveau($event, i,0,0, null, catA)">
                                     <option *ngFor="#t of niveaus | keys" [value]="t.key">{{t.value}}</option>
@@ -100,7 +102,8 @@ import {StyledDirective} from '../../../directives/styled';
                             <div class="acties" *ngFor="#ac of catA.acties #j = index">
                                 <div class="row">
                                 <h5 class="col-xs-6">{{ac.actieKort}} - {{ac.actieLang}}</h5>
-                                <p class="col-xs-3"> {{ac.uitgaven | currency: 'EUR' : true : '1.1-1'}}</p>
+                                <p class="col-xs-2"> {{ac.uitgaven | currency: 'EUR' : true : '1.1-1'}}</p>
+                                <p class="col-xs-1">{{niveaus[ac.inspraakNiveau]}}</p>
                                 <div class=" styled-select">
                                 <select class="col-xs-3" (change)="onSelectActieNiveau($event,null, ac)">
                                     <option *ngFor="#t of niveaus | keys" [value]="t.key">{{t.value}}</option>
@@ -111,7 +114,8 @@ import {StyledDirective} from '../../../directives/styled';
                             <div *ngFor="#catB of catA.childCats #k = index">
                                 <div class="row">
                                     <h5 class="col-xs-6">{{catB.naamCat}}</h5>
-                                    <p class="col-xs-3">{{catB.totaal | currency: 'EUR' : true : '1.1-1'}}</p>
+                                    <p class="col-xs-2">{{catB.totaal | currency: 'EUR' : true : '1.1-1'}}</p>
+                                    <p class="col-xs-1">{{niveaus[catB.inspraakNiveau]}}</p>
                                     <div class=" styled-select">
                                     <select class="col-xs-3" (change)="onSelectCatNiveau($event, i,k,0, catA, catB)">
                                         <option *ngFor="#t of niveaus | keys" [value]="t.key">{{t.value}}</option>
@@ -121,7 +125,8 @@ import {StyledDirective} from '../../../directives/styled';
                                 <div class="acties" *ngFor="#ac of catB.acties #j = index">
                                     <div class="row">
                                     <h5 class="col-xs-6">{{ac.actieKort}} - {{ac.actieLang}}</h5>
-                                    <p class="col-xs-3"> {{ac.uitgaven | currency: 'EUR' : true : '1.1-1'}}</p>
+                                    <p class="col-xs-2"> {{ac.uitgaven | currency: 'EUR' : true : '1.1-1'}}</p>
+                                    <p class="col-xs-1">{{niveaus[ac.inspraakNiveau]}}</p>
                                     <div class=" styled-select">
                                     <select class="col-xs-3" (change)="onSelectActieNiveau($event,catB,ac)">
                                         <option *ngFor="#t of niveaus | keys" [value]="t.key">{{t.value}}</option>
@@ -132,7 +137,8 @@ import {StyledDirective} from '../../../directives/styled';
                                 <div *ngFor="#catC of catB.childCats #l = index">
                                     <div class="row">
                                         <h5 class="col-xs-6">{{catC.naamCat}}</h5>
-                                        <p class="col-xs-3">{{catC.totaal | currency: 'EUR' : true : '1.1-1'}}</p>
+                                        <p class="col-xs-2">{{catC.totaal | currency: 'EUR' : true : '1.1-1'}}</p>
+                                        <p class="col-xs-1">{{niveaus[catC.inspraakNiveau]}}</p>
                                         <div class=" styled-select">
                                         <select class="col-xs-3"(change)="onSelectCatNiveau($event, i,k,l, catB, catC)">
                                             <option *ngFor="#t of niveaus | keys" [value]="t.key">{{t.value}}</option>
@@ -142,7 +148,8 @@ import {StyledDirective} from '../../../directives/styled';
                                     <div class="acties" *ngFor="#ac of catC.acties #j = index">
                                         <div class="row">
                                             <h5 class="col-xs-6">{{ac.actieKort}} - {{ac.actieLang}}</h5>
-                                            <p class="col-xs-3">  {{ac.uitgaven | currency: 'EUR' : true : '1.1-1'}}</p>
+                                            <p class="col-xs-2">  {{ac.uitgaven | currency: 'EUR' : true : '1.1-1'}}</p>
+                                            <p class="col-xs-1">{{niveaus[ac.inspraakNiveau]}}</p>
                                             <div class=" styled-select">
                                             <select class="col-xs-3" (change)="onSelectActieNiveau($event,catC, ac)">
                                                 <option *ngFor="#t of niveaus | keys" [value]="t.key">{{t.value}}</option>
@@ -156,13 +163,14 @@ import {StyledDirective} from '../../../directives/styled';
                         </div>
                     </div>
                 </section>
-                <button [hidden]="!errorMessage" (click)="editExistingProject()" class="btn btn-primary pull-right" styled>opslaan</button>
+                <button [hidden]="errorMessage2" (click)="editExistingProject()" class="btn btn-primary pull-right" styled>opslaan</button>
             </div>
 
             <!-- NEW PROJECTS TAB-->
             <div id="new" class="tab-pane fade in active">
                 <section class="col-xs-12 form-inline">
                     <h3>Voor welk boekjaar wenst u een nieuw Project op te stellen?</h3>
+                    <p *ngIf="errorMessage" class="alert alert-info">{{errorMessage}}</p>
                     <div class="section-content">
                         <label>boekjaar:</label>
                         <input type="number" class="form-control" [(ngModel)]="boekjaar" />
@@ -211,11 +219,14 @@ import {StyledDirective} from '../../../directives/styled';
                 </section>
                 <section class="col-xs-12 form-inline" *ngIf="!errorMessage">
                     <h3>InspraakNiveaus vaststellen</h3>
+                    
                     <div class="section-content">
+                    <p *ngIf="categorieen.length == 0"> haal eerst een begroting op</p>
                         <div *ngFor="#catA of categorieen #i = index">
                             <div class="row">
                                 <h5 class="col-xs-6">{{catA.naamCat}}</h5>
-                                <p class="col-xs-3">{{catA.totaal | currency: 'EUR' : true : '1.1-1'}}</p>
+                                <p class="col-xs-2">{{catA.totaal | currency: 'EUR' : true : '1.1-1'}}</p>
+                                <p class="col-xs-1">{{niveaus[catA.inspraakNiveau]}}</p>
                                 <div class=" styled-select">
                                 <select class="col-xs-3" (change)="onSelectCatNiveau($event, i,0,0, null, catA)">
                                     <option *ngFor="#t of niveaus | keys" [value]="t.key">{{t.value}}</option>
@@ -226,7 +237,8 @@ import {StyledDirective} from '../../../directives/styled';
                             <div class="acties" *ngFor="#ac of catA.acties #j = index">
                                 <div class="row">
                                 <h5 class="col-xs-6">{{ac.actieKort}} - {{ac.actieLang}}</h5>
-                                <p class="col-xs-3"> {{ac.uitgaven | currency: 'EUR' : true : '1.1-1'}}</p>
+                                <p class="col-xs-2"> {{ac.uitgaven | currency: 'EUR' : true : '1.1-1'}}</p>
+                                <p class="col-xs-1">{{niveaus[ac.inspraakNiveau]}}</p>
                                 <div class=" styled-select">
                                 <select class="col-xs-3" (change)="onSelectActieNiveau($event,null, ac)">
                                     <option *ngFor="#t of niveaus | keys" [value]="t.key">{{t.value}}</option>
@@ -237,7 +249,8 @@ import {StyledDirective} from '../../../directives/styled';
                             <div *ngFor="#catB of catA.childCats #k = index">
                                 <div class="row">
                                     <h5 class="col-xs-6">{{catB.naamCat}}</h5>
-                                    <p class="col-xs-3">{{catB.totaal | currency: 'EUR' : true : '1.1-1'}}</p>
+                                    <p class="col-xs-2">{{catB.totaal | currency: 'EUR' : true : '1.1-1'}}</p>
+                                    <p class="col-xs-1">{{niveaus[catB.inspraakNiveau]}}</p>
                                     <div class=" styled-select">
                                     <select class="col-xs-3" (change)="onSelectCatNiveau($event, i,k,0, catA, catB)">
                                         <option *ngFor="#t of niveaus | keys" [value]="t.key">{{t.value}}</option>
@@ -247,7 +260,8 @@ import {StyledDirective} from '../../../directives/styled';
                                 <div class="acties" *ngFor="#ac of catB.acties #j = index">
                                     <div class="row">
                                     <h5 class="col-xs-6">{{ac.actieKort}} - {{ac.actieLang}}</h5>
-                                    <p class="col-xs-3"> {{ac.uitgaven | currency: 'EUR' : true : '1.1-1'}}</p>
+                                    <p class="col-xs-2"> {{ac.uitgaven | currency: 'EUR' : true : '1.1-1'}}</p>
+                                    <p class="col-xs-1">{{niveaus[ac.inspraakNiveau]}}</p>
                                     <div class=" styled-select">
                                     <select class="col-xs-3" (change)="onSelectActieNiveau($event,catB,ac)">
                                         <option *ngFor="#t of niveaus | keys" [value]="t.key">{{t.value}}</option>
@@ -258,7 +272,8 @@ import {StyledDirective} from '../../../directives/styled';
                                 <div *ngFor="#catC of catB.childCats #l = index">
                                     <div class="row">
                                         <h5 class="col-xs-6">{{catC.naamCat}}</h5>
-                                        <p class="col-xs-3">{{catC.totaal | currency: 'EUR' : true : '1.1-1'}}</p>
+                                        <p class="col-xs-2">{{catC.totaal | currency: 'EUR' : true : '1.1-1'}}</p>
+                                        <p class="col-xs-1">{{niveaus[catC.inspraakNiveau]}}</p>
                                         <div class=" styled-select">
                                         <select class="col-xs-3"(change)="onSelectCatNiveau($event, i,k,l, catB, catC)">
                                             <option *ngFor="#t of niveaus | keys" [value]="t.key">{{t.value}}</option>
@@ -268,7 +283,8 @@ import {StyledDirective} from '../../../directives/styled';
                                     <div class="acties" *ngFor="#ac of catC.acties #j = index">
                                         <div class="row">
                                             <h5 class="col-xs-6">{{ac.actieKort}} - {{ac.actieLang}}</h5>
-                                            <p class="col-xs-3">  {{ac.uitgaven | currency: 'EUR' : true : '1.1-1'}}</p>
+                                            <p class="col-xs-2">  {{ac.uitgaven | currency: 'EUR' : true : '1.1-1'}}</p>
+                                            <p class="col-xs-1">{{niveaus[ac.inspraakNiveau]}}</p>
                                             <div class=" styled-select">
                                             <select class="col-xs-3" (change)="onSelectActieNiveau($event,catC, ac)">
                                                 <option *ngFor="#t of niveaus | keys" [value]="t.key">{{t.value}}</option>
@@ -282,7 +298,8 @@ import {StyledDirective} from '../../../directives/styled';
                         </div>
                     </div>
                 </section>
-                <button [hidden]="!errorMessage" (click)="submit()" class="btn btn-primary pull-right" styled>opslaan</button>
+                <p *ngIf="errorMessageCreate" class="alert alert-info"> {{errorMessageCreate}}</p>
+                <button [hidden]="errorMessage" (click)="submit()" class="btn btn-primary pull-right" styled>opslaan</button>
 
             </div>
         </div>
@@ -361,10 +378,12 @@ export class ManageProjectComponent {
     town:string;
     id:number;
     errorMessage:string;
+    errorMessage2:string;
+    errorMessageCreate:string;
     afb:string;
 
     constructor(private _projectService:ProjectService,
-                private injector:Injector)
+                private injector:Injector, private _router:Router)
     {
         this.town = injector.parent.parent.parent.parent.get(RouteParams).get('town');
     }
@@ -372,6 +391,7 @@ export class ManageProjectComponent {
 
     getBegroting() {
         this.errorMessage = "";
+        this.errorMessage2 = "";
         this._projectService.getInspraakitems(this.boekjaar, this.town)
             .subscribe((cats:any) => this.categorieen = cats,
                 (err:any) => this.errorMessage = "Geen inspraakitems gevonden."
@@ -380,10 +400,11 @@ export class ManageProjectComponent {
 
     getProject() {
         this.errorMessage = "";
+        this.errorMessage2 = "";
         this.categorieen = [];
         this._projectService.getProject(this.boekjaar, this.town)
             .subscribe((pr:any) => this.existProject = pr,
-                (err:any) => this.errorMessage = "Geen project gevonden."
+                (err:any) => this.errorMessage2 = "Geen project gevonden."
             );
 
     }
@@ -537,9 +558,10 @@ export class ManageProjectComponent {
         this.NewProject.gemeente = this.town;
         this.NewProject.boekjaar = this.boekjaar;
         this.NewProject.afbeelding = this.afb;
+        this.NewProject.emailBeheerder = sessionStorage.getItem('user');
         this._projectService.postProject(this.NewProject).subscribe(
             (id:number) => this.id = id,
-            (err:any) => this.errorMessage = err
+            (err:any) => this.errorMessageCreate = "Er bestaat al een project, dit kan je wijzigen"
         );
 
         this._router.navigate(['/', 'App','Budget', { town: this.town}]);

@@ -18,6 +18,7 @@ export class Project {
     afbeelding: string;
     isActief : boolean;
     voorstellen: BegrotingsVoorstel [] = [];
+    emailBeheerder:string;
 
     constructor(titel:string)
     {
