@@ -302,7 +302,7 @@ function buildHierarchy(data: [Object], colors: Object, categories: any) {
             position.push(createObject(createObject(levelBList[i], 'catB')));
 
     }
-    
+
     // THIRD LEVEL CAT C
     for (var i = 0; i < levelCList.length; i++) {
         const size = + Math.abs(levelCList[i]['totaal']);
