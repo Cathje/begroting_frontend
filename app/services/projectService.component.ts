@@ -17,10 +17,10 @@ export class ProjectService
 
     constructor(private http: Http ) {
     }
-  private _url = 'http://begroting-webapi.azurewebsites.net/api/Begroting';
-  private _url2 = 'http://begroting-webapi.azurewebsites.net/api/Project';
+  //private _url = 'http://begroting-webapi.azurewebsites.net/api/Begroting';
+   // private _url2 = 'http://begroting-webapi.azurewebsites.net/api/Project';
   // private _url = 'http://localhost:52597/api/Begroting';
-   //private _url2 = 'http://localhost:52597/api/Project';
+  private _url2 = 'http://localhost:52597/api/Project';
 
     getInspraakitems(jaar:number, naam:string):Observable<GemeenteCategorie[]> {
         var headers = new Headers();
@@ -71,12 +71,12 @@ export class ProjectService
             .map(this.extractData);
     }
 
-    putVoorstelStatus(voorstelId:number, status: number)
+    putVoorstelStatus(voorstelId:number, voorstel: BegrotingsVoorstel)
     {
         var headers = new Headers();
         headers.append('Content-Type', 'application/json');
         headers.append('Authorization', 'Bearer ' + sessionStorage.getItem('access_token'));
-        return this.http.put(this._url2 + "/putVoorstelStatus/" + voorstelId,JSON.stringify(status)
+        return this.http.put(this._url2 + "/putVoorstelStatus/" + voorstelId,JSON.stringify(voorstel)
             ,{headers:headers}).map(this.extractData);
     }
     putStem(voorstelId:number, email:string)

@@ -1,6 +1,4 @@
-System.register(['angular2/core', 'angular2/http', 'rxjs/Rx'], function(exports_1, context_1) {
-    "use strict";
-    var __moduleName = context_1 && context_1.id;
+System.register(['angular2/core', 'angular2/http', 'rxjs/Rx'], function(exports_1) {
     var __decorate = (this && this.__decorate) || function (decorators, target, key, desc) {
         var c = arguments.length, r = c < 3 ? target : desc === null ? desc = Object.getOwnPropertyDescriptor(target, key) : desc, d;
         if (typeof Reflect === "object" && typeof Reflect.decorate === "function") r = Reflect.decorate(decorators, target, key, desc);
@@ -25,11 +23,11 @@ System.register(['angular2/core', 'angular2/http', 'rxjs/Rx'], function(exports_
             ProjectService = (function () {
                 function ProjectService(http) {
                     this.http = http;
-                    this._url = 'http://begroting-webapi.azurewebsites.net/api/Begroting';
-                    this._url2 = 'http://begroting-webapi.azurewebsites.net/api/Project';
+                    //private _url = 'http://begroting-webapi.azurewebsites.net/api/Begroting';
+                    // private _url2 = 'http://begroting-webapi.azurewebsites.net/api/Project';
+                    // private _url = 'http://localhost:52597/api/Begroting';
+                    this._url2 = 'http://localhost:52597/api/Project';
                 }
-                // private _url = 'http://localhost:52597/api/Begroting';
-                //private _url2 = 'http://localhost:52597/api/Project';
                 ProjectService.prototype.getInspraakitems = function (jaar, naam) {
                     var headers = new http_1.Headers();
                     headers.append('Content-Type', 'application/json');
@@ -66,11 +64,11 @@ System.register(['angular2/core', 'angular2/http', 'rxjs/Rx'], function(exports_
                     return this.http.get(this._url2 + "/projectGET" + "?jaar=" + jaar + "&naam=" + naam, { headers: headers })
                         .map(this.extractData);
                 };
-                ProjectService.prototype.putVoorstelStatus = function (voorstelId, status) {
+                ProjectService.prototype.putVoorstelStatus = function (voorstelId, voorstel) {
                     var headers = new http_1.Headers();
                     headers.append('Content-Type', 'application/json');
                     headers.append('Authorization', 'Bearer ' + sessionStorage.getItem('access_token'));
-                    return this.http.put(this._url2 + "/putVoorstelStatus/" + voorstelId, JSON.stringify(status), { headers: headers }).map(this.extractData);
+                    return this.http.put(this._url2 + "/putVoorstelStatus/" + voorstelId, JSON.stringify(voorstel), { headers: headers }).map(this.extractData);
                 };
                 ProjectService.prototype.putStem = function (voorstelId, email) {
                     var headers = new http_1.Headers();
@@ -99,7 +97,7 @@ System.register(['angular2/core', 'angular2/http', 'rxjs/Rx'], function(exports_
                     __metadata('design:paramtypes', [http_1.Http])
                 ], ProjectService);
                 return ProjectService;
-            }());
+            })();
             exports_1("ProjectService", ProjectService);
         }
     }
