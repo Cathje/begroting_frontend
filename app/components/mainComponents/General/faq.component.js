@@ -46,7 +46,8 @@ System.register(['angular2/core', "angular2/router", "../../../models/faq", "../
                 FaqComponent = __decorate([
                     core_1.Component({
                         selector: 'faq-container',
-                        template: "\n        <div class=\"container\">\n            <section class=\"intro col-xs-12\">\n                <h1>FAQ</h1>\n                <div class=\"form-inline\">\n                <ul *ngIf=\"mainTown?.FAQs\" >\n                   <li *ngFor=\"#f of mainTown.FAQs\" >\n                   <p><bold>{{f.vraag}}</bold></p>\n                   <p>{{f.antwoord}} </p>\n                    </li>\n                </ul>\n                <p *ngIf=\"!mainTown?.faqs\"><i>Er zijn nog geen vragen en antwoord ingediend.</i></p>\n                </div>\n            </section>\n       </div>\n    ",
+                        template: "\n        <div class=\"container\">\n            <section class=\"intro col-xs-12\">\n                <h1>FAQ</h1>\n                <div class=\"form-inline\">\n                <ul >\n                   <li *ngFor=\"#f of mainTown.FAQs\" >\n                   <p><strong>{{f.vraag}}</strong></p>\n                   <p>{{f.antwoord}} </p>\n                    </li>\n                </ul>\n                <p *ngIf=\"mainTown?.FAQs?.length < 1\"><i>Er zijn nog geen vragen en antwoord ingediend.</i></p>\n                </div>\n            </section>\n       </div>\n    ",
+                        styles: ["\n        ul {\n        list-style :none;\n        }\n    "]
                     }), 
                     __metadata('design:paramtypes', [router_1.RouteParams, townService_component_1.TownService, router_2.Router, core_1.Injector])
                 ], FaqComponent);

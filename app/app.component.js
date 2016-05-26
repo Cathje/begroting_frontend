@@ -56,7 +56,6 @@ System.register(['angular2/core', 'angular2/router', "angular2/http", './compone
                         sessionStorage.removeItem('token');
                         _this._router.navigate(['/', 'Default']);
                     };
-                    console.log('111', _location.path() === '');
                     this.isHomePage = _location.path() === '';
                 }
                 AppComponent.prototype.ngOnInit = function () {

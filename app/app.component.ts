@@ -141,7 +141,6 @@ export class AppComponent {
     register: string;
 
     constructor(private _router : Router, private _location: Location) {
-        console.log('111', _location.path() === '');
         this.isHomePage = _location.path() === '';
     }
 

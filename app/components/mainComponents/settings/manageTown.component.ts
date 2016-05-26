@@ -45,12 +45,12 @@ declare var jQuery: any;
                 <div class="form-inline">
                 <ul *ngIf="mainTown?.FAQs" >
                    <li *ngFor="#f of mainTown.FAQs" >
-                   <button class="btn btn-primary" (click)="verwijder(f)" ><span class="glyphicon glyphicon-trash"></span></button>
-                   <p>{{f.vraag}} </p>
-                   <p>{{f.antwoord}} </p>
+                   <p>
+                    <button class="btn btn-primary" (click)="verwijder(f)" ><span class="glyphicon glyphicon-trash"></span></button>
+                   <strong>{{f.vraag}}</strong> {{f.antwoord}} </p>
                     </li>
                 </ul>
-                <p *ngIf="!mainTown?.faqs"><i>Er zijn nog geen vragen en antwoord ingediend.</i></p>
+                <p *ngIf="mainTown?.faqs?.length < 1"><i>Er zijn nog geen vragen en antwoord ingediend.</i></p>
                 </div>
 
                 <div class="addFaq">
@@ -103,6 +103,10 @@ declare var jQuery: any;
         overflow: auto;
     }
 
+    ul {
+        list-style: none;
+    }
+
     `]
 })
 
@@ -117,7 +121,7 @@ export class ManageTownComponent {
 
 
     constructor(private _begrotingService:BegrotingService, private _routeParams:RouteParams, private _townService:TownService, private _router:Router, injector:Injector) {
-        _townService.getTown(injector.parent.parent.get(RouteParams).get('town'))
+        _townService.getTown(injector.parent.parent.parent.parent.get(RouteParams).get('town'))
             .subscribe(
                 (town:MainTown) => this.mainTown = town,
                 (err:any) => this.errorMessage = "Geen stad gevonden"
@@ -143,6 +147,7 @@ export class ManageTownComponent {
     changeImg = (event:any)=> {
         this.loadimage(event.target.files[0], (img:string) => {
             this.afb = img;
+            this.mainTown.logo = img;
         });
 
         //TODO: + create webapi to save this in backend
@@ -177,6 +182,8 @@ export class ManageTownComponent {
 
     voegToe() {
         this.mainTown.FAQs.push(new Faq(this.faq.vraag, this.faq.antwoord));
+        this.faq.vraag = "";
+        this.faq.antwoord="";
     }
 
 

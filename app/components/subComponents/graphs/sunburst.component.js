@@ -1,4 +1,6 @@
-System.register(['angular2/core', 'd3', "../../../defaults/categories"], function(exports_1) {
+System.register(['angular2/core', 'd3', "../../../defaults/categories"], function(exports_1, context_1) {
+    "use strict";
+    var __moduleName = context_1 && context_1.id;
     var __decorate = (this && this.__decorate) || function (decorators, target, key, desc) {
         var c = arguments.length, r = c < 3 ? target : desc === null ? desc = Object.getOwnPropertyDescriptor(target, key) : desc, d;
         if (typeof Reflect === "object" && typeof Reflect.decorate === "function") r = Reflect.decorate(decorators, target, key, desc);
@@ -100,7 +102,7 @@ System.register(['angular2/core', 'd3', "../../../defaults/categories"], functio
         for (var i = 0; i < levelAList.length; i++) {
             var size = +Math.abs(levelAList[i]['totaal']);
             // add element to hierarchy
-            addColor(categories, levelAList[i], colors);
+            addColor(categories, levelAList[i], colors, 'catA');
             root["children"].push(createObject(levelAList[i], 'catA'));
         }
         // SECOND LEVEL CAT B
@@ -112,12 +114,12 @@ System.register(['angular2/core', 'd3', "../../../defaults/categories"], functio
             // If we don't already have a Cat A for this branch, create it.
             if (Object.keys(catA).length === 0) {
                 position.push(createObject(levelBList[i], 'catA'));
-                addColor(categories, levelBList[i], colors);
+                addColor(categories, levelBList[i], colors, 'catA');
             }
             // move node down in hierarchy > to level A children
             position = _moveNodeDown(position, levelBList[i]['catA']);
             // add catB to the catA children array
-            addColor(categories, levelBList[i], colors);
+            addColor(categories, levelBList[i], colors, 'catB');
             position.push(createObject(createObject(levelBList[i], 'catB')));
         }
         // THIRD LEVEL CAT C
@@ -129,7 +131,7 @@ System.register(['angular2/core', 'd3', "../../../defaults/categories"], functio
             // If we don't already have a Cat A for this branch, create it.
             if (Object.keys(catA).length === 0) {
                 position.push(createObject(levelCList[i], 'catA'));
-                addColor(categories, levelCList[i], colors);
+                addColor(categories, levelCList[i], colors, 'catA');
             }
             // move node down in hierarchy > to level A children
             position = _moveNodeDown(position, levelCList[i]['catA']);
@@ -138,13 +140,13 @@ System.register(['angular2/core', 'd3', "../../../defaults/categories"], functio
             // If we don't already have a Cat B for this branch, create it.
             if (Object.keys(catB).length === 0) {
                 position.push(createObject(levelCList[i], 'catB'));
-                addColor(categories, levelCList[i], colors);
+                addColor(categories, levelCList[i], colors, 'catB');
             }
             // move node down in hierarchy > to level B children
             position = _moveNodeDown(position, levelCList[i]['catB']);
             // add catC to the catB children array
             position.push(createObject(levelCList[i], 'catC'));
-            addColor(categories, levelCList[i], colors);
+            addColor(categories, levelCList[i], colors, 'catC');
         }
         return root;
     }
@@ -156,9 +158,9 @@ System.register(['angular2/core', 'd3', "../../../defaults/categories"], functio
         }
         return children;
     }
-    function addColor(categories, el, colors) {
+    function addColor(categories, el, colors, category) {
         var categoryItem = categories.filter(function (categorie) { return categorie.naam === el['catA']; });
-        colors[el['naamCat']] = el['kleur'] ? el['kleur'] : categoryItem[0]['kleur'] || 'lightgray';
+        colors[el[category]] = el['kleur'] ? el['kleur'] : categoryItem[0]['kleur'] || 'lightgray';
     }
     function createObject(el, category) {
         return {
@@ -266,7 +268,7 @@ System.register(['angular2/core', 'd3', "../../../defaults/categories"], functio
                     __metadata('design:paramtypes', [core_1.Renderer, core_1.ElementRef])
                 ], SunburstComponent);
                 return SunburstComponent;
-            })();
+            }());
             exports_1("SunburstComponent", SunburstComponent);
             ;
             ;

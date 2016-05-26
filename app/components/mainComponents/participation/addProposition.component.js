@@ -101,7 +101,10 @@ System.register(['angular2/core', 'angular2/router', "../../../services/projectS
                     this._begrotingService.getGemeenteCategorieen(2020, "Gent")
                         .subscribe(function (cats) { return _this.categories = cats; }, function (err) { return _this.errorMessage = "Er zijn geen categorieën gevonden."; });
                     this._projectService.getProject(this.year, "Gent")
-                        .subscribe(function (project) { return _this.project = project; }, function (err) { return _this.errorMessage = "Er is geen project gevonden."; });
+                        .subscribe(function (project) {
+                        _this.project = project;
+                        console.log(project);
+                    }, function (err) { return _this.errorMessage = "Er is geen project gevonden."; });
                     if (!this.errorMessage) {
                     }
                 }

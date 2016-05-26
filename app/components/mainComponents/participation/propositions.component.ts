@@ -10,7 +10,7 @@ import {StyledDirective} from '../../../directives/styled';
     selector: 'propositions-container',
     template: `
     <div class="container">
-          <p class="alert alert-danger" *ngIf="!projects"><i>Er zijn geen projecten gevonden</i></p>
+          <p class="alert alert-danger" *ngIf="!projects"><i>{{errorMessage}}</i></p>
     <h2>Stem en/of geef reactie op een Begrotingsvoorstel</h2>
         <div class="section-content">
             <div class="panel-group" id="accordion">
@@ -97,13 +97,16 @@ export class PropositionsComponent
 {
     projects: Project[]= [];
     data:number = 0;
+    errorMessage: string;
     voorstelreactie:ReactieOpVoorstel = new ReactieOpVoorstel("","");
 
 
     constructor(
         private _routeParams: RouteParams, private _projectService: ProjectService)
     {
-        this._projectService.getProjects("Gent").subscribe((pr:any) => this.projects = pr);
+        this._projectService.getProjects("Gent").subscribe((pr:any) => this.projects = pr,
+            (err:any) => this.errorMessage = "Er zijn geen projecten gevonden voor deze gemeenten");
+
     }
 
     //@TODO  email toevoegen vanuit token als stemmer (datum toegevoegd op backend)

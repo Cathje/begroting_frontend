@@ -90,12 +90,12 @@ import {GemeenteCategorie} from "../../../models/gemeenteCategorie";
                                 </select>
                             </div>
                         </div>
-                        <button type="button" class="btn btn-primary" (click)="onChangeCluster(selectedYear4, selectedTown4, '4')">
+                        <button type="button" class="btn btn-primary" (click)="onChangeCluster(selectedYear3, selectedTown3, '4')">
                                 <span class="glyphicon glyphicon-ok"></span>
                         </button>
 
                      </div>
-                     <sunburst [data]=categories [onClick]=onCircleClick [height]=width [width]=width></sunburst>
+                     <sunburst [data]=categories3 [onClick]=onCircleClick [height]=width [width]=width></sunburst>
                 </div>
                 <div class="vs">
                     VS
@@ -122,7 +122,7 @@ import {GemeenteCategorie} from "../../../models/gemeenteCategorie";
                                 <span class="glyphicon glyphicon-ok"></span>
                         </button>
                     </div>
-                    <sunburst [data]=categories2 [onClick]=onCircleClick [height]=width [width]=width></sunburst>
+                    <sunburst [data]=categories4 [onClick]=onCircleClick [height]=width [width]=width></sunburst>
 
                 </div>
             </div>
@@ -142,14 +142,8 @@ import {GemeenteCategorie} from "../../../models/gemeenteCategorie";
         }
 
         select {
-            border: 1px solid lightgray;
-            margin: 20px;
+            max-width: 175px;
         }
-
-        .styled-select{
-            flex: 0 1 auto !important;
-        }
-
         .selectors{
             display: flex;
             align-items: center;
@@ -200,6 +194,8 @@ export class ComparisonComponent {
     }
 
     onChangeGraph = (year: number, town: string, graphNumber: string) => {
+        console.log(year, town, graphNumber);
+
         if(year === 0 || town === ""){
             this.errorMessage= "Gelieve een jaartal en een gemeente te selecteren";
         }else {
@@ -218,6 +214,7 @@ export class ComparisonComponent {
     };
 
     onChangeCluster = (year: number, town: string, graphNumber: string) => {
+        console.log(year, town, graphNumber);
         if(year === 0 || town === ""){
             this.errorMessage= "Gelieve een jaartal en een gemeente te selecteren";
         }else {
@@ -259,8 +256,10 @@ export class ComparisonComponent {
             case "1": this.selectedYear1 = event.target.value; break;
             case "2":  this.selectedYear2 = event.target.value; break;
             case "3":  this.selectedYear3 = event.target.value; break;
-            case "4":  this.selectedYear2 = event.target.value; break;
+            case "4":  this.selectedYear4 = event.target.value; break;
         }
+        console.log(this.selectedYear3, this.selectedYear4);
+
     };
 
     onSelectTown = (event: any,graphNumber: string) => {
@@ -269,7 +268,7 @@ export class ComparisonComponent {
             case "1": this.selectedTown1 = event.target.value; break;
             case "2":  this.selectedTown2 = event.target.value; break;
             case "3":  this.selectedTown3 = event.target.value; break;
-            case "4":  this.selectedTown2 = event.target.value; break;
+            case "4":  this.selectedTown4 = event.target.value; break;
         }
     }
 

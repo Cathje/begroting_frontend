@@ -56,10 +56,10 @@ import {ROUTER_DIRECTIVES, Router, RouteParams, RouteConfig} from 'angular2/rout
                         </ul>
                         <p *ngIf="!mainTown.deelGemeenten"><i>Er zijn geen deelgemeentes</i></p>
                     <h4>Bestuur: </h4>
+                        <p *ngIf="mainTown?.bestuur?.length < 1"><i>Er zijn geen gegevens over het bestuur beschikbaar.</i></p>
                         <ul *ngIf="mainTown?.bestuur" >
                             <li *ngFor="#b of mainTown.bestuur"><span>{{b.naam}} - {{types[b.type]}}</span></li>
                         </ul>
-                        <p *ngIf="!mainTown.bestuur"><i>Er zijn geen gegevens over het bestuur</i></p>
                     </div>
         </section>
 
@@ -110,6 +110,8 @@ export class CoreDataComponent {
                 },
                 (err:any) => this.errorMessage = "Er was een probleem met het ophalen van de gegevens."
              );
+
+        console.log(this.mainTown.bestuur);
     }
 }
 

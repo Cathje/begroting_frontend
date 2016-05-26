@@ -315,7 +315,10 @@ export class AddPropositionComponent {
             );
 
         this._projectService.getProject(this.year, "Gent")
-            .subscribe((project: any) => this.project = project,
+            .subscribe((project: any) => {
+                    this.project = project;
+                console.log(project);
+                },
                 (err:any) => this.errorMessage = "Er is geen project gevonden."
             );
 

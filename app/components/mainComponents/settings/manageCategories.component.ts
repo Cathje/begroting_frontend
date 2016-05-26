@@ -27,7 +27,7 @@ declare var jQuery: any;
             </thead>
             <tbody>
             <tr *ngFor="#gemeenteCat of gemeenteCategorieen">
-                    <td>{{gemeenteCat.naam}}</td>
+                    <td>{{gemeenteCat.naamCat}}</td>
                    <td><input class="form-control" type="text" [(ngModel)]="gemeenteCat.kleur"/></td>
                    <td> <span>{{gemeenteCat.icoon}}</span>
                       <button class="btn btn-primary" data-toggle="modal" data-target="#icons"  styled >
@@ -38,7 +38,6 @@ declare var jQuery: any;
                       </tr>
                       </tbody>
             </table>
-                <button class="btn btn-primary pull-right" (click)="saveCategories()" styled >Opslaan</button>
         </section>
 
         <section class="col-xs-12 form-inline">
@@ -52,7 +51,7 @@ declare var jQuery: any;
             </thead>
             <tbody>
             <tr *ngFor="#gemeenteCat of gemeenteCategorieen">
-                    <td>{{gemeenteCat.naam}}</td>
+                    <td>{{gemeenteCat.naamCat}}</td>
                    <td><input class="form-control" type="text" [(ngModel)]="gemeenteCat.film"/></td>
                    <td><input class="form-control" type="text" [(ngModel)]="gemeenteCat.input"/></td>
                    <td> <label for="file"> <span class="btn filebtn btn-primary" styled>Selecteer afbeelding</span>
@@ -154,15 +153,19 @@ export class ManageCategoriesComponent {
 
 
     constructor(private _begrotingService:BegrotingService, private _routeParams:RouteParams, private _townService:TownService, private _router:Router, injector:Injector) {
-        _townService.getTown(injector.parent.parent.get(RouteParams).get('town'))
+        _townService.getTown(injector.parent.parent.parent.parent.get(RouteParams).get('town'))
             .subscribe(
                 (town:MainTown) => this.mainTown = town,
                 (err:any) => this.errorMessage = "Geen stad gevonden"
             );
 
         _begrotingService.getGemeenteCategorieen(2020, "Gent")
-            .subscribe((finan:any) => this.gemeenteCategorieen = finan,
-                (err:any) => this.errorMessage = "Er zijn geen grafiekgegevens gevonden."
+            .subscribe((finan:any) => {
+                this.gemeenteCategorieen = finan;
+                console.log(finan);
+            },
+                        (err:any) => this.errorMessage = "Er zijn geen grafiekgegevens gevonden."
+
             );
     }
 
@@ -177,7 +180,7 @@ export class ManageCategoriesComponent {
     saveCategories = () => {
         this._begrotingService.putCategorieInput(this.gemeenteCategorieen)
             .subscribe((finan:any) => this.gemeenteCategorieen = finan,
-                (err:any) => this.errorMessage = "Er zijn geen grafiekgegevens gevonden."
+                (err:any) => this.errorMessage = "De gegevens zijn niet correct bewaard."
             );
     }
 

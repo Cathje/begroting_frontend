@@ -53,8 +53,9 @@ System.register(['angular2/core', './../subComponents/nav/menu.component', './ho
                     this._location = _location;
                     _townService.getTown(_routeParams.get('town'))
                         .subscribe(function (town) {
-                        sessionStorage.setItem("mainColor", town.hoofdkleur);
+                        sessionStorage.setItem("mainColor", town.hoofdKleur);
                         _this.town = town;
+                        console.log(town);
                     }, function (err) { return _this.errorMessage = err; });
                 }
                 HomeRouter = __decorate([

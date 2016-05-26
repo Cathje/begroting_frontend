@@ -12,17 +12,22 @@ import {Router} from "angular2/router";
             <section class="intro col-xs-12">
                 <h1>FAQ</h1>
                 <div class="form-inline">
-                <ul *ngIf="mainTown?.FAQs" >
+                <ul >
                    <li *ngFor="#f of mainTown.FAQs" >
-                   <p><bold>{{f.vraag}}</bold></p>
+                   <p><strong>{{f.vraag}}</strong></p>
                    <p>{{f.antwoord}} </p>
                     </li>
                 </ul>
-                <p *ngIf="!mainTown?.faqs"><i>Er zijn nog geen vragen en antwoord ingediend.</i></p>
+                <p *ngIf="mainTown?.FAQs?.length < 1"><i>Er zijn nog geen vragen en antwoord ingediend.</i></p>
                 </div>
             </section>
        </div>
     `,
+    styles: [`
+        ul {
+        list-style :none;
+        }
+    `]
 })
 
 export class FaqComponent {

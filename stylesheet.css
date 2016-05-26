@@ -241,3 +241,7 @@ option {
     position: absolute;
 }
 
+.nav > li > a {
+    padding: 15px 7px;
+}
+

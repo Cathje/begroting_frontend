@@ -32,8 +32,10 @@ System.register(['angular2/core', 'angular2/router', "../../../services/begrotin
                     var _this = this;
                     this._routeParams = _routeParams;
                     this._begrotingService = _begrotingService;
+                    this.injector = injector;
+                    this._router = _router;
                     this.onMakeProposition = function () {
-                        //this._router.navigate(['/', 'App',{ town: this.t.gemeente}, 'Participation', 'AddProposition']);
+                        _this._router.navigate(['/', 'App', { town: injector.parent.parent.parent.parent.get(router_1.RouteParams).get('town') }, 'Participation', 'AddPropositions']);
                     };
                     _begrotingService.getBegrotingen("Gent").subscribe(function (begr) { return _this.begrotingen = begr; }, function (err) { return _this.errorMessage = "Er zijn geen begrotingen gevonden voor deze gemeenten"; });
                 }

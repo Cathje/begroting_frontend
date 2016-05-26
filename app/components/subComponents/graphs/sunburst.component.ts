@@ -3,6 +3,7 @@ import {Component, Directive, ViewChild, ElementRef, Renderer, Input} from 'angu
 import * as d3 from 'd3';
 import {SimpleChange} from "../../../../node_modules/angular2/src/core/change_detection/change_detection_util";
 import {CATEGORIES} from "../../../defaults/categories";
+import {GemeenteCategorie} from "../../../models/gemeenteCategorie";
 
 @Component({ //invoke with metadata object
     selector: 'sunburst',
@@ -263,12 +264,12 @@ function getAncestors(node: any) {
 }
 
 
-function buildHierarchy(data: [Object], colors: Object, categories: any) {
+function buildHierarchy(data: GemeenteCategorie[], colors: Object, categories: any) {
     var root = {"name": "root", "children": [Object]};
 
-    let levelAList = data.filter((obj) => { return (!obj.hasOwnProperty('catB') && !obj.hasOwnProperty('catC'))});
-    let levelBList = data.filter((obj) => { return (obj.hasOwnProperty('catB') && !obj.hasOwnProperty('catC'))});
-    let levelCList = data.filter((obj) => { return (obj.hasOwnProperty('catC'))});
+    let levelAList: GemeenteCategorie[] = data.filter((obj) => { return (!obj.hasOwnProperty('catB') && !obj.hasOwnProperty('catC'))});
+    let levelBList: GemeenteCategorie[]= data.filter((obj) => { return (obj.hasOwnProperty('catB') && !obj.hasOwnProperty('catC'))});
+    let levelCList: GemeenteCategorie[] = data.filter((obj) => { return (obj.hasOwnProperty('catC'))});
 
     //TOP LEVEL CAT A
     for (var i = 0; i < levelAList.length; i++) {
@@ -276,7 +277,7 @@ function buildHierarchy(data: [Object], colors: Object, categories: any) {
         const size = + Math.abs(levelAList[i]['totaal']);
 
         // add element to hierarchy
-        addColor(categories, levelAList[i], colors);
+        addColor(categories, levelAList[i], colors, 'catA');
         root["children"].push(createObject(levelAList[i], 'catA'));
     }
 
@@ -291,14 +292,14 @@ function buildHierarchy(data: [Object], colors: Object, categories: any) {
             // If we don't already have a Cat A for this branch, create it.
             if (Object.keys(catA).length === 0) {
                 position.push(createObject(levelBList[i], 'catA'));
-                addColor(categories, levelBList[i], colors);
+                addColor(categories, levelBList[i], colors, 'catA');
             }
 
             // move node down in hierarchy > to level A children
             position = _moveNodeDown(position, levelBList[i]['catA']);
 
             // add catB to the catA children array
-            addColor(categories, levelBList[i], colors);
+            addColor(categories, levelBList[i], colors, 'catB');
             position.push(createObject(createObject(levelBList[i], 'catB')));
 
     }
@@ -314,7 +315,7 @@ function buildHierarchy(data: [Object], colors: Object, categories: any) {
             // If we don't already have a Cat A for this branch, create it.
             if (Object.keys(catA).length === 0) {
                 position.push(createObject(levelCList[i], 'catA'));
-                addColor(categories, levelCList[i], colors);
+                addColor(categories, levelCList[i], colors, 'catA');
             }
 
             // move node down in hierarchy > to level A children
@@ -327,7 +328,7 @@ function buildHierarchy(data: [Object], colors: Object, categories: any) {
             // If we don't already have a Cat B for this branch, create it.
             if (Object.keys(catB).length === 0) {
                 position.push(createObject(levelCList[i], 'catB'));
-                addColor(categories, levelCList[i], colors);
+                addColor(categories, levelCList[i], colors, 'catB');
             }
 
             // move node down in hierarchy > to level B children
@@ -335,12 +336,12 @@ function buildHierarchy(data: [Object], colors: Object, categories: any) {
 
             // add catC to the catB children array
             position.push(createObject(levelCList[i], 'catC'));
-            addColor(categories, levelCList[i], colors);
+            addColor(categories, levelCList[i], colors, 'catC');
         }
     return root;
 };
 
-function _moveNodeDown(children: [Object] , categoryName: string) {
+function _moveNodeDown(children: any[] , categoryName: string) {
     for (var k = 0; k < children.length; k++) {
         if (children[k]["name"] == categoryName) {
             return children[k]["children"];
@@ -349,12 +350,12 @@ function _moveNodeDown(children: [Object] , categoryName: string) {
     return children;
 }
 
-function addColor (categories, el, colors){
+function addColor (categories: any[], el: GemeenteCategorie, colors: Object, category: string){
     let categoryItem = categories.filter((categorie: any) => categorie.naam === el['catA']);
-    colors[el['naamCat']] = el['kleur'] ? el['kleur']  : categoryItem[0]['kleur'] || 'lightgray';
+    colors[el[category]] = el['kleur'] ? el['kleur']  : categoryItem[0]['kleur'] || 'lightgray';
 }
 
-function createObject(el, category) {
+function createObject(el: GemeenteCategorie, category: string) {
     return {
         "name": el[category],
         "id": el['ID'],

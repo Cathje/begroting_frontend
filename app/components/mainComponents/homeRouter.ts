@@ -71,8 +71,9 @@ export class HomeRouter {
 
         _townService.getTown(_routeParams.get('town'))
             .subscribe(town => {
-                    sessionStorage.setItem("mainColor", town.hoofdkleur);
+                    sessionStorage.setItem("mainColor", town.hoofdKleur);
                     this.town = town;
+                    console.log(town);
                 },
                 (err:any) => this.errorMessage = err
             );
