@@ -76,6 +76,7 @@ export class MultipartUploader {
         xhr.onload = () => {
             console.debug("multipart-uploader.ts & _xhrTransport.onload() ==>");
             let headers = this._parseHeaders(xhr.getAllResponseHeaders());
+            headers.append('Authorization', 'Bearer ' + sessionStorage.getItem('access_token'));
             let response = this._transformResponse(xhr.response, headers);
             let gist = this._isSuccessCode(xhr.status) ? 'Success' : 'Error';
             let method = '_on' + gist + 'Item';

@@ -1,9 +1,7 @@
 /**
  * Created by kevin on 23/05/2016.
  */
-System.register([], function(exports_1, context_1) {
-    "use strict";
-    var __moduleName = context_1 && context_1.id;
+System.register([], function(exports_1) {
     var MultipartUploader;
     return {
         setters:[],
@@ -63,6 +61,7 @@ System.register([], function(exports_1, context_1) {
                     xhr.onload = function () {
                         console.debug("multipart-uploader.ts & _xhrTransport.onload() ==>");
                         var headers = _this._parseHeaders(xhr.getAllResponseHeaders());
+                        headers.append('Authorization', 'Bearer ' + sessionStorage.getItem('access_token'));
                         var response = _this._transformResponse(xhr.response, headers);
                         var gist = _this._isSuccessCode(xhr.status) ? 'Success' : 'Error';
                         var method = '_on' + gist + 'Item';
@@ -119,7 +118,7 @@ System.register([], function(exports_1, context_1) {
                     this._render();
                 };
                 return MultipartUploader;
-            }());
+            })();
             exports_1("MultipartUploader", MultipartUploader);
         }
     }

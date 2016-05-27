@@ -12,5 +12,5 @@ export class Token {
     issued:string;
     expires:string;
     "as:client_id":string;
-
+    naam:string;
 }

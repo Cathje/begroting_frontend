@@ -74,5 +74,13 @@ export class LoginService {
             ,{headers:headers}).map(this.extractDataAsJson);
     }
 
+    putGebruiker(user:string, gemeente:string) {
+        var headers = new Headers();
+        headers.append('Content-Type', 'application/json');
+        headers.append('Authorization', 'Bearer ' + sessionStorage.getItem('access_token'));
+        return this.http.put(this._url + "?userName=" + user + "&gemeente=" + gemeente,{headers:headers}).map(this.extractDataAsJson);
+    }
+
+
 
 }

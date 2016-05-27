@@ -46,7 +46,7 @@ import {RouteParams} from "angular2/router";
         </span>
 
         <span id="registration">
-            <a [routerLink]="['Register']">{{register}}</a>|
+            <a (click)="onRegister()">{{register}}</a>|
             <a *ngIf="!isLoggedIn" (click)="ngDoCheck()" [routerLink]="['Login']">Log in</a>
             <a *ngIf="isLoggedIn" (click)="onLogOut()">Log uit</a>
         </span>
@@ -92,6 +92,7 @@ import {RouteParams} from "angular2/router";
 
     #registration a {
         padding:10px;
+        cursor:  pointer;
     }
 
     @media screen and (max-width: 768px) {
@@ -146,14 +147,22 @@ export class AppComponent {
 
     ngOnInit() {
         this.isLoggedIn = sessionStorage.getItem('user') == null? false : true ;
-        this.register = sessionStorage.getItem('user') == null? 'Registreer' : 'Welkom, ' + sessionStorage.getItem('user');
+        this.register = sessionStorage.getItem('user') == null? 'Registreer' : 'Welkom, ' + sessionStorage.getItem('naam');
     }
 
     ngDoCheck() {
         this.isLoggedIn = sessionStorage.getItem('user') == null? false : true ;
-        this.register = sessionStorage.getItem('user') == null? 'Registreer' : 'Welkom, ' + sessionStorage.getItem('user');
+        this.register = sessionStorage.getItem('user') == null? 'Registreer' : 'Welkom, ' + sessionStorage.getItem('naam');
     }
 
+    onRegister(){
+        if (sessionStorage.getItem('user') == null) {
+            this._router.navigate(['/', 'Register']);
+        }
+        else {
+            this._router.navigate(['/','App',{town:sessionStorage.getItem('gemeente')},'General','UserSettings']);
+        }
+    }
 
     onLogOut = () => {
         sessionStorage.removeItem("newUser");
@@ -162,6 +171,7 @@ export class AppComponent {
         sessionStorage.removeItem('role');
         sessionStorage.removeItem('user');
         sessionStorage.removeItem('token');
+        sessionStorage.removeItem('naam');
         this.register =  'Registreer';
 
         this._router.navigate(['/','Default']);

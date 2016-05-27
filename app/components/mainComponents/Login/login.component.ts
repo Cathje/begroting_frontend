@@ -192,6 +192,7 @@ export class LoginComponent {
             sessionStorage.setItem('role', this.t.role);
             sessionStorage.setItem('user', this.t.userName);
             sessionStorage.setItem('token', data);
+            sessionStorage.setItem('naam', this.t.naam);
             this._router.navigate(['/', 'App',{ town: this.t.gemeente}, 'Budget']);
         }
     }
