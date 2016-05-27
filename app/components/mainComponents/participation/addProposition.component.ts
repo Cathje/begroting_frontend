@@ -23,12 +23,15 @@ import {CurConvert} from "./../../../pipes/curConvertPipe";
 @Component({ //invoke with metadata object
     selector: 'add-proposition-container',
     template: `
+    <p class="alert alert-danger" *ngIf="errorMessage">{{errorMessage}}</p>
+    <p class="alert alert-danger" *ngIf="errorMessage2">{{errorMessage2}}</p>
+    <p class="alert alert-danger" *ngIf="errorMessage3">{{errorMessage3}}</p>
     <div class="container">
     <div class ="row">
     <h2>{{project.titel}}</h2>
     <h3>{{project.vraag}}</h3>
-    <p>Hier komt een paragraaf met wat uitleg.Similiquecilis est et expedita distinctio. Nam libero tempore, cum soluta nobis est eligendi optio cumque nihil impedit quo minus id quod maxime placeat facere possimus, omnis voluptas assumenda est, omnis dolor repellendus. Temporibus autem quibusdam et</p>
-    <!--<p>{{project.extraInfo}}</p>--><!--todo: vervang bovenstaande paragraaf door deze-->
+    <!--<p>Hier komt een paragraaf met wat uitleg.Similiquecilis est et expedita distinctio. Nam libero tempore, cum soluta nobis est eligendi optio cumque nihil impedit quo minus id quod maxime placeat facere possimus, omnis voluptas assumenda est, omnis dolor repellendus. Temporibus autem quibusdam et</p>-->
+    <p>{{project.extraInfo}}</p>
     <!--TODO: hoe voorzien om nieuw jaar te selecteren. Huidig jaar is default?-->
      </div>
         <div class ="row">
@@ -37,18 +40,22 @@ import {CurConvert} from "./../../../pipes/curConvertPipe";
             </div>
             <div class ="col-lg-6 col-md-6 col-sm-12 col-xs-12">
                 <div class ="row">
+                        <section class="col-xs-12 form-inline">
+                        <label>boekjaar:</label>
+                        <input type="number" class="form-control" [(ngModel)]="budgetYear"/>
+                        <button class="btn btn-primary form-control" (click)="getBudget()" styled><span class="glyphicon glyphicon-ok"></span></button>
+                        </section>
+                    
                     <h2>Gewijzigde categorieën en acties</h2>
                     <div class="section-content">
                     <!--acties toevoegen aan de box-->
                     <p *ngIf="!budgetChange">Nog geen wijzigingen...</p>
-                    <!--<div *ngIf="begrotingsVoorstel.budgetWijzigingen!=null">-->
-                    <div *ngIf="budgetMap!=null">
+                    <div *ngIf="begrotingsVoorstel.budgetWijzigingen!=null">
                         <table class="table table-striped">
                             <tbody>
                                 <tr *ngFor="#change of begrotingsVoorstel.budgetWijzigingen">
                                     <td>{{change.beschrijving}}</td>
                                     <td>{{change.bedrag | currency:'EUR':true:'.0-0'}}</td>
-                                    <!--<td id="remove" (click)="resetBudget()"><span class="glyphicon glyphicon-remove"></span></td>-->
                                 </tr>
                             </tbody>
                         </table>
@@ -266,7 +273,7 @@ import {CurConvert} from "./../../../pipes/curConvertPipe";
         border: 1px solid lightgray;
         margin-bottom: 20px;
         padding: 20px;
-        height: 20em;
+        height: 18em;
         overflow-y: auto; /*of overflow-y: scroll;*/
         }
         
@@ -289,9 +296,11 @@ import {CurConvert} from "./../../../pipes/curConvertPipe";
 
 export class AddPropositionComponent {
     private categories: GemeenteCategorie [] = [];
-    private myTown: MainTown;
+    private myTown: string;
     private year: number = 2020;//TODO: default is current year?
     private errorMessage:string;
+    private errorMessage2: string;
+    private erroMessage3: string;
     project: Project = new Project("");
     private width: number = window.innerWidth < 768 ? window.innerWidth*0.7 : window.innerWidth/4;
     private budgetwijzigingen: BudgetWijziging [] =  [];
@@ -304,11 +313,18 @@ export class AddPropositionComponent {
     private budgetChange: boolean = false;
     private budgetMap : Map<number, BudgetWijziging> = new Map<number, BudgetWijziging>();
     private actionMap : Map<number, number> = new Map<number, number>();
+    private budgetYear: number = 2020;//hc due to limited data
+    private totalMap: Map<number, number> = new Map<number, number>();
 
 
-    constructor(private _routeParams: RouteParams, private _projectService:ProjectService, private _townService : TownService, private _begrotingService:BegrotingService) {
+    constructor(private _routeParams: RouteParams, private _projectService:ProjectService, private injector:Injector, private _begrotingService:BegrotingService) {
 
-        this._begrotingService.getGemeenteCategorieen(2020,"Gent")
+        this.myTown = injector.parent.parent.parent.parent.get(RouteParams).get('town');
+        //default view is current year, TODO: us in api call!
+        var today = new Date();
+        //this.budgetYear = today.getFullYear;
+
+        this._begrotingService.getGemeenteCategorieen(this.budgetYear,this.myTown)
             .subscribe((cats: any) => this.categories = cats,
                 (err:any) => this.errorMessage = "Er zijn geen categorieën gevonden."
             );
@@ -316,10 +332,10 @@ export class AddPropositionComponent {
         this._projectService.getProject(this.year, "Gent")
             .subscribe((project: any) => {
                     this.project = project;
-                console.log(project);
+                    console.log(project);
                 },
                 (err:any) => {
-                    this._projectService.getInspraakitems(this.year, "Gent")
+                    this._projectService.getInspraakitems(this.year, this.myTown)
                         .subscribe((cats:any) => this.project = cats,
                             (err:any) => this.errorMessage = "Geen inspraakitems gevonden."
                         );
@@ -343,9 +359,27 @@ export class AddPropositionComponent {
 
     }
 
-    //load accordion for selected year
-    loadAccordion(event: any){
+    //reload info for selected year
+    getBudget(){
+        this.errorMessage2 = "";
 
+        this._begrotingService.getGemeenteCategorieen(this.budgetYear,this.myTown)
+            .subscribe((cats: any) => this.categories = cats,
+                (err:any) => this.errorMessage2 = "Er zijn geen categorieën of projecten gevonden voor dit boekjaar."
+            );
+
+        this._projectService.getProject(this.year, this.myTown)
+            .subscribe((project: any) => {
+                    this.project = project;
+                    console.log(project);
+                },
+                (err:any) => {
+                    this._projectService.getInspraakitems(this.budgetYear, this.myTown)
+                        .subscribe((cats:any) => this.project = cats,
+                            (err:any) => this.errorMessage2 = "Er zijn geen categorieën of projecten gevonden voor dit boekjaar."
+                        );
+                }
+            );
 
     }
     updateBudget(event: any){
@@ -371,6 +405,7 @@ export class AddPropositionComponent {
                     //if top level
                     repLevel = 1;
                     tempSavings.push(this.project.cats[i].ID);
+                    this.totalMap.delete(this.project.cats[i].ID);
                     for (var j = 0; j < this.project.cats[i].childCats.length; j++) {
                         if(this.project.cats[i].childCats[j].inspraakNiveau != 2){
                             tempSavings.push(this.project.cats[i].childCats[j].ID);
@@ -398,6 +433,7 @@ export class AddPropositionComponent {
                             repLevel == 3;
                             //add parent
                             tempSavings.push(this.project.cats[i].ID);
+                            this.totalMap.delete(this.project.cats[i].ID);
 
                             if (this.project.cats[i].childCats[j].inspraakNiveau != 2) {
                                 tempSavings.push(this.project.cats[i].childCats[j].ID);
@@ -427,6 +463,7 @@ export class AddPropositionComponent {
                             if (this.project.cats[i].childCats[j].childCats[k].ID == event.id) {
                                 //add parents
                                 tempSavings.push(this.project.cats[i].ID);
+                                this.totalMap.delete(this.project.cats[i].ID);
                                 tempSavings.push(this.project.cats[i].childCats[j].ID);
                                 if (this.project.cats[i].childCats[j].childCats[k].inspraakNiveau != 2) {
                                     tempSavings.push(this.project.cats[i].childCats[j].childCats[k].ID);
@@ -483,7 +520,6 @@ export class AddPropositionComponent {
                             if(amount!=null){
                                 this.project.cats[p].childCats[q].childCats[r].acties[s].uitgaven = amount;
                                 this.budgetMap.delete(this.project.cats[p].childCats[q].childCats[r].acties[s].ID);
-                                //console.log("id:" + this.project.cats[p].childCats[q].childCats[r].acties[s].ID+ " value: " +this.project.cats[p].childCats[q].childCats[r].acties[s].uitgaven);
                             }
                         }
                     }
@@ -502,9 +538,6 @@ export class AddPropositionComponent {
         }
 
         let result = newValue - originalValue;
-        /*console.log("original: "+ originalValue);
-         console.log("newValue: " + newValue);
-         console.log("result: " + result);*/
 
         let level = 3;
         for (var i = 0; i < this.project.cats.length; i++) {
@@ -512,9 +545,10 @@ export class AddPropositionComponent {
             if(this.project.cats[i].ID == event.id){
                 level = 1;
 
+                this.totalMap.set(this.project.cats[i].ID, result);
                 this.project.cats[i].totaal = newValue;
 
-                /*TODO: update level1 en budgetwijziging!!!!!!!!!*/
+
                 //add top level budget change
                 //this.begrotingsVoorstel.budgetWijzigingen.push(new BudgetWijziging(this.project.cats[i].ID, result,this.project.cats[i].naamCat ));
                 this.budgetMap.set(this.project.cats[i].ID,new BudgetWijziging(this.project.cats[i].ID, result,this.project.cats[i].naamCat ));
@@ -602,6 +636,7 @@ export class AddPropositionComponent {
                         this.budgetMap.set(this.project.cats[i].childCats[j].ID,new BudgetWijziging(this.project.cats[i].childCats[j].ID, result,this.project.cats[i].childCats[j].naamCat ));
                         //adjust upper level
                         this.project.cats[i].totaal += result;
+                        this.totalMap.set(this.project.cats[i].ID, result);
                         //this.begrotingsVoorstel.budgetWijzigingen.push(new BudgetWijziging(this.project.cats[i].ID, result,this.project.cats[i].naamCat ));
                         this.budgetMap.set(this.project.cats[i].ID,new BudgetWijziging(this.project.cats[i].ID, result,this.project.cats[i].naamCat ));
 
@@ -671,6 +706,7 @@ export class AddPropositionComponent {
                             this.budgetMap.set(this.project.cats[i].childCats[j].childCats[k].ID,new BudgetWijziging(this.project.cats[i].childCats[j].childCats[k].ID, result, this.project.cats[i].childCats[j].childCats[k].naamCat));
                             //adjust upper levels
                             this.project.cats[i].totaal += result;
+                            this.totalMap.set(this.project.cats[i].ID, result);
                             //this.begrotingsVoorstel.budgetWijzigingen.push(new BudgetWijziging(this.project.cats[i].ID, result,this.project.cats[i].naamCat ));
                             this.budgetMap.set(this.project.cats[i].ID,new BudgetWijziging(this.project.cats[i].ID, result,this.project.cats[i].naamCat));
                             this.project.cats[i].childCats[j].totaal += result;
@@ -718,6 +754,11 @@ export class AddPropositionComponent {
             budgetArray.push(value);
         });
         this.begrotingsVoorstel.budgetWijzigingen = budgetArray;
+        let total = 0;
+        this.totalMap.forEach(function (value) {
+            total+=value;
+        })
+        this.tempTotal = total;
 
 
 
@@ -731,11 +772,7 @@ export class AddPropositionComponent {
         console.log("k " + key + "] = " + value);
     }
 
-    resetBudget(event: any){//
-
-    }
-
-   //upload images
+    //upload images
     uploadImages = (event: any)=>{
         this.loadimage(event.target.files[0], (img: string) =>{
             this.afb.push(event.target.files[0].name);
@@ -754,19 +791,32 @@ export class AddPropositionComponent {
 
 
     onCircleClick: any = (id: number) => {
-        alert('test');
+        //do nothing
 
     };
 
-    //@TODO test voor webapi en service  --> te verwijderen
+
     submit()
     {
-        /*//If save button is pressed, copy map to array and persist in db
-         // this.budgetMap.forEach(this.logMapElements);
+        let submittable = false;
+        this.erroMessage3 = "";
+        //check scenarios
+        switch(this.project.projectScenario){
+            case 1 :
+                console.log(this.project.projectScenario);
+                if((this.tempTotal + this.project.bedrag)===0){submittable = true;};
+                break;
+            case 2:
+                if(this.tempTotal === 0){submittable = true;};
+                console.log(this.project.projectScenario);
+                break;
+            case 3:
+                console.log(this.project.projectScenario);
+                if(this.tempTotal === this.project.bedrag){submittable = true;};
+                break;
+        }
 
-         this.begrotingsVoorstel.beschrijving = "kjQGQBjqshgbcjhqbckjb<clgbcqjbck:xjhb";
-         // alert(this.BegrotingsVoorstel.budgetWijzigingen.length);
-         this._projectService.postBegrotingsVoorstel(this.project.id, this.begrotingsVoorstel).subscribe();*/
+
         this.begrotingsVoorstel.auteurEmail = sessionStorage.getItem('user');
         this._projectService.postBegrotingsVoorstel(this.project.id, this.begrotingsVoorstel).subscribe();
 

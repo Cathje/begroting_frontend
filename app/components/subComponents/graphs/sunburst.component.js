@@ -1,4 +1,6 @@
-System.register(['angular2/core', 'd3', "../../../defaults/categories"], function(exports_1) {
+System.register(['angular2/core', 'd3', "../../../defaults/categories"], function(exports_1, context_1) {
+    "use strict";
+    var __moduleName = context_1 && context_1.id;
     var __decorate = (this && this.__decorate) || function (decorators, target, key, desc) {
         var c = arguments.length, r = c < 3 ? target : desc === null ? desc = Object.getOwnPropertyDescriptor(target, key) : desc, d;
         if (typeof Reflect === "object" && typeof Reflect.decorate === "function") r = Reflect.decorate(decorators, target, key, desc);
@@ -44,6 +46,8 @@ System.register(['angular2/core', 'd3', "../../../defaults/categories"], functio
         if (parseFloat(percentage) < 0.1) {
             percentageString = "< 0.1%";
         }
+        var totalTax = "€" + Math.floor(totalSize); //totTax
+        var totalString = "€" + Math.floor(d.value);
         chart.select("#percentage")
             .text(percentageString);
         chart.select("#explanation")
@@ -51,6 +55,10 @@ System.register(['angular2/core', 'd3', "../../../defaults/categories"], functio
         chart.select("#explanation2")
             .style("visibility", "hidden");
         chart.select("#category").text(d.name);
+        chart.select("#totTax")
+            .text(totalTax);
+        chart.select("#taxPart")
+            .text(totalString);
         chart.select("#centerimg")
             .attr("src", "/app/images/categories/" + d.code.replace(new RegExp(' ', 'g'), '').toLowerCase() + ".jpg");
         var sequenceArray = getAncestors(d);
@@ -200,6 +208,7 @@ System.register(['angular2/core', 'd3', "../../../defaults/categories"], functio
                     this.height = 400;
                     this.onClick = function () { };
                     this.onHover = function () { };
+                    this.isTax = false;
                     this.createChart = function (chart) {
                         _this.radius = Math.min(_this.width, _this.height) / 2;
                         _this.translation = "translate(" + _this.width / 2 + "," + _this.height / 2 + ")";
@@ -240,6 +249,9 @@ System.register(['angular2/core', 'd3', "../../../defaults/categories"], functio
                     var chart = d3.select(this.el.nativeElement).select("#chart");
                     chart.select('#chartsvg').remove();
                     this.createChart(chart);
+                    for (var i = 0; i < this.data.length; i++) {
+                        console.log(this.data);
+                    }
                 };
                 __decorate([
                     core_1.Input(), 
@@ -261,17 +273,21 @@ System.register(['angular2/core', 'd3', "../../../defaults/categories"], functio
                     core_1.Input(), 
                     __metadata('design:type', Object)
                 ], SunburstComponent.prototype, "onHover", void 0);
+                __decorate([
+                    core_1.Input(), 
+                    __metadata('design:type', Boolean)
+                ], SunburstComponent.prototype, "isTax", void 0);
                 SunburstComponent = __decorate([
                     core_1.Component({
                         selector: 'sunburst',
-                        template: "\n      <div id=\"chart\" [style]=\"'width:' + width + 'px'\">\n        <h5 id=\"explanation\" style=\"visibility: hidden;\">\n          <img id=\"centerimg\" src=\"\"/>\n          <span id=\"percentage\"></span><br/>\n          <span id=\"category\"></span>\n        </h5>\n        <h5 id=\"explanation2\">\n          <img *ngIf=\"data.length > 0\"  src=\"/app/images/icons/clickPointer.png\">\n           <p *ngIf=\"data.length > 0\"> Klik op een categorie om de acties van deze categorie te bekijken.</p>\n           <p *ngIf=\"data.length < 1\">Geen grafiekgegevens beschikbaar.</p>\n        </h5>\n      </div>\n    ",
+                        template: "\n      <div id=\"chart\" [style]=\"'width:' + width + 'px'\">\n        <h5 id=\"explanation\" style=\"visibility: hidden;\">\n          <img id=\"centerimg\" src=\"\"/>\n          <span *ngIf=\"isTax\" id=\"taxPart\"></span>\n          <br *ngIf=\"isTax\">\n          <span id=\"percentage\"></span><br/>\n          <span id=\"category\"></span>\n        </h5>\n        <h5 id=\"explanation2\">\n          <img *ngIf=\"data.length > 0\"  src=\"/app/images/icons/clickPointer.png\">\n           <p *ngIf=\"data.length > 0\"> Klik op een categorie om de acties van deze categorie te bekijken.</p>\n           <p *ngIf=\"data.length < 1\">Geen grafiekgegevens beschikbaar.</p>\n        </h5>\n      </div>\n    ",
                         providers: [],
-                        styles: ["\n\n    .noData p{\n        padding-top: 40%;\n        text-align: center;\n    }\n\n    #chart {\n        position: relative;\n        text-align: center;\n        margin: 0 auto;\n    }\n\n    #explanation {\n        position: absolute;\n        margin: auto;\n        position: absolute;\n        top: 0; left: 0; bottom: 0; right: 0;\n        width: 50%;\n        height: 50%;\n        border-radius: 50%;\n        color: black;\n        display: flex;\n        justify-content:center;\n        align-content:center;\n        flex-direction:column; /* column | row */\n        z-index: 1;\n    }\n\n    #explanation2 {\n        position: absolute;\n        margin: auto;\n        position: absolute;\n        top: 0; left: 0; bottom: 0; right: 0;\n        width: 35%;\n        height: 180px;\n        color: #666;\n        display: flex;\n        justify-content:center;\n        align-content:center;\n        flex-direction:column; /* column | row */\n    }\n\n    #explanation2 img{\n     width: 50px;\n     margin: 0 auto;\n     display: inline-block;\n    }\n\n    #centerimg {\n        position: absolute;\n        border-radius: 50%;\n        width: 90%;\n        height: 90%;\n        top: 5%;\n        left: 5%;\n        z-index: 0;\n        opacity: 0.5;\n    }\n\n    #percentage{\n          font-size: 2.5em;\n          z-index: 1;\n    }\n\n    #category {\n        z-index: 1\n    }\n\n ",]
+                        styles: ["\n\n    .noData p{\n        padding-top: 40%;\n        text-align: center;\n    }\n\n    #chart {\n        position: relative;\n        text-align: center;\n        margin: 0 auto;\n    }\n\n    #explanation {\n        position: absolute;\n        margin: auto;\n        position: absolute;\n        top: 0; left: 0; bottom: 0; right: 0;\n        width: 50%;\n        height: 50%;\n        border-radius: 50%;\n        color: black;\n        display: flex;\n        justify-content:center;\n        align-content:center;\n        flex-direction:column; /* column | row */\n        z-index: 1;\n    }\n\n    #explanation2 {\n        position: absolute;\n        margin: auto;\n        position: absolute;\n        top: 0; left: 0; bottom: 0; right: 0;\n        width: 35%;\n        height: 180px;\n        color: #666;\n        display: flex;\n        justify-content:center;\n        align-content:center;\n        flex-direction:column; /* column | row */\n    }\n\n    #explanation2 img{\n     width: 50px;\n     margin: 0 auto;\n     display: inline-block;\n    }\n\n    #centerimg {\n        position: absolute;\n        border-radius: 50%;\n        width: 90%;\n        height: 90%;\n        top: 5%;\n        left: 5%;\n        z-index: 0;\n        opacity: 0.5;\n    }\n\n    #percentage{\n          font-size: 2.5em;\n          z-index: 1;\n    }\n\n    #category {\n        z-index: 1\n    }\n    #taxPart{\n        font-size: 2.5em;\n        z-index: 1;\n    }\n\n ",]
                     }), 
                     __metadata('design:paramtypes', [core_1.Renderer, core_1.ElementRef])
                 ], SunburstComponent);
                 return SunburstComponent;
-            })();
+            }());
             exports_1("SunburstComponent", SunburstComponent);
             ;
             ;

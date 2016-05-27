@@ -11,6 +11,8 @@ import {GemeenteCategorie} from "../../../models/gemeenteCategorie";
       <div id="chart" [style]="'width:' + width + 'px'">
         <h5 id="explanation" style="visibility: hidden;">
           <img id="centerimg" src=""/>
+          <span *ngIf="isTax" id="taxPart"></span>
+          <br *ngIf="isTax">
           <span id="percentage"></span><br/>
           <span id="category"></span>
         </h5>
@@ -90,6 +92,10 @@ import {GemeenteCategorie} from "../../../models/gemeenteCategorie";
     #category {
         z-index: 1
     }
+    #taxPart{
+        font-size: 2.5em;
+        z-index: 1;
+    }
 
  `,]
 })
@@ -100,6 +106,7 @@ export class SunburstComponent {
     @Input() height: number = 400;
     @Input() onClick = function(){};
     @Input() onHover = function(){};
+    @Input() isTax: boolean = false;
     radius: number;
     translation: string;
 
@@ -115,6 +122,10 @@ export class SunburstComponent {
         var chart = d3.select(this.el.nativeElement).select("#chart");
         chart.select('#chartsvg').remove();
         this.createChart(chart);
+
+        for (var i = 0; i < this.data.length; i++) {
+            console.log(this.data);
+        }
     }
 
 
@@ -200,6 +211,8 @@ function mouseover(d: any, totalSize: any, chart:any, hoverCallbackFunction: any
     if (parseFloat(percentage) < 0.1) {
         percentageString = "< 0.1%";
     }
+    let totalTax = "€"+Math.floor(totalSize);//totTax
+    let totalString = "€"+Math.floor(d.value);
     chart.select("#percentage")
         .text(percentageString);
 
@@ -211,8 +224,14 @@ function mouseover(d: any, totalSize: any, chart:any, hoverCallbackFunction: any
 
     chart.select("#category").text(d.name);
 
+    chart.select("#totTax")
+        .text(totalTax);
+
+    chart.select("#taxPart")
+        .text(totalString);
+
     chart.select("#centerimg")
-            .attr("src","/app/images/categories/"+d.code.replace(new RegExp(' ', 'g'), '').toLowerCase()+".jpg" );
+        .attr("src","/app/images/categories/"+d.code.replace(new RegExp(' ', 'g'), '').toLowerCase()+".jpg" );
 
     var sequenceArray = getAncestors(d);
 
@@ -283,26 +302,26 @@ function buildHierarchy(data: GemeenteCategorie[], colors: Object, categories: a
 
     // SECOND LEVEL CAT B
     for (var i = 0; i < levelBList.length; i++) {
-            let position = root["children"];
-            const size = + Math.abs(levelBList[i]['totaal']);
+        let position = root["children"];
+        const size = + Math.abs(levelBList[i]['totaal']);
 
-            // check if Cat A already exists
-            let catA : Object  = position.filter((obj) => {return obj["name"] == levelBList[i]['catA']});
+        // check if Cat A already exists
+        let catA : Object  = position.filter((obj) => {return obj["name"] == levelBList[i]['catA']});
 
-            // If we don't already have a Cat A for this branch, create it.
-            if (Object.keys(catA).length === 0) {
-                const node = createObject(levelBList[i], 'catA');
-                position.push(node);
-                addColor(categories, levelBList[i], colors, 'catA');
-            }
-
-            // move node down in hierarchy > to level A children
-            position = _moveNodeDown(position, levelBList[i]['catA']);
-
-            // add catB to the catA children array
-            addColor(categories, levelBList[i], colors, 'catB');
-            const node = createObject(levelBList[i], 'catB');
+        // If we don't already have a Cat A for this branch, create it.
+        if (Object.keys(catA).length === 0) {
+            const node = createObject(levelBList[i], 'catA');
             position.push(node);
+            addColor(categories, levelBList[i], colors, 'catA');
+        }
+
+        // move node down in hierarchy > to level A children
+        position = _moveNodeDown(position, levelBList[i]['catA']);
+
+        // add catB to the catA children array
+        addColor(categories, levelBList[i], colors, 'catB');
+        const node = createObject(levelBList[i], 'catB');
+        position.push(node);
 
     }
 
@@ -311,38 +330,38 @@ function buildHierarchy(data: GemeenteCategorie[], colors: Object, categories: a
         const size = + Math.abs(levelCList[i]['totaal']);
         let position = root["children"]; // root level children
 
-            // check if Cat A really exists
-            let catA : Object  = position.filter((obj) => {return obj["name"] == levelCList[i]['catA']});
+        // check if Cat A really exists
+        let catA : Object  = position.filter((obj) => {return obj["name"] == levelCList[i]['catA']});
 
-            // If we don't already have a Cat A for this branch, create it.
-            if (Object.keys(catA).length === 0) {
-                const node = createObject(levelCList[i], 'catA');
-                position.push(node);
-                addColor(categories, levelCList[i], colors, 'catA');
-            }
-
-            // move node down in hierarchy > to level A children
-            position = _moveNodeDown(position, levelCList[i]['catA']);
-
-
-            // check if Cat B really exists
-            let catB : Object  = position.filter((obj) => {return obj["name"] == levelCList[i]['catA']});
-
-            // If we don't already have a Cat B for this branch, create it.
-            if (Object.keys(catB).length === 0) {
-                const node =createObject(levelCList[i], 'catB')
-                position.push(node);
-                addColor(categories, levelCList[i], colors, 'catB');
-            }
-
-            // move node down in hierarchy > to level B children
-            position = _moveNodeDown(position, levelCList[i]['catB']);
-
-            // add catC to the catB children array
-            const node = createObject(levelCList[i], 'catC');
+        // If we don't already have a Cat A for this branch, create it.
+        if (Object.keys(catA).length === 0) {
+            const node = createObject(levelCList[i], 'catA');
             position.push(node);
-            addColor(categories, levelCList[i], colors, 'catC');
+            addColor(categories, levelCList[i], colors, 'catA');
         }
+
+        // move node down in hierarchy > to level A children
+        position = _moveNodeDown(position, levelCList[i]['catA']);
+
+
+        // check if Cat B really exists
+        let catB : Object  = position.filter((obj) => {return obj["name"] == levelCList[i]['catA']});
+
+        // If we don't already have a Cat B for this branch, create it.
+        if (Object.keys(catB).length === 0) {
+            const node =createObject(levelCList[i], 'catB')
+            position.push(node);
+            addColor(categories, levelCList[i], colors, 'catB');
+        }
+
+        // move node down in hierarchy > to level B children
+        position = _moveNodeDown(position, levelCList[i]['catB']);
+
+        // add catC to the catB children array
+        const node = createObject(levelCList[i], 'catC');
+        position.push(node);
+        addColor(categories, levelCList[i], colors, 'catC');
+    }
     return root;
 };
 

@@ -1,4 +1,4 @@
-import {Component, ChangeDetectorRef} from 'angular2/core';
+import {Component, Injector} from 'angular2/core';
 import {TownService} from './../../../services/townService.component';
 import {BegrotingService} from './../../../services/begrotingService';
 import { RouteParams } from 'angular2/router';
@@ -9,39 +9,36 @@ import {MainTown} from "./../../../models/mainTown";
 import {Observable} from 'rxjs/observable';
 import {GemeenteCategorie} from "./../../../models/gemeenteCategorie";
 import {rangeSlider} from './../../subComponents/input/rangeSlider.component';
+import {Categorie} from "../../../models/categorie";
+import {CurConvert} from "./../../../pipes/curConvertPipe";
 
 
 @Component({ //invoke with metadata object
     selector: 'taxes-container',
     template: `
+       <p class="alert alert-danger" *ngIf="errorMessage">{{errorMessage}}</p>
        <div class="container">
 		    <div class ="row" col-lg-12 col-md-12 col-sm-12 col-xs-12>
 		    <h1>De belastingen in jouw stad: {{myTown.naam}}</h1>
             <p id="intro">Hier komt een paragraaf met wat uitleg.Similiquecilis est et expedita distinctio. Nam libero tempore, cum soluta nobis est eligendi optio cumque nihil impedit quo minus id quod maxime placeat facere possimus, omnis voluptas assumenda est, omnis dolor repellendus. Temporibus autem quibusdam et</p>
             </div>
             <div class="row">
-                <div class="thisTownArea col-lg-6 col-md-6 col-sm-12 col-xs-12">
+                <div class="thisTownArea col-lg-12 col-md-12 col-sm-12 col-xs-12">
                     <div class="row topRow">
-                        <!--<div class="labelArea col-lg-6 col-md-6 col-sm-6 col-xs-6">
-                            <span id="salLabel" class="label label-default glyphicon glyphicon-euro">{{mySalary}}</span>
-                            <span id="salLabel" class="label label-default glyphicon glyphicon-euro">{{my}}</span>
-                        </div>
-                        <div class="rangeArea col-lg-6 col-md-6 col-sm-6 col-xs-6">
-                            <input type="range" name="slide" id="speedSlider" [(ngModel)]="mySalary" min="1500" max="15000" value="2000" step="50" (change)="calculateSalary()"/>
-                        </div>-->
                         <div class="rangeArea col-lg-12 col-md-12 col-sm-12 col-xs-12 speedSlider">
                             <!--<input type="range" name="slide" id="speedSlider" [(ngModel)]="mySalary" min="1500" max="15000" value="2000" step="50" (change)="calculateSalary()"/>  [data]=mySalary-->
                            <!-- <slider name="slide" id="speedSlider" [(data)]="mySalary" [min]=1500 [max]=15000 [value]=2000 [step]=50 (changes)="calculateSalary()"></slider>-->
+                            <slider name="slide" id="speedSlider" [(data)]="mySalary" [value]="10000" [inspraakNiveau]="SLIDERFIX" (changes)="calculateSalary($event)"></slider>
                         </div>
                         <div class="labelArea col-lg-12 col-md-12 col-sm-12 col-xs-12">
                         <form class="form-inline">
                           <div class="form-group">
                             <label for="exampleInputName2">Loon </label>
-                            <input type="text" class="form-control" id="salaryInput" [(ngModel)]="mySalary" readonly>
+                            <input type="text" class="form-control" id="salaryInput" [ngModel]="mySalary | curPipe" (ngModelChange)="mySalary" readonly>
                           </div>
                           <div class="form-group">
                             <label for="exampleInputEmail2">Belasting </label>
-                            <input type="email" class="form-control" id="taxInput" [(ngModel)]="myTaxes" readonly>
+                            <input type="text" class="form-control" id="taxInput" [ngModel]="myTaxes | curPipe" (ngModelChange)="myTaxes" readonly>
                           </div>
                         </form>
                         </div>
@@ -52,10 +49,10 @@ import {rangeSlider} from './../../subComponents/input/rangeSlider.component';
 			            </section>-->
 			        </div>
 					<div class="row">
-					    <sunburstCompare [data]=categories width=500 height=600></sunburstCompare>
+					    <sunburst [data]=categories [onClick]=onCircleClick [height]=width [width]=width [isTax]=true></sunburst>
 		            </div>
                 </div>
-                <div class="otherTownArea col-lg-6 col-md-6 col-sm-12 col-xs-12">
+                <!--<div class="otherTownArea col-lg-6 col-md-6 col-sm-12 col-xs-12">
                     <div class="row topRow">
                         <div class="">
                             <div class=" styled-select slate">
@@ -67,9 +64,9 @@ import {rangeSlider} from './../../subComponents/input/rangeSlider.component';
                         </div>
                     </div>
 					<div class="row">
-                        <sunburstCompare [data]=categories2 width=500 height=600></sunburstCompare>
+                        <sunburst [data]=categories2 [onClick]=onCircleClick [height]=width [width]=width [isTax]=true></sunburst>
                     </div>
-                </div>
+                </div>-->
 			</div>
         </div>
 
@@ -85,6 +82,7 @@ import {rangeSlider} from './../../subComponents/input/rangeSlider.component';
     providers: [
         TownService,BegrotingService
     ],
+    pipes: [CurConvert],
     styles: [`
 
    .thisTownArea{
@@ -101,7 +99,7 @@ import {rangeSlider} from './../../subComponents/input/rangeSlider.component';
    }*/
    
    .speedSlider {
-   width: 70%;
+   width: 50%;
    margin-top: 1em;
    margin-bottom: 3em;
    /*margin-right: 10em;*/
@@ -296,116 +294,77 @@ export class TaxesComponent {
     private param : string = ""; //not required
     private routeParams:RouteParams;
     private mySalary: number = 2000;
-    private towns: MainTown [];
-    private myTown: MainTown;
-    private compareTown: MainTown;
-    private service: TownService;
-    private budgetService: BegrotingService;
+    private towns: MainTown [] = [];
+    private myTown: MainTown = new MainTown("", "", 0,0);
+    private compareTown: MainTown = new MainTown("", "", 0,0);
+    /*private service: TownService;
+     private budgetService: BegrotingService;*/
     private myTaxes: number = 0;
     errorMessage:any;
-
-    /*private categories: [{naamCatz : string, uitgave : number}] = [{"naamCatz" : "", "uitgave" : 0}];
-    private categories2: [{naamCatz : string, uitgave : number}] = [{"naamCatz" : "", "uitgave" : 0}];*/
-
-    private categories: GemeenteCategorie [] = [{"naamCatz" : "", "totaal" : 0}];
-    private categories2: GemeenteCategorie [] = [{"naamCatz" : "", "totaal" : 0}];
-
-
-    categories3: GemeenteCategorie [] =
-        [{catCode:"0990",naamCatz:"Financiële aangelegenheden",totaal: 22781},
-            {catCode:"0991", naamCatz:"Patrimonium zonder maatschappelijk doel",totaal:281},
-            {catCode:"099", naamCatz:"Gezin en kinderen",totaal:3311},
-            {catCode:"098",naamCatz:"Sport",totaal:906}];
+    private SLIDERFIX: number = 3;
+    private budgetYear: number = 2020;//hc due to limited data
+    private categories: GemeenteCategorie [] = [];
+    private categories2: GemeenteCategorie [] = [];
+    private width: number = window.innerWidth < 768 ? window.innerWidth*0.7 : window.innerWidth/4;
 
 
-    constructor(private _routeParams:RouteParams, private _townService: TownService, private _budgetService: BegrotingService)
+
+    constructor(private _routeParams:RouteParams, private _townService: TownService, private _begrotingService: BegrotingService, private injector:Injector)
     {
-        this.routeParams = _routeParams;
-        this.service = _townService;
-        this.budgetService = _budgetService;
+        let town = injector.parent.parent.parent.parent.get(RouteParams).get('town');
+        var today = new Date();
+        //this.budgetYear = today.getFullYear();
 
-        this.towns = _townService.getTownsHC();//TODO: delete
+        /*this.routeParams = _routeParams;*/
+        _townService.getTowns()
+            .subscribe((towns:MainTown[]) => this.towns = towns.sort(function(a, b){
+                const nameA=a.naam.toLowerCase(),
+                    nameB=b.naam.toLowerCase();
+                if (nameA < nameB)
+                    return -1;
+                if (nameA > nameB)
+                    return 1;
+                return 0;
+            }), (err:any) => this.errorMessage = "Geen steden gevonden.");
 
-        _townService.getTowns()//TODO: service implementation
-            .subscribe((towns:any) => this.towns = towns,
-                (err:any) => this.errorMessage = err);
-
-        this.myTown = _townService.getTownHC("Antwerpen");//TODO: delete
-        //default stad is Antwerpen
-        this.compareTown = _townService.getTownHC("Antwerpen");//TODO: delete and service implementation
-
-        _townService.getTown(this._routeParams.get('town'))//TODO: deep routing
-            .subscribe((town:any) => this.myTown = town,
-                (err:any) => this.errorMessage = err
+        _townService.getTown(town)
+            .subscribe((town:any) =>
+                    this.myTown = town,
+                (err:any) => this.errorMessage = "Geen stad gevonden"
             );
+        _townService.getTown("Gent")//Gent is default stad, geen andere data
+            .subscribe((town:any) => this.compareTown = town,
+                (err:any) => this.errorMessage = "Geen stad gevonden"
+
+            );
+        this._begrotingService.getGemeenteCategorieen(this.budgetYear,"Gent")
+            .subscribe((cats: any) => this.categories = cats.filter(function(g){
+                return g.catB == null;
+            }), (err:any) => this.errorMessage = "Geen steden gevonden.");
+
+
+        this._begrotingService.getGemeenteCategorieen(this.budgetYear,"Gent")
+            .subscribe((cats: any) => this.categories2 = cats.filter(function(g){
+                return g.catB == null;
+            }), (err:any) => this.errorMessage = "Geen steden gevonden.");
 
     }
 
     //call upon initial load
     ngOnInit() {
-        /*TODO: nieuwe deep routing params*/
-        this.param = this.routeParams.get('town');
 
-        //load graph for provided town in current year
-        var today = new Date();
-        var year = today.getFullYear;
-        let tempCategories: GemeenteCategorie [] = this.budgetService.getCategorieHC(year, this.param);
-        this.categories.pop();/*TODO: andere manier vinden voor deze omweg (counter?)*/
-        /*TODO: use real service observable*/
-        for (var i = 0; i < tempCategories.length; i++) {
-
-            if (tempCategories[i].naamCaty == null){
-                this.categories.push(tempCategories[i]);
-            }
-
-        }
         this.calculateSalary(true);
     }
 
-    getNewTown(event: any) {
-        let total: number = 0;
-        let compCategories : GemeenteCategorie [] = [{"naamCatz" : "", "totaal" : 0}];
-        //get town to compare and tax
-        this.compareTown = this.service.getTownHC(event.target.value);//TODO: replace by service
-        let myTax = this.compareTown.aanslagVoet * this.mySalary;
-
-        //get cat data for chosen town
-        var today = new Date();
-        var year = today.getFullYear;
-        let tempCategories: GemeenteCategorie [] = this.budgetService.getCategorieHC(year, this.compareTown.naam);
-        compCategories.pop();/*TODO: andere manier vinden voor deze omweg (counter?)*/
-        /*TODO: use real service observable*/
-        for (var i = 0; i < tempCategories.length; i++) {
-
-            if (tempCategories[i].naamCaty == null){
-                compCategories.push(tempCategories[i]);
-            }
-
-        }
-        //set the correct tax amounts per category
-        for (var i = 0; i < compCategories.length; i++) {
-            total += compCategories[i].totaal;
-        }
-
-        for (var i = 0; i < compCategories.length; i++) {
-            let share = (compCategories[i].totaal/ total);
-            let taxAmount = (myTax * share);
-            compCategories[i] = {"naamCatz" : compCategories[i].naamCatz, "totaal" : taxAmount};
-        }
-        this.categories2 = compCategories;
-
-        for (var i = 0; i < this.categories2.length; i++) {
-            console.log("cat " + this.categories2[i].naamCatz + " belasting " + this.categories[i].totaal);
-        }
-    }
-
     calculateSalary(init: boolean){
-        console.log("salaris update: " + this.mySalary);
-        let total: number = 0;
-        let tempCategories : GemeenteCategorie [] = [{"naamCatz" : "", "totaal" : 0}];
 
+        let total: number = 0;
+        let tempCategories : GemeenteCategorie [] = [];
+        this.myTown.aanslagVoet = 0.05; //TODO: delete, data issue!
         //get town tax
         this.myTaxes = this.myTown.aanslagVoet * this.mySalary;
+        /*console.log("aanslag" + this.myTown.aanslagVoet);
+         console.log("tax update: " + this.myTaxes);*/
 
         //set the correct tax amounts per category
         for (var i = 0; i < this.categories.length; i++) {
@@ -415,7 +374,9 @@ export class TaxesComponent {
         for (var i = 0; i < this.categories.length; i++) {
             let share = (this.categories[i].totaal/ total);
             let taxAmount = (this.myTaxes * share);
-            tempCategories[i] = {"naamCatz" : this.categories[i].naamCatz, "totaal" : taxAmount};
+            this.categories[i].totaal = taxAmount;
+            console.log(this.categories[i].totaal);
+
         }
 
         //generate new sunburst
@@ -427,10 +388,12 @@ export class TaxesComponent {
 
 
 
-
     }
 
+    onCircleClick: any = (id: number) => {
+        //do nothing
 
+    };
 
 
 
