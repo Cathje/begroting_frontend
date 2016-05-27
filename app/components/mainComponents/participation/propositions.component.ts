@@ -13,7 +13,7 @@ import {BegrotingService} from "../../../services/begrotingService";
     selector: 'propositions-container',
     template: `
     <div class="container">
-          <p class="alert alert-danger" *ngIf="!projects"><i>{{errorMessage}}</i></p>
+          <p class="alert alert-danger" *ngIf="projects.length == 0"><i>{{errorMessage}}</i></p>
         <h2>Stem en/of geef reactie op een Begrotingsvoorstel</h2>
 
         <section>
@@ -26,6 +26,7 @@ import {BegrotingService} from "../../../services/begrotingService";
             </div>
             <div [id]="project.id" class="panel-collapse collapse in">
               <div class="panel-body no-padding">
+                  <p class="alert alert-danger" *ngIf="!project.voorstellen"><i>Er zijn nog geen voorstellen voor dit project</i></p>
                     <div class="" *ngFor="#voorstel of project.voorstellen #i=index">
                         <div class="panel-group" id="{{'accordion-sub'+(i+1)}}">
                           <div class="panel panel-default">
@@ -46,12 +47,12 @@ import {BegrotingService} from "../../../services/begrotingService";
                               <div class="graphs">
                               <div *ngIf="windowWidth > 768">
                               <h3> Begrotingsvoorstel </h3>
-                                                              <sunburst [data]=categoriesBegroting [onClick]=onCircleClick [height]=width [width]=width></sunburst>
+                                 <sunburst [data]=categoriesBegroting [onClick]=onCircleClick [height]=width [width]=width></sunburst>
 
                               </div>
                               <div>
                               <h3> Eigen voorstel </h3>
-                                <sunburst [data]=categoriesBegroting [onClick]=onCircleClick [height]=width [width]=width></sunburst>
+                                <sunburst [data]=voorstel.gemcats [onClick]=onCircleClick [height]=width [width]=width></sunburst>
                                 </div>
                               </div>
 
@@ -70,7 +71,7 @@ import {BegrotingService} from "../../../services/begrotingService";
                                         <span>{{voorstelreactie.reactieDatum}}</span>
                                         </li>
                                     </ul>
-                                    <p *ngIf="voorstel?.reacties?.length < 1"><i>Er zijn nog geen reacties ingediend.</i></p>
+                                    <p *ngIf="voorstel?.reacties?.length < 1 && voorstelreactie.email == ''"><i>Er zijn nog geen reacties ingediend.</i></p>
                                     </div>
 
                                     <div class="addFaq">
