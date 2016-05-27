@@ -85,7 +85,7 @@ import {CurConvert} from "./../../../pipes/curConvertPipe";
                         </ul>
                     </div>
                 </div>
-                <button [disabled]="submitProject" (click)="submit()"class="btn btn-primary pull-right" styled>opslaan</button>
+                <button [disabled]="!submitProject" (click)="submit()"class="btn btn-primary pull-right" styled>opslaan</button>
             </form>
         </div>
         <div class ="row">
