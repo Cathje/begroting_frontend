@@ -1,6 +1,4 @@
-System.register([], function(exports_1, context_1) {
-    "use strict";
-    var __moduleName = context_1 && context_1.id;
+System.register([], function(exports_1) {
     var MainTown;
     return {
         setters:[],
@@ -13,7 +11,7 @@ System.register([], function(exports_1, context_1) {
                     this.aanslagVoet = belasting;
                 }
                 return MainTown;
-            }());
+            })();
             exports_1("MainTown", MainTown);
         }
     }

@@ -1,6 +1,4 @@
-System.register(['angular2/core', "../subComponents/input/townSelector.component", "../subComponents/information/projectOverview.component", '../../directives/styled'], function(exports_1, context_1) {
-    "use strict";
-    var __moduleName = context_1 && context_1.id;
+System.register(['angular2/core', "../subComponents/input/townSelector.component", "../subComponents/information/projectOverview.component", '../../directives/styled'], function(exports_1) {
     var __decorate = (this && this.__decorate) || function (decorators, target, key, desc) {
         var c = arguments.length, r = c < 3 ? target : desc === null ? desc = Object.getOwnPropertyDescriptor(target, key) : desc, d;
         if (typeof Reflect === "object" && typeof Reflect.decorate === "function") r = Reflect.decorate(decorators, target, key, desc);
@@ -33,14 +31,14 @@ System.register(['angular2/core', "../subComponents/input/townSelector.component
                 HomeComponent = __decorate([
                     core_1.Component({
                         selector: 'home-container',
-                        template: "\n        <div class=\"banner-container\">\n            <div class=\"select-container\">\n                <h3>\n                    Kies een gemeente:\n                </h3>\n            </div>\n            <video autoplay=\"autoplay\" loop=\"loop\" width=\"100%\" height=\"150\">\n                <source src=\"/app/images/Big-City-Life.mp4\" type=\"video/mp4; codecs=&quot;avc1.42E01E, mp4a.40.2&quot;\" />\n                <source src=\"/app/images/Big-City-Life.ogv\" type=\"video/ogg; codecs=&quot;theora, vorbis&quot;\" />\n         Jouw browser ondersteunt geen video's.\n            </video>\n        </div>\n        <div class=\"site-information-container\">\n            <h2>\n                Ontdek de openstaande projecten van jouw favoriete gemeente en participeer!\n            </h2>\n            <p>\n                Het doel van dit platform is om de begrotingen en de uitgaven van Vlaamse steden en gemeenten transparant en begrijpelijk te maken voor de burgers en om burgervoorstellen over de begroting te verzamelen en te communiceren met de bevoegde instanties binnen de steden en gemeenten.\n            </p>\n        </div>\n    ",
+                        template: "\n    <div class=\"banner-container\">\n\n        <div class=\"select-container\">\n\n            <h3>Kies een gemeente:</h3>\n\n            <town-selector></town-selector>\n        </div>\n        <video width=\"100%\" autoplay=\"autoplay\" loop>\n            <source src=\"/app/images/Big-City-Life.mp4\" type='video/mp4; codecs=\"avc1.42E01E, mp4a.40.2\"'>\n            <source src=\"/app/images/Big-City-Life.ogv\" type='video/ogg; codecs=\"theora, vorbis\"'>\n            Jouw browser ondersteunt geen video's.\n        </video>\n    </div>\n\n    <div class=\"site-information-container\" styled>\n        <h2> Ontdek de openstaande projecten van jouw favoriete gemeente en participeer!</h2>\n        <p>Het doel van dit platform is om de begrotingen en de uitgaven van Vlaamse steden en gemeenten transparant en begrijpelijk te maken voor de burgers en om\nburgervoorstellen over de begroting te verzamelen en te communiceren met de bevoegde instanties binnen de steden en gemeenten.\n        </p>\n    </div>\n\n\n    ",
                         directives: [townSelector_component_1.TownSelectorComponent, projectOverview_component_1.ProjectOverviewComponent, styled_1.StyledDirective],
                         styles: ["\n\n    h2 {\n        color:white;\n    }\n\n    .select-container{\n        position:absolute;\n        top: 35%;\n        left: 0;\n        right: 0;\n        z-index: 5;\n    }\n\n    .banner-container {\n        position:relative;\n        max-height: 400px;\n        overflow: hidden;\n        width:100%\n    }\n\n    .banner-container h3 {\n        text-align: center;\n        color:white;\n    }\n\n    .site-information-container {\n        padding: 20px;\n        text-align: center;\n        background-color:#2ac7d2;\n        color:white;\n        padding-bottom: 200px;\n    }\n\n    .site-information-container h2 {\n        font-weight: 300;\n        padding: 20px 40px;\n    }\n\n    .site-information-container p {\n        margin: 0;\n        padding: 0px 0px;\n    }\n\n    video {\n        display: block !important;\n        width: 120%;\n        top: 0;\n        z-index:0;\n    }\n    "]
                     }), 
                     __metadata('design:paramtypes', [])
                 ], HomeComponent);
                 return HomeComponent;
-            }());
+            })();
             exports_1("HomeComponent", HomeComponent);
         }
     }

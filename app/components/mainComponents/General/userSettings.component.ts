@@ -4,7 +4,6 @@ import {IngelogdeGebruiker} from "../../../models/ingelogdeGebruiker";
 import {MainTown} from "../../../models/mainTown";
 import {TownService} from "../../../services/townService.component";
 import {LoginService} from "../../../services/loginService.component";
-
 import {rolType} from "../../../models/rolType";
 
 @Component({
@@ -41,6 +40,7 @@ import {rolType} from "../../../models/rolType";
 
 export class UserSettingsComponent {
 
+    gebruiker  = new IngelogdeGebruiker("","","",rolType.standaard,true);
     gemeente:string;
     nieuweGemeente:string;
     email:string;
@@ -52,16 +52,23 @@ export class UserSettingsComponent {
             .subscribe((towns:any) => this.towns = towns);
         this.gemeente = sessionStorage.getItem('gemeente');
         this.email = sessionStorage.getItem('user');
+        this.nieuweGemeente = this.gemeente;
+        this.gebruiker.userId = this.email;
+        this.gebruiker.gemeente = this.gemeente;
+        this.gebruiker.naam = sessionStorage.getItem('naam');
     }
 
     onSubmit()
     {
-        this._loginService.putGebruiker(this.email, this.nieuweGemeente).subscribe();
+        this.gemeente = this.nieuweGemeente;
+        sessionStorage.setItem('gemeente',this.nieuweGemeente);
+        this._loginService.putGebruiker(this.gebruiker).subscribe();
         this._router.navigate(['/', 'App',{ town: this.nieuweGemeente}, 'Budget']);
     }
 
     onSelect(event:any) {
         this.nieuweGemeente = event.target.value;
+        this.gebruiker.gemeente = this.nieuweGemeente;
     }
 
 }

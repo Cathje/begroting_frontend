@@ -1,6 +1,4 @@
-System.register(['angular2/core', 'angular2/router', "../../../pipes/keysPipe", "../../../services/projectService.component", "../../../models/inspraakNiveau", "../../../models/project", "../../../models/projectScenario", '../../../directives/styled'], function(exports_1, context_1) {
-    "use strict";
-    var __moduleName = context_1 && context_1.id;
+System.register(['angular2/core', 'angular2/router', "../../../pipes/keysPipe", "../../../services/projectService.component", "../../../models/inspraakNiveau", "../../../models/project", "../../../models/projectScenario", '../../../directives/styled'], function(exports_1) {
     var __decorate = (this && this.__decorate) || function (decorators, target, key, desc) {
         var c = arguments.length, r = c < 3 ? target : desc === null ? desc = Object.getOwnPropertyDescriptor(target, key) : desc, d;
         if (typeof Reflect === "object" && typeof Reflect.decorate === "function") r = Reflect.decorate(decorators, target, key, desc);
@@ -227,7 +225,7 @@ System.register(['angular2/core', 'angular2/router', "../../../pipes/keysPipe", 
                     __metadata('design:paramtypes', [projectService_component_1.ProjectService, core_1.Injector, router_1.Router])
                 ], ManageProjectComponent);
                 return ManageProjectComponent;
-            }());
+            })();
             exports_1("ManageProjectComponent", ManageProjectComponent);
         }
     }

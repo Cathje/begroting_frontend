@@ -1,6 +1,4 @@
-System.register(['angular2/core', 'angular2/router', "../../../services/townService.component", "../../../services/loginService.component"], function(exports_1, context_1) {
-    "use strict";
-    var __moduleName = context_1 && context_1.id;
+System.register(['angular2/core', 'angular2/router', "../../../models/ingelogdeGebruiker", "../../../services/townService.component", "../../../services/loginService.component", "../../../models/rolType"], function(exports_1) {
     var __decorate = (this && this.__decorate) || function (decorators, target, key, desc) {
         var c = arguments.length, r = c < 3 ? target : desc === null ? desc = Object.getOwnPropertyDescriptor(target, key) : desc, d;
         if (typeof Reflect === "object" && typeof Reflect.decorate === "function") r = Reflect.decorate(decorators, target, key, desc);
@@ -10,7 +8,7 @@ System.register(['angular2/core', 'angular2/router', "../../../services/townServ
     var __metadata = (this && this.__metadata) || function (k, v) {
         if (typeof Reflect === "object" && typeof Reflect.metadata === "function") return Reflect.metadata(k, v);
     };
-    var core_1, router_1, townService_component_1, loginService_component_1;
+    var core_1, router_1, ingelogdeGebruiker_1, townService_component_1, loginService_component_1, rolType_1;
     var UserSettingsComponent;
     return {
         setters:[
@@ -20,11 +18,17 @@ System.register(['angular2/core', 'angular2/router', "../../../services/townServ
             function (router_1_1) {
                 router_1 = router_1_1;
             },
+            function (ingelogdeGebruiker_1_1) {
+                ingelogdeGebruiker_1 = ingelogdeGebruiker_1_1;
+            },
             function (townService_component_1_1) {
                 townService_component_1 = townService_component_1_1;
             },
             function (loginService_component_1_1) {
                 loginService_component_1 = loginService_component_1_1;
+            },
+            function (rolType_1_1) {
+                rolType_1 = rolType_1_1;
             }],
         execute: function() {
             UserSettingsComponent = (function () {
@@ -33,17 +37,25 @@ System.register(['angular2/core', 'angular2/router', "../../../services/townServ
                     this._townService = _townService;
                     this._router = _router;
                     this._loginService = _loginService;
+                    this.gebruiker = new ingelogdeGebruiker_1.IngelogdeGebruiker("", "", "", rolType_1.rolType.standaard, true);
                     _townService.getTowns()
                         .subscribe(function (towns) { return _this.towns = towns; });
                     this.gemeente = sessionStorage.getItem('gemeente');
                     this.email = sessionStorage.getItem('user');
+                    this.nieuweGemeente = this.gemeente;
+                    this.gebruiker.userId = this.email;
+                    this.gebruiker.gemeente = this.gemeente;
+                    this.gebruiker.naam = sessionStorage.getItem('naam');
                 }
                 UserSettingsComponent.prototype.onSubmit = function () {
-                    this._loginService.putGebruiker(this.email, this.nieuweGemeente).subscribe();
+                    this.gemeente = this.nieuweGemeente;
+                    sessionStorage.setItem('gemeente', this.nieuweGemeente);
+                    this._loginService.putGebruiker(this.gebruiker).subscribe();
                     this._router.navigate(['/', 'App', { town: this.nieuweGemeente }, 'Budget']);
                 };
                 UserSettingsComponent.prototype.onSelect = function (event) {
                     this.nieuweGemeente = event.target.value;
+                    this.gebruiker.gemeente = this.nieuweGemeente;
                 };
                 UserSettingsComponent = __decorate([
                     core_1.Component({
@@ -56,7 +68,7 @@ System.register(['angular2/core', 'angular2/router', "../../../services/townServ
                     __metadata('design:paramtypes', [townService_component_1.TownService, router_1.Router, loginService_component_1.LoginService])
                 ], UserSettingsComponent);
                 return UserSettingsComponent;
-            }());
+            })();
             exports_1("UserSettingsComponent", UserSettingsComponent);
         }
     }
