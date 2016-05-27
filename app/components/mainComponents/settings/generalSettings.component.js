@@ -28,6 +28,7 @@ System.register(['angular2/core', "../../subComponents/upload/multipart-item", "
             GeneralSettingsComponent = (function () {
                 function GeneralSettingsComponent() {
                     var _this = this;
+                    //private _url = 'http://begroting-webapi.azurewebsites.net/api/Begroting'
                     this._url = 'http://localhost:52597/api/Begroting';
                     this.uploader = new multipart_uploader_1.MultipartUploader({ url: this._url });
                     this.multipartItem = new multipart_item_1.MultipartItem(this.uploader);

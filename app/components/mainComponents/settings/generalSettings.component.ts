@@ -40,7 +40,7 @@ import {GemeenteCategorie} from "../../../models/gemeenteCategorie";
     })
 
 export class GeneralSettingsComponent {
-
+    //private _url = 'http://begroting-webapi.azurewebsites.net/api/Begroting'
     private _url = 'http://localhost:52597/api/Begroting';
 
     private uploader:MultipartUploader = new MultipartUploader({url: this._url});

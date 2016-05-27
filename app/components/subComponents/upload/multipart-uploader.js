@@ -13,6 +13,7 @@ System.register([], function(exports_1) {
                     this.isUploading = false;
                     this.progress = 0;
                     this.isHTML5 = true;
+                    //this.url = 'http://begroting-webapi.azurewebsites.net/api/Begroting';
                     this.url = 'http://localhost:52597/api/Begroting';
                 }
                 MultipartUploader.prototype.uploadItem = function (item) {

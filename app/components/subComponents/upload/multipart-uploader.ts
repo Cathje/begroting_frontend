@@ -12,6 +12,7 @@ export class MultipartUploader {
     public isHTML5:boolean = true;
 
     constructor(public options:any) {
+        //this.url = 'http://begroting-webapi.azurewebsites.net/api/Begroting';
         this.url = 'http://localhost:52597/api/Begroting';
     }
 
