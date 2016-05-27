@@ -96,6 +96,7 @@ System.register(['angular2/core', "../../../services/townService.component", './
                         return years;
                     };
                     this.onSelectYear = function (event, graphNumber) {
+                        console.log(event);
                         switch (graphNumber) {
                             case "1":
                                 _this.selectedYear1 = event.target.value;

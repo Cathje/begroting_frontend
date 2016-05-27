@@ -56,13 +56,23 @@ System.register(['angular2/core', 'angular2/router', "../../../services/townServ
                     this.g = new ingelogdeGebruiker_1.IngelogdeGebruiker("", "", "", rolType_1.rolType.admin, false);
                     this.filterRol = function (rolTypes) {
                         var filteredObject = {};
-                        console.log(sessionStorage.getItem("role"));
                         var permittedRoleChanges = [];
                         switch (sessionStorage.getItem("role")) {
-                            case "standaard": permittedRoleChanges.push(1);
+                            case "standaard":
+                                permittedRoleChanges.push(1);
+                                break;
+                            case "superadmin":
+                                permittedRoleChanges.push(1, 2, 3, 4);
+                                break;
+                            case "admin":
+                                permittedRoleChanges.push(1, 2, 4);
+                                break;
+                            case "moderator":
+                                permittedRoleChanges.push(1, 4);
+                                break;
                         }
                         for (var key in Object.keys(rolTypes)) {
-                            if (key == 1 || key == 4) {
+                            if (key == permittedRoleChanges[key - 1]) {
                                 filteredObject[key] = rolTypes[key];
                                 filteredObject[rolTypes[key]] = key;
                             }

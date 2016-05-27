@@ -102,7 +102,7 @@ export class OverviewUsersComponent {
 
     mainTown = new MainTown("", "", 0, 0);
     errorMessage: string;
-    rolTypes;
+    rolTypes: Object;
     gebruikers: IngelogdeGebruiker[] = [];
     gewijzigdeGebruikers : IngelogdeGebruiker[]=[];
     filterGebruikers: IngelogdeGebruiker[] = [];
@@ -173,14 +173,16 @@ export class OverviewUsersComponent {
 
     filterRol = (rolTypes: any) => {
         let filteredObject = {};
-        console.log(sessionStorage.getItem("role"));
-        let permittedRoleChanges: [] =[];
+        let permittedRoleChanges: number[] =[];
         switch(sessionStorage.getItem("role")){
-            case "standaard": permittedRoleChanges.push(1)
+            case "standaard": permittedRoleChanges.push(1);break;
+            case "superadmin": permittedRoleChanges.push(1,2,3,4); break;
+            case "admin": permittedRoleChanges.push(1,2,4); break;
+            case "moderator": permittedRoleChanges.push(1,4); break;
         }
 
         for(let key in Object.keys(rolTypes)){
-            if(key == 1 || key == 4){ //only standard users and moderators
+            if(key == permittedRoleChanges[key-1]){ //only standard users and moderators
                 filteredObject[key] = rolTypes[key];
                 filteredObject[rolTypes[key]] = key;
             }

@@ -116,7 +116,7 @@ export class ManageTownComponent {
     afb:string;
     id:number;
     errorMessage:string;
-    gemeenteCategorieen:GemeenteCategorie[] = [{kleur: "red", icoon: "glyphicon glyphicon-ok"}];
+    gemeenteCategorieen:GemeenteCategorie[] = [];
 
 
     constructor(private _begrotingService:BegrotingService, private _routeParams:RouteParams, private _townService:TownService, private _router:Router, injector:Injector) {
@@ -137,7 +137,7 @@ export class ManageTownComponent {
     }
 
     changeColor = () => {
-        sessionStorage.setItem("mainColor", this.mainTown.hoofdkleur);
+        sessionStorage.setItem("mainColor", this.mainTown.hoofdKleur);
         location.reload();
 
         //TODO: + create webapi to save this in backend
@@ -152,7 +152,7 @@ export class ManageTownComponent {
         //TODO: + create webapi to save this in backend
     }
 
-    loadimage = (img:string, cb:any)=> {
+    loadimage = (img:any, cb:any)=> {
         var reader = new FileReader();
         reader.readAsDataURL(img);
         reader.onload = function () {
@@ -162,10 +162,9 @@ export class ManageTownComponent {
     }
 
     verwijder(f:Faq) {
-        //@TODO geeft in code een error maar werkt --> ??
         this.mainTown.FAQs.pop(f);
         if (f.id != 0) {
-            this._townService.deleteFAQ(f.ID).subscribe(
+            this._townService.deleteFAQ(f.id).subscribe(
                 (d:number) => this.id = d,
                 (err:any) => this.errorMessage = err
             );
@@ -176,7 +175,7 @@ export class ManageTownComponent {
     submit() {
         this._townService.putTownInput(this.mainTown).subscribe(
             (d:number) => this.id = d,
-            (id:number) => this.errorMessage = id);
+            (err:any) => this.errorMessage = err);
         this._router.navigate(['/', 'App',{town: this.mainTown.naam}, 'Budget']);
     }
 

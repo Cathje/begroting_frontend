@@ -201,7 +201,7 @@ export class ComparisonComponent {
         }else {
             this._begrotingService.getGemeenteCategorieen(2020,"Gent")
                 .subscribe(
-                    (finan: any) => {
+                    (finan: GemeenteCategorie[]) => {
                         if(graphNumber === "1"){
                             this.categories = finan;
                         }else {
@@ -219,7 +219,7 @@ export class ComparisonComponent {
         }else {
             this._begrotingService.getClusters(2020,"Gent")
                 .subscribe(
-                    (finan: any) => {
+                    (finan: GemeenteCategorie[]) => {
                         if(graphNumber === "3"){
                             this.categories3 = finan;
                         }else {
@@ -251,6 +251,7 @@ export class ComparisonComponent {
     }
 
     onSelectYear = (event: any,graphNumber: string) => {
+        console.log(event);
         switch(graphNumber){
             case "1": this.selectedYear1 = event.target.value; break;
             case "2":  this.selectedYear2 = event.target.value; break;

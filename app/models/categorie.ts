@@ -3,6 +3,9 @@ export class Categorie {
     kleur: string;
     icoon: string;
     afbeelding: string;
+    foto: string;
+    input: string;
+    film: string;
 
 
     constructor(naam: string, kleur: string, icoon: string)

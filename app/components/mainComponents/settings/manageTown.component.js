@@ -45,9 +45,9 @@ System.register(['angular2/core', 'angular2/router', "../../../services/townServ
                     this._router = _router;
                     this.mainTown = new mainTown_1.MainTown("", "", 0, 0);
                     this.faq = new faq_1.Faq("", "");
-                    this.gemeenteCategorieen = [{ kleur: "red", icoon: "glyphicon glyphicon-ok" }];
+                    this.gemeenteCategorieen = [];
                     this.changeColor = function () {
-                        sessionStorage.setItem("mainColor", _this.mainTown.hoofdkleur);
+                        sessionStorage.setItem("mainColor", _this.mainTown.hoofdKleur);
                         location.reload();
                         //TODO: + create webapi to save this in backend
                     };
@@ -75,15 +75,14 @@ System.register(['angular2/core', 'angular2/router', "../../../services/townServ
                 };
                 ManageTownComponent.prototype.verwijder = function (f) {
                     var _this = this;
-                    //@TODO geeft in code een error maar werkt --> ??
                     this.mainTown.FAQs.pop(f);
                     if (f.id != 0) {
-                        this._townService.deleteFAQ(f.ID).subscribe(function (d) { return _this.id = d; }, function (err) { return _this.errorMessage = err; });
+                        this._townService.deleteFAQ(f.id).subscribe(function (d) { return _this.id = d; }, function (err) { return _this.errorMessage = err; });
                     }
                 };
                 ManageTownComponent.prototype.submit = function () {
                     var _this = this;
-                    this._townService.putTownInput(this.mainTown).subscribe(function (d) { return _this.id = d; }, function (id) { return _this.errorMessage = id; });
+                    this._townService.putTownInput(this.mainTown).subscribe(function (d) { return _this.id = d; }, function (err) { return _this.errorMessage = err; });
                     this._router.navigate(['/', 'App', { town: this.mainTown.naam }, 'Budget']);
                 };
                 ManageTownComponent.prototype.voegToe = function () {

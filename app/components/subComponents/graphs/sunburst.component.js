@@ -103,7 +103,8 @@ System.register(['angular2/core', 'd3', "../../../defaults/categories"], functio
             var size = +Math.abs(levelAList[i]['totaal']);
             // add element to hierarchy
             addColor(categories, levelAList[i], colors, 'catA');
-            root["children"].push(createObject(levelAList[i], 'catA'));
+            var node = createObject(levelAList[i], 'catA');
+            root["children"].push(node);
         }
         // SECOND LEVEL CAT B
         for (var i = 0; i < levelBList.length; i++) {
@@ -113,14 +114,16 @@ System.register(['angular2/core', 'd3', "../../../defaults/categories"], functio
             var catA = position.filter(function (obj) { return obj["name"] == levelBList[i]['catA']; });
             // If we don't already have a Cat A for this branch, create it.
             if (Object.keys(catA).length === 0) {
-                position.push(createObject(levelBList[i], 'catA'));
+                var node_1 = createObject(levelBList[i], 'catA');
+                position.push(node_1);
                 addColor(categories, levelBList[i], colors, 'catA');
             }
             // move node down in hierarchy > to level A children
             position = _moveNodeDown(position, levelBList[i]['catA']);
             // add catB to the catA children array
             addColor(categories, levelBList[i], colors, 'catB');
-            position.push(createObject(createObject(levelBList[i], 'catB')));
+            var node = createObject(levelBList[i], 'catB');
+            position.push(node);
         }
         // THIRD LEVEL CAT C
         for (var i = 0; i < levelCList.length; i++) {
@@ -130,7 +133,8 @@ System.register(['angular2/core', 'd3', "../../../defaults/categories"], functio
             var catA = position.filter(function (obj) { return obj["name"] == levelCList[i]['catA']; });
             // If we don't already have a Cat A for this branch, create it.
             if (Object.keys(catA).length === 0) {
-                position.push(createObject(levelCList[i], 'catA'));
+                var node_2 = createObject(levelCList[i], 'catA');
+                position.push(node_2);
                 addColor(categories, levelCList[i], colors, 'catA');
             }
             // move node down in hierarchy > to level A children
@@ -139,13 +143,15 @@ System.register(['angular2/core', 'd3', "../../../defaults/categories"], functio
             var catB = position.filter(function (obj) { return obj["name"] == levelCList[i]['catA']; });
             // If we don't already have a Cat B for this branch, create it.
             if (Object.keys(catB).length === 0) {
-                position.push(createObject(levelCList[i], 'catB'));
+                var node_3 = createObject(levelCList[i], 'catB');
+                position.push(node_3);
                 addColor(categories, levelCList[i], colors, 'catB');
             }
             // move node down in hierarchy > to level B children
             position = _moveNodeDown(position, levelCList[i]['catB']);
             // add catC to the catB children array
-            position.push(createObject(levelCList[i], 'catC'));
+            var node = createObject(levelCList[i], 'catC');
+            position.push(node);
             addColor(categories, levelCList[i], colors, 'catC');
         }
         return root;

@@ -183,7 +183,6 @@ export class ManageDataComponent {
     }
     verwijder(id: number, b: Bestuur)
     {
-        //@TODO geeft in code een error maar werkt --> ??
         this.mainTown.bestuur.pop(b);
         if(id != 0)
         {

@@ -141,7 +141,6 @@ import {StyledDirective} from '../../../directives/styled';
     .legend {
         border: 1px solid lightgray;
         padding: 10px;
-        max-width: 300px;
     }
 
     .legend img {

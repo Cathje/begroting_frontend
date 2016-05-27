@@ -17,7 +17,7 @@ export class MainTown {
     cluster:any;
     deelGemeenten:Town [];
     FAQs: Faq [];
-    hoofdkleur: string;
+    hoofdKleur: string;
     logo: string;
 
 

@@ -70,7 +70,7 @@ export class HomeRouter {
     {
 
         _townService.getTown(_routeParams.get('town'))
-            .subscribe(town=> {
+            .subscribe((town : MainTown) => {
                     sessionStorage.setItem("mainColor", town.hoofdKleur);
                     this.town = town;
                 },

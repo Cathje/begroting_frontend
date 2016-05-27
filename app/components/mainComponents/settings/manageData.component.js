@@ -66,7 +66,6 @@ System.register(['angular2/core', 'angular2/router', "../../subComponents/input/
                     this.mainTown.bestuur.push(new bestuur_1.Bestuur(this.bestuur.naam, this.bestuur.type));
                 };
                 ManageDataComponent.prototype.verwijder = function (id, b) {
-                    //@TODO geeft in code een error maar werkt --> ??
                     this.mainTown.bestuur.pop(b);
                     if (id != 0) {
                         this._townService.deleteBestuurslid(id).subscribe();

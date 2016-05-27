@@ -277,7 +277,8 @@ function buildHierarchy(data: GemeenteCategorie[], colors: Object, categories: a
 
         // add element to hierarchy
         addColor(categories, levelAList[i], colors, 'catA');
-        root["children"].push(createObject(levelAList[i], 'catA'));
+        const node = createObject(levelAList[i], 'catA');
+        root["children"].push(node);
     }
 
     // SECOND LEVEL CAT B
@@ -290,7 +291,8 @@ function buildHierarchy(data: GemeenteCategorie[], colors: Object, categories: a
 
             // If we don't already have a Cat A for this branch, create it.
             if (Object.keys(catA).length === 0) {
-                position.push(createObject(levelBList[i], 'catA'));
+                const node = createObject(levelBList[i], 'catA');
+                position.push(node);
                 addColor(categories, levelBList[i], colors, 'catA');
             }
 
@@ -299,7 +301,8 @@ function buildHierarchy(data: GemeenteCategorie[], colors: Object, categories: a
 
             // add catB to the catA children array
             addColor(categories, levelBList[i], colors, 'catB');
-            position.push(createObject(createObject(levelBList[i], 'catB')));
+            const node = createObject(levelBList[i], 'catB');
+            position.push(node);
 
     }
 
@@ -313,7 +316,8 @@ function buildHierarchy(data: GemeenteCategorie[], colors: Object, categories: a
 
             // If we don't already have a Cat A for this branch, create it.
             if (Object.keys(catA).length === 0) {
-                position.push(createObject(levelCList[i], 'catA'));
+                const node = createObject(levelCList[i], 'catA');
+                position.push(node);
                 addColor(categories, levelCList[i], colors, 'catA');
             }
 
@@ -326,7 +330,8 @@ function buildHierarchy(data: GemeenteCategorie[], colors: Object, categories: a
 
             // If we don't already have a Cat B for this branch, create it.
             if (Object.keys(catB).length === 0) {
-                position.push(createObject(levelCList[i], 'catB'));
+                const node =createObject(levelCList[i], 'catB')
+                position.push(node);
                 addColor(categories, levelCList[i], colors, 'catB');
             }
 
@@ -334,7 +339,8 @@ function buildHierarchy(data: GemeenteCategorie[], colors: Object, categories: a
             position = _moveNodeDown(position, levelCList[i]['catB']);
 
             // add catC to the catB children array
-            position.push(createObject(levelCList[i], 'catC'));
+            const node = createObject(levelCList[i], 'catC');
+            position.push(node);
             addColor(categories, levelCList[i], colors, 'catC');
         }
     return root;
