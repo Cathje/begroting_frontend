@@ -172,7 +172,6 @@ export class ManageDataComponent {
     }
 
     submit() {
-        //TODO: extra info over projecten moet ook bewaard worden in de databank
         this._townService.putTown(this.mainTown).subscribe();
         this._router.navigate(['/', 'App',{town: this.mainTown.naam}, 'Budget']);
     }

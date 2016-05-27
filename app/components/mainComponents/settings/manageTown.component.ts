@@ -139,8 +139,6 @@ export class ManageTownComponent {
     changeColor = () => {
         sessionStorage.setItem("mainColor", this.mainTown.hoofdKleur);
         location.reload();
-
-        //TODO: + create webapi to save this in backend
     }
 
     changeImg = (event:any)=> {
@@ -148,8 +146,6 @@ export class ManageTownComponent {
             this.afb = img;
             this.mainTown.logo = img;
         });
-
-        //TODO: + create webapi to save this in backend
     }
 
     loadimage = (img:any, cb:any)=> {

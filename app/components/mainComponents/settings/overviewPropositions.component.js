@@ -1,6 +1,4 @@
-System.register(['angular2/core', 'angular2/router', "../../../services/projectService.component", '../../../directives/styled'], function(exports_1, context_1) {
-    "use strict";
-    var __moduleName = context_1 && context_1.id;
+System.register(['angular2/core', 'angular2/router', "../../../services/projectService.component", '../../../directives/styled'], function(exports_1) {
     var __decorate = (this && this.__decorate) || function (decorators, target, key, desc) {
         var c = arguments.length, r = c < 3 ? target : desc === null ? desc = Object.getOwnPropertyDescriptor(target, key) : desc, d;
         if (typeof Reflect === "object" && typeof Reflect.decorate === "function") r = Reflect.decorate(decorators, target, key, desc);
@@ -35,14 +33,12 @@ System.register(['angular2/core', 'angular2/router', "../../../services/projectS
                     this.projects = [];
                     this._projectService.getProjects("Gent").subscribe(function (pr) { return _this.projects = pr; });
                 }
-                //@TODO  email toevoegen vanuit token als verificator (datum toegevoegd op backend)
                 //verificatiestatus :  1 = tebehandelen, 2 = goedgekeurd, 3= afgekeurd
                 OverviewPropositionsComponent.prototype.approve = function (voorstel) {
                     voorstel.verificatieStatus = 2;
                     voorstel.verificatorEmail = sessionStorage.getItem('user');
                     this._projectService.putVoorstelStatus(voorstel.Id, voorstel).subscribe();
                 };
-                //@TODO  email toevoegen vanuit token als verificator (datum toegevoegd op backend)
                 OverviewPropositionsComponent.prototype.disapprove = function (voorstel) {
                     voorstel.verificatieStatus = 3;
                     voorstel.verificatorEmail = sessionStorage.getItem('user');
@@ -61,7 +57,7 @@ System.register(['angular2/core', 'angular2/router', "../../../services/projectS
                     __metadata('design:paramtypes', [router_1.RouteParams, projectService_component_1.ProjectService])
                 ], OverviewPropositionsComponent);
                 return OverviewPropositionsComponent;
-            }());
+            })();
             exports_1("OverviewPropositionsComponent", OverviewPropositionsComponent);
         }
     }

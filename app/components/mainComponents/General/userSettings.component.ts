@@ -17,12 +17,12 @@ import {rolType} from "../../../models/rolType";
 					<p>Je huidige gemeente is: {{gemeente}}</p>
 					<label>kies een nieuwe gemeente:</label>
 					<div class="form-control">
-					<div class="styled-select">
-							<select (change)="onSelect($event)">
-								<option selected disabled></option>
-								<option *ngFor="#town of towns" [value]="town.naam">{{town.naam}}</option>
-							</select>
-					</div>
+                        <div class="styled-select">
+                                <select (change)="onSelect($event)">
+                                    <option selected disabled></option>
+                                    <option *ngFor="#town of towns" [value]="town.naam">{{town.naam}}</option>
+                                </select>
+                        </div>
 					</div>
 					<button (click)="onSubmit()" class="btn btn-primary pull-right">Opslaan</button>
 			</div>

@@ -45,7 +45,7 @@ System.register(['angular2/core', "angular2/router", "../../../models/faq", "../
                 FaqComponent = __decorate([
                     core_1.Component({
                         selector: 'faq-container',
-                        template: "\n        <div class=\"container\">\n            <section class=\"intro col-xs-12\">\n                <h1>FAQ</h1>\n                <div class=\"form-inline\">\n                <ul >\n                   <li *ngFor=\"#f of mainTown.FAQs\" >\n                   <p><strong>{{f.vraag}}</strong></p>\n                   <p>{{f.antwoord}} </p>\n                    </li>\n                </ul>\n                <p *ngIf=\"mainTown?.FAQs?.length < 1\"><i>Er zijn nog geen vragen en antwoord ingediend.</i></p>\n                </div>\n            </section>\n       </div>\n    ",
+                        template: "\n        <div class=\"container\">\n\t<section class=\"intro col-xs-12\">\n\t\t<h1>\n\t\t\tFAQ\n\t\t</h1>\n\t\t<div class=\"form-inline\">\n\t\t\t<ul>\n\t\t\t\t<li>\n\t\t\t\t\t<p>\n\t\t\t\t\t\t<strong>\n\t\t\t\t\t\t\t{{f?.vraag}}\n\t\t\t\t\t\t</strong>\n\t\t\t\t\t</p>\n\t\t\t\t\t<p>\n\t\t\t\t\t\t{{f?.antwoord}}\n\t\t\t\t\t</p>\n\t\t\t\t</li>\n\t\t\t</ul>\n\t\t\t<p>\n\t\t\t\t<em>\n\t\t\t\t\tEr zijn nog geen vragen en antwoord ingediend.\n\t\t\t\t</em>\n\t\t\t</p>\n\t\t</div>\n\t</section>\n</div>\n    ",
                         styles: ["\n        ul {\n        list-style :none;\n        }\n    "]
                     }), 
                     __metadata('design:paramtypes', [router_1.RouteParams, townService_component_1.TownService, router_2.Router, core_1.Injector])

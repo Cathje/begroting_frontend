@@ -1,6 +1,4 @@
-System.register(['angular2/core', 'angular2/router', "../../../services/townService.component", "../../../models/mainTown", "../../../models/faq", '../../../directives/styled', "../../../services/begrotingService"], function(exports_1, context_1) {
-    "use strict";
-    var __moduleName = context_1 && context_1.id;
+System.register(['angular2/core', 'angular2/router', "../../../services/townService.component", "../../../models/mainTown", "../../../models/faq", '../../../directives/styled', "../../../services/begrotingService"], function(exports_1) {
     var __decorate = (this && this.__decorate) || function (decorators, target, key, desc) {
         var c = arguments.length, r = c < 3 ? target : desc === null ? desc = Object.getOwnPropertyDescriptor(target, key) : desc, d;
         if (typeof Reflect === "object" && typeof Reflect.decorate === "function") r = Reflect.decorate(decorators, target, key, desc);
@@ -49,14 +47,12 @@ System.register(['angular2/core', 'angular2/router', "../../../services/townServ
                     this.changeColor = function () {
                         sessionStorage.setItem("mainColor", _this.mainTown.hoofdKleur);
                         location.reload();
-                        //TODO: + create webapi to save this in backend
                     };
                     this.changeImg = function (event) {
                         _this.loadimage(event.target.files[0], function (img) {
                             _this.afb = img;
                             _this.mainTown.logo = img;
                         });
-                        //TODO: + create webapi to save this in backend
                     };
                     this.loadimage = function (img, cb) {
                         var reader = new FileReader();
@@ -101,7 +97,7 @@ System.register(['angular2/core', 'angular2/router', "../../../services/townServ
                     __metadata('design:paramtypes', [begrotingService_1.BegrotingService, router_1.RouteParams, townService_component_1.TownService, router_1.Router, core_1.Injector])
                 ], ManageTownComponent);
                 return ManageTownComponent;
-            }());
+            })();
             exports_1("ManageTownComponent", ManageTownComponent);
         }
     }

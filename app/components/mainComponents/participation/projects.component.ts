@@ -12,7 +12,6 @@ import {GemeenteCategorie} from "../../../models/gemeenteCategorie";
     <p class="alert alert-danger" *ngIf="errorMessage"><i>{{errorMessage}}</i></p>
     <h2>Begrotingsposten</h2>
     <p> Op deze pagina kan u de begrotingsposten terugvinden van uw gemeente per jaar. </p>
-
         <div class="section-content">
             <div class="panel-group" id="accordion">
                 <div *ngFor="#begroting of begrotingen" class="panel panel-default">
@@ -38,11 +37,8 @@ import {GemeenteCategorie} from "../../../models/gemeenteCategorie";
 
                 </div>
             </div>
-
              <button class="btn btn-primary pull-right" (click)="onMakeProposition()" styled>Verdeel zelf de begroting</button>
-
         </div>
-    
     </div>
     `,
     directives: [ROUTER_DIRECTIVES],
@@ -66,8 +62,6 @@ export class ProjectsComponent
             _begrotingService.getBegrotingen("Gent").subscribe((begr: any) => this.begrotingen = begr,
                 (err:any) => this.errorMessage = "Er zijn geen begrotingen gevonden voor deze gemeenten"
                 );
-
-
         }
 
     onMakeProposition = () => {

@@ -7,25 +7,26 @@ import {StyledDirective} from '../../directives/styled';
 @Component({
     selector: 'home-container',
     template: `
-    <div class="banner-container">
-        <div class="select-container">
-            <h3>Kies een gemeente:</h3>
-            <town-selector></town-selector>
+        <div class="banner-container">
+            <div class="select-container">
+                <h3>
+                    Kies een gemeente:
+                </h3>
+            </div>
+            <video autoplay="autoplay" loop="loop" width="100%" height="150">
+                <source src="/app/images/Big-City-Life.mp4" type="video/mp4; codecs=&quot;avc1.42E01E, mp4a.40.2&quot;" />
+                <source src="/app/images/Big-City-Life.ogv" type="video/ogg; codecs=&quot;theora, vorbis&quot;" />
+         Jouw browser ondersteunt geen video's.
+            </video>
         </div>
-
-        <video width="100%" autoplay="autoplay" loop>
-            <source src="/app/images/Big-City-Life.mp4" type='video/mp4; codecs="avc1.42E01E, mp4a.40.2"'>
-            <source src="/app/images/Big-City-Life.ogv" type='video/ogg; codecs="theora, vorbis"'>
-            Jouw browser ondersteunt geen video's.
-        </video>
-    </div>
-
-    <div class="site-information-container" styled>
-        <h2> Ontdek de openstaande projecten van jouw favoriete gemeente en participeer!</h2>
-        <p>Het doel van dit platform is om de begrotingen en de uitgaven van Vlaamse steden en gemeenten transparant en begrijpelijk te maken voor de burgers en om
-burgervoorstellen over de begroting te verzamelen en te communiceren met de bevoegde instanties binnen de steden en gemeenten.
-        </p>
-    </div>
+        <div class="site-information-container">
+            <h2>
+                Ontdek de openstaande projecten van jouw favoriete gemeente en participeer!
+            </h2>
+            <p>
+                Het doel van dit platform is om de begrotingen en de uitgaven van Vlaamse steden en gemeenten transparant en begrijpelijk te maken voor de burgers en om burgervoorstellen over de begroting te verzamelen en te communiceren met de bevoegde instanties binnen de steden en gemeenten.
+            </p>
+        </div>
     `
     ,
     directives: [TownSelectorComponent, ProjectOverviewComponent, StyledDirective],

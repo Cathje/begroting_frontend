@@ -9,19 +9,31 @@ import {Router} from "angular2/router";
     selector: 'faq-container',
     template: `
         <div class="container">
-            <section class="intro col-xs-12">
-                <h1>FAQ</h1>
-                <div class="form-inline">
-                <ul >
-                   <li *ngFor="#f of mainTown.FAQs" >
-                   <p><strong>{{f.vraag}}</strong></p>
-                   <p>{{f.antwoord}} </p>
-                    </li>
-                </ul>
-                <p *ngIf="mainTown?.FAQs?.length < 1"><i>Er zijn nog geen vragen en antwoord ingediend.</i></p>
-                </div>
-            </section>
-       </div>
+	<section class="intro col-xs-12">
+		<h1>
+			FAQ
+		</h1>
+		<div class="form-inline">
+			<ul>
+				<li>
+					<p>
+						<strong>
+							{{f?.vraag}}
+						</strong>
+					</p>
+					<p>
+						{{f?.antwoord}}
+					</p>
+				</li>
+			</ul>
+			<p>
+				<em>
+					Er zijn nog geen vragen en antwoord ingediend.
+				</em>
+			</p>
+		</div>
+	</section>
+</div>
     `,
     styles: [`
         ul {

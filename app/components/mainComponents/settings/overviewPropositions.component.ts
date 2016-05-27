@@ -88,7 +88,6 @@ export class OverviewPropositionsComponent {
         this._projectService.getProjects("Gent").subscribe((pr: Project[]) => this.projects = pr);
     }
 
-    //@TODO  email toevoegen vanuit token als verificator (datum toegevoegd op backend)
     //verificatiestatus :  1 = tebehandelen, 2 = goedgekeurd, 3= afgekeurd
     approve(voorstel: BegrotingsVoorstel)
     {
@@ -97,7 +96,6 @@ export class OverviewPropositionsComponent {
         this._projectService.putVoorstelStatus(voorstel.Id, voorstel).subscribe();
     }
 
-    //@TODO  email toevoegen vanuit token als verificator (datum toegevoegd op backend)
     disapprove(voorstel: BegrotingsVoorstel)
     {
         voorstel.verificatieStatus = 3;
