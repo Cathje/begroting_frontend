@@ -17,7 +17,7 @@ import {Token} from "../../../models/Token";
         <div *ngIf="newUser" class="alert alert-info" style="text-align: center; margin: 5em">
              U heeft zich correct geregistreerd. U kan nu aanmelden met uw emailadres en uw wachtwoord.
         </div>
-        <div class="col-md-6" align="center">
+        <div style="width:450px; margin:0 auto;">
             <h2 class="form-login-heading">Login</h2>
             <input type="email" [(ngModel)]="inTeLoggenGebruiker.email" class="form-control" placeholder="Email" required autofocus><br>
             <input type="password" [(ngModel)]="inTeLoggenGebruiker.Password" class="form-control" placeholder="Wachtwoord" required><br>
@@ -35,14 +35,6 @@ import {Token} from "../../../models/Token";
 
            
         </div>
-
-        <div class="col-md-6" align="center">
-            <h2 class="form-login-heading">Social Logins</h2>
-            <button class="btn btn-large btn-facebook btn-block" type="button" (click)="authExternalProvider('Facebook')"><i class="fa fa-facebook"></i> | Connect with Facebook</button>
-            <button class="btn btn-large btn-google-plus btn-block" type="button" (click)="authExternalProvider('Google')"><i class="fa fa-google-plus"></i> | Connect with Google+</button>
-
-        </div>
-
 
 `,
     directives: [ROUTER_DIRECTIVES],
