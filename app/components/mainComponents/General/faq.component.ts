@@ -31,7 +31,6 @@ import {Router} from "angular2/router";
 })
 
 export class FaqComponent {
-    //TODO: webapi to get FAQ
     mainTown = new MainTown("","",0,0);
     faq = new Faq("", "");
     errorMessage:string;

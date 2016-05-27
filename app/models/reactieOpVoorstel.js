@@ -1,7 +1,9 @@
 /**
  * Created by nadya on 22/05/2016.
  */
-System.register([], function(exports_1) {
+System.register([], function(exports_1, context_1) {
+    "use strict";
+    var __moduleName = context_1 && context_1.id;
     var ReactieOpVoorstel;
     return {
         setters:[],
@@ -12,7 +14,7 @@ System.register([], function(exports_1) {
                     this.email = email;
                 }
                 return ReactieOpVoorstel;
-            })();
+            }());
             exports_1("ReactieOpVoorstel", ReactieOpVoorstel);
         }
     }

@@ -1,7 +1,9 @@
 /**
  * Created by nadya on 19/05/2016.
  */
-System.register([], function(exports_1) {
+System.register([], function(exports_1, context_1) {
+    "use strict";
+    var __moduleName = context_1 && context_1.id;
     var BudgetWijziging;
     return {
         setters:[],
@@ -13,7 +15,7 @@ System.register([], function(exports_1) {
                     this.bedrag = bedrag;
                 }
                 return BudgetWijziging;
-            })();
+            }());
             exports_1("BudgetWijziging", BudgetWijziging);
         }
     }

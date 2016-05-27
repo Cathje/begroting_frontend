@@ -3,36 +3,38 @@ import {ROUTER_DIRECTIVES, Router, RouteParams} from 'angular2/router';
 import {IngelogdeGebruiker} from "../../../models/ingelogdeGebruiker";
 import {MainTown} from "../../../models/mainTown";
 import {TownService} from "../../../services/townService.component";
+import {LoginService} from "../../../services/loginService.component";
+
 import {rolType} from "../../../models/rolType";
 
 @Component({
     selector: 'overview-container',
     template: `
         <div class="overview-container">
-            <div class="container">
-				<div style="width:450px; margin:0 auto;">
-
-					<h2 class="form-login-heading">Pas uw gemeente aan voor {{gebruiker.email}}</h2>
+            <div class="container form-inline">
+                    <h1>Instelingen gebruiker </h1>
+					<h3>Pas uw gemeente aan voor {{email}}</h3>
 					<p>Je huidige gemeente is: {{gemeente}}</p>
-					<br/>
-					<p>kies een nieuwe gemeente:</p>
-					<div class=" styled-select slate right-align">
-							<select class="" (change)="onSelect($event)" class="form-control">
+					<label>kies een nieuwe gemeente:</label>
+					<div class="form-control">
+					<div class="styled-select">
+							<select (change)="onSelect($event)">
 								<option selected disabled></option>
 								<option *ngFor="#town of towns" [value]="town.naam">{{town.naam}}</option>
 							</select>
 					</div>
-
-					<br>
-
-					<button (click)="onSubmit()" class="btn btn-md btn-info btn-bloc">Opslaan</button>
-				</div>
+					</div>
+					<button (click)="onSubmit()" class="btn btn-primary pull-right">Opslaan</button>
 			</div>
 		</div>
 `,
     directives: [ROUTER_DIRECTIVES],
-    providers: [TownService],
+    providers: [TownService, LoginService],
     styles: [`
+        .form-control {
+            border:none;
+            padding:0;
+        }
 
 `]
 })
@@ -43,8 +45,9 @@ export class UserSettingsComponent {
     nieuweGemeente:string;
     email:string;
     err:any;
+    towns: MainTown [];
 
-    constructor(private _townService:TownService, private _router:Router) {
+    constructor(private _townService:TownService, private _router:Router,private _loginService : LoginService) {
         _townService.getTowns()
             .subscribe((towns:any) => this.towns = towns);
         this.gemeente = sessionStorage.getItem('gemeente');
