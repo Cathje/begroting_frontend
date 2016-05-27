@@ -16,6 +16,10 @@ import {BegrotingsVoorstel} from "../../../models/begrotingsVoorstel";
 import {StyledDirective} from '../../../directives/styled';
 import {CurConvert} from "./../../../pipes/curConvertPipe";
 
+
+
+
+
 @Component({ //invoke with metadata object
     selector: 'add-proposition-container',
     template: `
@@ -37,13 +41,14 @@ import {CurConvert} from "./../../../pipes/curConvertPipe";
                     <div class="section-content">
                     <!--acties toevoegen aan de box-->
                     <p *ngIf="!budgetChange">Nog geen wijzigingen...</p>
-                    <div *ngIf="begrotingsVoorstel.budgetWijzigingen!=null">
+                    <!--<div *ngIf="begrotingsVoorstel.budgetWijzigingen!=null">-->
+                    <div *ngIf="budgetMap!=null">
                         <table class="table table-striped">
                             <tbody>
                                 <tr *ngFor="#change of begrotingsVoorstel.budgetWijzigingen">
                                     <td>{{change.beschrijving}}</td>
                                     <td>{{change.bedrag | currency:'EUR':true:'.0-0'}}</td>
-                                    <td id="remove" (click)="resetBudget()"><span class="glyphicon glyphicon-remove"></span></td>
+                                    <!--<td id="remove" (click)="resetBudget()"><span class="glyphicon glyphicon-remove"></span></td>-->
                                 </tr>
                             </tbody>
                         </table>
@@ -80,7 +85,7 @@ import {CurConvert} from "./../../../pipes/curConvertPipe";
                         </ul>
                     </div>
                 </div>
-                <button [disabled]="!submitProject" (click)="submit()"class="btn btn-primary pull-right" styled>opslaan</button>
+                <button [disabled]="submitProject" (click)="submit()"class="btn btn-primary pull-right" styled>opslaan</button>
             </form>
         </div>
         <div class ="row">
@@ -211,7 +216,11 @@ import {CurConvert} from "./../../../pipes/curConvertPipe";
                     </div>
         </div>
     </div>
-   
+    
+    
+               
+
+
 
 
         `,
@@ -239,7 +248,7 @@ import {CurConvert} from "./../../../pipes/curConvertPipe";
             margin-top: 1em;
         }
         .sliderContainer{
-        width: 50%;
+        width: 80%;
         margin-right: 1em;
         }
         .form-inline{
@@ -293,6 +302,8 @@ export class AddPropositionComponent {
     private submitProject:boolean=true;
     private afb: string [] = [];
     private budgetChange: boolean = false;
+    private budgetMap : Map<number, BudgetWijziging> = new Map<number, BudgetWijziging>();
+    private actionMap : Map<number, number> = new Map<number, number>();
 
 
     constructor(private _routeParams: RouteParams, private _projectService:ProjectService, private _townService : TownService, private _begrotingService:BegrotingService) {
@@ -344,6 +355,145 @@ export class AddPropositionComponent {
 
         this.budgetChange = true;//Todo; optimaliseren!
 
+        /*Check for repeating change. If so, remove from budget map and reset all values*/
+        var item = this.budgetMap.get(event.id);
+        if (item!=null){//repeat
+            /*this.budgetMap.forEach(this.logMapElements);*/
+
+
+            //correct budgetChanges if previously changed cat is changed again
+            //remove elements, children, parents and adjust amounts
+            let tempSavings: number [] = [];
+            let repLevel = 3;
+            //get A level elements
+            for (var i = 0; i < this.project.cats.length; i++) {//toplevel locken als
+                if(this.project.cats[i].ID == event.id){
+                    //if top level
+                    repLevel = 1;
+                    tempSavings.push(this.project.cats[i].ID);
+                    for (var j = 0; j < this.project.cats[i].childCats.length; j++) {
+                        if(this.project.cats[i].childCats[j].inspraakNiveau != 2){
+                            tempSavings.push(this.project.cats[i].childCats[j].ID);
+                        }
+                        for (var k = 0; k < this.project.cats[i].childCats[j].childCats.length; k++) {
+                            if(this.project.cats[i].childCats[j].childCats[k].inspraakNiveau != 2){
+                                tempSavings.push(this.project.cats[i].childCats[j].childCats[k].ID);
+                            }
+                            for (var l = 0; l < this.project.cats[i].childCats[j].childCats[k].acties.length; l++) {
+                                if(this.project.cats[i].childCats[j].childCats[k].acties[l].inspraakNiveau != 2){
+                                    tempSavings.push(this.project.cats[i].childCats[j].childCats[k].acties[l].ID);
+                                }
+                            }
+                        }
+
+                    }
+
+                }
+            }
+            //get B level elements
+            if(repLevel != 1) {//is level B or C
+                for (var i = 0; i < this.project.cats.length; i++) {
+                    for (var j = 0; j < this.project.cats[i].childCats.length; j++) {
+                        if(this.project.cats[i].childCats[j].ID == event.id) {
+                            repLevel == 3;
+                            //add parent
+                            tempSavings.push(this.project.cats[i].ID);
+
+                            if (this.project.cats[i].childCats[j].inspraakNiveau != 2) {
+                                tempSavings.push(this.project.cats[i].childCats[j].ID);
+                            }
+                            for (var k = 0; k < this.project.cats[i].childCats[j].childCats.length; k++) {
+                                if (this.project.cats[i].childCats[j].childCats[k].inspraakNiveau != 2) {
+                                    tempSavings.push(this.project.cats[i].childCats[j].childCats[k].ID);
+                                }
+                                for (var l = 0; l < this.project.cats[i].childCats[j].childCats[k].acties.length; l++) {
+                                    if (this.project.cats[i].childCats[j].childCats[k].acties[l].inspraakNiveau != 2) {
+                                        tempSavings.push(this.project.cats[i].childCats[j].childCats[k].acties[l].ID);
+                                    }
+                                }
+                            }
+                        }
+
+                    }
+
+                }
+
+            }
+            //get C level elements
+            if(repLevel == 3){
+                for (var i = 0; i < this.project.cats.length; i++) {
+                    for (var j = 0; j < this.project.cats[i].childCats.length; j++) {
+                        for (var k = 0; k < this.project.cats[i].childCats[j].childCats.length; k++) {
+                            if (this.project.cats[i].childCats[j].childCats[k].ID == event.id) {
+                                //add parents
+                                tempSavings.push(this.project.cats[i].ID);
+                                tempSavings.push(this.project.cats[i].childCats[j].ID);
+                                if (this.project.cats[i].childCats[j].childCats[k].inspraakNiveau != 2) {
+                                    tempSavings.push(this.project.cats[i].childCats[j].childCats[k].ID);
+                                }
+                                for (var l = 0; l < this.project.cats[i].childCats[j].childCats[k].acties.length; l++) {
+                                    if (this.project.cats[i].childCats[j].childCats[k].acties[l].inspraakNiveau != 2) {
+                                        tempSavings.push(this.project.cats[i].childCats[j].childCats[k].acties[l].ID);
+                                    }
+                                }
+                            }
+                        }
+                    }
+                }
+            }
+            //delete all temp elements from map and reset prices by looping through project cats
+            for (var i = 0; i < tempSavings.length; i++) {
+                let origValue: number = 0;
+                for (var j = 0; j < this.categories.length; j++) {
+                    if(this.categories[j].ID == tempSavings[i]){
+                        origValue = this.categories[j].totaal;
+                        /*console.log("original" + origValue);*/
+                        for (var k = 0; k < this.project.cats.length; k++) {
+                            if(this.categories[j].ID == this.project.cats[k].ID){
+                                this.project.cats[k].totaal = origValue;
+
+                            }
+                            for (var l = 0; l < this.project.cats[k].childCats.length; l++) {
+                                if(this.categories[j].ID == this.project.cats[k].childCats[l].ID){
+                                    this.project.cats[k].childCats[l].totaal = origValue;
+                                }
+                                for (var m = 0; m < this.project.cats[k].childCats[l].childCats.length; m++) {
+                                    if(this.categories[j].ID == this.project.cats[k].childCats[l].childCats[m].ID){
+                                        this.project.cats[k].childCats[l].childCats[m].totaal = origValue;
+                                    }
+                                    for (var n = 0; n < this.project.cats[k].childCats[l].childCats[m].acties.length; n++) {
+                                        if(this.categories[j].ID == this.project.cats[k].childCats[l].childCats[m].acties[n].ID){
+                                            this.project.cats[k].childCats[l].childCats[m].acties[n].uitgaven = origValue;
+                                        }
+
+                                    }
+                                }
+                            }
+                        }
+                    }
+                }
+                this.budgetMap.delete(tempSavings[i]);
+            }
+            //reset action values
+            for (var p = 0; p < this.project.cats.length; p++) {//A level
+                for (var q = 0; q < this.project.cats[p].childCats.length; q++) {// B level
+                    for (var r = 0; r < this.project.cats[p].childCats[q].childCats.length; r++) { //C Level
+                        for (var s = 0; s < this.project.cats[p].childCats[q].childCats[r].acties.length; s++) { //Acties
+                            var amount = this.actionMap.get(this.project.cats[p].childCats[q].childCats[r].acties[s].ID);
+                            if(amount!=null){
+                                this.project.cats[p].childCats[q].childCats[r].acties[s].uitgaven = amount;
+                                this.budgetMap.delete(this.project.cats[p].childCats[q].childCats[r].acties[s].ID);
+                                //console.log("id:" + this.project.cats[p].childCats[q].childCats[r].acties[s].ID+ " value: " +this.project.cats[p].childCats[q].childCats[r].acties[s].uitgaven);
+                            }
+                        }
+                    }
+                }
+            }
+        }
+
+
+
+        /*Update budget changes*/
         //get original value (2way db - different object!!!)
         for (var i = 0; i < this.categories.length; i++) {
             if(this.categories[i].ID == event.id){
@@ -352,8 +502,9 @@ export class AddPropositionComponent {
         }
 
         let result = newValue - originalValue;
-        this.tempTotal += result;
-        /*alert(this.tempTotal);*/
+        /*console.log("original: "+ originalValue);
+         console.log("newValue: " + newValue);
+         console.log("result: " + result);*/
 
         let level = 3;
         for (var i = 0; i < this.project.cats.length; i++) {
@@ -361,9 +512,12 @@ export class AddPropositionComponent {
             if(this.project.cats[i].ID == event.id){
                 level = 1;
 
+                this.project.cats[i].totaal = newValue;
+
                 /*TODO: update level1 en budgetwijziging!!!!!!!!!*/
                 //add top level budget change
-                this.begrotingsVoorstel.budgetWijzigingen.push(new BudgetWijziging(this.project.cats[i].ID, result,this.project.cats[i].naamCat ));
+                //this.begrotingsVoorstel.budgetWijzigingen.push(new BudgetWijziging(this.project.cats[i].ID, result,this.project.cats[i].naamCat ));
+                this.budgetMap.set(this.project.cats[i].ID,new BudgetWijziging(this.project.cats[i].ID, result,this.project.cats[i].naamCat ));
                 //update level 2
                 let levelBTotal = 0;
                 for (var j = 0; j < this.project.cats[i].childCats.length; j++) {
@@ -379,7 +533,8 @@ export class AddPropositionComponent {
                         let share = (this.project.cats[i].childCats[j].totaal/levelBTotal);
                         levBResult = result * share;
                         //create budgetWijziging and update total
-                        this.begrotingsVoorstel.budgetWijzigingen.push(new BudgetWijziging(this.project.cats[i].childCats[j].ID, levBResult,this.project.cats[i].childCats[j].naamCat ));
+                        //this.begrotingsVoorstel.budgetWijzigingen.push(new BudgetWijziging(this.project.cats[i].childCats[j].ID, levBResult,this.project.cats[i].childCats[j].naamCat ));
+                        this.budgetMap.set(this.project.cats[i].childCats[j].ID,new BudgetWijziging(this.project.cats[i].childCats[j].ID, levBResult,this.project.cats[i].childCats[j].naamCat ));
                         this.project.cats[i].childCats[j].totaal = levBResult + this.project.cats[i].childCats[j].totaal;
                     }
                     //update level 3
@@ -398,7 +553,8 @@ export class AddPropositionComponent {
                             let share = (this.project.cats[i].childCats[j].childCats[k].totaal/levelCTotal);
                             //create budgetWijziging and update total
                             levCResult = levBResult * share;
-                            this.begrotingsVoorstel.budgetWijzigingen.push(new BudgetWijziging(this.project.cats[i].childCats[j].childCats[k].ID, levCResult, this.project.cats[i].childCats[j].childCats[k].naamCat));
+                            //this.begrotingsVoorstel.budgetWijzigingen.push(new BudgetWijziging(this.project.cats[i].childCats[j].childCats[k].ID, levCResult, this.project.cats[i].childCats[j].childCats[k].naamCat));
+                            this.budgetMap.set(this.project.cats[i].childCats[j].childCats[k].ID,new BudgetWijziging(this.project.cats[i].childCats[j].childCats[k].ID, levCResult, this.project.cats[i].childCats[j].childCats[k].naamCat));
                             this.project.cats[i].childCats[j].childCats[k].totaal = levCResult + this.project.cats[i].childCats[j].childCats[k].totaal;
                         }
                         //update actions
@@ -417,34 +573,40 @@ export class AddPropositionComponent {
                                 let share = (this.project.cats[i].childCats[j].childCats[k].acties[l].uitgaven/actTotal);
                                 //create budgetWijziging and update total
                                 actResult = levCResult * share;
-                                this.begrotingsVoorstel.budgetWijzigingen.push(new BudgetWijziging(this.project.cats[i].childCats[j].childCats[k].ID, actResult, this.project.cats[i].childCats[j].childCats[k].acties[l].actieKort));
+                                if (item==null){
+                                    this.actionMap.set(this.project.cats[i].childCats[j].childCats[k].acties[l].ID, this.project.cats[i].childCats[j].childCats[k].acties[l].uitgaven);
+                                }
+                                //this.begrotingsVoorstel.budgetWijzigingen.push(new BudgetWijziging(this.project.cats[i].childCats[j].childCats[k].acties[l].ID, actResult, this.project.cats[i].childCats[j].childCats[k].acties[l].actieKort));
+                                this.budgetMap.set(this.project.cats[i].childCats[j].childCats[k].acties[l].ID,new BudgetWijziging(this.project.cats[i].childCats[j].childCats[k].acties[l].ID, actResult, this.project.cats[i].childCats[j].childCats[k].acties[l].actieKort));
                                 this.project.cats[i].childCats[j].childCats[k].acties[l].uitgaven = actResult + this.project.cats[i].childCats[j].childCats[k].acties[l].uitgaven;
                             }
 
                         }
 
-                    }//
+                    }
 
                 }
 
-
-
-
             }
         }
-        //if level is not a top //TODO: correct top level??????
+        //if level is not a top
         if(level != 1){//is level B or C
             for (var i = 0; i < this.project.cats.length; i++) {
                 for (var j = 0; j < this.project.cats[i].childCats.length; j++) {
                     if(this.project.cats[i].childCats[j].ID == event.id){
+                        level = 2;
+                        this.project.cats[i].childCats[j].totaal = newValue;
+
                         //add B level budget change
-                        this.begrotingsVoorstel.budgetWijzigingen.push(new BudgetWijziging(this.project.cats[i].childCats[j].ID, result,this.project.cats[i].childCats[j].naamCat ));
+                        //this.begrotingsVoorstel.budgetWijzigingen.push(new BudgetWijziging(this.project.cats[i].childCats[j].ID, result,this.project.cats[i].childCats[j].naamCat ));
+                        this.budgetMap.set(this.project.cats[i].childCats[j].ID,new BudgetWijziging(this.project.cats[i].childCats[j].ID, result,this.project.cats[i].childCats[j].naamCat ));
                         //adjust upper level
                         this.project.cats[i].totaal += result;
-                        this.begrotingsVoorstel.budgetWijzigingen.push(new BudgetWijziging(this.project.cats[i].ID, result,this.project.cats[i].naamCat ));
+                        //this.begrotingsVoorstel.budgetWijzigingen.push(new BudgetWijziging(this.project.cats[i].ID, result,this.project.cats[i].naamCat ));
+                        this.budgetMap.set(this.project.cats[i].ID,new BudgetWijziging(this.project.cats[i].ID, result,this.project.cats[i].naamCat ));
 
 
-                        level = 2;
+
                         //update level 3
                         let levelCTotal = 0;
                         for (var k = 0; k < this.project.cats[i].childCats[j].childCats.length; k++) {
@@ -461,7 +623,8 @@ export class AddPropositionComponent {
                                 let share = (this.project.cats[i].childCats[j].childCats[k].totaal/levelCTotal);
                                 //create budgetWijziging and update total
                                 levCResult = result * share;
-                                this.begrotingsVoorstel.budgetWijzigingen.push(new BudgetWijziging(this.project.cats[i].childCats[j].childCats[k].ID, levCResult,this.project.cats[i].childCats[j].childCats[k].naamCat ));
+                                //this.begrotingsVoorstel.budgetWijzigingen.push(new BudgetWijziging(this.project.cats[i].childCats[j].childCats[k].ID, levCResult,this.project.cats[i].childCats[j].childCats[k].naamCat ));
+                                this.budgetMap.set(this.project.cats[i].childCats[j].childCats[k].ID,new BudgetWijziging(this.project.cats[i].childCats[j].childCats[k].ID, levCResult,this.project.cats[i].childCats[j].childCats[k].naamCat));
                                 this.project.cats[i].childCats[j].childCats[k].totaal = levCResult + this.project.cats[i].childCats[j].childCats[k].totaal;
                             }
                             //update actions
@@ -480,7 +643,11 @@ export class AddPropositionComponent {
                                     let share = (this.project.cats[i].childCats[j].childCats[k].acties[l].uitgaven/actTotal);
                                     //create budgetWijziging and update total
                                     actResult = levCResult * share;
-                                    this.begrotingsVoorstel.budgetWijzigingen.push(new BudgetWijziging(this.project.cats[i].childCats[j].childCats[k].acties[l].ID, actResult,this.project.cats[i].childCats[j].childCats[k].acties[l].actieKort ));
+                                    if (item==null){
+                                        this.actionMap.set(this.project.cats[i].childCats[j].childCats[k].acties[l].ID, this.project.cats[i].childCats[j].childCats[k].acties[l].uitgaven);
+                                    }
+                                    //this.begrotingsVoorstel.budgetWijzigingen.push(new BudgetWijziging(this.project.cats[i].childCats[j].childCats[k].acties[l].ID, actResult,this.project.cats[i].childCats[j].childCats[k].acties[l].actieKort ));
+                                    this.budgetMap.set(this.project.cats[i].childCats[j].childCats[k].acties[l].ID,new BudgetWijziging(this.project.cats[i].childCats[j].childCats[k].acties[l].ID, actResult,this.project.cats[i].childCats[j].childCats[k].acties[l].actieKort));
                                     this.project.cats[i].childCats[j].childCats[k].acties[l].uitgaven = actResult + this.project.cats[i].childCats[j].childCats[k].acties[l].uitgaven;
                                 }
 
@@ -497,13 +664,18 @@ export class AddPropositionComponent {
                 for (var j = 0; j < this.project.cats[i].childCats.length; j++) {
                     for (var k = 0; k < this.project.cats[i].childCats[j].childCats.length; k++) {
                         if(this.project.cats[i].childCats[j].childCats[k].ID == event.id){
+
+                            this.project.cats[i].childCats[j].childCats[k].totaal = newValue;
                             //add C-level budget change
-                            this.begrotingsVoorstel.budgetWijzigingen.push(new BudgetWijziging(this.project.cats[i].childCats[j].childCats[k].ID, result, this.project.cats[i].childCats[j].childCats[k].naamCat));
+                            //this.begrotingsVoorstel.budgetWijzigingen.push(new BudgetWijziging(this.project.cats[i].childCats[j].childCats[k].ID, result, this.project.cats[i].childCats[j].childCats[k].naamCat));
+                            this.budgetMap.set(this.project.cats[i].childCats[j].childCats[k].ID,new BudgetWijziging(this.project.cats[i].childCats[j].childCats[k].ID, result, this.project.cats[i].childCats[j].childCats[k].naamCat));
                             //adjust upper levels
                             this.project.cats[i].totaal += result;
-                            this.begrotingsVoorstel.budgetWijzigingen.push(new BudgetWijziging(this.project.cats[i].ID, result,this.project.cats[i].naamCat ));
+                            //this.begrotingsVoorstel.budgetWijzigingen.push(new BudgetWijziging(this.project.cats[i].ID, result,this.project.cats[i].naamCat ));
+                            this.budgetMap.set(this.project.cats[i].ID,new BudgetWijziging(this.project.cats[i].ID, result,this.project.cats[i].naamCat));
                             this.project.cats[i].childCats[j].totaal += result;
-                            this.begrotingsVoorstel.budgetWijzigingen.push(new BudgetWijziging(this.project.cats[i].childCats[j].ID, result,this.project.cats[i].childCats[j].naamCat ));
+                            //this.begrotingsVoorstel.budgetWijzigingen.push(new BudgetWijziging(this.project.cats[i].childCats[j].ID, result,this.project.cats[i].childCats[j].naamCat ));
+                            this.budgetMap.set(this.project.cats[i].childCats[j].ID,new BudgetWijziging(this.project.cats[i].childCats[j].ID, result,this.project.cats[i].childCats[j].naamCat));
 
                             //update actions
                             let actTotal = 0;
@@ -521,7 +693,11 @@ export class AddPropositionComponent {
                                     let share = (this.project.cats[i].childCats[j].childCats[k].acties[l].uitgaven/actTotal);
                                     //create budgetWijziging and update total
                                     actResult = result * share;
-                                    this.begrotingsVoorstel.budgetWijzigingen.push(new BudgetWijziging(this.project.cats[i].childCats[j].childCats[k].ID, actResult, this.project.cats[i].childCats[j].childCats[k].naamCat));
+                                    if (item==null){
+                                        this.actionMap.set(this.project.cats[i].childCats[j].childCats[k].acties[l].ID, this.project.cats[i].childCats[j].childCats[k].acties[l].uitgaven);
+                                    }
+                                    //this.begrotingsVoorstel.budgetWijzigingen.push(new BudgetWijziging(this.project.cats[i].childCats[j].childCats[k].ID, actResult, this.project.cats[i].childCats[j].childCats[k].naamCat));
+                                    this.budgetMap.set(this.project.cats[i].childCats[j].childCats[k].acties[l].ID,new BudgetWijziging(this.project.cats[i].childCats[j].childCats[k].acties[l].ID, actResult, this.project.cats[i].childCats[j].childCats[k].acties[l].naamCat));
                                     this.project.cats[i].childCats[j].childCats[k].acties[l].uitgaven = actResult + this.project.cats[i].childCats[j].childCats[k].acties[l].uitgaven;
                                 }
 
@@ -535,27 +711,31 @@ export class AddPropositionComponent {
             }
 
         }
+        //convert for visualisation purposes and posting to backend
+        let budgetArray:BudgetWijziging [] = [];
+        //using "this" in forEach results in errors!!!???
+        this.budgetMap.forEach(function (value) {
+            budgetArray.push(value);
+        });
+        this.begrotingsVoorstel.budgetWijzigingen = budgetArray;
 
 
+
+
+    }
+
+    //utility method: map printing
+    logMapElements(value : any, key : any, map : any) {
+        this.budgetwijzigingen = [];
+        this.budgetwijzigingen.push(value);
+        console.log("k " + key + "] = " + value);
     }
 
     resetBudget(event: any){//
 
     }
 
-    /*uploadImages(event: any){
-     var reader = new FileReader();
-     reader.readAsDataURL(event.target.files[0]);
-     reader.onload = function() {
-     this.begrotingsVoorstel.afbeeldingen[0] = reader.result;
-
-     }
-     //TODO: afwerken upload
-
-
-
-     }*/
-    //upload images
+   //upload images
     uploadImages = (event: any)=>{
         this.loadimage(event.target.files[0], (img: string) =>{
             this.afb.push(event.target.files[0].name);
@@ -581,6 +761,12 @@ export class AddPropositionComponent {
     //@TODO test voor webapi en service  --> te verwijderen
     submit()
     {
+        /*//If save button is pressed, copy map to array and persist in db
+         // this.budgetMap.forEach(this.logMapElements);
+
+         this.begrotingsVoorstel.beschrijving = "kjQGQBjqshgbcjhqbckjb<clgbcqjbck:xjhb";
+         // alert(this.BegrotingsVoorstel.budgetWijzigingen.length);
+         this._projectService.postBegrotingsVoorstel(this.project.id, this.begrotingsVoorstel).subscribe();*/
         this.begrotingsVoorstel.auteurEmail = sessionStorage.getItem('user');
         this._projectService.postBegrotingsVoorstel(this.project.id, this.begrotingsVoorstel).subscribe();
 
