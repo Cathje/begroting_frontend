@@ -290,24 +290,15 @@ select::-ms-expand {
 })
 
 export class TaxesComponent {
-    private title = 'Gemeente - Salarisvoorstel';
-    private param : string = ""; //not required
-    private routeParams:RouteParams;
     private mySalary: number = 2000;
     private towns: MainTown [] = [];
     private myTown: MainTown = new MainTown("", "", 0,0);
-    private compareTown: MainTown = new MainTown("", "", 0,0);
-    /*private service: TownService;
-     private budgetService: BegrotingService;*/
     private myTaxes: number = 0;
     errorMessage:any;
     private SLIDERFIX: number = 3;
     private budgetYear: number = 2020;//hc due to limited data
     private categories: GemeenteCategorie [] = [];
-    private categories2: GemeenteCategorie [] = [];
-    private width: number = window.innerWidth < 768 ? window.innerWidth*0.7 : window.innerWidth/4;
-
-
+   private width: number = window.innerWidth < 768 ? window.innerWidth*0.7 : window.innerWidth/4;
 
     constructor(private _routeParams:RouteParams, private _townService: TownService, private _begrotingService: BegrotingService, private injector:Injector)
     {
@@ -315,56 +306,66 @@ export class TaxesComponent {
         var today = new Date();
         //this.budgetYear = today.getFullYear();
 
-        /*this.routeParams = _routeParams;*/
-        _townService.getTowns()
-            .subscribe((towns:MainTown[]) => this.towns = towns.sort(function(a, b){
-                const nameA=a.naam.toLowerCase(),
-                    nameB=b.naam.toLowerCase();
-                if (nameA < nameB)
-                    return -1;
-                if (nameA > nameB)
-                    return 1;
-                return 0;
-            }), (err:any) => this.errorMessage = "Geen steden gevonden.");
-
         _townService.getTown(town)
             .subscribe((town:any) =>
                     this.myTown = town,
                 (err:any) => this.errorMessage = "Geen stad gevonden"
             );
-        _townService.getTown("Gent")//Gent is default stad, geen andere data
-            .subscribe((town:any) => this.compareTown = town,
-                (err:any) => this.errorMessage = "Geen stad gevonden"
-
-            );
-        this._begrotingService.getGemeenteCategorieen(this.budgetYear,"Gent")
+        _begrotingService.getGemeenteCategorieen(this.budgetYear,"Gent")
             .subscribe((cats: any) => this.categories = cats.filter(function(g){
+
                 return g.catB == null;
+
             }), (err:any) => this.errorMessage = "Geen steden gevonden.");
+       /* _begrotingService.getGemeenteCategorieen(this.budgetYear,"Gent")
+        .subscribe(function (cats : any){
+                console.log("test");
+            let total = 0;
+            let tempCategories : GemeenteCategorie [] = [{ID: 0, naamCat: "", totaal: 0}];
+            tempCategories.pop();
+            let aanslagVoet = 0.05; //TODO: delete, data issue!
+            //get town tax
+            this.myTaxes = aanslagVoet * this.mySalary;
+                for(var i = 0; i < cats.length; i++){
+                    if(cats[i].catB == null){
+                        //console.log(cats[i].totaal);
+                    total += cats[i].totaal;
+                    tempCategories.push(cats[i]);
+                    }
+                }
+                for(var i = 0; i < tempCategories.length; i++){
+                    let share = (cats[i].totaal/ total);
+                    let taxAmount = (this.myTaxes * share);
+                    tempCategories[i].totaal = taxAmount;
+                    //console.log(tempCategories[i].catA);
+                }
+            this.categories = tempCategories;
+            for(var i = 0; i < this.categories.length; i++){
+                console.log(this.categories[i].catA);
+            }
+
+        }
 
 
-        this._begrotingService.getGemeenteCategorieen(this.budgetYear,"Gent")
-            .subscribe((cats: any) => this.categories2 = cats.filter(function(g){
-                return g.catB == null;
-            }), (err:any) => this.errorMessage = "Geen steden gevonden.");
+    ,(err:any) => this.errorMessage = "Geen steden gevonden.");*/
+
+
 
     }
 
-    //call upon initial load
+    /*//call upon initial load
     ngOnInit() {
 
         this.calculateSalary(true);
-    }
+    }*/
 
-    calculateSalary(init: boolean){
+    calculateSalary(){
 
         let total: number = 0;
         let tempCategories : GemeenteCategorie [] = [];
         this.myTown.aanslagVoet = 0.05; //TODO: delete, data issue!
         //get town tax
         this.myTaxes = this.myTown.aanslagVoet * this.mySalary;
-        /*console.log("aanslag" + this.myTown.aanslagVoet);
-         console.log("tax update: " + this.myTaxes);*/
 
         //set the correct tax amounts per category
         for (var i = 0; i < this.categories.length; i++) {
@@ -374,19 +375,13 @@ export class TaxesComponent {
         for (var i = 0; i < this.categories.length; i++) {
             let share = (this.categories[i].totaal/ total);
             let taxAmount = (this.myTaxes * share);
-            this.categories[i].totaal = taxAmount;
-            console.log(this.categories[i].totaal);
-
+            tempCategories.push({ID:this.categories[i].ID,naamCat:this.categories[i].naamCat,catA:this.categories[i].catA,totaal:taxAmount,inputID:null,input:null,icoon:null,foto:null,film:null,kleur:null});
         }
-
+        for (var i = 0; i < this.categories.length; i++) {
+            console.log(this.categories[i].totaal);
+        }
         //generate new sunburst
         this.categories = tempCategories;
-
-        if(init){
-            this.categories2 = this.categories;
-        }
-
-
 
     }
 
