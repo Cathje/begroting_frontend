@@ -1,4 +1,6 @@
-System.register([], function(exports_1) {
+System.register([], function(exports_1, context_1) {
+    "use strict";
+    var __moduleName = context_1 && context_1.id;
     var Begroting;
     return {
         setters:[],
@@ -11,7 +13,7 @@ System.register([], function(exports_1) {
                     this.childCats = [];
                 }
                 return Begroting;
-            })();
+            }());
             exports_1("Begroting", Begroting);
         }
     }

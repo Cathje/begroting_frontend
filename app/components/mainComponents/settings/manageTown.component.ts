@@ -12,6 +12,7 @@ declare var jQuery: any;
 @Component({
     selector: 'manage-town-container',
     template: `
+        <img src="/app/images/backgrounds/voeten.jpg" class="banner"/>
     <section class="container">
         <p class="alert alert-danger" *ngIf="errorMessage">{{errorMessage}}</p>
         <h1>Instellingen gemeente {{mainTown?.naam}}</h1>
@@ -20,7 +21,7 @@ declare var jQuery: any;
             <div class="section-content">
                 <div class="col-xs-12 form-group">
                     <label >Hoofdkleur</label>
-                    <input class="form-control" type="text" [(ngModel)]="mainTown.hoofdkleur"/>
+                    <input class="form-control" type="text" [(ngModel)]="mainTown.hoofdKleur"/>
                     <button class="btn btn-primary" (click)="changeColor()" styled ><span class="glyphicon glyphicon-eye-open"></span></button>
                     <span class="small"><i>*Klik op het oogje om het resultaat te bekijken. U kan dit nadien onderaan opslaan.</i></span>
                 </div>

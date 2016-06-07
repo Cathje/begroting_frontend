@@ -11,6 +11,7 @@ import {StyledDirective} from '../../../directives/styled';
 @Component({ //invoke with metadata object
     selector: 'manage-data-container',
     template: `
+    <img src="/app/images/backgrounds/algemeenbestuur.jpg" class="banner"/>
     <p class="alert alert-danger" *ngIf="errorMessage">{{errorMessage}}</p>
     <section class="container">
         <h1>Beheer informatie</h1>

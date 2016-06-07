@@ -1,4 +1,6 @@
-System.register(['angular2/core', "../../subComponents/upload/multipart-item", "../../subComponents/upload/multipart-uploader", '../../../directives/styled'], function(exports_1) {
+System.register(['angular2/core', "../../subComponents/upload/multipart-item", "../../subComponents/upload/multipart-uploader", '../../../directives/styled'], function(exports_1, context_1) {
+    "use strict";
+    var __moduleName = context_1 && context_1.id;
     var __decorate = (this && this.__decorate) || function (decorators, target, key, desc) {
         var c = arguments.length, r = c < 3 ? target : desc === null ? desc = Object.getOwnPropertyDescriptor(target, key) : desc, d;
         if (typeof Reflect === "object" && typeof Reflect.decorate === "function") r = Reflect.decorate(decorators, target, key, desc);
@@ -63,7 +65,7 @@ System.register(['angular2/core', "../../subComponents/upload/multipart-item", "
                 GeneralSettingsComponent = __decorate([
                     core_1.Component({
                         selector: 'general-settings-container',
-                        template: "\n    <div class=\"container\">\n        <h1>Algemene instellingen</h1>\n        <label>Voeg hieronder het bestand toe om de begroting op te laden.</label>\n        <input type=\"file\" (change)=\"selectFile($event)\" id=\"file\"/>\n        <button type=\"submit\" class=\"btn btn-primary  pull-right\" (click)=\"upload();\" styled>Submit</button>\n\n    </div>\n\n\n\n    ",
+                        template: "\n    <img src=\"/app/images/backgrounds/schrijven.jpg\" class=\"banner\"/>\n    <div class=\"container\">\n        <h1>Algemene instellingen</h1>\n        <label>Voeg hieronder het bestand toe om de begroting op te laden.</label>\n        <input type=\"file\" (change)=\"selectFile($event)\" id=\"file\"/>\n        <button type=\"submit\" class=\"btn btn-primary  pull-right\" (click)=\"upload();\" styled>Submit</button>\n\n    </div>\n\n\n\n    ",
                         directives: [styled_1.StyledDirective],
                         styles: ["\n        ::-webkit-file-upload-button {\n            background: gray;\n            box-shadow: none;\n            border: none;\n            color:white;\n            border-radius: 5px;\n            padding: 5px;\n        }\n\n        input[type=file]{\n            padding: 5px;\n            height: 40px;\n        }\n\n    "
                         ]
@@ -71,7 +73,7 @@ System.register(['angular2/core', "../../subComponents/upload/multipart-item", "
                     __metadata('design:paramtypes', [])
                 ], GeneralSettingsComponent);
                 return GeneralSettingsComponent;
-            })();
+            }());
             exports_1("GeneralSettingsComponent", GeneralSettingsComponent);
         }
     }

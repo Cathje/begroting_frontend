@@ -23,6 +23,8 @@ import {StyledDirective} from '../../../directives/styled';
 @Component({ //invoke with metadata object
     selector: 'manage-project-container',
     template: `
+        <img src="/app/images/backgrounds/leren.jpg" class="banner"/>
+
     <section class="container">
         
         <h1>Beheer project - {{town}}</h1>

@@ -13,6 +13,7 @@ declare var jQuery: any;
 @Component({
     selector: 'manage-categories-container',
     template: `
+    <img src="/app/images/backgrounds/cultuur.jpg" class="banner"/>
     <p class="alert alert-danger" *ngIf="errorMessage">{{errorMessage}}</p>
     <section class="container">
         <h1>Instellingen categorieën {{mainTown?.naam}}</h1>

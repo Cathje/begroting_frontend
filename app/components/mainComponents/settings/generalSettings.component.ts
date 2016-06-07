@@ -8,6 +8,7 @@ import {GemeenteCategorie} from "../../../models/gemeenteCategorie";
 @Component({ //invoke with metadata object
     selector: 'general-settings-container',
     template: `
+    <img src="/app/images/backgrounds/schrijven.jpg" class="banner"/>
     <div class="container">
         <h1>Algemene instellingen</h1>
         <label>Voeg hieronder het bestand toe om de begroting op te laden.</label>

@@ -14,12 +14,15 @@ import {StyledDirective} from '../../../directives/styled';
     selector: 'overview-container',
     template: `
         <div class="overview-container">
-            <div class="container" (window:resize)="onResize($event)">
+            <div class="container" (window:resize)="onResize($event)" class="col-xs-12">
                 <div class="intro col-xs-12">
                 <h1>Dashboard {{mainTown?.naam}}</h1>
                 <p>Welkom op het online platform van {{mainTown?.naam}}. Hieronder vind u een overzicht met de belangrijkste informatie over onze gemeente. Klik op een widget van uw keuze om meer informatie te verkrijgen rond een specifiek onderwerp.</p>
-            </div>
+                </div>
 
+            <div class="col-xs-12 col-sm-3">
+            </div>
+            <div class="col-xs-12 col-sm-9">
             <section class="col-xs-12 col-sm-6">
                 <div class="widget-content">
                     <h4>Inkomsten per categorie</h4>
@@ -38,7 +41,7 @@ import {StyledDirective} from '../../../directives/styled';
 
 
 <section class="col-xs-12 ">
-            <div class="widget-content">
+            <div class="widget-content demographics">
                 <h4> Kerngegevens</h4>
                 <section class="demographic col-xs-12 col-sm-12">
                     <div class="col-xs-12 col-sm-6 col-md-3">
@@ -103,7 +106,7 @@ import {StyledDirective} from '../../../directives/styled';
         </section>
 
         <section class="col-xs-12 col-sm-6 pull-right">
-             <div class="widget-content">
+             <div class="widget-content taxes">
                 <h4>Waar gaan mijn belastingen naartoe?</h4>
                 <p>Vul jouw loon in en ontdek hoeveel geld naar de verschillende categorieën van de begroting gaat.</p>
                 <button type="button" class="btn btn-primary pull-right" [routerLink]="['Taxes']" styled>Meer info</button>
@@ -119,18 +122,16 @@ import {StyledDirective} from '../../../directives/styled';
         </section>
 
         <section class="col-xs-12 col-sm-6  pull-right">
-             <div class="widget-content">
+             <div class="widget-content questions">
                 <h4>Heb je nog vragen?</h4>
                 <p> Zit je nog met vragen. Neem dan een kijkje op onze FAQ pagina of stuur een mailtje naar info@debegroting.be.</p>
             </div>
         </section>
-
-
-
-
-
+</div>
        </div>
     </div>
+           <img src="/app/images/backgrounds/girl.png" class="front_fixed">
+
 `,
     directives: [SunburstComponent,ROUTER_DIRECTIVES, StyledDirective],
     providers: [ ProjectService, BegrotingService, TownService],
@@ -138,6 +139,48 @@ import {StyledDirective} from '../../../directives/styled';
 
     .overview-container {
        background-color: #f2f3f8;
+       overflow:auto;
+       padding: 25px;
+
+    }
+
+    .front_fixed {
+        position : fixed;
+         bottom:0;
+         max-width:450px;
+         width: 38%;
+         max-height: 100%;
+         left: -30px;
+          animation-name: move;
+        animation-duration: 5s;
+
+    }
+
+
+    .demographics {
+        background-image: url('/app/images/backgrounds/bg.png');
+        background-size:contain;
+    }
+
+    .taxes {
+        background-color: dimgray !important;
+        color: white;
+        border: none;
+    }
+
+
+    @keyframes move {
+    from {left: -800px;}
+    to {left: -30px;}
+
+    }
+
+
+
+    .questions{
+        background-color: darkcyan !important;
+        color: white;
+        border: none;
     }
 
     section {
@@ -154,6 +197,8 @@ import {StyledDirective} from '../../../directives/styled';
         background-color: white;
         box-shadow: 3px 3px 3px lightgray;
         overflow: auto;
+        border: 10px solid white;
+        background-color: #efefef;
     }
 
     li {
@@ -170,6 +215,14 @@ import {StyledDirective} from '../../../directives/styled';
         max-width: 200px;
         margin: 0 auto;
         display:block;
+    }
+
+     @media screen and (max-width: 768px) {
+
+         .front_fixed {
+        display:none;
+
+    }
     }
 `]
 })

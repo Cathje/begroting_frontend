@@ -1,4 +1,6 @@
-System.register(['angular2/core', "../../../services/townService.component", './../../subComponents/graphs/sunburst.component', "../../../services/begrotingService"], function(exports_1) {
+System.register(['angular2/core', "../../../services/townService.component", './../../subComponents/graphs/sunburst.component', "../../../services/begrotingService"], function(exports_1, context_1) {
+    "use strict";
+    var __moduleName = context_1 && context_1.id;
     var __decorate = (this && this.__decorate) || function (decorators, target, key, desc) {
         var c = arguments.length, r = c < 3 ? target : desc === null ? desc = Object.getOwnPropertyDescriptor(target, key) : desc, d;
         if (typeof Reflect === "object" && typeof Reflect.decorate === "function") r = Reflect.decorate(decorators, target, key, desc);
@@ -149,7 +151,7 @@ System.register(['angular2/core', "../../../services/townService.component", './
                     __metadata('design:paramtypes', [begrotingService_1.BegrotingService, townService_component_1.TownService])
                 ], ComparisonComponent);
                 return ComparisonComponent;
-            })();
+            }());
             exports_1("ComparisonComponent", ComparisonComponent);
         }
     }

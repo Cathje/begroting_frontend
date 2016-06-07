@@ -8,8 +8,10 @@ import {StyledDirective} from '../../../directives/styled';
 @Component({
     selector: 'overview-propositions-container',
     template: `
-    <div class="container">
+        <img src="/app/images/backgrounds/stemmen.jpg" class="banner"/>
         <p class="alert alert-danger" *ngIf="projects.length < 1"><i>Er zijn geen projecten gevonden</i></p>
+
+    <div class="container">
 
         <h2>Overzicht voorstellen</h2>
 

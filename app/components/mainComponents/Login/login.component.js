@@ -1,4 +1,6 @@
-System.register(['angular2/core', 'angular2/router', "../../../services/townService.component", "../../../services/loginService.component", "../../../models/mainTown", "../../../models/inTeLoggenGebruiker"], function(exports_1) {
+System.register(['angular2/core', 'angular2/router', "../../../services/townService.component", "../../../services/loginService.component", "../../../models/mainTown", "../../../models/inTeLoggenGebruiker"], function(exports_1, context_1) {
+    "use strict";
+    var __moduleName = context_1 && context_1.id;
     var __decorate = (this && this.__decorate) || function (decorators, target, key, desc) {
         var c = arguments.length, r = c < 3 ? target : desc === null ? desc = Object.getOwnPropertyDescriptor(target, key) : desc, d;
         if (typeof Reflect === "object" && typeof Reflect.decorate === "function") r = Reflect.decorate(decorators, target, key, desc);
@@ -82,7 +84,7 @@ System.register(['angular2/core', 'angular2/router', "../../../services/townServ
                     __metadata('design:paramtypes', [loginService_component_1.LoginService, townService_component_1.TownService, router_1.Router])
                 ], LoginComponent);
                 return LoginComponent;
-            })();
+            }());
             exports_1("LoginComponent", LoginComponent);
         }
     }

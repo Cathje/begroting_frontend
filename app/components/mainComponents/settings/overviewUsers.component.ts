@@ -14,8 +14,10 @@ import {StyledDirective} from '../../../directives/styled';
 @Component({
     selector: 'overview-users-container',
     template: `
-    <section class="container">
+        <img src="/app/images/backgrounds/ondernemen.jpg" class="banner"/>
     <p class="alert alert-danger" *ngIf="errorMessage">{{errorMessage}}</p>
+
+    <section class="container">
     <h1>Overzicht gebruikers</h1>
     <section class="col-xs-12">
         <div class="section-content">

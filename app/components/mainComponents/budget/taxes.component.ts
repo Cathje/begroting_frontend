@@ -22,10 +22,14 @@ import {CurConvert} from "./../../../pipes/curConvertPipe";
 		    <h1>De belastingen in jouw stad: {{myTown.naam}}</h1>
             <p id="intro">Hier komt een paragraaf met wat uitleg.Similiquecilis est et expedita distinctio. Nam libero tempore, cum soluta nobis est eligendi optio cumque nihil impedit quo minus id quod maxime placeat facere possimus, omnis voluptas assumenda est, omnis dolor repellendus. Temporibus autem quibusdam et</p>
             </div>
+
             <div class="row">
                 <div class="thisTownArea col-lg-12 col-md-12 col-sm-12 col-xs-12">
+                					<div class="row">
+					    <sunburst [data]=categories [onClick]=onCircleClick [height]=width [width]=width [isTax]=true></sunburst>
+		            </div>
                     <div class="row topRow">
-                        <div class="rangeArea col-lg-12 col-md-12 col-sm-12 col-xs-12 speedSlider">
+                        <div class="rangeArea speedSlider">
                             <!--<input type="range" name="slide" id="speedSlider" [(ngModel)]="mySalary" min="1500" max="15000" value="2000" step="50" (change)="calculateSalary()"/>  [data]=mySalary-->
                            <!-- <slider name="slide" id="speedSlider" [(data)]="mySalary" [min]=1500 [max]=15000 [value]=2000 [step]=50 (changes)="calculateSalary()"></slider>-->
                             <slider name="slide" id="speedSlider" [(data)]="mySalary" [value]="10000" [inspraakNiveau]="SLIDERFIX" (changes)="calculateSalary($event)"></slider>
@@ -48,9 +52,6 @@ import {CurConvert} from "./../../../pipes/curConvertPipe";
 			                <input type="range" name="slide" id="speedSlider" [(ngModel)]="mySalary" min="1500" max="15000" value="2000" step="50" (change)="calculateSalary()"/>
 			            </section>-->
 			        </div>
-					<div class="row">
-					    <sunburst [data]=categories [onClick]=onCircleClick [height]=width [width]=width [isTax]=true></sunburst>
-		            </div>
                 </div>
                 <!--<div class="otherTownArea col-lg-6 col-md-6 col-sm-12 col-xs-12">
                     <div class="row topRow">
@@ -70,13 +71,6 @@ import {CurConvert} from "./../../../pipes/curConvertPipe";
 			</div>
         </div>
 
-
-
-
-
-
-
-
 `,
     directives: [SunburstComponent, ROUTER_DIRECTIVES, SunburstCompare, rangeSlider],
     providers: [
@@ -84,6 +78,14 @@ import {CurConvert} from "./../../../pipes/curConvertPipe";
     ],
     pipes: [CurConvert],
     styles: [`
+
+    .banner{
+        width:100%;
+    }
+
+    .speedSlider {
+     margin: 0 auto;
+    }
 
    .thisTownArea{
    /*background-color: #00b3ee;*/
@@ -117,11 +119,10 @@ import {CurConvert} from "./../../../pipes/curConvertPipe";
    margin: 0 auto;
 
    }
-   #intro{
-   margin-bottom: 5em;
-   }
+
    .topRow{
    min-height: 10em;
+   text-align: center;
    }
    
  
