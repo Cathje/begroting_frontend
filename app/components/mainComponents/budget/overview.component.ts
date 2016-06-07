@@ -165,7 +165,7 @@ import {StyledDirective} from '../../../directives/styled';
     .taxes {
         background-color: dimgray !important;
         color: white;
-        border: none;
+        border: none !important;
     }
 
 
@@ -180,7 +180,7 @@ import {StyledDirective} from '../../../directives/styled';
     .questions{
         background-color: darkcyan !important;
         color: white;
-        border: none;
+        border: none !important;
     }
 
     section {
