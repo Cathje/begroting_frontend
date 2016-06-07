@@ -300,7 +300,7 @@ export class AddPropositionComponent {
     private year: number = 2020;//TODO: default is current year?
     private errorMessage:string;
     private errorMessage2: string;
-    private erroMessage3: string;
+    private errorMessage3: string;
     project: Project = new Project("");
     private width: number = window.innerWidth < 768 ? window.innerWidth*0.7 : window.innerWidth/4;
     private budgetwijzigingen: BudgetWijziging [] =  [];
@@ -799,26 +799,35 @@ export class AddPropositionComponent {
     submit()
     {
         let submittable = false;
-        this.erroMessage3 = "";
+        this.errorMessage3 = "";
         //check scenarios
         switch(this.project.projectScenario){
             case 1 :
-                console.log(this.project.projectScenario);
-                if((this.tempTotal + this.project.bedrag)===0){submittable = true;};
+                if((this.tempTotal + this.project.bedrag)===0){submittable = true;}
+                else{
+                    this.errorMessage3 = "De voorgestelde besparing komt niet overeen met het te besparen bedrag";
+                };
                 break;
             case 2:
-                if(this.tempTotal === 0){submittable = true;};
-                console.log(this.project.projectScenario);
+                if(this.tempTotal === 0){submittable = true;}
+                else{
+                    this.errorMessage3 = "De voorgestelde herschikking komt niet overeen met het te herschikken bedrag";
+                };
                 break;
             case 3:
-                console.log(this.project.projectScenario);
-                if(this.tempTotal === this.project.bedrag){submittable = true;};
+                if(this.tempTotal === this.project.bedrag){submittable = true;}
+                else{
+                    this.errorMessage3 = "De voorgestelde bestemming komt niet overeen met het te bestemmen bedrag";
+                };
                 break;
         }
 
+        if (submittable === true)
+        {
+            this.begrotingsVoorstel.auteurEmail = sessionStorage.getItem('user');
+            this._projectService.postBegrotingsVoorstel(this.project.id, this.begrotingsVoorstel).subscribe();
+        }
 
-        this.begrotingsVoorstel.auteurEmail = sessionStorage.getItem('user');
-        this._projectService.postBegrotingsVoorstel(this.project.id, this.begrotingsVoorstel).subscribe();
 
     }
 

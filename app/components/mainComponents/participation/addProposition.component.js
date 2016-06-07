@@ -457,13 +457,15 @@ System.register(['angular2/core', 'angular2/router', "../../../services/projectS
                 };
                 AddPropositionComponent.prototype.submit = function () {
                     var submittable = false;
-                    this.erroMessage3 = "";
+                    this.errorMessage3 = "";
                     //check scenarios
                     switch (this.project.projectScenario) {
                         case 1:
-                            console.log(this.project.projectScenario);
                             if ((this.tempTotal + this.project.bedrag) === 0) {
                                 submittable = true;
+                            }
+                            else {
+                                this.errorMessage3 = "De voorgestelde besparing komt niet overeen met het te besparen bedrag";
                             }
                             ;
                             break;
@@ -471,19 +473,25 @@ System.register(['angular2/core', 'angular2/router', "../../../services/projectS
                             if (this.tempTotal === 0) {
                                 submittable = true;
                             }
+                            else {
+                                this.errorMessage3 = "De voorgestelde herschikking komt niet overeen met het te herschikken bedrag";
+                            }
                             ;
-                            console.log(this.project.projectScenario);
                             break;
                         case 3:
-                            console.log(this.project.projectScenario);
                             if (this.tempTotal === this.project.bedrag) {
                                 submittable = true;
+                            }
+                            else {
+                                this.errorMessage3 = "De voorgestelde bestemming komt niet overeen met het te bestemmen bedrag";
                             }
                             ;
                             break;
                     }
-                    this.begrotingsVoorstel.auteurEmail = sessionStorage.getItem('user');
-                    this._projectService.postBegrotingsVoorstel(this.project.id, this.begrotingsVoorstel).subscribe();
+                    if (submittable === true) {
+                        this.begrotingsVoorstel.auteurEmail = sessionStorage.getItem('user');
+                        this._projectService.postBegrotingsVoorstel(this.project.id, this.begrotingsVoorstel).subscribe();
+                    }
                 };
                 AddPropositionComponent = __decorate([
                     core_1.Component({
