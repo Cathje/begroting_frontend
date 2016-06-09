@@ -1,5 +1,5 @@
 import {Component, Injector} from 'angular2/core';
-import {RouteParams} from 'angular2/router';
+import {RouteParams, Router} from 'angular2/router';
 import {ProjectService} from "../../../services/projectService.component";
 import {BegrotingService} from "../../../services/begrotingService";
 import {GemeenteCategorie} from "./../../../models/gemeenteCategorie";
@@ -317,7 +317,7 @@ export class AddPropositionComponent {
     private totalMap: Map<number, number> = new Map<number, number>();
 
 
-    constructor(private _routeParams: RouteParams, private _projectService:ProjectService, private injector:Injector, private _begrotingService:BegrotingService) {
+    constructor(private _routeParams: RouteParams, private _projectService:ProjectService, private injector:Injector, private _begrotingService:BegrotingService, _router:Router) {
 
         this.myTown = injector.parent.parent.parent.parent.get(RouteParams).get('town');
         //default view is current year, TODO: us in api call!
