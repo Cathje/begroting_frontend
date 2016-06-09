@@ -826,6 +826,7 @@ export class AddPropositionComponent {
         {
             this.begrotingsVoorstel.auteurEmail = sessionStorage.getItem('user');
             this._projectService.postBegrotingsVoorstel(this.project.id, this.begrotingsVoorstel).subscribe();
+            this._router.navigate(['/', 'App',{town: this.myTown}, 'Participation','Propositions']);
         }
 
 
