@@ -376,7 +376,7 @@ export class TaxesComponent {
         for (var i = 0; i < this.categories.length; i++) {
             let share = (this.categories[i].totaal/ total);
             let taxAmount = (this.myTaxes * share);
-            tempCategories.push({ID:this.categories[i].ID,naamCat:this.categories[i].naamCat,catA:this.categories[i].catA,totaal:taxAmount,inputID:null,input:null,icoon:null,foto:null,film:null,kleur:null});
+            tempCategories.push({ID:this.categories[i].ID,naamCat:this.categories[i].naamCat,catA:this.categories[i].catA,totaal:taxAmount,inputID:null,input:null,icoon:null,foto:null,film:null,kleur:this.categories[i].kleur});
         }
         for (var i = 0; i < this.categories.length; i++) {
             console.log(this.categories[i].totaal);

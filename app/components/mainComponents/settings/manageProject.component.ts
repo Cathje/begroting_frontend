@@ -225,7 +225,7 @@ import {StyledDirective} from '../../../directives/styled';
                     <div class="section-content">
                     <p *ngIf="categorieen.length == 0"> haal eerst een begroting op</p>
                         <div *ngFor="#catA of categorieen #i = index">
-                            <div class="row">
+                            <div class="row rowA">
                                 <h5 class="col-xs-6">{{catA.naamCat}}</h5>
                                 <p class="col-xs-2">{{catA.totaal | currency: 'EUR' : true : '1.1-1'}}</p>
                                 <p class="col-xs-1">{{niveaus[catA.inspraakNiveau]}}</p>
@@ -249,7 +249,7 @@ import {StyledDirective} from '../../../directives/styled';
                                 </div>
                             </div>
                             <div *ngFor="#catB of catA.childCats #k = index">
-                                <div class="row">
+                                <div class="row rowB">
                                     <h5 class="col-xs-6">{{catB.naamCat}}</h5>
                                     <p class="col-xs-2">{{catB.totaal | currency: 'EUR' : true : '1.1-1'}}</p>
                                     <p class="col-xs-1">{{niveaus[catB.inspraakNiveau]}}</p>
@@ -272,7 +272,7 @@ import {StyledDirective} from '../../../directives/styled';
                                     </div>
                                 </div>
                                 <div *ngFor="#catC of catB.childCats #l = index">
-                                    <div class="row">
+                                    <div class="row rowC">
                                         <h5 class="col-xs-6">{{catC.naamCat}}</h5>
                                         <p class="col-xs-2">{{catC.totaal | currency: 'EUR' : true : '1.1-1'}}</p>
                                         <p class="col-xs-1">{{niveaus[catC.inspraakNiveau]}}</p>
@@ -357,8 +357,23 @@ import {StyledDirective} from '../../../directives/styled';
         }
 
         .row {
-            display: flex;
-            align-items: flex-start;
+            display: flex !important;
+            align-items: center !important;
+            justify-content: center !important;
+        }
+       
+        .rowA{
+            background-color: #0f7595;
+            color: white;
+        }
+        
+        .rowB{
+            background-color: #15A1CD;
+            color: white;
+        }
+         .rowC{
+            background-color: #18BBEE;
+            color: white;
         }
 
         .row select {

@@ -125,26 +125,13 @@ declare var jQuery: any;
             box-sizing: border-box;
     }
 
-    onChange = (event:any)=> {
-        this.loadimage(event.target.files[0], (img:string) => {
-            this.afb = img;
-        });
-    }
-
-    loadimage = (img:any, cb:any)=> {
-        var reader = new FileReader();
-        reader.readAsDataURL(img);
-        reader.onload = function () {
-            let result = reader.result;
-            cb(result);
-        }
-    }
+    
 
     `]
 })
 
 export class ManageCategoriesComponent {
-
+    
     mainTown = new MainTown("", "", 0, 0);
     faq = new Faq("", "");
     afb:string;
@@ -162,7 +149,7 @@ export class ManageCategoriesComponent {
                 (err:any) => this.errorMessage = "Geen stad gevonden"
             );
 
-        _begrotingService.getGemeenteCategorieen(2020, "Gent")
+        _begrotingService.getGemeenteCategorieen(2019, injector.parent.parent.parent.parent.get(RouteParams).get('town'))
             .subscribe((finan:any) => {
                 this.gemeenteCategorieen = finan;
             },
@@ -173,6 +160,7 @@ export class ManageCategoriesComponent {
 
     onSelectIcon = (event:any) => {
         this.selectedGemeenteCat.icoon = event.target.className;
+        console.log("11",event.target.className);
     }
 
     onShowIcons = (gemeenteCat:GemeenteCategorie) => {

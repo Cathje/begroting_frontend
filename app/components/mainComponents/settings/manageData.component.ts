@@ -14,7 +14,7 @@ import {StyledDirective} from '../../../directives/styled';
     <img src="/app/images/backgrounds/algemeenbestuur.jpg" class="banner"/>
     <p class="alert alert-danger" *ngIf="errorMessage">{{errorMessage}}</p>
     <section class="container">
-        <h1>Beheer informatie</h1>
+        <h1>Beheer informatie van gemeente {{mainTown.naam}}</h1>
         <section class="col-xs-12 form-inline">
             <h3>Demografische gegevens</h3>
             <div class="section-content">

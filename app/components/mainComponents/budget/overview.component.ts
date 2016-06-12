@@ -75,8 +75,8 @@ import {StyledDirective} from '../../../directives/styled';
                 <ul>
                    <p *ngIf="projects === null" class='noData'> Er zijn geen openstaande projecten.</p>
                    <li *ngFor="#project of projects">
-                       <button type="button" class="btn btn-primary btn-sm" [routerLink]="['/','App', {town: townString}, 'Participation', 'Projects']" styled>Meer info</button>
-                       {{project.boekjaar}} - {{project.titel}}
+                       <button type="button" class="btn btn-primary btn-sm btn_project" [routerLink]="['/','App', {town: townString}, 'Participation', 'Projects']" styled>Meer info</button>
+                         {{project.boekjaar}} - {{project.titel}}
                    </li>
                    <br>
                 </ul>
@@ -155,6 +155,10 @@ import {StyledDirective} from '../../../directives/styled';
         animation-duration: 5s;
 
     }
+    .btn_project
+    {
+        margin-right: 5px !important;
+    }
 
 
     .demographics {
@@ -181,6 +185,7 @@ import {StyledDirective} from '../../../directives/styled';
         background-color: darkcyan !important;
         color: white;
         border: none !important;
+        float: left !important;
     }
 
     section {
@@ -266,13 +271,13 @@ export class OverviewComponent {
 
             );
 
-        _projectService.getProjects(injector.parent.parent.get(RouteParams).get('town')).subscribe(
+        _projectService.getProjects(injector.parent.parent.parent.parent.get(RouteParams).get('town')).subscribe(
             (projects:any) => {this.projects = projects; },
             (err:any) => this.errorMessage = "Er zijn geen projecten gevonden."
         );
 
         // TODO: change hardcoded year and city with variables : today.getYear() + injector.parent.parent.parent.parent.get(RouteParams).get('town')
-        _begrotingService.getGemeenteCategorieen(2020,"Gent")
+        _begrotingService.getGemeenteCategorieen(2019,injector.parent.parent.parent.parent.get(RouteParams).get('town'))
             .subscribe((exp: any) => this.expenses = exp
             );
     };

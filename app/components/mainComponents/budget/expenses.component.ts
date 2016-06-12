@@ -46,7 +46,7 @@ import {StyledDirective} from '../../../directives/styled';
             <div *ngIf="!hoveredCategory" class="legend col-xs-12 col-sm-4 ">
                 <ul>
                     <li *ngFor="#category of headCategories">
-                        <span class="{{' colorblock glyphicon '+ checkIconAvailable(category.icoon, category.name)}}" style="background-color: {{category.kleur}};"></span>
+                        <span class="{{' colorblock glyphicon '+ checkIconAvailable(category.icoon, category.naam)}}" style="{{'background-color:' + checkColorAvailable(category.kleur, category.naam)}}"></span>
                         {{category.naam}}
                     </li>
                 </ul>
@@ -59,7 +59,7 @@ import {StyledDirective} from '../../../directives/styled';
                         {{hoveredCategory.input}}
                         <span *ngIf="!hoveredCategory.input"> Er is geen beschrijving beschikbaar voor deze categorie.</span>
                         <h5 *ngIf="hoveredCategory.film"> Bekijk de video</h5>
-                        <iframe *ngIf="hoveredCategory.film" width="100%" [src]="hoveredCategory.film+'?rel=0&autoplay=1'" frameborder="0" allowfullscreen></iframe>
+                        <iframe *ngIf="hoveredCategory.film" width="100%" [src]="film" frameborder="0" allowfullscreen></iframe>
              </div>
 
         </div>
@@ -167,7 +167,7 @@ import {StyledDirective} from '../../../directives/styled';
 
 export class ExpensesComponent {
     town: string;
-    acties: Actie[];
+    acties: Actie[]=[];
     id:number;
     years:number[];
     errorMessage:string;
@@ -177,13 +177,14 @@ export class ExpensesComponent {
     windowWidth = window.innerWidth;
     width: number = window.innerWidth < 768 ? window.innerWidth*0.8 : window.innerWidth/2.5;
     hoveredCategory: any;
+    film:string = "https://youtu.be/A8Cfc62xdMo?&autoplay=1";
 
     constructor (private elementRef: ElementRef, private _begrotingService:BegrotingService, public http: Http, params: RouteParams, injector: Injector, private _router: Router)
     {
         this.town = injector.parent.parent.parent.parent.get(RouteParams).get('town');
         this.years = this._getYears();
 
-        _begrotingService.getGemeenteCategorieen(2020,"Gent")
+        _begrotingService.getGemeenteCategorieen(2019,this.town)
             .subscribe((finan: any) => this.data = finan,
                 (err:any) => this.errorMessage = "Er zijn geen grafiekgegevens gevonden."
             );
@@ -192,13 +193,15 @@ export class ExpensesComponent {
 
     onCircleClick: any = (id: number) => {
         //TODO: replace hardcoded id with parameter
-        this._begrotingService.getActies(24)
+        this.errorMessage="";
+        this._begrotingService.getActies(id)
             .subscribe((acties : any) => this.acties = acties,
                 (err:any) => this.errorMessage = "Er zijn geen acties gevonden.");
     };
 
     onHover: any = (d:any) => {
         this.hoveredCategory = d;
+        this.film = this.hoveredCategory.film+"?autoplay=1";
     };
 
     onResize = (event: any) => {
@@ -210,6 +213,7 @@ export class ExpensesComponent {
 
         }
         this.windowWidth = window.innerWidth;
+        console.log("11",this.acties);
     }
 
     onSelectYear: any = (event: any, town: string) => {
@@ -229,14 +233,25 @@ export class ExpensesComponent {
     }
 
     checkIconAvailable = (defaultIcon : string, categorieNaam: string) => {
+    var filteredData = this.data.filter((obj) => {
+        if (obj['naamCat'] === categorieNaam) {
+            return true;
+        }
+        return false;
+    });
+    console.log("666",filteredData[0]);
+    return filteredData[0]? filteredData[0]['icoon'] : defaultIcon;
+}
+
+    checkColorAvailable = (defaultColor : string, categorieNaam: string) => {
         var filteredData = this.data.filter((obj) => {
             if (obj['naamCat'] === categorieNaam) {
                 return true;
             }
             return false;
         });
-
-        return filteredData[0]? filteredData[0]['icoon'] : defaultIcon;
+        console.log("666",filteredData[0]);
+        return filteredData[0]? filteredData[0]['kleur'] : defaultColor;
     }
 
 }

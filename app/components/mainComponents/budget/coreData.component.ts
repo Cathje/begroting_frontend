@@ -3,6 +3,7 @@ import {TownService} from './../../../services/townService.component';
 import {MainTown} from "../../../models/mainTown";
 import {Http} from 'angular2/http';
 import {ROUTER_DIRECTIVES, Router, RouteParams, RouteConfig} from 'angular2/router';
+import {PoliticusType} from "../../../models/politicusType";
 
 @Component({
     selector: 'core-data-container',
@@ -58,7 +59,7 @@ import {ROUTER_DIRECTIVES, Router, RouteParams, RouteConfig} from 'angular2/rout
                     <h4>Bestuur: </h4>
                         <p *ngIf="mainTown?.bestuur?.length < 1"><i>Er zijn geen gegevens over het bestuur beschikbaar.</i></p>
                         <ul *ngIf="mainTown?.bestuur" >
-                            <li *ngFor="#b of mainTown.bestuur"><span>{{b.naam}} - {{types[b.type]}}</span></li>
+                            <li *ngFor="#b of mainTown?.bestuur"><span>{{b.naam}} - {{types[b.type]}}</span></li>
                         </ul>
                     </div>
         </section>
@@ -100,6 +101,7 @@ export class CoreDataComponent {
     id:number;
     imglink: string;
     errorMessage:string;
+    types = PoliticusType;
 
     constructor(private _townService:TownService, public http: Http, params: RouteParams, injector: Injector, private _router: Router)
     {

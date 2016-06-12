@@ -1,4 +1,4 @@
-import {Component} from 'angular2/core';
+import {Component, Injector} from 'angular2/core';
 import {RouteParams} from 'angular2/router';
 import {ProjectService} from "../../../services/projectService.component";
 import {Project} from "../../../models/project";
@@ -14,14 +14,14 @@ import {BegrotingService} from "../../../services/begrotingService";
     template: `
     <div class="container">
           <p class="alert alert-danger" *ngIf="projects.length == 0"><i>{{errorMessage}}</i></p>
-        <h2>Stem en/of geef reactie op een Begrotingsvoorstel</h2>
+        <h2>Stem en/of geef reactie op een Begrotingsvoorstel voor de stad {{town}}</h2>
 
         <section>
          <div class="panel-group" id="accordion">
           <div class="panel panel-default" *ngFor="#project of projects #j=index" class="panel panel-default">
             <div class="panel-heading">
               <h4 class="panel-title">
-                <a data-toggle="collapse" data-parent="#accordion" href="{{'#'+project.id}}">{{project.titel}}</a>
+                <a data-toggle="collapse" data-parent="#accordion" href="{{'#'+project.id}}">{{project.titel}} - {{project.boekjaar}}</a>
               </h4>
             </div>
             <div [id]="project.id" class="panel-collapse collapse in">
@@ -32,7 +32,7 @@ import {BegrotingService} from "../../../services/begrotingService";
                           <div class="panel panel-default">
                             <div class="panel-heading proposition">
                               <h4 class="panel-title prop-title">
-                                <a data-toggle="collapse" [attr.data-parent]="'#accordion-sub'+(i+1)" href="{{'#'+(i+1)}}">
+                                <a data-toggle="collapse" [attr.data-parent]="'#accordion-sub'+(i+1)" href="{{'#'+(voorstel.Id+1)}}">
                                 <span class="glyphicon glyphicon-tasks"></span>
                                 {{voorstel.beschrijving}} <i>gepost door {{voorstel.auteurNaam}}</i>
                                 </a>
@@ -42,7 +42,7 @@ import {BegrotingService} from "../../../services/begrotingService";
                                 </span>
                               </h4>
                             </div>
-                            <div [id]="(i+1)" class="panel-collapse collapse">
+                            <div [id]="(voorstel.Id+1)" class="panel-collapse collapse">
                               <div class="panel-body">
                               <div class="graphs">
                               <div *ngIf="windowWidth > 768">
@@ -191,12 +191,14 @@ export class PropositionsComponent
     windowWidth: number =  window.innerWidth;
     voorstelreactie:ReactieOpVoorstel = new ReactieOpVoorstel("","");
     categoriesBegroting: GemeenteCategorie[] = [];
+    town:string;
 
 
     constructor(
-        private _routeParams: RouteParams, private _projectService: ProjectService, private _begrotingService: BegrotingService)
+       private injector:Injector, private _routeParams: RouteParams, private _projectService: ProjectService, private _begrotingService: BegrotingService)
     {
-        _projectService.getProjects("Gent").subscribe((pr:any) => {
+        this.town = injector.parent.parent.parent.parent.get(RouteParams).get('town');
+        _projectService.getProjects(injector.parent.parent.parent.parent.get(RouteParams).get('town')).subscribe((pr:any) => {
             this.projects = pr;
             console.log(pr)},
                 (err:any) => this.errorMessage = "Er zijn geen projecten gevonden voor deze gemeenten"

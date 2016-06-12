@@ -199,7 +199,7 @@ export class ComparisonComponent {
         if(year === 0 || town === ""){
             this.errorMessage= "Gelieve een jaartal en een gemeente te selecteren";
         }else {
-            this._begrotingService.getGemeenteCategorieen(2020,"Gent")
+            this._begrotingService.getGemeenteCategorieen(year,town)
                 .subscribe(
                     (finan: GemeenteCategorie[]) => {
                         if(graphNumber === "1"){
@@ -217,7 +217,7 @@ export class ComparisonComponent {
         if(year === 0 || town === ""){
             this.errorMessage= "Gelieve een jaartal en een gemeente te selecteren";
         }else {
-            this._begrotingService.getClusters(2020,"Gent")
+            this._begrotingService.getClusters(year,town)
                 .subscribe(
                     (finan: GemeenteCategorie[]) => {
                         if(graphNumber === "3"){

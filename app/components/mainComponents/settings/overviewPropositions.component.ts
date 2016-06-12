@@ -1,4 +1,4 @@
-import {Component} from 'angular2/core';
+import {Component, Injector} from 'angular2/core';
 import {RouteParams} from 'angular2/router';
 import {Project} from "../../../models/project";
 import {ProjectService} from "../../../services/projectService.component";
@@ -85,9 +85,9 @@ export class OverviewPropositionsComponent {
     projects: Project[]= [];
 
     constructor(
-    private _routeParams: RouteParams, private _projectService: ProjectService)
+    private _routeParams: RouteParams, private _projectService: ProjectService, private injector: Injector)
     {
-        this._projectService.getProjects("Gent").subscribe((pr: Project[]) => this.projects = pr);
+        this._projectService.getProjects(injector.parent.parent.parent.parent.get(RouteParams).get('town')).subscribe((pr: Project[]) => this.projects = pr);
     }
 
     //verificatiestatus :  1 = tebehandelen, 2 = goedgekeurd, 3= afgekeurd

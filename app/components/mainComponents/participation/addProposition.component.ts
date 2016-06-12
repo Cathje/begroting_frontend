@@ -317,7 +317,7 @@ export class AddPropositionComponent {
     private totalMap: Map<number, number> = new Map<number, number>();
 
 
-    constructor(private _routeParams: RouteParams, private _projectService:ProjectService, private injector:Injector, private _begrotingService:BegrotingService, _router:Router) {
+    constructor(private _routeParams: RouteParams, private _projectService:ProjectService, private injector:Injector, private _begrotingService:BegrotingService,private _router:Router) {
 
         this.myTown = injector.parent.parent.parent.parent.get(RouteParams).get('town');
         //default view is current year, TODO: us in api call!
@@ -368,7 +368,7 @@ export class AddPropositionComponent {
                 (err:any) => this.errorMessage2 = "Er zijn geen categorieën of projecten gevonden voor dit boekjaar."
             );
 
-        this._projectService.getProject(this.year, this.myTown)
+        this._projectService.getProject(this.budgetYear, this.myTown)
             .subscribe((project: any) => {
                     this.project = project;
                     console.log(project);
@@ -803,7 +803,7 @@ export class AddPropositionComponent {
         //check scenarios
         switch(this.project.projectScenario){
             case 1 :
-                if((this.tempTotal + this.project.bedrag)===0){submittable = true;}
+                if((this.tempTotal + this.project.bedrag)<=0){submittable = true;}
                 else{
                     this.errorMessage3 = "De voorgestelde besparing komt niet overeen met het te besparen bedrag";
                 };
@@ -822,12 +822,15 @@ export class AddPropositionComponent {
                 break;
         }
 
-        if (submittable === true)
-        {
-            this.begrotingsVoorstel.auteurEmail = sessionStorage.getItem('user');
+       // if (submittable)
+       // {
+        //this._router.navigate(['/', 'App',{town: this.myTown}, 'Budget']); //);
+
+        this.begrotingsVoorstel.auteurEmail = sessionStorage.getItem('user');
             this._projectService.postBegrotingsVoorstel(this.project.id, this.begrotingsVoorstel).subscribe();
-            this._router.navigate(['/', 'App',{town: this.myTown}, 'Participation','Propositions']);
-        }
+        //setTimeout(
+            this._router.navigate(['/', 'App',{town: this.myTown}, 'Budget']); //);
+        //}
 
 
     }

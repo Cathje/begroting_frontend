@@ -111,7 +111,7 @@ export class OverviewUsersComponent {
     g:IngelogdeGebruiker = new IngelogdeGebruiker("","","", rolType.admin,false);
     data:any;
 
-    constructor(private _routeParams:RouteParams, private _townService:TownService, private _loginService:LoginService, private _router:Router, params:RouteParams, injector:Injector) {
+    constructor(private _routeParams:RouteParams, private _townService:TownService, private _loginService:LoginService, private _router:Router, private injector:Injector) {
 
         _townService.getTown(injector.parent.parent.parent.parent.get(RouteParams).get('town'))
             .subscribe(
@@ -169,7 +169,7 @@ export class OverviewUsersComponent {
             (d:any) => this.data = d,
             (err:any) => this.errorMessage = "Er zijn geen gebruikers gewijzigd."
         );
-        this._router.navigate(['/', 'App', 'Budget', {town: this.mainTown.naam}]);
+        this._router.navigate(['/', 'App', {town: this.mainTown.naam},'Budget']);
 
     }
 

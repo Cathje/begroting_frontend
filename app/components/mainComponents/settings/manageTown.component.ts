@@ -8,7 +8,7 @@ import {BegrotingService} from "../../../services/begrotingService";
 import {GemeenteCategorie} from "../../../models/gemeenteCategorie";
 
 declare var jQuery: any;
-
+//@TODO LOGO 
 @Component({
     selector: 'manage-town-container',
     template: `

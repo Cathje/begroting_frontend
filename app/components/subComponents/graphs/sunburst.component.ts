@@ -362,6 +362,7 @@ function buildHierarchy(data: GemeenteCategorie[], colors: Object, categories: a
         position.push(node);
         addColor(categories, levelCList[i], colors, 'catC');
     }
+    console.log("555",colors);
     return root;
 };
 
@@ -377,6 +378,7 @@ function _moveNodeDown(children: any[] , categoryName: string) {
 function addColor (categories: any[], el: GemeenteCategorie, colors: Object, category: string){
     let categoryItem = categories.filter((categorie: any) => categorie.naam === el['catA']);
     colors[el[category]] = el['kleur'] ? el['kleur']  : categoryItem[0]['kleur'] || 'lightgray';
+    console.log("555a",el['kleur'],el,colors[el[category]]);
 }
 
 function createObject(el: GemeenteCategorie, category: string) {

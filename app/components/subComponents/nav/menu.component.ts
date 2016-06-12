@@ -29,6 +29,7 @@ import {StyledDirective} from '../../../directives/styled';
             <li><a [routerLink]="['Budget', 'Overview']">Dashboard</a></li>
             <li><a [routerLink]="['Budget', 'Income']">Inkomsten</a></li>
             <li><a [routerLink]="['Budget',  'Expenses']">Uitgaven</a></li>
+            <li><a [routerLink]="['Budget',  'Comparison']">vergelijk</a></li>
             <li><a [routerLink]="['Budget', 'CoreData']">Kerngegevens</a></li>
             <li><a [routerLink]="['Budget', 'Taxes']">Mijn belastingen</a></li>
           </ul>
@@ -42,7 +43,7 @@ import {StyledDirective} from '../../../directives/styled';
             <li><a [routerLink]="['Participation', 'AddPropositions']">Voorstel indienen</a></li>
           </ul>
         </li>
-        <li class="dropdown">
+        <li *ngIf="role" class="dropdown">
           <a href="#" class="dropdown-toggle" data-toggle="dropdown" role="button" aria-haspopup="true" aria-expanded="false" styled>Settings<span class="caret"></span></a>
           <ul class="dropdown-menu" styled>
             <li><a [routerLink]="['Settings', 'GeneralSettings']">Algemene instellingen</a></li>
@@ -113,5 +114,6 @@ import {StyledDirective} from '../../../directives/styled';
 export class NavigationMenuComponent{
 
     townString:string = "Gent";
+    role:boolean= sessionStorage.getItem('role')!=='standaard';
 
 }
