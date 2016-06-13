@@ -329,7 +329,7 @@ export class AddPropositionComponent {
                 (err:any) => this.errorMessage = "Er zijn geen categorieën gevonden."
             );
 
-        this._projectService.getProject(this.year, "Gent")
+        this._projectService.getProject(this.year, this.myTown )
             .subscribe((project: any) => {
                     this.project = project;
                     console.log(project);
@@ -362,7 +362,7 @@ export class AddPropositionComponent {
     //reload info for selected year
     getBudget(){
         this.errorMessage2 = "";
-
+        this.errorMessage="";
         this._begrotingService.getGemeenteCategorieen(this.budgetYear,this.myTown)
             .subscribe((cats: any) => this.categories = cats,
                 (err:any) => this.errorMessage2 = "Er zijn geen categorieën of projecten gevonden voor dit boekjaar."
@@ -829,7 +829,7 @@ export class AddPropositionComponent {
         this.begrotingsVoorstel.auteurEmail = sessionStorage.getItem('user');
             this._projectService.postBegrotingsVoorstel(this.project.id, this.begrotingsVoorstel).subscribe();
         //setTimeout(
-            this._router.navigate(['/', 'App',{town: this.myTown}, 'Budget']); //);
+          //  this._router.navigate(['/', 'App',{town: this.myTown}, 'Budget']); //);
         //}
 
 
